@@ -1,0 +1,128 @@
+sound/world/1shot_droneboys_01.wav
+Drone/male single
+sound/world/1shot_femdrone_01.wav
+Drone/female singing
+sound/world/1shot_gong.wav
+Gonging sound
+sound/world/1shot_greg_01.wav
+Demonic singing
+sound/world/1shot_greg_03.wav
+Choir
+sound/world/ambience03.wav
+Drone sound
+sound/world/button_zap.wav
+Lightning sound
+sound/world/buzzer.wav
+Loud buzzer
+sound/world/curnt2.wav
+Running water
+sound/world/demonwind01.wav
+Heavy wind sound
+sound/world/drone6.wav
+Short droning noise
+sound/world/electro.wav
+Static/sparks
+sound/world/evil.wav
+Soft hissing
+sound/world/fan4.wav
+Machine fan sound
+sound/world/fire1.wav
+Fire/burning sound
+sound/world/fireloud.wav
+Same as Fire1.wav but louder
+sound/world/firesoft.wav
+Same as Fire1.wav but softer
+sound/world/growl1.wav
+Short growling
+sound/world/growl2.wav
+Similar to growl1.wav but softer
+sound/world/growl3.wav
+Similar to growl1.wav but sranger
+sound/world/jumppad.wav
+Jump-pad sound
+sound/world/klaxon1.wav
+Heavy, large alarm
+sound/world/klaxon2.wav
+Short pulsating alarm
+sound/world/lava_amb_01_quiet.wav
+Hissing sound
+sound/world/lava_short.wav
+Short lava noise
+sound/world/lava1.wav
+Normal lava sound
+sound/world/machinerydrone1.wav
+Machine/factory noise
+sound/world/machinerydrone2.wav
+Machine/factory noise
+sound/world/monitor_02.wav
+Various beeping
+sound/world/portal01.wav
+Humming/droning noise
+sound/world/screech1.wav
+Strange scraping noise
+sound/world/screech5.wav
+Strange steel scrapng noise (rusty gate)
+sound/world/suck1.wav
+Tunnel/wind noise
+sound/world/telein.wav
+Entering teleporter
+sound/world/teleout.wav
+Leaving teleporter
+sound/world/tim_comp_hum3.wav
+Quiet beeping
+sound/world/tim_drone1.wav
+Another droning noise
+sound/world/tim_elect.wav
+Electrical zapping
+sound/world/tim_hole.wav
+Pulsating effect
+sound/world/tim_machine.wav
+Machines working
+sound/world/tim_pulse.wav
+Quiet beep
+sound/world/tim_pulse2.wav
+Wavy droning effect
+sound/world/tim_pump.wav
+Short banging noise
+sound/world/tim_wierd1.wav
+Electrical zap
+sound/world/tim_wierd2.wav
+Like tim_wierd1.wav but more guts
+sound/world/tim_zap.wav
+Similar to BFG-9k from Doom
+sound/world/underwater01.wav
+Bubbling sound
+sound/world/underwater02.wav
+Another bubbling sound
+sound/world/underwater03.wav
+Quieter bubbling sound
+sound/world/underwater04.wav
+Bubbling sound
+sound/world/water1.wav
+Calm running water
+sound/world/wind1.wav
+Wind
+sound/world/wind2.wav
+Strong wind
+sound/world/x_bobber.wav
+Humming effect
+sound/world/xchoir1.wav
+Soft singing choir
+sound/world/xchoir2.wav
+Similar to xchoir1.wav
+sound/world/xforce1.wav
+Deep humming sound
+sound/world/xforce2.wav
+Same as xforce.wav
+sound/world/drones/amb1.wav
+Static pulsing sound
+sound/world/ambient/x_ancientsdrone.wav
+Badly tuned drone
+sound/world/ambient/x_drowning.wav
+Drone under water
+sound/world/ambient/x_forbidden.wav
+Heavy, badly tuned drone
+sound/world/ambient/x_ominous.wav
+Same as x_forbidden.wav
+sound/world/ambient/x_rumbledrone.wav
+Same as x_forbidden.wav

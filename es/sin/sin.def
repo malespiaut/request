@@ -1,0 +1,7293 @@
+/*
+Quest entity set
+File created by program copyright 1999, 1999 Alexander Malmberg
+454 classes
+*/
+
+/*QUAKED Ammo_10mm (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","10mm.def");
+default("scale","1.0");
+}
+Ammo Bullet Weapons - 10mm (Large)
+*/
+
+/*QUAKED Ammo_Magnum (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","357.def");
+default("scale","1.0");
+}
+Ammo Bullet Weapons - Magnum (Small)
+*/
+
+/*QUAKED Ammo_50mm (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","50mm.def");
+default("scale","1.0");
+}
+Ammo 50mm - HV Chain Gun
+*/
+
+/*QUAKED world_acduct (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Air Conditioning Duct
+*/
+
+/*QUAKED world_acvent (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Air Conditioner Vent
+*/
+
+/*QUAKED Powerup_Adrenaline (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","adren.def");
+default("scale","1.0");
+}
+Adrenaline Boost - Temporary 200 Health
+*/
+
+/*QUAKED items_alarm (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+alarm
+*/
+
+/*QUAKED furniture_alter (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Rituals Sacrificial Stone Alter
+*/
+
+/*QUAKED weapon_assaultrifle (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","asrifle.def");
+default("scale","1.0");
+}
+Assault Rifle - World Model
+*/
+
+/*QUAKED vehicles_atv (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("on","on")
+ );
+default("anim","idle");
+default("model","atv.def");
+default("scale","1.0");
+}
+ATV
+*/
+
+/*QUAKED vehicles_atv_backtire (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","atvtire_back.def");
+default("scale","1.0");
+}
+ATV Tire
+*/
+
+/*QUAKED vehicles_atv_fronttire (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","atvtire_front.def");
+default("scale","1.0");
+}
+ATV Tire
+*/
+
+/*QUAKED items_fireaxe (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Fireaxe
+*/
+
+/*QUAKED items_axepick (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Pickaxe
+*/
+
+/*QUAKED Monster_Bachrodai (1 0.5 0) (-16 -16 0) (16 16 88)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("melee4","melee4")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("block1","block1")
+ );
+default("anim","idle1");
+default("model","bacrodai.def");
+default("scale","1.0");
+}
+Bachrodai
+*/
+
+/*QUAKED items_bag (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Cement Bag
+*/
+
+/*QUAKED plant_banktree (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","banktree.def");
+default("scale","1.0");
+}
+Small Potted Tree
+SPECIAL CASE-Attach extra box around upper portion
+*/
+
+/*QUAKED Animals_Bat (1 0.5 0) (-16 -16 -18) (16 16 18)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("melee","melee")
+  ("fly","fly")
+ );
+default("anim","idle");
+default("model","bat.def");
+default("scale","1.0");
+}
+Bat
+*/
+
+/*QUAKED Animals_BatLow (1 0.5 0) (-16 -16 -18) (16 16 18) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("melee","melee")
+  ("fly","fly")
+ );
+default("anim","idle");
+default("model","batlow.def");
+default("scale","1.0");
+}
+Bat Low-Poly
+*/
+
+/*QUAKED items_battery (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","battery.def");
+default("scale","1.0");
+}
+*/
+
+/*QUAKED deskitems_beaker (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Lab Beaker
+*/
+
+/*QUAKED fx_pulsebeam (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Pulse Beam
+*/
+
+/*QUAKED fx_pulsebeam2 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Pulse Beam 2
+*/
+
+/*QUAKED Monster_Beecadrone (1 0.5 0) (-22 -22 -8) (22 22 8)
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("fly1","fly1")
+  ("fly_patrol1","fly_patrol1")
+  ("fire1","fire1")
+  ("melee1","melee1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+ );
+default("anim","idle1");
+default("model","bee.def");
+default("scale","1.0");
+}
+Beecadrone
+*/
+
+/*QUAKED deskitems_beercan (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+SinTek Beercan
+*/
+
+/*QUAKED items_bellalarm (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+bell_alarm
+*/
+
+/*QUAKED items_belt (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Belt-Ammo or Backpack?
+*/
+
+/*QUAKED Projectile_Betty (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("detonate","detonate")
+ );
+default("anim","idle");
+default("model","betty.def");
+default("scale","1.0");
+}
+Bouncing Betty Projectile.
+*/
+
+/*QUAKED Projectile_BettySpike (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","bettyspike.def");
+default("scale","1.0");
+}
+Spike projectile from Bouncing Betty
+*/
+
+/*QUAKED world_blockade (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Blockade Saw-Horse
+*/
+
+/*QUAKED inventory_blueprints (0.3 1 0.3) (-8 -8 0) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","blueprints.def");
+default("scale","1.0");
+}
+Blueprints
+*/
+
+/*QUAKED deskitems_blueprints (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","blueprints_desk.def");
+default("scale","1.0");
+}
+Blueprints
+*/
+
+/*QUAKED deskitems_book_closed (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Book-Closed
+*/
+
+/*QUAKED deskitems_book_closed2 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Book-Closed 2
+*/
+
+/*QUAKED deskitems_book_closed3 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Book-Closed 3
+*/
+
+/*QUAKED deskitems_book_closed4 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Book-Closed 4
+*/
+
+/*QUAKED deskitems_book_open (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Book-Opened
+*/
+
+/*QUAKED Boss_EonAndPeon (1 0.5 0) (-40 -40 0) (40 40 104)
+{
+choice "anim"
+ (
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("melee4","melee4")
+  ("melee5","melee5")
+  ("idle1","idle1")
+  ("run1","run1")
+  ("candy","candy")
+  ("candyidle","candyidle")
+  ("climb","climb")
+  ("jump","jump")
+  ("land","land")
+  ("spew","spew")
+ );
+default("anim","idle1");
+default("model","boss_peon.def");
+default("scale","1.0");
+}
+Eon and Peon
+*/
+
+/*QUAKED world_boxfan (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Box Fan
+*/
+
+/*QUAKED items_briefcase (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+*/
+
+/*QUAKED fx_bubbles (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("off","off")
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","bubbles.def");
+default("scale","1.0");
+}
+Bubble generator
+*/
+
+/*QUAKED items_bulb_on (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging Bulb
+Light Bulb (White & Red)
+*/
+
+/*QUAKED items_bulb_off (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging Bulb Off
+Light Bulb
+*/
+
+/*QUAKED vehicles_bulldozer (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","bulldozer.def");
+default("scale","1.0");
+}
+Bulldozer
+*/
+
+/*QUAKED world_bullhorn (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","bullhorn.def");
+default("scale","1.0");
+}
+Bull Horn
+*/
+
+/*QUAKED Innocent_Bum1 (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("warm1","warm1")
+ );
+default("anim","idle1");
+default("model","bum.def");
+default("scale","1.0");
+}
+Bum 1
+*/
+
+/*QUAKED Innocent_Bum2 (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("warm1","warm1")
+ );
+default("anim","idle1");
+default("model","bum2.def");
+default("scale","1.0");
+}
+Bum 2
+*/
+
+/*QUAKED Innocent_Bum2Sitting (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","bum2_sit.def");
+default("scale","1.0");
+}
+Bum 2 - Sitting
+*/
+
+/*QUAKED Innocent_Bum2Sleeping (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","bum2_sleep.def");
+default("scale","1.0");
+}
+Bum 2 - Sleeping
+*/
+
+/*QUAKED Innocent_Bum1Sitting (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","bum_sit.def");
+default("scale","1.0");
+}
+Bum 1 - Sitting
+*/
+
+/*QUAKED Innocent_Bum1Sleeping (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","bum_sleep.def");
+default("scale","1.0");
+}
+Bum 1 - Sleeping
+*/
+
+/*QUAKED deskitems_bunsenburner (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+*/
+
+/*QUAKED furniture_cabinet (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Large Metal Storage Cabinet
+*/
+
+/*QUAKED deskitems_calendar1 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","calendar1.def");
+default("scale","1.0");
+}
+Calendar #1
+*/
+
+/*QUAKED deskitems_calendar2 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","calendar2.def");
+default("scale","1.0");
+}
+Calendar #2
+*/
+
+/*QUAKED deskitems_calendar3 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","calendar3.def");
+default("scale","1.0");
+}
+Calendar #3
+*/
+
+/*QUAKED func_securitycamera (1 0 0) (-8 -8 -8) (8 8 8) ORBIT START_ON PAN
+
+Camera used for security etc.
+Has visible model.
+
+"target" points to the target to orbit or follow.  If it points to a path, the camera will follow the path.
+"distance" the distance to follow or orbit if the target is not a path. (default 128).
+"speed" specifies how fast to move on the path or orbit.  (default 1).
+"fov" specifies fov of camera, default 90.
+"yaw" specifies yaw of camera, default 0.
+"height" specifies height of camera from origin, default 128.
+"panspeed" speed at which to pan ( 7 degrees per second )
+"panmax" maximum angle offset for panning ( 45 degrees )
+"nextcamera" a link to the next camera in a chain of cameras
+"overlay" an overlay to use while looking through the camera
+"thread" a thread label that will be fired when the camera is looked through
+
+ORBIT tells the camera to create a circular path around the object it points to.  It the camera points to a path, it will loop when it gets to the end of the path.
+START_ON causes the camera to be moving as soon as it is spawned.
+PAN camera should pan from right to left
+*/
+
+/*QUAKED trap_camgun (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("down_idle","down_idle")
+  ("up_idle","up_idle")
+  ("lower","lower")
+  ("raise","raise")
+  ("fire","fire")
+ );
+default("anim","down_idle");
+default("model","camgun2.def");
+default("scale","1.0");
+}
+Rotating security turret that tracks players. 
+"angle" - Defines the initial orientation of the camgun
+"yawrange" - Defines the yaw boundary of the camgun
+"pitchrange" - Defines the pitch boundary of the camgun
+"wakeupdistance - Distance at which the camgun senses players (Default is 750)
+"firingdistance - Distance at whicht the camgun will fire at a player (Default is 800)
+"sightthread" - Thread to activate when turret sees a player
+"sighttarget" - Target to activate when turret sees a player
+"patience" - Amount of time the turret will continue to fire at a player when it can't see them
+"lagtime" Amount of time between when the turret spotting the player and then actually firing
+Make sure that wakeupdistance < firingdistance.
+*/
+
+/*QUAKED world_barrel (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Large Metal Trash Container
+*/
+
+/*QUAKED inventory_candybar (0.3 1 0.3) (-8 -8 0) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("pose","pose")
+ );
+default("anim","idle1");
+default("model","candybar.def");
+default("scale","1.0");
+}
+Candy Bar
+*/
+
+/*QUAKED vehicles_car (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Street Cars - Five skins
+*/
+
+/*QUAKED Inventory_BlueCard (0 0.5 0.8) (-8 -4 0) (8 4 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","card_blu.def");
+default("scale","1.0");
+}
+Blue Security Card
+*/
+
+/*QUAKED Inventory_GreenCard (0 0.5 0.8) (-8 -4 0) (8 4 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","card_grn.def");
+default("scale","1.0");
+}
+Green Security Card
+*/
+
+/*QUAKED Inventory_OrangeCard (0 0.5 0.8) (-8 -4 0) (8 4 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","card_orng.def");
+default("scale","1.0");
+}
+Orange Security Card
+*/
+
+/*QUAKED Inventory_YellowCard (0 0.5 0.8) (-8 -4 0) (8 4 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","card_yel.def");
+default("scale","1.0");
+}
+Yellow Security Card
+*/
+
+/*QUAKED deskitems_playingcards (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Playing Cards
+*/
+
+/*QUAKED deskitems_cdrack (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CD Rack
+*/
+
+/*QUAKED furniture_chair1 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Chair-Green-Small desk chair
+*/
+
+/*QUAKED furniture_chair2 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Chair-Black-Hightech office chair attached to gound
+*/
+
+/*QUAKED furniture_chair3 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Chair-Red-High back office chair
+*/
+
+/*QUAKED furniture_chairs_largered (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+High back office chair-Red
+*/
+
+/*QUAKED furniture_chairs_largeblack (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+High back office chair-Black
+*/
+
+/*QUAKED furniture_chairs_smallgreen (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Small desk chair-Green
+*/
+
+/*QUAKED furniture_chairs_smallblue (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Small desk chair-Blue
+*/
+
+/*QUAKED Neutral_ChemicalWorker (1 0.5 0) (-12 -12 0) (12 12 68)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run","run")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("beg1","beg1")
+  ("begdeath1","begdeath1")
+  ("begdown1","begdown1")
+  ("crawl1","crawl1")
+  ("hiding1","hiding1")
+  ("hiding2","hiding2")
+  ("crouch_down","crouch_down")
+  ("idlework1","idlework1")
+  ("idlework2","idlework2")
+  ("idlework3","idlework3")
+  ("sit1","sit1")
+  ("sitdeath1","sitdeath1")
+  ("sitstand1","sitstand1")
+  ("spray1","spray1")
+ );
+default("anim","idlework1");
+default("model","chem.def");
+default("scale","1.0");
+}
+Chemical Plant Worker-Suited Up
+*/
+
+/*QUAKED Innocent_ChemFemale (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("twitch","twitch")
+  ("walk","walk")
+  ("run1","run1")
+  ("run2","run2")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("crouch_end","crouch_end")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("hitalarm","hitalarm")
+  ("sitidle1","sitidle1")
+  ("sitidle2","sitidle2")
+  ("movestuff1","movestuff1")
+  ("movestuff2","movestuff2")
+  ("hostage_idle1","hostage_idle1")
+  ("hostage_idle2","hostage_idle2")
+  ("hostage_death1","hostage_death1")
+  ("hostage_death2","hostage_death2")
+ );
+default("anim","idle");
+default("model","chemfem.def");
+default("scale","1.0");
+}
+Chem Plant Female
+*/
+
+/*QUAKED Inventory_ChemBioSuit (0.3 1 0.3) (-8 -8 0) (8 8 64) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","chemsuit.def");
+default("scale","1.0");
+}
+Chem Bio-Suit
+*/
+
+/*QUAKED cinematic_blade (1 0.5 0) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("hang","hang")
+  ("takeitem","takeitem")
+  ("standidle1","standidle1")
+  ("standidle2","standidle2")
+  ("motion1","motion1")
+  ("sitting","sitting")
+  ("sitting2","sitting2")
+  ("standup","standup")
+  ("turnhead","turnhead")
+  ("stoplook","stoplook")
+  ("sitshakehead","sitshakehead")
+  ("sitnodhead","sitnodhead")
+  ("stoplook_freeze","stoplook_freeze")
+  ("typing","typing")
+  ("heligun","heligun")
+  ("driveboat","driveboat")
+  ("driveboatlook","driveboatlook")
+  ("drive1","drive1")
+  ("crouch1","crouch1")
+  ("uncrouch1","uncrouch1")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_1hand_idle1","crouch_1hand_idle1")
+  ("crouch_hi2hand_idle1","crouch_hi2hand_idle1")
+  ("crouch_lo2hand_idle1","crouch_lo2hand_idle1")
+  ("crouch_walk1","crouch_walk1")
+  ("crouch_1hand_walk1","crouch_1hand_walk1")
+  ("crouch_hi2hand_walk1","crouch_hi2hand_walk1")
+  ("crouch_lo2hand_walk1","crouch_lo2hand_walk1")
+  ("crouch_run1","crouch_run1")
+  ("crouch_1hand_run1","crouch_1hand_run1")
+  ("crouch_hi2hand_run1","crouch_hi2hand_run1")
+  ("crouch_lo2hand_run1","crouch_lo2hand_run1")
+  ("idle1","idle1")
+  ("1hand_idle1","1hand_idle1")
+  ("1hand_idle2","1hand_idle2")
+  ("1hand_idle3","1hand_idle3")
+  ("hi2hand_idle1","hi2hand_idle1")
+  ("lo2hand_idle1","lo2hand_idle1")
+  ("run_fire1","run_fire1")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("swim1","swim1")
+  ("frontflip","frontflip")
+ );
+default("anim","idle1");
+default("model","cine_blade.def");
+default("scale","1.0");
+}
+Blade used for Cinematics
+*/
+
+/*QUAKED cinematic_elexis (1 0.5 0) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("bikini","bikini")
+ );
+choice "anim"
+ (
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("pose","pose")
+  ("shower","shower")
+ );
+default("anim","idle");
+default("model","cine_elexis.def");
+default("scale","1.0");
+}
+Elexis Sinclaire used for Cinematics
+*/
+
+/*QUAKED cinematic_jc (1 0.5 0) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("walk","walk")
+  ("walk_1handed","walk_1handed")
+  ("walk_2handed","walk_2handed")
+  ("run","run")
+  ("run_1handed","run_1handed")
+  ("run_2handed","run_2handed")
+  ("pose","pose")
+  ("intro_idle.sam","intro_idle.sam")
+  ("intro_idle_window.sam","intro_idle_window.sam")
+  ("intro_sit_idle.sam","intro_sit_idle.sam")
+  ("intro_sit_to_stand.sam","intro_sit_to_stand.sam")
+  ("intro_walkover.sam","intro_walkover.sam")
+  ("intro_wave.sam","intro_wave.sam")
+  ("idle_leaning_on_desk.sam","idle_leaning_on_desk.sam")
+  ("idle_standing_1handed_1.sam","idle_standing_1handed_1.sam")
+  ("idle_standing_1handed_2.sam","idle_standing_1handed_2.sam")
+  ("idle_standing_2handed_1.sam","idle_standing_2handed_1.sam")
+  ("idle_standing_2handed_2.sam","idle_standing_2handed_2.sam")
+ );
+default("anim","idle1");
+default("model","cine_jc.def");
+default("scale","1.0");
+}
+JC used for Cinematics
+*/
+
+/*QUAKED cinematic_mancini (1 0.5 0) (-4 -8 0) (4 8 72)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","cine_mancini.def");
+default("scale","1.0");
+}
+Mancini - Cinematics Version
+*/
+
+/*QUAKED cinematic_manumit (1 0.5 0) (-24 -24 0) (24 24 88)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk_attack1","walk_attack1")
+  ("jump_attack1","jump_attack1")
+  ("swim","swim")
+  ("backflip1","backflip1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("twitch1","twitch1")
+  ("twitch2","twitch2")
+  ("cine_pose","cine_pose")
+  ("idle1","idle1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("run1","run1")
+  ("runsuper","runsuper")
+  ("walk1","walk1")
+  ("transform","transform")
+  ("crouch1","crouch1")
+  ("crouch_walk1","crouch_walk1")
+  ("crouch_attack1","crouch_attack1")
+  ("crouch_pain1","crouch_pain1")
+  ("melee1","melee1")
+  ("melee3","melee3")
+  ("melee4","melee4")
+  ("melee5","melee5")
+  ("pickup","pickup")
+  ("throw_aim","throw_aim")
+  ("throw","throw")
+  ("crouch_idle1","crouch_idle1")
+  ("dead","dead")
+  ("deadtwitch","deadtwitch")
+  ("trans2idle","trans2idle")
+  ("liedown","liedown")
+  ("lookhands","lookhands")
+ );
+default("anim","idle1");
+default("model","cine_manumit.def");
+default("scale","1.0");
+}
+Cinematic Manumit
+*/
+
+/*QUAKED cinematic_thug (1 0.5 0) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("laugh2","laugh2")
+  ("idle1","idle1")
+  ("idle2","idle2")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("jump1","jump1")
+  ("use1","use1")
+  ("open1","open1")
+ );
+default("anim","idle1");
+default("model","cine_thug.def");
+default("scale","1.0");
+}
+Thug for Cinematic
+*/
+
+/*QUAKED plant_citytree (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","citytree.def");
+default("scale","1.0");
+}
+Tree-Used in city-Large and leafy
+SPECIAL CASE-Attach extra box around upper portion
+*/
+
+/*QUAKED Innocent_FemaleCivilian (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("twitch","twitch")
+  ("walk","walk")
+  ("run1","run1")
+  ("run2","run2")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("crouch_end","crouch_end")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("hostage_idle1","hostage_idle1")
+  ("hostage_idle2","hostage_idle2")
+  ("hostage_death1","hostage_death1")
+  ("hostage_death2","hostage_death2")
+ );
+default("anim","idle");
+default("model","civfemale.def");
+default("scale","1.0");
+}
+Female Civilian
+*/
+
+/*QUAKED Innocent_MaleCivilian (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("walk","walk")
+  ("run","run")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("crouch_end","crouch_end")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("sitdead","sitdead")
+ );
+default("anim","idle");
+default("model","civmale.def");
+default("scale","1.0");
+}
+Male Civilian
+*/
+
+/*QUAKED deskitems_clamp (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","clamp.def");
+default("scale","1.0");
+}
+Clamp
+*/
+
+/*QUAKED trap_claymore (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+*/
+
+/*QUAKED Powerup_Cloaking (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","cloak.def");
+default("scale","1.0");
+}
+Cloaking Device (PODD) - Invisibility
+*/
+
+/*QUAKED furniture_coatrack (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("pose","pose")
+ );
+default("anim","idle1");
+default("model","coatrack.def");
+default("scale","1.0");
+}
+Coat Rack
+*/
+
+/*QUAKED Inventory_Decoder (0 0.5 0.8) (-8 -4 0) (8 4 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","code.def");
+default("scale","1.0");
+}
+Computer Decoder
+*/
+
+/*QUAKED deskitems_coffeemug (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coffee Mug with SinTek Logo
+*/
+
+/*QUAKED deskitems_coffeemugs_sinteklogo (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coffee Mug-SinTEK Logo
+*/
+
+/*QUAKED deskitems_coffeemugs_fcblogo (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coffee Mug-FCB Logo
+*/
+
+/*QUAKED deskitems_coffeemugs_yellow (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coffee Mug-Yellow
+*/
+
+/*QUAKED deskitems_coffeemugs_blue (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coffee Mug-Blue
+*/
+
+/*QUAKED inventory_coin (0 0.5 0.8) (-4 -4 0) (4 4 4) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","coin.def");
+default("scale","1.0");
+}
+Coin
+*/
+
+/*QUAKED deskitems_softdrink (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Soda Can
+*/
+
+/*QUAKED inventory_comlink (0 0.5 0.8) (-12 -12 0) (12 12 32) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","comlink.def");
+default("scale","1.0");
+}
+Remote Communications Device
+*/
+
+/*QUAKED gib_Concrete1 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Concrete Gib 1
+*/
+
+/*QUAKED gib_Concrete2 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Concrete Gib 2
+*/
+
+/*QUAKED gib_Concrete3 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Concrete Gib 3
+*/
+
+/*QUAKED gib_Concrete4 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Concrete Gib 4
+*/
+
+/*QUAKED gib_Concrete5 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Concrete Gib 5
+*/
+
+/*QUAKED inventory_cookies (0 0.5 0.8) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Cookies
+*/
+
+/*QUAKED plant_coral (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coral Plant-Spindly
+*/
+
+/*QUAKED plant_coraltypes_green (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coral Plant-Spindly-Green
+*/
+
+/*QUAKED plant_coraltypes_blue (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coral Plant-Spindly-Blue
+*/
+
+/*QUAKED plant_coraltypes_brown (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Coral Plant-Spindly-Brown Redish
+*/
+
+/*QUAKED deskitems_cpu_case (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Case
+*/
+
+/*QUAKED deskitems_cpu_keyboard (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Keyboard
+*/
+
+/*QUAKED deskitems_cpu_keyboarduseable (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Keyboard - For usable consoles
+*/
+
+/*QUAKED deskitems_cpu_monitor (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Monitor
+*/
+
+/*QUAKED deskitems_cpu_monitor_manumit (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Monitor w/ Manumit schematics
+*/
+
+/*QUAKED deskitems_cpu_monitoruseable (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Monitor - For usable consoles
+*/
+
+/*QUAKED deskitems_cpu_monitor_jc (0.3 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+CPU Monitor JC
+*/
+
+/*QUAKED vehicles_crane (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","crane.def");
+default("scale","1.0");
+}
+Crane
+*/
+
+/*QUAKED deskitems_cupandpens (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("pose","pose")
+ );
+default("anim","idle1");
+default("model","cupandpens.def");
+default("scale","1.0");
+}
+Cup and Pens
+*/
+
+/*QUAKED Monster_ConstrucWorker (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("twitch2","twitch2")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("fire3","fire3")
+  ("fire4","fire4")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("push1","push1")
+ );
+default("anim","idle");
+default("model","cworker.def");
+default("scale","1.0");
+}
+Construction Worker
+*/
+
+/*QUAKED Monster_DarkCaptain (1 0.5 0) (-40 -40 0) (40 40 104)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run","run")
+  ("aim1","aim1")
+  ("fire","fire")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("twitch2","twitch2")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("melee4","melee4")
+  ("type","type")
+  ("guard","guard")
+  ("point1","point1")
+  ("point2","point2")
+ );
+default("anim","idle1");
+default("model","dark.def");
+default("scale","1.0");
+}
+Dark Captain
+*/
+
+/*QUAKED Innocent_DeadGuy (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","deadguy.def");
+default("scale","1.0");
+}
+Dead Guy with missing hand.
+*/
+
+/*QUAKED deskitems_lamp (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Desk Lamp
+*/
+
+/*QUAKED inventory_dollar (0 0.5 0.8) (-4 -4 0) (4 4 4) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","dollar.def");
+default("scale","1.0");
+}
+Dollar Money - A thin little dollar
+*/
+
+/*QUAKED items_doorbell (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Doorbell
+*/
+
+/*QUAKED trap_dynamite (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+Dynamite Trap
+*/
+
+/*QUAKED inventory_envelope (0.3 1 0.3) (-8 -8 0) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","envelope.def");
+default("scale","1.0");
+}
+Package
+*/
+
+/*QUAKED Monster_Eon (1 0.5 0) (-8 -8 0) (8 8 48)
+{
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","eon.def");
+default("scale","1.0");
+}
+Eon
+*/
+
+/*QUAKED inventory_evidence (0.3 1 0.3) (-8 -8 0) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","evidence.def");
+default("scale","1.0");
+}
+Evidence envelope
+*/
+
+/*QUAKED Monster_EvilBlade (1 0.5 0) (-32 -32 0) (32 32 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("pose","pose")
+  ("jump1","jump1")
+  ("fall1","fall1")
+  ("land1","land1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("run_fire1","run_fire1")
+  ("1hand_walk1","1hand_walk1")
+  ("1hand_walk_fire1","1hand_walk_fire1")
+  ("1hand_run1","1hand_run1")
+  ("1hand_fire1","1hand_fire1")
+  ("1hand_run_fire1","1hand_run_fire1")
+  ("hi2hand_walk2","hi2hand_walk2")
+  ("hi2hand_walk_fire1","hi2hand_walk_fire1")
+  ("hi2hand_run1","hi2hand_run1")
+  ("hi2hand_fire1","hi2hand_fire1")
+  ("hi2hand_run_fire1","hi2hand_run_fire1")
+  ("lo2hand_walk2","lo2hand_walk2")
+  ("lo2hand_walk_fire1","lo2hand_walk_fire1")
+  ("lo2hand_run1","lo2hand_run1")
+  ("lo2hand_fire2","lo2hand_fire2")
+  ("lo2hand_run_fire1","lo2hand_run_fire1")
+  ("readyweapon","readyweapon")
+  ("putaway","putaway")
+  ("reload","reload")
+  ("idle1","idle1")
+  ("1hand_idle1","1hand_idle1")
+  ("1hand_idle2","1hand_idle2")
+  ("1hand_idle3","1hand_idle3")
+  ("hi2hand_idle1","hi2hand_idle1")
+  ("lo2hand_idle1","lo2hand_idle1")
+  ("crouch1","crouch1")
+  ("uncrouch1","uncrouch1")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_1hand_idle1","crouch_1hand_idle1")
+  ("crouch_hi2hand_idle1","crouch_hi2hand_idle1")
+  ("crouch_lo2hand_idle1","crouch_lo2hand_idle1")
+  ("crouch_fire1","crouch_fire1")
+  ("crouch_1hand_fire1","crouch_1hand_fire1")
+  ("crouch_hi2hand_fire1","crouch_hi2hand_fire1")
+  ("crouch_lo2hand_fire1","crouch_lo2hand_fire1")
+  ("crouch_run1","crouch_run1")
+  ("crouch_1hand_run1","crouch_1hand_run1")
+  ("crouch_hi2hand_run1","crouch_hi2hand_run1")
+  ("crouch_lo2hand_run1","crouch_lo2hand_run1")
+  ("crouch_run_fire1","crouch_run_fire1")
+  ("crouch_1hand_run_fire1","crouch_1hand_run_fire1")
+  ("crouch_hi2hand_run_fire1","crouch_hi2hand_run_fire1")
+  ("crouch_lo2hand_run_fire1","crouch_lo2hand_run_fire1")
+  ("crouch_putaway","crouch_putaway")
+  ("crouch_readyweapon","crouch_readyweapon")
+  ("crouch_reload","crouch_reload")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_pain3","crouch_pain3")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("crouch_death4","crouch_death4")
+  ("swim_fire1","swim_fire1")
+  ("swim_fire2","swim_fire2")
+  ("swim_1hand_fire1","swim_1hand_fire1")
+  ("swim_hi2hand_fire1","swim_hi2hand_fire1")
+  ("swim_lo2hand_fire1","swim_lo2hand_fire1")
+  ("swim_run1","swim_run1")
+  ("swim_1hand_run1","swim_1hand_run1")
+  ("swim_hi2hand_run1","swim_hi2hand_run1")
+  ("swim_lo2hand_run1","swim_lo2hand_run1")
+  ("swim_run_fire1","swim_run_fire1")
+  ("swim_run_fire2","swim_run_fire2")
+  ("swim_1hand_run_fire1","swim_1hand_run_fire1")
+  ("swim_hi2hand_run_fire1","swim_hi2hand_run_fire1")
+  ("swim_lo2hand_run_fire1","swim_lo2hand_run_fire1")
+  ("swim_putaway","swim_putaway")
+  ("swim_readyweapon","swim_readyweapon")
+  ("swim_reload","swim_reload")
+  ("swim_idle1","swim_idle1")
+  ("swim_1hand_idle1","swim_1hand_idle1")
+  ("swim_hi2hand_idle1","swim_hi2hand_idle1")
+  ("swim_lo2hand_idle1","swim_lo2hand_idle1")
+  ("swim_pain_head","swim_pain_head")
+  ("swim_pain_torso_upper","swim_pain_torso_upper")
+  ("swim_pain_torso_lower","swim_pain_torso_lower")
+  ("swim_pain_arm_left_lower","swim_pain_arm_left_lower")
+  ("swim_pain_arm_left_upper","swim_pain_arm_left_upper")
+  ("swim_pain_arm_right_lower","swim_pain_arm_right_lower")
+  ("swim_pain_arm_right_upper","swim_pain_arm_right_upper")
+  ("swim_pain_leg_left","swim_pain_leg_left")
+  ("swim_pain_leg_right","swim_pain_leg_right")
+  ("swim_death1","swim_death1")
+  ("swim_death2","swim_death2")
+  ("swim_death3","swim_death3")
+ );
+default("anim","idle1");
+default("model","evil_blade.def");
+default("scale","1.0");
+}
+Evil Blade (Our Alter Ego)
+*/
+
+/*QUAKED gib_feather (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Feather
+*/
+
+/*QUAKED world_FireExtinguisher (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Fire Extinguisher
+*/
+
+/*QUAKED world_firebarrel (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Large Metal Trash Container with fire spewing from it!!!
+*/
+
+/*QUAKED fx_firegen (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("fire","fire")
+ );
+default("anim","idle");
+default("model","firegen.def");
+default("scale","1.0");
+}
+Fire Generator
+*/
+
+/*QUAKED world_firelog (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Logs for the Fire
+*/
+
+/*QUAKED Animals_TropicalFish_Blue (1 0.5 0) (-8 -8 0) (8 8 24)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("swim_idle1","swim_idle1")
+  ("swim_twitch1","swim_twitch1")
+  ("swim_alert1","swim_alert1")
+  ("swim_walk1","swim_walk1")
+  ("swim_run1","swim_run1")
+ );
+default("anim","swim_idle1");
+default("model","fish_blue.def");
+default("scale","1.0");
+}
+Fish - Blue Tropical
+*/
+
+/*QUAKED Animals_TropicalFish_Dope1 (1 0.5 0) (-8 -8 0) (8 8 24)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("swim_idle1","swim_idle1")
+  ("swim_twitch1","swim_twitch1")
+  ("swim_alert1","swim_alert1")
+  ("swim_walk1","swim_walk1")
+  ("swim_run1","swim_run1")
+ );
+default("anim","swim_idle1");
+default("model","fish_dope1.def");
+default("scale","1.0");
+}
+Dopefish #1
+*/
+
+/*QUAKED Animals_TropicalFish_Dope2 (1 0.5 0) (-8 -8 0) (8 8 24)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("swim_idle1","swim_idle1")
+  ("swim_twitch1","swim_twitch1")
+  ("swim_alert1","swim_alert1")
+  ("swim_walk1","swim_walk1")
+  ("swim_run1","swim_run1")
+ );
+default("anim","swim_idle1");
+default("model","fish_dope2.def");
+default("scale","1.0");
+}
+Dopefish #2
+*/
+
+/*QUAKED Animals_TropicalFish_Green (1 0.5 0) (-8 -8 0) (8 8 24)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("swim_idle1","swim_idle1")
+  ("swim_twitch1","swim_twitch1")
+  ("swim_alert1","swim_alert1")
+  ("swim_walk1","swim_walk1")
+  ("swim_run1","swim_run1")
+ );
+default("anim","swim_idle1");
+default("model","fish_green.def");
+default("scale","1.0");
+}
+Fish - Green Tropical
+*/
+
+/*QUAKED Animals_TropicalFish_Yellow (1 0.5 0) (-8 -8 0) (8 8 24)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("swim_idle1","swim_idle1")
+  ("swim_twitch1","swim_twitch1")
+  ("swim_alert1","swim_alert1")
+  ("swim_walk1","swim_walk1")
+  ("swim_run1","swim_run1")
+ );
+default("anim","swim_idle1");
+default("model","fish_yellow.def");
+default("scale","1.0");
+}
+Fish - Yellow Tropical
+*/
+
+/*QUAKED world_usflag (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+US Flag-Animated
+*/
+
+/*QUAKED Armor_FlakJacket (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","flakjack.def");
+default("scale","1.0");
+}
+Flak Jacket
+*/
+
+/*QUAKED Armor_FlakPants (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","flakpants.def");
+default("scale","1.0");
+}
+Flak Pants
+*/
+
+/*QUAKED plant_flower (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Flower-Purple Plummage
+*/
+
+/*QUAKED deskitems_folder1 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","folder1.def");
+default("scale","1.0");
+}
+Desk Folder #1
+*/
+
+/*QUAKED deskitems_folder2 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","folder2.def");
+default("scale","1.0");
+}
+Desk Folder #2
+*/
+
+/*QUAKED Monster_ConstructForeman (1 0.5 0) (-8 -12 0) (8 12 80)
+{
+choice "anim"
+ (
+  ("twitch2","twitch2")
+  ("push1","push1")
+  ("twitch3","twitch3")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("attack1","attack1")
+  ("attack2","attack2")
+  ("attack3","attack3")
+  ("attack4","attack4")
+  ("idle1","idle1")
+  ("sitting","sitting")
+  ("getup","getup")
+  ("handitem","handitem")
+ );
+default("anim","idle1");
+default("model","foreman.def");
+default("scale","1.0");
+}
+Construction Foreman
+*/
+
+/*QUAKED Neutral_OilRigForeman (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("idle1","idle1")
+  ("run1","run1")
+  ("work1","work1")
+  ("sitting","sitting")
+  ("type","type")
+  ("point","point")
+ );
+default("anim","idle1");
+default("model","foreman_oilrig.def");
+default("scale","1.0");
+}
+Oilrig Foreman
+*/
+
+/*QUAKED Monster_WarehouseForeman (1 0.5 0) (-8 -12 0) (8 12 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","foreman_warehouse.def");
+default("scale","1.0");
+}
+Warehouse Foreman - Civilian Male
+*/
+
+/*QUAKED vehicles_forklift (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","forklift.def");
+default("scale","1.0");
+}
+Forklift
+*/
+
+/*QUAKED fx_sprite (0.3 1 0.3) (-8 -8 -8) (8 8 8) AUTOANIM TRACETOSURF
+"sprite" Sets the sprite file ( Default none )
+"angles" Sets the orientation ( Default none )
+"frame"  Frame of the sprite to dispay ( Default is 0 )
+"scale"  Scale of the sprite ( Default is 1.0 )
+"alpha"  Alpha of the sprite ( Default is 1.0 )
+"color"  Color to modulate ( Default is none )
+AUTOANIM    - Auto animate this sprite
+TRACETOSURF - Trace to surface and apply sprite on surface
+*/
+
+/*QUAKED weapon_assaultrifle (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","genbullet.def");
+default("scale","1.0");
+}
+Assault Rifle - World Model
+*/
+
+/*QUAKED gib_gib1 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Gib1
+*/
+
+/*QUAKED gib_gib2 (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Gib2
+*/
+
+/*QUAKED gib_Arm (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Arm Gib
+*/
+
+/*QUAKED gib_Head (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Head Gib
+*/
+
+/*QUAKED gib_Leg (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Leg Gib
+*/
+
+/*QUAKED gib_Rib (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Rib Gib
+*/
+
+/*QUAKED gib_torso (0.5 0.3 0.3) (-8 -8 -8) (8 8 8)
+Torso Gib
+*/
+
+/*QUAKED items_glasses (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Glasses
+*/
+
+/*QUAKED Inventory_GlowStick (0.3 0.3 1) (-4 -4 0) (4 4 4) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","glowstick.def");
+default("scale","1.0");
+}
+Greeeeeeen Glowstick
+*/
+
+/*QUAKED Projectile_Grenade (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("smoke","smoke")
+ );
+default("anim","idle");
+default("model","grenade.def");
+default("scale","1.0");
+}
+Grenade
+*/
+
+/*QUAKED Monster_Grunt_AssaultRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","grunt_ass.def");
+default("scale","1.0");
+}
+Grunt with Assault Rifle
+*/
+
+/*QUAKED Monster_Grunt_GrenadeLauncher (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("readyfire","readyfire")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","grunt_gren.def");
+default("scale","1.0");
+}
+Grunt with Grenade Launcher
+*/
+
+/*QUAKED Monster_Grunt_ChainGun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("readyfire","readyfire")
+  ("fire","fire")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","grunt_hv.def");
+default("scale","1.0");
+}
+Grunt with Chain Gun
+*/
+
+/*QUAKED Monster_LowGrunt_RocketLauncher (1 0.5 0) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("movefire1","movefire1")
+  ("salute1","salute1")
+  ("fire1","fire1")
+  ("idle1","idle1")
+  ("idle2","idle2")
+  ("idle3","idle3")
+ );
+default("anim","idle1");
+default("model","grunt_low_rckt.def");
+default("scale","1.0");
+}
+Low Poly Grunt with Rocket Launcher
+*/
+
+/*QUAKED Monster_Grunt_Magnum (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("sitting1","sitting1")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","grunt_mag.def");
+default("scale","1.0");
+}
+Grunt with Magnum
+*/
+
+/*QUAKED Monster_Grunt_NoWeapon (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("landl","landl")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+  ("standstiff1","standstiff1")
+  ("standstiff2","standstiff2")
+ );
+default("anim","idle");
+default("model","grunt_none.def");
+default("scale","1.0");
+}
+Grunt with No Weapon
+*/
+
+/*QUAKED Monster_Grunt_RocketLauncher (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","grunt_rckt.def");
+default("scale","1.0");
+}
+Grunt with Rocket Launcher
+*/
+
+/*QUAKED Monster_Grunt_Shotgun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","grunt_shtg.def");
+default("scale","1.0");
+}
+Grunt with Shotgun
+*/
+
+/*QUAKED Monster_GruntCapt_AssaultRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","gruntcapt_ass.def");
+default("scale","1.0");
+}
+Grunt Captain with Assault Rifle
+*/
+
+/*QUAKED Monster_GruntCapt_GrenadeLauncher (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("readyfire","readyfire")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","gruntcapt_gren.def");
+default("scale","1.0");
+}
+Grunt Captain with Grenade Launcher
+*/
+
+/*QUAKED Monster_GruntCapt_ChainGun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("readyfire","readyfire")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","gruntcapt_hv.def");
+default("scale","1.0");
+}
+Grunt Captain with Chain Gun
+*/
+
+/*QUAKED Monster_GruntCapt_Magnum (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","gruntcapt_mag.def");
+default("scale","1.0");
+}
+Grunt Captain with Magnum
+*/
+
+/*QUAKED Monster_GruntCapt_NoWeapon (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+  ("standstiff1","standstiff1")
+  ("standstiff2","standstiff2")
+ );
+default("anim","idle");
+default("model","gruntcapt_none.def");
+default("scale","1.0");
+}
+Grunt Captain with No Weapon
+*/
+
+/*QUAKED Monster_GruntCapt_RocketLauncher (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","gruntcapt_rckt.def");
+default("scale","1.0");
+}
+Grunt Captain with Rocket Launcher
+*/
+
+/*QUAKED Monster_GruntCapt_Shotgun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim","aim")
+  ("fire","fire")
+  ("walk","walk")
+  ("run","run")
+  ("idle","idle")
+  ("crouch_down","crouch_down")
+  ("crouch_idle","crouch_idle")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("alert","alert")
+  ("use","use")
+  ("movefire","movefire")
+  ("uncrouch","uncrouch")
+  ("crouch_fire","crouch_fire")
+  ("crouch_aim","crouch_aim")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("sitting","sitting")
+  ("salute","salute")
+  ("patrol","patrol")
+ );
+default("anim","idle");
+default("model","gruntcapt_shtg.def");
+default("scale","1.0");
+}
+Grunt Captain with Shotgun
+*/
+
+/*QUAKED Monster_Guerilla_AssaultRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+ );
+default("anim","idle1");
+default("model","guerilla_ass.def");
+default("scale","1.0");
+}
+Guerilla Soldier with Assault Rifle
+*/
+
+/*QUAKED Monster_Guerilla_ChainGun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+ );
+default("anim","idle1");
+default("model","guerilla_hv.def");
+default("scale","1.0");
+}
+Guerilla Soldier with a Chain Gun
+*/
+
+/*QUAKED Monster_Guerilla_Magnum (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+ );
+default("anim","idle1");
+default("model","guerilla_mag.def");
+default("scale","1.0");
+}
+Guerilla Soldier with Magnum
+*/
+
+/*QUAKED Monster_Guerilla_NoWeapon (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("holdbladeleft","holdbladeleft")
+  ("holdbladeright","holdbladeright")
+ );
+default("anim","idle1");
+default("model","guerilla_none.def");
+default("scale","1.0");
+}
+Guerilla Soldier with No Weapon
+*/
+
+/*QUAKED Monster_Guerilla_RocketLauncher (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+ );
+default("anim","idle1");
+default("model","guerilla_rckt.def");
+default("scale","1.0");
+}
+Guerilla Soldier with Rocket Launcher
+*/
+
+/*QUAKED Monster_Guerilla_Shotgun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+ );
+default("anim","idle1");
+default("model","guerilla_shtg.def");
+default("scale","1.0");
+}
+Guerilla Soldier with Shotgun
+*/
+
+/*QUAKED items_hammer1 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Large Sledgehammer
+*/
+
+/*QUAKED items_hammer2 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hammer-Small ballpinned
+*/
+
+/*QUAKED Inventory_Hand (0.3 1 0.3) (-8 -8 0) (8 8 16) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","hand.def");
+default("scale","1.0");
+}
+Hand
+*/
+
+/*QUAKED items_hanglite1_on (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging light fixture
+Wire with Light Bulb (White & Red)
+*/
+
+/*QUAKED items_hanglite1_off (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging light fixture Off
+Wire with Light Bulb
+*/
+
+/*QUAKED items_hanglite2_on (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging light fixture
+Wire hanging down with square hooded light
+*/
+
+/*QUAKED items_hanglite2_off (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging light fixture Off
+Wire hanging down with square hooded light
+*/
+
+/*QUAKED items_hanglite (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging light fixture 
+Wire hanging down with round hooded light
+NOTE-Larger Bounding box underneth
+*/
+
+/*QUAKED items_hanglite3 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hanging light fixture
+Wire hanging down with cylindrical hooded light
+Fancy Style
+*/
+
+/*QUAKED items_hardhat (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hardhat - Orange
+*/
+
+/*QUAKED vehicles_HCBoat (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hardcorps Boat
+*/
+
+/*QUAKED Hero_HCOfficer1_AssaultRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+ );
+default("anim","idle1");
+default("model","hcofficer1_ass.def");
+default("scale","1.0");
+}
+HC Officer 1 with Assault Rifle
+*/
+
+/*QUAKED Hero_HCOfficer1_Magnum (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+ );
+default("anim","idle1");
+default("model","hcofficer1_mag.def");
+default("scale","1.0");
+}
+HC Officer 1 with Magnum
+*/
+
+/*QUAKED Hero_HCOfficer1_NoWeapon (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+  ("standidle1","standidle1")
+  ("standidle2","standidle2")
+  ("standidle3","standidle3")
+  ("driveboat","driveboat")
+  ("workcrouched","workcrouched")
+ );
+default("anim","idle1");
+default("model","hcofficer1_none.def");
+default("scale","1.0");
+}
+HC Officer 1 with No Weapon
+*/
+
+/*QUAKED Hero_HCOfficer1_Shotgun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+ );
+default("anim","idle1");
+default("model","hcofficer1_shtg.def");
+default("scale","1.0");
+}
+HC Officer 1 with Shotgun
+*/
+
+/*QUAKED Hero_HCOfficer2_AssaultRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+ );
+default("anim","idle1");
+default("model","hcofficer2_ass.def");
+default("scale","1.0");
+}
+HC Officer 2 with Assault Rifle
+*/
+
+/*QUAKED Hero_HCOfficer2_Magnum (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+ );
+default("anim","idle1");
+default("model","hcofficer2_mag.def");
+default("scale","1.0");
+}
+HC Officer 2 with Magnum
+*/
+
+/*QUAKED Hero_HCOfficer2_NoWeapon (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+  ("standidle1","standidle1")
+  ("standidle2","standidle2")
+  ("standidle3","standidle3")
+  ("driveboat","driveboat")
+  ("workcrouched","workcrouched")
+ );
+default("anim","idle1");
+default("model","hcofficer2_none.def");
+default("scale","1.0");
+}
+HC Officer 2 with No Weapon
+*/
+
+/*QUAKED Hero_HCOfficer2_Shotgun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("run1","run1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("readyfire1","readyfire1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("sitting1","sitting1")
+  ("sitting2","sitting2")
+ );
+default("anim","idle1");
+default("model","hcofficer2_shtg.def");
+default("scale","1.0");
+}
+HC Officer 2 with Shotgun
+*/
+
+/*QUAKED Health_020 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health.def");
+default("scale","1.0");
+}
+Health Powerup-Normal - 20
+*/
+
+/*QUAKED Health_Apple (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_apple.def");
+default("scale","1.0");
+}
+Apple
+*/
+
+/*QUAKED Health_Banana (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_banana.def");
+default("scale","1.0");
+}
+Banana
+*/
+
+/*QUAKED Health_Cookies (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_cookies.def");
+default("scale","1.0");
+}
+Cookies
+*/
+
+/*QUAKED Health_IceCream (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_icecream.def");
+default("scale","1.0");
+}
+Ice Cream
+*/
+
+/*QUAKED Health_050 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_large.def");
+default("scale","1.0");
+}
+Health Powerup-Large - 50 - Red
+*/
+
+/*QUAKED Health_100 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_medkit.def");
+default("scale","1.0");
+}
+Health Powerup- 100 - Medkit
+*/
+
+/*QUAKED Health_Milk (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_milk.def");
+default("scale","1.0");
+}
+Milk Carton
+*/
+
+/*QUAKED Health_Pizza (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_pizza.def");
+default("scale","1.0");
+}
+Pizza
+*/
+
+/*QUAKED Health_CheesyPoofs (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_poofs.def");
+default("scale","1.0");
+}
+Cheesy Poofs - Yummy
+*/
+
+/*QUAKED Health_Sandwich (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_sandwich.def");
+default("scale","1.0");
+}
+Sandwich
+*/
+
+/*QUAKED Health_SeaRation (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_searation.def");
+default("scale","1.0");
+}
+Sea Ration
+*/
+
+/*QUAKED Health_005 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_small.def");
+default("scale","1.0");
+}
+Health Powerup-Small - 5
+*/
+
+/*QUAKED Health_Soda (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","health_soda.def");
+default("scale","1.0");
+}
+Soda Pop
+*/
+
+/*QUAKED Health_U4 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","health_u4.def");
+default("scale","1.0");
+}
+Health Powerup-Small - 20
+*/
+
+/*QUAKED weapon_heligun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+default("model","heligun.def");
+default("scale","1.0");
+}
+Heligun - Helicopter Mounted Weapon
+*/
+
+/*QUAKED vehicles_humv_backtire (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","humv_back_tire.def");
+default("scale","1.0");
+}
+HUMV Tire
+*/
+
+/*QUAKED vehicles_humv_fronttire (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","humv_front_tire.def");
+default("scale","1.0");
+}
+HUMV Tire
+*/
+
+/*QUAKED vehicles_humvlowpoly (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+HUMV - Low Poly
+*/
+
+/*QUAKED vehicles_humv_tire (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","humv_tire.def");
+default("scale","1.0");
+}
+HUMV Tire
+*/
+
+/*QUAKED weapon_highvelocitygun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","hvgun.def");
+default("scale","1.0");
+}
+HV Chain Gun - World Model
+*/
+
+/*QUAKED Projectile_HVShell (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+HV Chain Gun Shell
+*/
+
+/*QUAKED world_hydrant (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Fire Hydrant
+*/
+
+/*QUAKED deskitems_icecream (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Ice Cream container
+*/
+
+/*QUAKED Inventory_IdentCard (0 0.5 0.8) (-8 -4 0) (8 4 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","identcard.def");
+default("scale","1.0");
+}
+Identification Card
+*/
+
+/*QUAKED trap_bouncingbetty (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("open","open")
+  ("close","close")
+ );
+default("anim","idle");
+default("model","iris.def");
+default("scale","1.0");
+}
+If targetd, Bouncing Betty will only be activated when triggered
+*/
+
+/*QUAKED inventory_keyring (0 0.5 0.8) (-4 -4 0) (4 4 4) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","keys.def");
+default("scale","1.0");
+}
+Keys for locked doors
+*/
+
+/*QUAKED Neutral_LabWorker (1 0.5 0) (-20 -24 0) (20 24 72)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("idle2","idle2")
+  ("crouch_down1","crouch_down1")
+  ("walk1","walk1")
+  ("grab1","grab1")
+  ("surgery1","surgery1")
+  ("surgery2","surgery2")
+  ("keyboard1","keyboard1")
+  ("console1","console1")
+  ("eureka1","eureka1")
+  ("eureka2","eureka2")
+  ("eureka3","eureka3")
+  ("chemshake1","chemshake1")
+  ("specimentest1","specimentest1")
+ );
+default("anim","idle1");
+default("model","lab.def");
+default("scale","1.0");
+}
+Lab Worker
+*/
+
+/*QUAKED deskitems_tablelamp (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Table Lamp
+*/
+
+/*QUAKED vehicles_lamprey (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Lamprey Helicopter
+*/
+
+/*QUAKED vehicles_lamprey_rotors (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Lamprey Rotors
+Two skins - One for HC and Sintek
+*/
+
+/*QUAKED vehicles_lamprey_sintek (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Lamprey Sintek Helicopter
+*/
+
+/*QUAKED fx_laser (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Laser
+*/
+
+/*QUAKED trap_oldlauncher (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+Old Launcher Model
+*/
+
+/*QUAKED trap_missilelauncher_base (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+default("model","launcher_base.def");
+default("scale","1.0");
+}
+Missile Launcher - Base.
+*/
+
+/*QUAKED trap_missilelauncher_top (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("fire","fire")
+  ("down_idle","down_idle")
+  ("up_idle","up_idle")
+  ("lower","lower")
+  ("raise","raise")
+ );
+default("anim","fire");
+default("model","launcher_top.def");
+default("scale","1.0");
+}
+Missile Launcher - Top.
+*/
+
+/*QUAKED fx_pulseline (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("ln","ln")
+ );
+default("anim","ln");
+default("model","ln.def");
+default("scale","1.0");
+}
+Pulse Trailing Beam Line
+*/
+
+/*QUAKED weapon_magnum (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","magnum.def");
+default("scale","1.0");
+}
+Magnum - World Model
+*/
+
+/*QUAKED world_mailbox (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+US Mailbox
+*/
+
+/*QUAKED Monster_Mancini (1 0.5 0) (-4 -8 0) (4 8 72)
+{
+choice "anim"
+ (
+  ("run1","run1")
+  ("run2","run2")
+  ("jump","jump")
+  ("walk1","walk1")
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","mancini.def");
+default("scale","1.0");
+}
+Mancini
+*/
+
+/*QUAKED Monster_Manumit (1 0.5 0) (-24 -24 0) (24 24 88)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("walk_attack1","walk_attack1")
+  ("jump_attack1","jump_attack1")
+  ("swim","swim")
+  ("backflip1","backflip1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("twitch1","twitch1")
+  ("twitch2","twitch2")
+  ("cine_pose","cine_pose")
+  ("idle1","idle1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("run1","run1")
+  ("runsuper","runsuper")
+  ("walk1","walk1")
+  ("transform","transform")
+  ("superjump","superjump")
+  ("crouch1","crouch1")
+  ("crouch_walk1","crouch_walk1")
+  ("crouch_attack1","crouch_attack1")
+  ("crouch_pain1","crouch_pain1")
+  ("melee1","melee1")
+  ("melee3","melee3")
+  ("melee4","melee4")
+  ("melee5","melee5")
+  ("pickup","pickup")
+  ("throw_aim","throw_aim")
+  ("throw","throw")
+  ("crouch_idle1","crouch_idle1")
+  ("dead","dead")
+  ("deadtwitch","deadtwitch")
+  ("trans2idle","trans2idle")
+ );
+default("anim","idle1");
+default("model","manumit.def");
+default("scale","1.0");
+}
+Manumit
+*/
+
+/*QUAKED world_meter (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Parking Meter
+*/
+
+/*QUAKED Hero_Military_1LyinginBed (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","military1.def");
+default("scale","1.0");
+}
+Military #1 - Guy in Bed
+*/
+
+/*QUAKED Hero_Military_2Injured (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","military2.def");
+default("scale","1.0");
+}
+Military #2 - Sitting injured
+*/
+
+/*QUAKED Hero_Military_3Medic (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","military3.def");
+default("scale","1.0");
+}
+Military #3 - Medic
+*/
+
+/*QUAKED Hero_Military_4Leader (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","military4.def");
+default("scale","1.0");
+}
+Military #4 - Guy who is the leader
+*/
+
+/*QUAKED Ammo_SpiderMine (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","mine.def");
+default("scale","1.0");
+}
+Spider Mines Ammo Container
+*/
+
+/*QUAKED vehicles_minitruck (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Mini Truck - Street scenes - Low Poly
+*/
+
+/*QUAKED items_moneybag (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Money bag from heist
+*/
+
+/*QUAKED inventory_moneybag (0.3 1 0.3) (-8 -8 0) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","moneybag_inv.def");
+default("scale","1.0");
+}
+Money bags from heist that you can pick-up
+*/
+
+/*QUAKED deskitems_mouse (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Mouse for Computer
+*/
+
+/*QUAKED fx_muzzleflash (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Muzzle Flash
+*/
+
+/*QUAKED fx_muzzleflash2 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Muzzle Flash 2
+*/
+
+/*QUAKED Monster_MetalWorker (1 0.5 0) (-8 -12 0) (8 12 80)
+{
+choice "anim"
+ (
+  ("twitch2","twitch2")
+  ("idle1","idle1")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("fire3","fire3")
+  ("fire4","fire4")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+ );
+default("anim","idle1");
+default("model","mworker.def");
+default("scale","1.0");
+}
+Metal Works Worker
+*/
+
+/*QUAKED Monster_Nautic (1 0.5 0) (-40 -40 0) (40 40 48)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("fire1","fire1")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("alert1","alert1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("swim_idle1","swim_idle1")
+  ("swim_twitch1","swim_twitch1")
+  ("swim_alert1","swim_alert1")
+  ("swim_walk1","swim_walk1")
+  ("swim_run1","swim_run1")
+  ("swim_pain1","swim_pain1")
+  ("swim_pain2","swim_pain2")
+ );
+default("anim","idle1");
+default("model","nautic.def");
+default("scale","1.0");
+}
+Nautic
+*/
+
+/*QUAKED world_newsbox (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Newspaper Dispenser
+*/
+
+/*QUAKED world_o2tank (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+O2 Tank
+*/
+
+/*QUAKED Monster_OilRigWorker (1 0.5 0) (-8 -12 0) (8 12 80)
+{
+choice "anim"
+ (
+  ("twitch2","twitch2")
+  ("idle1","idle1")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("fire3","fire3")
+  ("fire4","fire4")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+ );
+default("anim","idle1");
+default("model","oworker.def");
+default("scale","1.0");
+}
+Oil Rig Worker
+*/
+
+/*QUAKED Powerup_Oxygen (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","oxygen.def");
+default("scale","1.0");
+}
+Oxygen
+*/
+
+/*QUAKED plant_palmtree (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","palmtree.def");
+default("scale","1.0");
+}
+Palmtree
+SPECIAL CASE-Attach extra box around upper portion
+*/
+
+/*QUAKED inventory_passcode (0.3 1 0.3) (-8 -8 0) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("pose","pose")
+ );
+default("anim","idle1");
+default("model","password.def");
+default("scale","1.0");
+}
+Password Paper
+*/
+
+/*QUAKED Monster_Peon (1 0.5 0) (-40 -40 0) (40 40 104)
+{
+choice "anim"
+ (
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("melee4","melee4")
+  ("melee5","melee5")
+  ("melee6","melee6")
+  ("walk1","walk1")
+  ("idle1","idle1")
+  ("run1","run1")
+  ("candy","candy")
+  ("candyidle","candyidle")
+  ("climb","climb")
+  ("jump","jump")
+  ("land","land")
+  ("sit","sit")
+  ("sitidle","sitidle")
+  ("spew","spew")
+ );
+default("anim","idle1");
+default("model","peon.def");
+default("scale","1.0");
+}
+Peon
+*/
+
+/*QUAKED deskitems_phone1 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","phone1.def");
+default("scale","1.0");
+}
+Desk Phone #1
+*/
+
+/*QUAKED deskitems_phone2 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","phone2.def");
+default("scale","1.0");
+}
+Desk Phone #2
+*/
+
+/*QUAKED Animals_Pigeon (1 0.5 0) (-12 -12 0) (12 12 24)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+default("model","pigeon.def");
+default("scale","1.0");
+}
+Pigeon
+*/
+
+/*QUAKED Monster_Pinphat (1 0.5 0) (-44 -44 0) (44 44 96)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("readyfire1","readyfire1")
+  ("fire1","fire1")
+  ("aim1","aim1")
+  ("talk","talk")
+  ("run1","run1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("readyfire","readyfire")
+ );
+default("anim","idle1");
+default("model","pinphat.def");
+default("scale","1.0");
+}
+Pinphat
+*/
+
+/*QUAKED Hero_Blade (1 0.5 0) (-32 -32 0) (32 32 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("driveatv","driveatv")
+  ("frontflip","frontflip")
+  ("dive","dive")
+  ("backflip","backflip")
+  ("rollleft","rollleft")
+  ("rollright","rollright")
+  ("heligun","heligun")
+  ("drive","drive")
+  ("climb","climb")
+  ("pose","pose")
+  ("jump1","jump1")
+  ("fall1","fall1")
+  ("land1","land1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("run_fire1","run_fire1")
+  ("1hand_walk1","1hand_walk1")
+  ("1hand_walk_fire1","1hand_walk_fire1")
+  ("1hand_run1","1hand_run1")
+  ("1hand_fire1","1hand_fire1")
+  ("1hand_run_fire1","1hand_run_fire1")
+  ("hi2hand_walk2","hi2hand_walk2")
+  ("hi2hand_walk_fire1","hi2hand_walk_fire1")
+  ("hi2hand_run1","hi2hand_run1")
+  ("hi2hand_fire1","hi2hand_fire1")
+  ("hi2hand_run_fire1","hi2hand_run_fire1")
+  ("lo2hand_walk2","lo2hand_walk2")
+  ("lo2hand_walk_fire1","lo2hand_walk_fire1")
+  ("lo2hand_run1","lo2hand_run1")
+  ("lo2hand_fire2","lo2hand_fire2")
+  ("lo2hand_run_fire1","lo2hand_run_fire1")
+  ("readyweapon","readyweapon")
+  ("putaway","putaway")
+  ("reload","reload")
+  ("idle1","idle1")
+  ("1hand_idle1","1hand_idle1")
+  ("1hand_idle2","1hand_idle2")
+  ("1hand_idle3","1hand_idle3")
+  ("hi2hand_idle1","hi2hand_idle1")
+  ("lo2hand_idle1","lo2hand_idle1")
+  ("crouch1","crouch1")
+  ("uncrouch1","uncrouch1")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_1hand_idle1","crouch_1hand_idle1")
+  ("crouch_hi2hand_idle1","crouch_hi2hand_idle1")
+  ("crouch_lo2hand_idle1","crouch_lo2hand_idle1")
+  ("crouch_fire1","crouch_fire1")
+  ("crouch_1hand_fire1","crouch_1hand_fire1")
+  ("crouch_hi2hand_fire1","crouch_hi2hand_fire1")
+  ("crouch_lo2hand_fire1","crouch_lo2hand_fire1")
+  ("crouch_run1","crouch_run1")
+  ("crouch_1hand_run1","crouch_1hand_run1")
+  ("crouch_hi2hand_run1","crouch_hi2hand_run1")
+  ("crouch_lo2hand_run1","crouch_lo2hand_run1")
+  ("crouch_run_fire1","crouch_run_fire1")
+  ("crouch_1hand_run_fire1","crouch_1hand_run_fire1")
+  ("crouch_hi2hand_run_fire1","crouch_hi2hand_run_fire1")
+  ("crouch_lo2hand_run_fire1","crouch_lo2hand_run_fire1")
+  ("crouch_putaway","crouch_putaway")
+  ("crouch_readyweapon","crouch_readyweapon")
+  ("crouch_reload","crouch_reload")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_pain3","crouch_pain3")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("crouch_death4","crouch_death4")
+  ("swim_fire1","swim_fire1")
+  ("swim_fire2","swim_fire2")
+  ("swim_1hand_fire1","swim_1hand_fire1")
+  ("swim_hi2hand_fire1","swim_hi2hand_fire1")
+  ("swim_lo2hand_fire1","swim_lo2hand_fire1")
+  ("swim_run1","swim_run1")
+  ("swim_1hand_run1","swim_1hand_run1")
+  ("swim_hi2hand_run1","swim_hi2hand_run1")
+  ("swim_lo2hand_run1","swim_lo2hand_run1")
+  ("swim_run_fire1","swim_run_fire1")
+  ("swim_run_fire2","swim_run_fire2")
+  ("swim_1hand_run_fire1","swim_1hand_run_fire1")
+  ("swim_hi2hand_run_fire1","swim_hi2hand_run_fire1")
+  ("swim_lo2hand_run_fire1","swim_lo2hand_run_fire1")
+  ("swim_putaway","swim_putaway")
+  ("swim_readyweapon","swim_readyweapon")
+  ("swim_reload","swim_reload")
+  ("swim_idle1","swim_idle1")
+  ("swim_1hand_idle1","swim_1hand_idle1")
+  ("swim_hi2hand_idle1","swim_hi2hand_idle1")
+  ("swim_lo2hand_idle1","swim_lo2hand_idle1")
+  ("swim_pain_head","swim_pain_head")
+  ("swim_pain_torso_upper","swim_pain_torso_upper")
+  ("swim_pain_torso_lower","swim_pain_torso_lower")
+  ("swim_pain_arm_left_lower","swim_pain_arm_left_lower")
+  ("swim_pain_arm_left_upper","swim_pain_arm_left_upper")
+  ("swim_pain_arm_right_lower","swim_pain_arm_right_lower")
+  ("swim_pain_arm_right_upper","swim_pain_arm_right_upper")
+  ("swim_pain_leg_left","swim_pain_leg_left")
+  ("swim_pain_leg_right","swim_pain_leg_right")
+  ("swim_pain","swim_pain")
+  ("swim_death1","swim_death1")
+  ("swim_death2","swim_death2")
+  ("swim_death3","swim_death3")
+ );
+default("anim","idle1");
+default("model","pl_blade.def");
+default("scale","1.0");
+}
+Blade (Our Hero)
+*/
+
+/*QUAKED Hero_Elexis (1 0.5 0) (-32 -32 0) (32 32 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("climb","climb")
+  ("driveatv","driveatv")
+  ("drive","drive")
+  ("throw","throw")
+  ("pose","pose")
+  ("jump","jump")
+  ("fall","fall")
+  ("land","land")
+  ("walk","walk")
+  ("run","run")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("1hand_fire","1hand_fire")
+  ("1hand_run_fire","1hand_run_fire")
+  ("1hand_run","1hand_run")
+  ("1hand_walk_fire1","1hand_walk_fire1")
+  ("1hand_walk1","1hand_walk1")
+  ("hi2hand_fire","hi2hand_fire")
+  ("hi2hand_run","hi2hand_run")
+  ("hi2hand_run_fire","hi2hand_run_fire")
+  ("hi2hand_walk","hi2hand_walk")
+  ("hi2hand_walk_fire","hi2hand_walk_fire")
+  ("lo2hand_fire","lo2hand_fire")
+  ("lo2hand_run","lo2hand_run")
+  ("lo2hand_run_fire","lo2hand_run_fire")
+  ("lo2hand_walk","lo2hand_walk")
+  ("lo2hand_walk_fire","lo2hand_walk_fire")
+  ("putaway","putaway")
+  ("readyweapon","readyweapon")
+  ("reload","reload")
+  ("idle1","idle1")
+  ("idle2","idle2")
+  ("1hand_idle1","1hand_idle1")
+  ("1hand_idle2","1hand_idle2")
+  ("1hand_idle3","1hand_idle3")
+  ("1hand_idle4","1hand_idle4")
+  ("hi2hand_idle1","hi2hand_idle1")
+  ("hi2hand_idle2","hi2hand_idle2")
+  ("hi2hand_idle3","hi2hand_idle3")
+  ("lo2hand_idle1","lo2hand_idle1")
+  ("lo2hand_idle2","lo2hand_idle2")
+  ("lo2hand_idle3","lo2hand_idle3")
+  ("crouch","crouch")
+  ("uncrouch","uncrouch")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_1hand_idle1","crouch_1hand_idle1")
+  ("crouch_hi2hand_idle1","crouch_hi2hand_idle1")
+  ("crouch_lo2hand_idle1","crouch_lo2hand_idle1")
+  ("crouch_fire","crouch_fire")
+  ("crouch_1hand_fire","crouch_1hand_fire")
+  ("crouch_hi2hand_fire","crouch_hi2hand_fire")
+  ("crouch_lo2hand_fire","crouch_lo2hand_fire")
+  ("crouch_run_fire","crouch_run_fire")
+  ("crouch_1hand_run_fire","crouch_1hand_run_fire")
+  ("crouch_hi2hand_run_fire","crouch_hi2hand_run_fire")
+  ("crouch_lo2hand_run_fire","crouch_lo2hand_run_fire")
+  ("crouch_run1","crouch_run1")
+  ("crouch_1hand_run1","crouch_1hand_run1")
+  ("crouch_hi2hand_run1","crouch_hi2hand_run1")
+  ("crouch_lo2hand_run1","crouch_lo2hand_run1")
+  ("crouch_putaway","crouch_putaway")
+  ("crouch_ready","crouch_ready")
+  ("crouch_reload","crouch_reload")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_pain3","crouch_pain3")
+  ("crouch_pain4","crouch_pain4")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("swim_death1","swim_death1")
+  ("swim_death2","swim_death2")
+  ("swim_death3","swim_death3")
+  ("swim_idle","swim_idle")
+  ("swim_1hand_idle","swim_1hand_idle")
+  ("swim_hi2hand_idle","swim_hi2hand_idle")
+  ("swim_lo2hand_idle","swim_lo2hand_idle")
+  ("swim_pain_head","swim_pain_head")
+  ("swim_pain_torso_upper","swim_pain_torso_upper")
+  ("swim_pain_torso_lower","swim_pain_torso_lower")
+  ("swim_pain_arm_left_lower","swim_pain_arm_left_lower")
+  ("swim_pain_arm_left_upper","swim_pain_arm_left_upper")
+  ("swim_pain_arm_right_lower","swim_pain_arm_right_lower")
+  ("swim_pain_arm_right_upper","swim_pain_arm_right_upper")
+  ("swim_pain_leg_left","swim_pain_leg_left")
+  ("swim_pain_leg_right","swim_pain_leg_right")
+  ("swim_pain1","swim_pain1")
+  ("swim_fire","swim_fire")
+  ("swim_run","swim_run")
+  ("swim_run_fire","swim_run_fire")
+  ("swim_1hand_fire","swim_1hand_fire")
+  ("swim_1hand_run","swim_1hand_run")
+  ("swim_1hand_run_fire","swim_1hand_run_fire")
+  ("swim_lo2hand_fire","swim_lo2hand_fire")
+  ("swim_lo2hand_run","swim_lo2hand_run")
+  ("swim_lo2hand_run_fire","swim_lo2hand_run_fire")
+  ("swim_hi2hand_fire","swim_hi2hand_fire")
+  ("swim_hi2hand_run","swim_hi2hand_run")
+  ("swim_hi2hand_run_fire","swim_hi2hand_run_fire")
+  ("swim_putaway","swim_putaway")
+  ("swim_readyweapon","swim_readyweapon")
+  ("swim_reload","swim_reload")
+ );
+default("anim","idle1");
+default("model","pl_elexis.def");
+default("scale","1.0");
+}
+Elexis Sinclaire
+*/
+
+/*QUAKED Hero_JC (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("pose","pose")
+  ("climb","climb")
+  ("dive","dive")
+  ("drive","drive")
+  ("driveatv","driveatv")
+  ("throw","throw")
+  ("crouch","crouch")
+  ("uncrouch","uncrouch")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_1hand_idle1","crouch_1hand_idle1")
+  ("crouch_hi2hand_idle1","crouch_hi2hand_idle1")
+  ("crouch_lo2hand_idle1","crouch_lo2hand_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_pain3","crouch_pain3")
+  ("crouch_pain4","crouch_pain4")
+  ("crouch_fire","crouch_fire")
+  ("crouch_1hand_fire","crouch_1hand_fire")
+  ("crouch_hi2hand_fire","crouch_hi2hand_fire")
+  ("crouch_lo2hand_fire","crouch_lo2hand_fire")
+  ("crouch_run1","crouch_run1")
+  ("crouch_1hand_run1","crouch_1hand_run1")
+  ("crouch_hi2hand_run1","crouch_hi2hand_run1")
+  ("crouch_lo2hand_run1","crouch_lo2hand_run1")
+  ("crouch_run_fire","crouch_run_fire")
+  ("crouch_1hand_run_fire1","crouch_1hand_run_fire1")
+  ("crouch_hi2hand_run_fire1","crouch_hi2hand_run_fire1")
+  ("crouch_lo2hand_run_fire1","crouch_lo2hand_run_fire1")
+  ("crouch_putaway","crouch_putaway")
+  ("crouch_readyweapon","crouch_readyweapon")
+  ("crouch_reload","crouch_reload")
+  ("idle1","idle1")
+  ("idle2","idle2")
+  ("1hand_idle1","1hand_idle1")
+  ("1hand_idle2","1hand_idle2")
+  ("hi2hand_idle1","hi2hand_idle1")
+  ("hi2hand_idle1","hi2hand_idle1")
+  ("lo2hand_idle1","lo2hand_idle1")
+  ("lo2hand_idle2","lo2hand_idle2")
+  ("fire1","fire1")
+  ("fire2","fire2")
+  ("run","run")
+  ("swim","swim")
+  ("walk","walk")
+  ("1hand_fire","1hand_fire")
+  ("1hand_run_fire","1hand_run_fire")
+  ("1hand_run","1hand_run")
+  ("1hand_walk_fire","1hand_walk_fire")
+  ("1hand_walk","1hand_walk")
+  ("hi2hand_run_fire1","hi2hand_run_fire1")
+  ("hi2hand_run","hi2hand_run")
+  ("hi2hand_fire","hi2hand_fire")
+  ("hi2hand_walk","hi2hand_walk")
+  ("hi2hand_walk_fire","hi2hand_walk_fire")
+  ("lo2hand_fire","lo2hand_fire")
+  ("lo2hand_run","lo2hand_run")
+  ("lo2hand_run_fire","lo2hand_run_fire")
+  ("lo2hand_walk","lo2hand_walk")
+  ("lo2hand_walk_fire","lo2hand_walk_fire")
+  ("jump","jump")
+  ("fall","fall")
+  ("land","land")
+  ("putaway","putaway")
+  ("readyweapon","readyweapon")
+  ("reload","reload")
+  ("swim_death1","swim_death1")
+  ("swim_idle","swim_idle")
+  ("swim_1hand_idle","swim_1hand_idle")
+  ("swim_hi2hand_idle","swim_hi2hand_idle")
+  ("swim_lo2hand_idle","swim_lo2hand_idle")
+  ("swim_pain_head","swim_pain_head")
+  ("swim_pain_torso_upper","swim_pain_torso_upper")
+  ("swim_pain_torso_lower","swim_pain_torso_lower")
+  ("swim_pain_arm_left_lower","swim_pain_arm_left_lower")
+  ("swim_pain_arm_left_upper","swim_pain_arm_left_upper")
+  ("swim_pain_arm_right_lower","swim_pain_arm_right_lower")
+  ("swim_pain_arm_right_upper","swim_pain_arm_right_upper")
+  ("swim_pain_leg_left","swim_pain_leg_left")
+  ("swim_pain_leg_right","swim_pain_leg_right")
+  ("swim_pain","swim_pain")
+  ("swim_fire","swim_fire")
+  ("swim_run","swim_run")
+  ("swim_run_fire","swim_run_fire")
+  ("swim_1hand_fire","swim_1hand_fire")
+  ("swim_1hand_run","swim_1hand_run")
+  ("swim_1hand_run_fire","swim_1hand_run_fire")
+  ("swim_lo2hand_fire","swim_lo2hand_fire")
+  ("swim_lo2hand_run","swim_lo2hand_run")
+  ("swim_lo2hand_run_fire","swim_lo2hand_run_fire")
+  ("swim_hi2hand_fire","swim_hi2hand_fire")
+  ("swim_hi2hand_run","swim_hi2hand_run")
+  ("swim_hi2hand_run_fire","swim_hi2hand_run_fire")
+  ("swim_putaway","swim_putaway")
+  ("swim_readyweapon","swim_readyweapon")
+  ("swim_reload","swim_reload")
+ );
+default("anim","idle1");
+default("model","pl_jc.def");
+default("scale","1.0");
+}
+JC
+*/
+
+/*QUAKED plant_plant (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","plant1.def");
+default("scale","1.0");
+}
+Plant-Small one sitting on ground
+*/
+
+/*QUAKED Ammo_Plasma (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","plasma.def");
+default("scale","1.0");
+}
+Ammo Energy Weapons - Plasma (Small)
+*/
+
+/*QUAKED items_CheesyPoofs (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Cheesy Poofs - Yummy
+*/
+
+/*QUAKED world_portolet (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Port-o-let Portable John
+*/
+
+/*QUAKED world_propane (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Propane Tank
+*/
+
+/*QUAKED fx_pulsesphere (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("fired","fired")
+  ("explode","explode")
+ );
+default("anim","fired");
+default("model","psphere.def");
+default("scale","1.0");
+}
+Pulse Sphere Explosion
+*/
+
+/*QUAKED weapon_pulserifle (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("idle2","idle2")
+  ("firemode2","firemode2")
+ );
+default("anim","idle1");
+default("model","pulse2.def");
+default("scale","1.0");
+}
+Pulse Rifle - World Model
+*/
+
+/*QUAKED Ammo_Pulse (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","pulse_ammo.def");
+default("scale","1.0");
+}
+Ammo Energy Weapons - Pulse Rifle (Large)
+*/
+
+/*QUAKED inventory_pulsepart1 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","pulsepart1.def");
+default("scale","1.0");
+}
+Pulse Weapon Part #1
+*/
+
+/*QUAKED inventory_pulsepart2 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","pulsepart2.def");
+default("scale","1.0");
+}
+Pulse Weapon Part #2
+*/
+
+/*QUAKED inventory_pulsepart3 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","pulsepart3.def");
+default("scale","1.0");
+}
+Pulse Weapon Part #3
+*/
+
+/*QUAKED weapon_quantumd (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("switchto","switchto")
+  ("idle2","idle2")
+  ("firemode2","firemode2")
+  ("switchback","switchback")
+ );
+default("anim","idle1");
+default("model","quantum.def");
+default("scale","1.0");
+}
+Quantum Destabilizer - World Model
+*/
+
+/*QUAKED Animals_Rat (1 0.5 0) (-10 -10 0) (10 10 12)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("run","run")
+  ("melee","melee")
+ );
+default("anim","idle");
+default("model","rat.def");
+default("scale","1.0");
+}
+Rat
+*/
+
+/*QUAKED gib_ReconahArm (1 0.5 0) (-8 -8 -8) (8 8 8)
+Reconah Arm
+*/
+
+/*QUAKED gib_ReconahGun (1 0.5 0) (-8 -8 -8) (8 8 8)
+Reconah Gun
+*/
+
+/*QUAKED gib_ReconahLeg (1 0.5 0) (-8 -8 -8) (8 8 8)
+Reconah Leg
+*/
+
+/*QUAKED gib_ReconahTorso (1 0.5 0) (-8 -8 -8) (8 8 8)
+Reconah Torso
+*/
+
+/*QUAKED Monster_Reconah (1 0.5 0) (-28 -28 0) (28 28 88)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("readyfire","readyfire")
+  ("alert","alert")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("twitch2","twitch2")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("jump1","jump1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("crouch_down1","crouch_down1")
+  ("crouch_idle1","crouch_idle1")
+  ("uncrouch","uncrouch")
+  ("drink","drink")
+  ("throw","throw")
+  ("talk","talk")
+  ("pickup","pickup")
+ );
+default("anim","idle1");
+default("model","reconah.def");
+default("scale","1.0");
+}
+Reconah
+*/
+
+/*QUAKED Armor_RiotHelmet (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","riothelm.def");
+default("scale","1.0");
+}
+Riot Helmet
+*/
+
+/*QUAKED world_sign_ritual (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Ritual Billboard
+*/
+
+/*QUAKED weapon_rocketlauncher (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("fire1","fire1")
+ );
+default("anim","idle1");
+default("model","rlaunch.def");
+default("scale","1.0");
+}
+Rocket Launcher - World Model
+*/
+
+/*QUAKED Projectile_Rocket (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","rocket.def");
+default("scale","1.0");
+}
+Rocket
+*/
+
+/*QUAKED Ammo_Rockets (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","rockets.def");
+default("scale","1.0");
+}
+Ammo Rockets
+*/
+
+/*QUAKED trap_rocketturret_base (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("down_idle","down_idle")
+  ("up_idle","up_idle")
+  ("lower","lower")
+  ("raise","raise")
+ );
+default("anim","down_idle");
+default("model","rockturbase.def");
+default("scale","1.0");
+}
+If targeted, Turret will only be activated when triggered
+*/
+
+/*QUAKED trap_rocketturret (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("fire","fire")
+  ("down_idle","down_idle")
+  ("up_idle","up_idle")
+  ("lower","lower")
+  ("raise","raise")
+ );
+default("anim","fire");
+default("model","rockturtop.def");
+default("scale","1.0");
+}
+If targeted, Turret will only be activated when triggered
+*/
+
+/*QUAKED world_safelite (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Emergency Light - Red
+*/
+
+/*QUAKED Monster_Sergeant (1 0.5 0) (-24 -32 0) (24 32 96)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("aim1","aim1")
+  ("fire1","fire1")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("salute1","salute1")
+ );
+default("anim","idle1");
+default("model","sarge.def");
+default("scale","1.0");
+}
+Sergeant
+*/
+
+/*QUAKED Neutral_Scientist (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("idle1","idle1")
+  ("run1","run1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("work1","work1")
+  ("sitting","sitting")
+  ("type","type")
+  ("point","point")
+ );
+default("anim","idle1");
+default("model","scientist.def");
+default("scale","1.0");
+}
+Scientist Type Guy
+*/
+
+/*QUAKED deskitems_scissors (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","scissors.def");
+default("scale","1.0");
+}
+Pair of Scissors
+*/
+
+/*QUAKED deskitems_telescope1 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Telescope-Large 6ft high-Observation Tower Type
+*/
+
+/*QUAKED deskitems_telescope2 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","scope2.def");
+default("scale","1.0");
+}
+Telescope-Small 6ft high-Hobbyist Type
+SPECIAL CASE-Attach extra box around upper portion
+*/
+
+/*QUAKED Powerup_ScubaGear (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","scubagear.def");
+default("scale","1.0");
+}
+Rebreather Unit
+*/
+
+/*QUAKED Monster_Seabonite (1 0.5 0) (-24 -36 0) (24 36 96)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("fire1","fire1")
+  ("readyfire","readyfire")
+  ("aim1","aim1")
+  ("idle1","idle1")
+  ("swim_walk","swim_walk")
+  ("swim_run","swim_run")
+  ("dodge1","dodge1")
+  ("walk1","walk1")
+  ("idlestand","idlestand")
+  ("jump_in","jump_in")
+ );
+default("anim","idle1");
+default("model","sea.def");
+default("scale","1.0");
+}
+Seabonite
+*/
+
+/*QUAKED Monster_SeaboniteCaptain (1 0.5 0) (-24 -36 0) (24 36 96)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("fire1","fire1")
+  ("readyfire","readyfire")
+  ("aim1","aim1")
+  ("idle1","idle1")
+  ("swim_walk","swim_walk")
+  ("swim_run","swim_run")
+  ("dodge1","dodge1")
+  ("walk1","walk1")
+  ("idlestand","idlestand")
+  ("jump_in","jump_in")
+ );
+default("anim","idle1");
+default("model","sea_capt.def");
+default("scale","1.0");
+}
+Seabonite Captain - Red Suit markings
+*/
+
+/*QUAKED plant_seaweed (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Seaweed-Single strand
+*/
+
+/*QUAKED Monster_SecurityRover (1 0.5 0) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("run","run")
+ );
+default("anim","idle");
+default("model","secrover.def");
+default("scale","1.0");
+}
+Security Rover
+*/
+
+/*QUAKED Monster_Securton (1 0.5 0) (-40 -40 0) (40 44 58)
+{
+choice "anim"
+ (
+  ("walk1","walk1")
+  ("idle1","idle1")
+  ("alert1","alert1")
+  ("twitch1","twitch1")
+  ("twitch2","twitch2")
+  ("fire1","fire1")
+  ("run1","run1")
+  ("jumpattack1","jumpattack1")
+  ("sedated1","sedated1")
+  ("step_right","step_right")
+  ("step_left","step_left")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+ );
+default("anim","idle1");
+default("model","securton.def");
+default("scale","1.0");
+}
+Securton
+*/
+
+/*QUAKED Projectile_ShotgunShell (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Shotgun Shell - Shotgun Casing
+*/
+
+/*QUAKED Projectile_BulletShell (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Shell - Normal Bullet Casing
+*/
+
+/*QUAKED Powerup_Shield (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","shield.def");
+default("scale","1.0");
+}
+Photonic Shield - Invincibility
+*/
+
+/*QUAKED world_shipcrate (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+*/
+
+/*QUAKED weapon_shotgun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","shotgun.def");
+default("scale","1.0");
+}
+Shotgun - World Model
+*/
+
+/*QUAKED Ammo_Shotgun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","shotgunclip.def");
+default("scale","1.0");
+}
+Ammo Shotgun
+*/
+
+/*QUAKED plant_shrub (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Hedge-Rectangular
+*/
+
+/*QUAKED world_sign_large (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Vanity Billboard
+*/
+
+/*QUAKED world_sign_small (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Your Ad Here Billboard
+*/
+
+/*QUAKED inventory_silencer (0.3 0.3 1) (-8 -4 0) (8 4 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","silencer.def");
+default("scale","1.0");
+}
+Silencer for Magnum & Assault Rifle
+*/
+
+/*QUAKED world_sink (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Bathroom Sink
+*/
+
+/*QUAKED Projectile_Skeet (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+default("model","skeet.def");
+default("scale","1.0");
+}
+Skeet - Clay pigeon
+*/
+
+/*QUAKED weapon_sledgehammer (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","sledgeham.def");
+default("scale","1.0");
+}
+Sledge Hammer
+*/
+
+/*QUAKED fx_smokegen (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("smoke","smoke")
+  ("rocketsmoke","rocketsmoke")
+  ("coptersmoke","coptersmoke")
+ );
+default("anim","idle");
+default("model","smokegen.def");
+default("scale","1.0");
+}
+Smoke Generator
+*/
+
+/*QUAKED Monster_Sniper (1 0.5 0) (-16 -16 0) (16 16 88)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("idle2","idle2")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("melee4","melee4")
+ );
+default("anim","idle2");
+default("model","sniper.def");
+default("scale","1.0");
+}
+Sniper - Female
+*/
+
+/*QUAKED Ammo_SniperRifle (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","sniper_ammo.def");
+default("scale","1.0");
+}
+Ammo Sniper Rifle
+*/
+
+/*QUAKED weapon_sniperrifle (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("default","default")
+  ("open1","open1")
+  ("putaway1","putaway1")
+ );
+default("anim","idle1");
+default("model","sniperrifle.def");
+default("scale","1.0");
+}
+Sniper Rifle - World Model
+*/
+
+/*QUAKED deskitems_software1 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","software1.def");
+default("scale","1.0");
+}
+Software Item #1
+*/
+
+/*QUAKED deskitems_software3 (1 0.5 0) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","software3.def");
+default("scale","1.0");
+}
+Software Item #3
+*/
+
+/*QUAKED Projectile_Spear (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("fly","fly")
+ );
+default("anim","idle");
+default("model","spear.def");
+default("scale","1.0");
+}
+Spear
+*/
+
+/*QUAKED Ammo_SpearGun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","spear_ammo.def");
+default("scale","1.0");
+}
+Ammo Spear Gun - Pack
+*/
+
+/*QUAKED weapon_speargun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("load1","load1")
+ );
+default("anim","load1");
+default("model","speargun.def");
+default("scale","1.0");
+}
+Speargun - World Model
+*/
+
+/*QUAKED fx_explosion (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Explosion
+*/
+
+/*QUAKED fx_explosion (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Explosion2
+*/
+
+/*QUAKED fx_explosion (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+Explosion3
+*/
+
+/*QUAKED info_splinepath (0 0 0.5) (-8 -8 -8) (8 8 8)
+Script Object Spline Path Node
+"angles" camera will use that orientation
+"loop" set a loop node
+"speed" speed multiplier for this segment, normally each\
+segment will take 1 second to traverse, use 2 for double speed\
+and 0.5 for half speed
+*/
+
+/*QUAKED fx_steamgen (0.3 1 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("steam","steam")
+  ("biosteam","biosteam")
+  ("aban_steam1","aban_steam1")
+  ("chem1_steam1","chem1_steam1")
+  ("jungle_steam1","jungle_steam1")
+ );
+default("anim","idle");
+default("model","steamgen.def");
+default("scale","1.0");
+}
+Steam Generator
+*/
+
+/*QUAKED world_streetlight (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","streetlight.def");
+default("scale","1.0");
+}
+Streetlight
+SPECIAL CASE-Attach extra box around upper portion
+*/
+
+/*QUAKED world_sign_street (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","streetsign.def");
+default("scale","1.0");
+}
+Street Sign-Lamar and McKinney
+SPECIAL CASE-Attach extra box around upper portion
+*/
+
+/*QUAKED weapon_stun (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("fire","fire")
+ );
+default("anim","idle");
+default("model","stun.def");
+default("scale","1.0");
+}
+Stun gun - World Model
+*/
+
+/*QUAKED vehicles_Sub (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+default("model","sub.def");
+default("scale","1.0");
+}
+Sub
+*/
+
+/*QUAKED Neutral_Technician_ChemicalWorker (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("beg1","beg1")
+  ("beg2","beg2")
+  ("begdeath1","begdeath1")
+  ("begdeath2","begdeath2")
+  ("crawl1","crawl1")
+  ("crawlpain1","crawlpain1")
+  ("crawldeath1","crawldeath1")
+  ("crawlbegin1","crawlbegin1")
+  ("crawllowdeath1","crawllowdeath1")
+  ("crawling1","crawling1")
+  ("drive1","drive1")
+  ("hidedrop1","hidedrop1")
+  ("hiding1","hiding1")
+  ("crouch_down","crouch_down")
+  ("hidingdeath1","hidingdeath1")
+  ("hidingdeath2","hidingdeath2")
+  ("hitalarm1","hitalarm1")
+  ("hitalarm2","hitalarm2")
+  ("write1","write1")
+  ("usekeyboard1","usekeyboard1")
+  ("usepanel1","usepanel1")
+  ("hidepain1","hidepain1")
+  ("hidepain2","hidepain2")
+  ("punch1","punch1")
+  ("sit1","sit1")
+  ("sitidle1","sitidle1")
+  ("sittwitch1","sittwitch1")
+  ("sitdeath1","sitdeath1")
+  ("sitpain1","sitpain1")
+  ("sitstand1","sitstand1")
+  ("sneakwalk1","sneakwalk1")
+  ("wpain1","wpain1")
+  ("wpain2","wpain2")
+  ("workcrouch","workcrouch")
+ );
+default("anim","idle1");
+default("model","tech_chem.def");
+default("scale","1.0");
+}
+Technician-Chemical
+*/
+
+/*QUAKED Neutral_Technician_Freeport (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("beg1","beg1")
+  ("beg2","beg2")
+  ("begdeath1","begdeath1")
+  ("begdeath2","begdeath2")
+  ("crawl1","crawl1")
+  ("crawlpain1","crawlpain1")
+  ("crawldeath1","crawldeath1")
+  ("crawlbegin1","crawlbegin1")
+  ("crawllowdeath1","crawllowdeath1")
+  ("crawling1","crawling1")
+  ("drive1","drive1")
+  ("hidedrop1","hidedrop1")
+  ("hiding1","hiding1")
+  ("crouch_down","crouch_down")
+  ("hidingdeath1","hidingdeath1")
+  ("hidingdeath2","hidingdeath2")
+  ("hitalarm1","hitalarm1")
+  ("hitalarm2","hitalarm2")
+  ("write1","write1")
+  ("usekeyboard1","usekeyboard1")
+  ("usepanel1","usepanel1")
+  ("hidepain1","hidepain1")
+  ("hidepain2","hidepain2")
+  ("punch1","punch1")
+  ("sit1","sit1")
+  ("sitidle1","sitidle1")
+  ("sittwitch1","sittwitch1")
+  ("sitdeath1","sitdeath1")
+  ("sitpain1","sitpain1")
+  ("sitstand1","sitstand1")
+  ("sneakwalk1","sneakwalk1")
+  ("wpain1","wpain1")
+  ("wpain2","wpain2")
+ );
+default("anim","idle1");
+default("model","tech_freeport.def");
+default("scale","1.0");
+}
+Technician-Freeport
+*/
+
+/*QUAKED Neutral_Technician_Marine (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("beg1","beg1")
+  ("beg2","beg2")
+  ("begdeath1","begdeath1")
+  ("begdeath2","begdeath2")
+  ("crawl1","crawl1")
+  ("crawlpain1","crawlpain1")
+  ("crawldeath1","crawldeath1")
+  ("crawlbegin1","crawlbegin1")
+  ("crawllowdeath1","crawllowdeath1")
+  ("crawling1","crawling1")
+  ("drive1","drive1")
+  ("hidedrop1","hidedrop1")
+  ("hiding1","hiding1")
+  ("crouch_down","crouch_down")
+  ("hidingdeath1","hidingdeath1")
+  ("hidingdeath2","hidingdeath2")
+  ("hitalarm1","hitalarm1")
+  ("hitalarm2","hitalarm2")
+  ("write1","write1")
+  ("usekeyboard1","usekeyboard1")
+  ("usepanel1","usepanel1")
+  ("hidepain1","hidepain1")
+  ("hidepain2","hidepain2")
+  ("punch1","punch1")
+  ("sit1","sit1")
+  ("sitidle1","sitidle1")
+  ("sittwitch1","sittwitch1")
+  ("sitdeath1","sitdeath1")
+  ("sitpain1","sitpain1")
+  ("sitstand1","sitstand1")
+  ("sneakwalk1","sneakwalk1")
+  ("wpain1","wpain1")
+  ("wpain2","wpain2")
+ );
+default("anim","idle1");
+default("model","tech_marine.def");
+default("scale","1.0");
+}
+Technician-Marine
+*/
+
+/*QUAKED Neutral_Technician_SinTEK (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("beg1","beg1")
+  ("beg2","beg2")
+  ("begdeath1","begdeath1")
+  ("begdeath2","begdeath2")
+  ("crawl1","crawl1")
+  ("crawlpain1","crawlpain1")
+  ("crawldeath1","crawldeath1")
+  ("crawlbegin1","crawlbegin1")
+  ("crawllowdeath1","crawllowdeath1")
+  ("crawling1","crawling1")
+  ("drive1","drive1")
+  ("hidedrop1","hidedrop1")
+  ("hiding1","hiding1")
+  ("crouch_down","crouch_down")
+  ("hidingdeath1","hidingdeath1")
+  ("hidingdeath2","hidingdeath2")
+  ("hitalarm1","hitalarm1")
+  ("hitalarm2","hitalarm2")
+  ("write1","write1")
+  ("usekeyboard1","usekeyboard1")
+  ("usepanel1","usepanel1")
+  ("hidepain1","hidepain1")
+  ("hidepain2","hidepain2")
+  ("punch1","punch1")
+  ("sit1","sit1")
+  ("sitidle1","sitidle1")
+  ("sittwitch1","sittwitch1")
+  ("sitdeath1","sitdeath1")
+  ("sitpain1","sitpain1")
+  ("sitstand1","sitstand1")
+  ("sneakwalk1","sneakwalk1")
+  ("wpain1","wpain1")
+  ("wpain2","wpain2")
+ );
+default("anim","idle1");
+default("model","tech_sintek.def");
+default("scale","1.0");
+}
+Technician-SinTEK
+*/
+
+/*QUAKED deskitems_testtube (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Test Tube-For Labs
+*/
+
+/*QUAKED Boss_ThrallMaster (1 0.5 0) (-64 -64 0) (64 64 256)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("walk","walk")
+  ("run","run")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("melee3","melee3")
+  ("stage1_end","stage1_end")
+  ("readyfire","readyfire")
+  ("fire","fire")
+  ("aim","aim")
+  ("chest_fire","chest_fire")
+  ("chest_readyfire","chest_readyfire")
+  ("chest_aim","chest_aim")
+  ("charge","charge")
+  ("stage2_end","stage2_end")
+ );
+default("anim","idle1");
+default("model","thrall.def");
+default("scale","1.0");
+}
+Thrallmaster
+*/
+
+/*QUAKED Monster_Thug_AssaultRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("jump_left","jump_left")
+  ("jump_right","jump_right")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("manrocket1","manrocket1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("opencan1","opencan1")
+  ("hostage","hostage")
+  ("hostagekill","hostagekill")
+ );
+default("anim","idle1");
+default("model","thug_ass.def");
+default("scale","1.0");
+}
+Thug with Assault Rifle
+*/
+
+/*QUAKED Monster_Thug_4Cinematic (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("use1","use1")
+  ("open1","open1")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("push1","push1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("throw3","throw3")
+ );
+default("anim","idle1");
+default("model","thug_cine.def");
+default("scale","1.0");
+}
+Thug for Cinematic
+*/
+
+/*QUAKED Monster_Thug_Magnum (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("readyfire","readyfire")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("manrocket1","manrocket1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("opencan1","opencan1")
+  ("hostage","hostage")
+  ("hostagekill","hostagekill")
+ );
+default("anim","idle1");
+default("model","thug_mag.def");
+default("scale","1.0");
+}
+Thug with Magnum
+*/
+
+/*QUAKED Monster_Thug_NoWeapon (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("punch1","punch1")
+  ("kick1","kick1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("manrocket1","manrocket1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("opencan1","opencan1")
+  ("hostage","hostage")
+  ("hostagekill","hostagekill")
+ );
+default("anim","idle1");
+default("model","thug_none.def");
+default("scale","1.0");
+}
+Thug with No Weapon
+*/
+
+/*QUAKED Monster_Thug_PulseRifle (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("jump_left","jump_left")
+  ("jump_right","jump_right")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("manrocket1","manrocket1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("opencan1","opencan1")
+  ("hostage","hostage")
+  ("hostagekill","hostagekill")
+ );
+default("anim","idle1");
+default("model","thug_pulse.def");
+default("scale","1.0");
+}
+Thug with Pulse Rifle
+*/
+
+/*QUAKED Monster_Thug_RocketLauncher (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("manrocket1","manrocket1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("opencan1","opencan1")
+  ("hostage","hostage")
+  ("hostagekill","hostagekill")
+ );
+default("anim","idle1");
+default("model","thug_rckt.def");
+default("scale","1.0");
+}
+Thug with Rocket Launcher
+*/
+
+/*QUAKED Monster_Thug_Shotgun (1 0.5 0) (-16 -16 0) (16 16 80)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("aim1","aim1")
+  ("alert","alert")
+  ("idle1","idle1")
+  ("twitch1","twitch1")
+  ("walk1","walk1")
+  ("run1","run1")
+  ("fire1","fire1")
+  ("jump1","jump1")
+  ("land1","land1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("gibdeath_upper","gibdeath_upper")
+  ("gibdeath_lower","gibdeath_lower")
+  ("runfire1","runfire1")
+  ("crouch_down","crouch_down")
+  ("crouch_idle1","crouch_idle1")
+  ("crouch_pain1","crouch_pain1")
+  ("crouch_pain2","crouch_pain2")
+  ("crouch_death1","crouch_death1")
+  ("crouch_death2","crouch_death2")
+  ("crouch_death3","crouch_death3")
+  ("use1","use1")
+  ("open1","open1")
+  ("sitting","sitting")
+  ("repel1","repel1")
+  ("step_left","step_left")
+  ("step_right","step_right")
+  ("talk1","talk1")
+  ("talk2","talk2")
+  ("laugh1","laugh1")
+  ("manrocket1","manrocket1")
+  ("throw1","throw1")
+  ("throw2","throw2")
+  ("push1","push1")
+  ("opencan1","opencan1")
+  ("hostage","hostage")
+  ("hostagekill","hostagekill")
+ );
+default("anim","idle1");
+default("model","thug_shtg.def");
+default("scale","1.0");
+}
+Thug with Shotgun
+*/
+
+/*QUAKED world_toilet (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Toilet
+*/
+
+/*QUAKED items_toolbox (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Toolbox
+*/
+
+/*QUAKED world_torch (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Torch for Fire
+*/
+
+/*QUAKED world_trashcan1 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Trash Can-Round and Metal
+*/
+
+/*QUAKED world_trashcan2 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Trash Can-Square and Plastic
+*/
+
+/*QUAKED world_trashcan3 (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Desk Trash Can-Small and Plastic
+*/
+
+/*QUAKED deskitems_tray (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Small metal lab tray
+*/
+
+/*QUAKED plant_tree (0.1 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Tree
+*/
+
+/*QUAKED Projectile_DrunkMissile (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+ );
+default("anim","idle");
+default("model","trocket.def");
+default("scale","1.0");
+}
+Rocket
+*/
+
+/*QUAKED vehicles_truck (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+{
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","truck.def");
+default("scale","1.0");
+}
+Troop Transport Truck
+*/
+
+/*QUAKED trap_securityturret_base (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("down_idle","down_idle")
+  ("up_idle","up_idle")
+  ("lower","lower")
+  ("raise","raise")
+ );
+default("anim","down_idle");
+default("model","turbase.def");
+default("scale","1.0");
+}
+If targetd, Turret will only be activated when triggered
+*/
+
+/*QUAKED trap_securityturret (1 0.3 0.3) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("fire","fire")
+  ("down_idle","down_idle")
+  ("up_idle","up_idle")
+  ("lower","lower")
+  ("raise","raise")
+ );
+default("anim","fire");
+default("model","turtop.def");
+default("scale","1.0");
+}
+If targeted, Turret will only be activated when triggered
+"wakeupdistance - Distance at which the camgun senses players (Default is 750)
+"firingdistance - Distance at whicht the camgun will fire at a player (Default is 800)
+Make sure that wakeupdistance < firingdistance.
+*/
+
+/*QUAKED Powerup_U4 (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+U4 container
+*/
+
+/*QUAKED inventory_U4Sample (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","u4_sample.def");
+default("scale","1.0");
+}
+U4 Sample
+*/
+
+/*QUAKED Powerup_U4Vial (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("pose","pose")
+ );
+default("anim","idle");
+default("model","u4vial.def");
+default("scale","1.0");
+}
+U4 Injector - 60 second Mutant powerup
+*/
+
+/*QUAKED world_urinal (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Urinal
+*/
+
+/*QUAKED fx_uwshock (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "anim"
+ (
+  ("idle","idle")
+  ("uwshock","uwshock")
+ );
+default("anim","idle");
+default("model","uwshock.def");
+default("scale","1.0");
+}
+Shock effect used in UWPASS
+*/
+
+/*QUAKED vehicles_van (1 0.3 1) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Cool Grue Van
+*/
+
+/*QUAKED Monster_Vultorn (1 0.5 0) (-10 -32 0) (70 32 72)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump","jump")
+  ("land","land")
+  ("eat1","eat1")
+  ("eat2","eat2")
+ );
+default("anim","idle1");
+default("model","vultorn.def");
+default("scale","1.0");
+}
+Vultorn
+*/
+
+/*QUAKED Monster_VultornSmall (1 0.5 0) (-10 -32 0) (30 32 50)
+{
+choice "skin"
+ (
+  ("normal","normal")
+  ("damage","damage")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+  ("run1","run1")
+  ("walk1","walk1")
+  ("melee1","melee1")
+  ("melee2","melee2")
+  ("jump","jump")
+  ("land","land")
+  ("eat1","eat1")
+  ("eat2","eat2")
+ );
+default("anim","idle1");
+default("model","vultorn_small.def");
+default("scale","1.0");
+}
+Vultorn Small
+*/
+
+/*QUAKED world_wirespool (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Wirespool, found at construction sites
+*/
+
+/*QUAKED world_wreckingball (0.3 1 0.3) (-8 -8 -8) (8 8 8) NOT_SOLID NOT_DAMAGABLE
+Wrecking Ball.
+*/
+
+/*QUAKED weapon_wrench (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle1","idle1")
+ );
+default("anim","idle1");
+default("model","wrench.def");
+default("scale","1.0");
+}
+Wrench - Large and Mean
+*/
+
+/*QUAKED Innocent_XenoBody (0.3 0.3 1) (-8 -8 -8) (8 8 8)
+{
+choice "skin"
+ (
+  ("normal","normal")
+ );
+choice "anim"
+ (
+  ("idle","idle")
+  ("hang","hang")
+  ("laydown","laydown")
+ );
+default("anim","idle");
+default("model","xeno_body.def");
+default("scale","1.0");
+}
+Xeno Body
+*/
+
+/*QUAKED info_monster_spawnspot (1 0 0) (-16 -16 0) (16 16 64)
+
+Potential spawn location for a monster.
+
+"spawngroup" - the name of the group of spawn spots that this one belongs to.
+Monsters use spawngroup to choose which spawn spots to spawn at.
+
+"angle"  - the orientation for the monster to spawn in.
+"angles" - the full ( x, y, z ) orientation for the monster to spawn in.
+"anim"  - the animation that the monster should use when spawning here.
+*/
+
+/*QUAKED func_areaportal (0 0 0) ?
+
+This is a non-visible object that divides the world into
+areas that are seperated when this portal is not activated.
+Usually enclosed in the middle of a door.
+*/
+
+/*QUAKED func_box (0 0.5 0.8) ?
+
+  Explodable box that falls when boxes below it are destroyed.  
+"items" - List of classnames to spawn when the box is destroyed.  Separate
+each classname by spaces (E.g. Adrenaline RocketLauncher).  Default is NULL.
+"angles" - Orientation of the item that is spawned.
+"health" - Health of the box ( default is 60 )
+*/
+
+/*QUAKED func_camera (1 0 0) ? ORBIT START_ON PAN
+
+Camera used for cinematic sequences.  Start
+
+"target" points to the target to orbit or follow.  If it points to a path, the camera will follow the path.
+"distance" the distance to follow or orbit if the target is not a path. (default 128).
+"speed" specifies how fast to move on the path or orbit.  (default 1).
+"fov" specifies fov of camera, default 90.
+"yaw" specifies yaw of camera, default 0.
+"height" specifies height of camera from origin, default 128.
+"panspeed" speed at which to pan ( 7 degrees per second )
+"panmax" maximum angle offset for panning ( 45 degrees )
+"nextcamera" a link to the next camera in a chain of cameras
+"overlay" an overlay to use while looking through the camera
+"thread" a thread label that will be fired when the camera is looked through
+
+ORBIT tells the camera to create a circular path around the object it points to.  It the camera points to a path, it will loop when it gets to the end of the path.
+START_ON causes the camera to be moving as soon as it is spawned.
+PAN camera should pan from right to left
+*/
+
+/*QUAKED console (0 0.5 0.8) ? NOUSE SCROLL MENU NOPVS
+  consolename (required)
+  virtualwidth
+  virtualheight
+  fraction
+  rows
+  cols
+  menufile
+  scroll
+  menu
+*/
+
+/*QUAKED func_rotatingdoor (0 0.5 0.8) ? START_OPEN OPEN_DIRECTION DOOR_DONT_LINK NOT_PLAYERS NOT_MONSTERS TOGGLE AUTO_OPEN TARGETED
+if two doors touch, they are assumed to be connected and operate as a unit.
+
+TOGGLE causes the door to wait in both the start and end states for a trigger event.
+DOOR_DONT_LINK is for when you have two doors that are touching but you want to operate independently.
+
+START_OPEN causes the door to move to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not usefull for touch or takedamage doors).
+OPEN_DIRECTION indicates which direction to open when START_OPEN is set.
+AUTO_OPEN causes the door to open when a player is near instead of waiting for the player to use the door.
+TARGETED door is only operational from triggers or script
+
+"message"		is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"openangle"    how wide to open the door
+"angle"			determines the opening direction.  point toward the middle of the door (away from the hinge)
+"targetname"	if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"			if set, door must be shot open
+"time"			move time (0.3 default)
+"wait"			wait before returning (3 default, -1 = never return)
+"dmg"				damage to inflict when blocked (0 default)
+"key"          The item needed to open this door (default nothing)
+
+"sound_stop"		Specify the sound that plays when the door stops moving (default global door_stop)
+"sound_move"		Specify the sound that plays when the door opens or closes (default global door_moving)
+"sound_message"	Specify the sound that plays when the door displays a message
+"sound_locked"	   Specify the sound that plays when the door is locked
+*/
+
+/*QUAKED func_door (0 0.5 0.8) ? START_OPEN x DOOR_DONT_LINK NOT_PLAYERS NOT_MONSTERS TOGGLE AUTO_OPEN TARGETED
+if two doors touch, they are assumed to be connected and operate as a unit.
+
+TOGGLE causes the door to wait in both the start and end states for a trigger event.
+DOOR_DONT_LINK is for when you have two doors that are touching but you want to operate independently.
+
+START_OPEN causes the door to move to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not usefull for touch or takedamage doors).
+OPEN_DIRECTION indicates which direction to open when START_OPEN is set.
+AUTO_OPEN causes the door to open when a player is near instead of waiting for the player to use the door.
+TARGETED door is only operational from triggers or script
+
+"message"		is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"angle"			determines the opening direction.  point toward the middle of the door (away from the hinge)
+"targetname"	if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"			if set, door must be shot open
+"speed"			move speed (100 default)
+"time"			move time (1/speed default, overides speed)
+"wait"			wait before returning (3 default, -1 = never return)
+"lip"				lip remaining at end of move (8 default)
+"dmg"				damage to inflict when blocked (0 default)
+"key"          The item needed to open this door (default nothing)
+
+"sound_stop"		Specify the sound that plays when the door stops moving (default global door_stop)
+"sound_move"		Specify the sound that plays when the door opens or closes (default global door_moving)
+"sound_message"	Specify the sound that plays when the door displays a message
+"sound_locked"	   Specify the sound that plays when the door is locked
+*/
+
+/*QUAKED func_scriptdoor (0 0.5 0.8) ? START_OPEN x DOOR_DONT_LINK NOT_PLAYERS NOT_MONSTERS TOGGLE AUTO_OPEN TARGETED
+if two doors touch, they are assumed to be connected and operate as a unit.
+
+TOGGLE causes the door to wait in both the start and end states for a trigger event.
+DOOR_DONT_LINK is for when you have two doors that are touching but you want to operate independently.
+
+START_OPEN causes the door to move to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not usefull for touch or takedamage doors).
+OPEN_DIRECTION indicates which direction to open when START_OPEN is set.
+AUTO_OPEN causes the door to open when a player is near instead of waiting for the player to use the door.
+TARGETED door is only operational from triggers or script
+
+"message"		is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"angle"			determines the opening direction.  point toward the middle of the door (away from the hinge)
+"targetname"	if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"			if set, door must be shot open
+"speed"			move speed (100 default)
+"time"			move time (1/speed default, overides speed)
+"wait"			wait before returning (3 default, -1 = never return)
+"dmg"				damage to inflict when blocked (0 default)
+"key"          The item needed to open this door (default nothing)
+"initthread"   code to execute to setup the door (optional)
+"openthread"   code to execute when opening the door (required)
+"closethread"  code to execute when closing the door (required)
+
+"sound_stop"		Specify the sound that plays when the door stops moving (default global door_stop)
+"sound_move"		Specify the sound that plays when the door opens or closes (default global door_moving)
+"sound_message"	Specify the sound that plays when the door displays a message
+"sound_locked"	   Specify the sound that plays when the door is locked
+*/
+
+/*QUAKED func_earthquake (0.5 0.5 0.8) (-8 -8 -8) (8 8 8)
+ Causes an earthquake
+"duration" is the duration of the earthquake.  Default is 0.8 seconds.
+*/
+
+/*QUAKED func_exploder (0.4 0 0) (0 0 0) (8 8 8) x x x BIG_EXPLOSION
+
+  Spawns an explosion when triggered.  Triggers any targets.
+
+  "dmg" specifies how much damage to cause. Default indicates 120.
+  "volume" volume at which to play explosions (default 1.0)
+  "attenuation" attenuation for explosions (default normal)
+  "key" The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED func_multi_exploder (0.4 0 0) ? x RANDOM_TIME RANDOM_SCALE BIG_EXPLOSION
+
+  Spawns an explosion when triggered.  Triggers any targets.
+  size of brush determines where explosions will occur.
+
+  "dmg" specifies how much damage to cause from each explosion. (Default 120)
+  "delay" delay before exploding (Default 0 seconds)
+  "duration" how long to explode for (Default 1 second)
+  "wait" time between each explosion (default 0.25 seconds)
+  "volume" volume to play explosion sound at (default 0.5)
+  "attenuation" attenuation for explosions (default normal)
+  "random" random factor (default 0.25)
+  "key" The item needed to activate this. (default nothing)
+
+  RANDOM_TIME adjusts the wait between each explosion by the random factor
+  RANDOM_SCALE adjusts the size of each explosion by the random factor
+*/
+
+/*QUAKED info_grav_pathnode (0 0 0.5) (-16 -16 0) (16 16 32) HEADNODE FORCE
+ "radius" Radius of the effect of the pull (Default is 256)
+ "speed"  Speed of the pull (Use negative for a repulsion) (Default is 100)
+
+  Set HEADNODE to signify the head of the path.
+  Set FORCE if you want un-fightable gravity ( i.e. can't go backwards )
+*/
+
+/*QUAKED inventory_genericpulsepart (0.3 1 0.3) (-8 -8 0) (8 8 16) NOT_SOLID NOT_DAMAGABLE
+Pulse Weapon Part - Will always spawn as the next piece that the user needs
+to complete the weapon.  When the user picks up 3 of these, they will get the PulseRifle
+*/
+
+/*QUAKED func_launcher (0 1 0) ?
+Creates an object that launches projectiles. 
+
+"projectile" Sets the projectile that you want to launch (Examples: Rocket, Spear, etc...)
+"launchsound" Sets the launching sound.
+*/
+
+/*QUAKED lensflare (0 1 0) (-8 -8 -8) (8 8 8)
+   
+"color"      (r g b) 3 values between 0 and 1.0 (Default is 1.0 1.0 1.0)
+"light"      If set,make the flare emit a dynamic light. (Default is not set)
+"radius"     Radius of the dynamic light (Default is 200) 
+"scale"      Factor to scale the lensflare (Default is 0.5)
+"sprite"     Sprite model to use for the flare (Default is sprites/glow.spr")
+"lightstyle" Lightstyle of the lensflare (Default is none)
+*/
+
+/*QUAKED light_ramp (0 0.5 0.8) (-8 -8 -8) (8 8 8) TOGGLE
+
+Non-displayed light that ramps its intensity from one level to another when trigger.
+
+time			How many seconds the ramping will take (default 1.0)
+startlevel	Value between 0 and 2.0 (default 0)
+endlevel		Value between 0 and 2.0 (default 1.0)
+"key"       The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED trigger_lightramp (0 1 0) (-8 -8 -8) (8 8 8) TOGGLE
+
+Ramps light values on surface based light sources.
+Set style to the identifier contained in groupname in the surfaces to control.
+
+time			How many seconds the ramping will take (default 1.0)
+startlevel	Value between 0 and 2.0 (default 0)
+endlevel		Value between 0 and 2.0 (default 1.0)
+"key"       The item needed to activate this. (default nothing)
+
+Default style is 0.
+*/
+
+/*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) START_OFF
+
+Non-displayed light.
+
+Default light value is 300.
+Default style is 0.
+
+If targeted, will toggle between on and off.
+Default _cone value is 10 (used to set size of light for spotlights)
+"on_style" light style to set to when "on" (default is "m")
+"off_style" light style to set to when "off" (default is "a")
+"key"      The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED trigger_SetLightStyle (0 1 0) (-8 -8 -8) (8 8 8) START_OFF
+
+Used for controlling surface based light sources.
+
+Set style to the identifier contained in groupname in the surfaces to control.
+
+Default style is 0.
+
+If targeted, will toggle between on and off.
+
+"on_style" light style to set to when "on" (default is "m")
+"off_style" light style to set to when "off" (default is "a")
+"key"      The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED func_group (0 0 0) ?
+
+Used to group brushes together just for editor convenience.
+*/
+
+/*QUAKED func_remove (0 0.5 0) ?
+
+Used for lighting and such
+*/
+
+/*QUAKED info_null (0 0.5 0) (-4 -4 -4) (4 4 4)
+
+Used as a positional target for spotlights, etc.
+*/
+
+/*QUAKED info_notnull (0 0.5 0) (-4 -4 -4) (4 4 4)
+
+Used as a positional target for lightning.
+*/
+
+/*QUAKED func_electrocute (0 0.5 0.8) ?
+"radius" - range of the effect (Default is 500)
+"key"    The item needed to activate this. (default nothing)
+  Electrocutes everything it can see if it is in the water
+*/
+
+/*QUAKED func_spawn (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+"modelname" The name of the .def file you wish to spawn. (Required)
+"spawntargetname" This will be the targetname of the spawned model. (default is null)
+"key"       The item needed to activate this. (default nothing)
+"attackmode" Attacking mode of the spawned actor (default 0)
+*/
+
+/*QUAKED func_respawn (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+When the thing that is spawned is killed, this func_respawn will get 
+triggered.
+"modelname"   The name of the .def file you wish to spawn. (Required)
+"spawntargetname" This will be the targetname of the spawned model. (default is null)
+"key"         The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED func_spawnoutofsight (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+Will only spawn something out of sight of its targets.
+"modelname"   The name of the .def file you wish to spawn. (Required)
+"spawntargetname" This will be the targetname of the spawned model. (default is null)
+"key"         The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED func_spawnchain (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+Tries to spawn something out of the sight of players.  If it fails, it will
+trigger its targets. 
+"modelname"   The name of the .def file you wish to spawn. (Required)
+"spawntargetname" This will be the targetname of the spawned model. (default is null)
+"key"         The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED func_wall (0 0.5 0.8) ?
+
+This is just a solid wall if not inhibitted
+*/
+
+/*QUAKED func_illusionary (0 0.5 0.8) ?
+
+A simple entity that looks solid but lets you walk through it.
+*/
+
+/*QUAKED func_breakawaywall (0 0.5 0.8) ? x x NOT_PLAYERS MONSTERS PROJECTILES
+
+Special walltype that removes itself when triggered.  Will also trigger
+any func_areaportals that it targets.
+
+"key"          The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED func_explodingwall (0 0.5 0.8) ? RANDOMANGLES LANDSHATTER NOT_PLAYERS MONSTERS PROJECTILES INVISIBLE ACCUMALATIVE TWOSTAGE
+
+Blows up on activation or when attacked
+
+"explosions"   number of explosions to spawn ( default 1 )
+"land_angles"  The angles you want this piece to\
+               orient to when it lands on the ground
+"land_radius"  The distance of the ground the piece\
+               should be when on the ground ( default 0 )
+"anglespeed"   Speed at which pieces rotate ( default 100 ) \
+               if RANDOMANGLES ( default is 600 )
+"key"          The item needed to activate this. (default nothing)
+
+IF RANDOMANGLES is set, object randomly spins while in the air.
+IF LANDSHATTER is set, object shatters when it hits the ground.
+IF TWOSTAGE is set, object can be shattered once it lands on the ground.
+IF ACCUMALATIVE is set, damage is accumlative not threshold
+IF INVISIBLE is set, these are invisible and not solid until triggered
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED detail (0.5 0 1) ?
+
+Used to fake details before the Quake 2 merge.
+*/
+
+/*QUAKED misc_oxygen (1 0 0) ? VISIBLE
+
+Touching this entity will reset the drowning time - only
+responds to players.
+
+"key" The item needed to activate this. (default nothing)
+*/
+
+/*QUAKED misc_teleporter (1 0 0) ? VISIBLE x NOT_PLAYERS NOT_MONSTERS NOT_PROJECTILES
+
+Touching this entity will teleport players to the targeted object.
+
+"key" The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the teleporter does not teleport players
+If NOT_MONSTERS is set, the teleporter does not teleport monsters
+If NOT_PROJECTILES is set, the teleporter does not teleport projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED misc_teleporter_dest (1 0 0) (-32 -32 0) (32 32 8)
+
+Point teleporters at these.
+*/
+
+/*QUAKED waypoint (0 0.5 0) (-8 -8 -8) (8 8 8)
+
+Used as a positioning device for objects
+*/
+
+/*QUAKED func_shatter (0 0.5 0.8) ? x x NOT_PLAYERS NOT_MONSTERS NOT_PROJECTILES HURT_SHATTER THRESHOLD
+
+For shattering objects.  Triggers only when a threshold of damage is exceeded.
+Will also trigger any targeted func_areaportals when not invisible.
+
+"health" specifies how much damage must occur before trigger fires.  Default is 20.
+"percentage" specifies how much of the thing to shatter. Default is 50
+"minsize" specifies minsize for tesselation, default based off size
+"maxsize" specifies maxsize for tesselation, default based off size
+"thickness" specifies thickness for tesselation, default same as minsize
+"key"     The item needed to activate this. (default nothing)
+"noise" sound to play when shattered, defaults to nothing
+
+HURT_SHATTER - when the thing gets hurt, spawn pieces of itself
+THRESHOLD - damage threshold behavior
+
+If NOT_PLAYERS is set, the trigger does not respond to damage caused by players
+If NOT_MONSTERS is set, the trigger does not respond to damage caused by monsters
+If NOT_PROJECTILES is set, the trigger does not respond to damage caused by projectiles
+*/
+
+/*QUAKED func_glass (0 0.5 0.8) ? x x NOT_PLAYERS NOT_MONSTERS NOT_PROJECTILES HURT_SHATTER THRESHOLD
+
+For glass objects.  Shatters when the accumulated damage is exceeded, or when activated
+
+"health" specifies how much damage must occur before the glass shatters.  Default is 60.
+"percentage" specifies how much of the thing to shatter. Default is 50
+"minsize" specifies minsize for tesselation, default based off size
+"maxsize" specifies maxsize for tesselation, default based off size
+"thickness" specifies thickness for tesselation, default same as minsize
+"key"     The item needed to activate this. (default nothing)
+"noise" sound to play when shattered, defaults to glass breaking
+
+If NOT_PLAYERS is set, the trigger does not respond to events caused by players
+If NOT_MONSTERS is set, the trigger does not respond to events caused by monsters
+If NOT_PROJECTILES is set, the trigger does not respond to events caused by projectiles
+*/
+
+/*QUAKED func_clipbox (0 0.5 0.8) (-16 -16 -16) (16 16 16)
+
+Invisible bounding box used like a clip brush.  This is mainly used for blocking
+off areas or improving clipping without having to recompile the map.  Because of
+this, it will most likely only be spawned via script.
+age is exceeded, or when activated
+
+"mins" min point of the clip.
+"maxs" max point of the clip.
+"type" -
+0 Monster and Player clip
+1 Monster clip
+2 Player clip
+*/
+
+/*QUAKED info_pathnode (1 0 0) (-24 -24 0) (24 24 32) FLEE DUCK COVER DOOR JUMP LADDER
+
+FLEE marks the node as a safe place to flee to.  Actor will be removed when it reaches a flee node and is not visible to a player.
+
+DUCK marks the node as a good place to duck behind during weapon fire.
+
+COVER marks the node as a good place to hide behind during weapon fire.
+
+DOOR marks the node as a door node.  If an adjacent node has DOOR marked as well, the actor will only use the path if the door in between them is unlocked.
+
+JUMP marks the node as one to jump from when going to the node specified by target.
+"target" the pathnode to jump to.
+*/
+
+/*QUAKED func_throwobject (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+
+This is an object you can pickup and throw at people
+*/
+
+/*QUAKED info_player_start (1 0 0) (-16 -16 0) (16 16 64)
+
+The normal starting point for a level.
+*/
+
+/*QUAKED info_player_progressivestart (1 0 0) (-16 -16 0) (16 16 64)
+
+Starting point for a level.  When triggered, sets next spawnpoint to itself.
+Used for respawn point in Sin Arcade.  This must have a targetname for it to work.
+
+"starthere" set to 1 to make this the default spawnpoint.  (Note: multiple progressive
+starts with starthere set will override each other).
+*/
+
+/*QUAKED info_player_deathmatch (1 0 1) (-16 -16 0) (16 16 64)
+
+potential spawning position for deathmatch games
+*/
+
+/*QUAKED info_player_coop (1 0 1) (-16 -16 0) (16 16 64)
+
+potential spawning position for coop games
+*/
+
+/*QUAKED info_player_intermission (1 0 1) (-16 -16 0) (16 16 64)
+
+viewing point in between deathmatch levels
+*/
+
+/*QUAKED misc_medkit (1 0.2 0.2) (-8 -8 -8) (8 8 8)
+Heals whoever uses it to their max health.
+*/
+
+/*QUAKED func_scriptobject (0 0.5 0.8) ? NOT_SOLID
+*/
+
+/*QUAKED func_scriptmodel (0 0.5 0.8) (-8 -8 -8) (8 8 8) NOT_SOLID
+*/
+
+/*QUAKED func_scriptorigin (0 0.5 0.8) (-8 -8 -8) (8 8 8)
+
+Used as an alternate origin for objects.  Bind the object to the func_scriptorigin
+in order to simulate changing that object's origin.
+*/
+
+/*QUAKED func_volumetric (0 0.5 0.8) ?
+
+Use this to make non-solid volumes.  You still need to set up the surface
+properties with the "add" flag.
+*/
+
+/*QUAKED func_shield (0 0 0.5) (-8 -8 -8) (8 8 8)
+ "health" Health of the shield (Default is 100)
+ "hitalpha" Alpha when the shield is hit or touched
+ "clearalpha" Alpha when the shield is not hit or touched
+*/
+
+/*QUAKED func_beam (0 0.8 0.5) (-8 -8 -8) (8 8 8) START_ON ANIMATE FAST ROLL RANDSTART ELECTRIC RANDALPHA
+
+This creates a beam effect from the origin to the target's origin. If no
+target is specified, uses angles and projects beam out from there.
+
+"model" Specifies the model to use as the beam
+"overlap" Specifies the amount of overlap each beam link should have. Use this to fill 
+in the cracks when using electric on beams. (Default is 0)
+"minoffset" Amount of electrical variation at the endpoints of beam (Default is 5)
+"maxoffset" Amount of electrical variation in the middle of beam (Default is 25)
+"color" Vector specifiying the red,green, and blue components. (Default is "1 1 1")
+"alpha" Alpha of the beam (Default is 1.0)
+"damage" Amount of damage the beam inflicts if beam hits someone (Default is 0)
+"angles" Sets the angle of the beam if no target is specified. 
+"life" Deactivates the beam life seconds after the beam is activated.  If not set, beam
+will not be deactivated.
+"beamstyle" Sets the style for this beam to cycle through.  This applies only
+to beams without models. sample styles (121 blood, 120 gunsmoke, 123 orangeglow, 124 blueyellow, 
+125 debris trail, 128 oil, 129 waterspray 130 blue-yellow-blue) See global0.scr for 
+more style numbers
+
+START_ON  - Starts the beam on
+ANIMATE   - Plays animation of the model
+FAST      - Plays the animation at 20 frames/sec
+ROLL      - Rolls the beam
+RANDSTART - Starts each segment of the beam's animation on a different frame
+ELECTRIC  - Applies a random electric efffect to the beam
+RANDALPHA - Randomly generate the alpha for the beam
+
+If the model field is not set, then a straight beam will be created using the color
+specified. color, minoffset, maxoffset ,ANIMATE, FAST, ROLL, RANDSTART, 
+ELECTRIC, and RANDALPHA are not applicable if the model is not set.
+*/
+
+/*QUAKED fx_fire (0 0.8 0.5) (-8 -8 -8) (8 8 8) SINGLE STAR PARALLEL
+
+This creates a fire sprite, it defaults to the cross shape
+
+SINGLE - Only one sprite orientated
+STAR - 4 sprites in a star shape
+
+If you want flickering
+
+Set style to the identifier contained in groupname in the surfaces to control.
+
+"on_style" light style to set to when "on" (default is a flicker)
+"off_style" light style to set to when "off" (default is "a")
+*/
+
+/*QUAKED trigger_multiple (0.5 0.5 0.5) ? x x NOT_PLAYERS MONSTERS PROJECTILES
+
+Variable sized repeatable trigger.  Must be targeted at one or more entities.
+
+If "health" is set, the trigger must be killed to activate each time.
+If "delay" is set, the trigger waits some time after activating before firing.
+
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+"wait" : Seconds between triggerings. (.2 default)
+"cnt" how many times it can be triggered (infinite default)
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+
+set "message" to text string
+*/
+
+/*QUAKED trigger_once (0.5 0.5 0.5) ? notouch x NOT_PLAYERS MONSTERS PROJECTILES
+
+Variable sized trigger. Triggers once, then removes itself.  
+You must set the key "target" to the name of another object in the 
+level that has a matching 
+
+If "health" is set, the trigger must be killed to activate it.
+If "delay" is set, the trigger waits some time after activating before firing.
+
+"targetname".  If "health" is set, the trigger must be killed to activate.
+
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+if "killtarget" is set, any objects that have a matching "target" will be
+removed when the trigger is fired.
+
+if "angle" is set, the trigger will only fire when someone is facing the 
+direction of the angle.  Use "360" for an angle of 0.
+
+"key" The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+
+set "message" to text string
+*/
+
+/*QUAKED trigger_relay (0.5 0.5 0.5) (-8 -8 -8) (8 8 8) x x NOT_PLAYERS MONSTERS PROJECTILES
+
+This fixed size trigger cannot be touched, it can only be fired by other events.
+It can contain killtargets, targets, delays, and messages.
+
+If NOT_PLAYERS is set, the trigger does not respond to events triggered by players
+If MONSTERS is set, the trigger will respond to events triggered by monsters
+If PROJECTILES is set, the trigger will respond to events triggered by projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_damagethreshold (0 0.5 0.8) ? x INVISIBLE NOT_PLAYERS MONSTERS ACCUMULATIVE
+
+Triggers only when a threshold of damage is exceeded.
+When used in conjunction with func_breakawaywall, allows
+walls that may be destroyed with a rocket blast.  Will also trigger
+any targeted func_areaportals when not invisible.
+
+INVISIBLE tells the trigger to not be visible.
+
+"health" specifies how much damage must occur before trigger fires.
+Default is 60.
+
+"cnt" specifies how many times the trigger can fire before it will remove itself.
+-1 sepecies infinite firing.  Default is 1.
+
+"key" The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the trigger does not respond to damage caused by players
+If MONSTERS is set, the trigger will respond to damage caused by monsters
+*/
+
+/*QUAKED trigger_secret (0.5 0.5 0.5) ? notouch x NOT_PLAYERS MONSTERS PROJECTILES
+Secret counter trigger.  Automatically sets and increments script variables \
+level.total_secrets and level.found_secrets.
+
+set "message" to text string
+
+"key" The item needed to activate this. (default nothing)
+
+"thread" name of thread to trigger.  This can be in a different script file as well \
+by using the '::' notation.  (defaults to "global/universal_script.scr::secret")
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_push (0.5 0.5 0.5) ? x x NOT_PLAYERS NOT_MONSTERS NOT_PROJECTILES
+
+Pushes entities as if they were caught in a heavy wind.
+
+"speed" indicates the rate that entities are pushed (default 1000).
+
+"angle" indicates the direction the wind is blowing (-1 is up, -2 is down)
+
+"key" The item needed to activate this. (default nothing)
+
+"target" if target is set, then a velocity will be calculated based on speed
+
+If NOT_PLAYERS is set, the trigger does not push players
+If NOT_MONSTERS is set, the trigger will not push monsters
+If NOT_PROJECTILES is set, the trigger will not push projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_pushany (0.5 0.5 0.5) ? x x NOT_PLAYERS NOT_MONSTERS NOT_PROJECTILES
+
+Pushes entities as if they were caught in a heavy wind.
+
+"speed" indicates the rate that entities are pushed (default 1000).
+"angles" indicates the direction of the push
+"key" The item needed to activate this. (default nothing)
+"target" if target is set, then a velocity will be calculated based on speed
+
+If NOT_PLAYERS is set, the trigger does not push players
+If NOT_MONSTERS is set, the trigger will not push monsters
+If NOT_PROJECTILES is set, the trigger will not push projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED play_sound_triggered (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) AMBIENT-ON RELIABLE NOT_PLAYERS MONSTERS PROJECTILES AMBIENT-OFF x TOGGLE
+
+DO NOT USE, USE TRIGGER_SPEAKER INSTEAD
+
+play a sound when it is used
+
+AMBIENT-ON specifies an ambient sound that starts on
+RELIABLE should only be set for crucial voice-overs or sounds
+AMBIENT-OFF specifies an ambient sound that starts off
+
+if (AMBIENT-?) is not set, then the sound is sent over explicitly this creates more net traffic
+
+"volume" how loud 0-4 (1 default full volume, ambients do not respond to volume)
+"noise" sound to play
+"channel" channel on which to play sound (0-7) (2 (voice) is default)
+"attenuation" attenuation factor (0 becomes 1 for non-ambients, 2 for ambients)
+   -1 - none, send to whole level
+    0 - default (normal or ambient)
+    1 - normal fighting sounds
+    2 - idle monster sounds
+    3 - ambient sounds
+"key"          The item needed to activate this. (default nothing)
+
+Normal sounds play each time the target is used.
+
+Ambient Looped sounds have an attenuation of 2 by default, volume 1, and the use function toggles it on/off.
+Multiple identical ambient looping sounds will just increase volume without any speed cost.
+The attenuation factor can be over-ridden by specifying an attenuation factor.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_speaker (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) AMBIENT-ON RELIABLE NOT_PLAYERS MONSTERS PROJECTILES AMBIENT-OFF x TOGGLE
+
+play a sound when it is used
+
+AMBIENT-ON specifies an ambient sound that starts on
+RELIABLE should only be set for crucial voice-overs or sounds
+AMBIENT-OFF specifies an ambient sound that starts off
+
+if (AMBIENT-?) is not set, then the sound is sent over explicitly this creates more net traffic
+
+"volume" how loud 0-4 (1 default full volume, ambients do not respond to volume)
+"noise" sound to play
+"channel" channel on which to play sound (0 auto, 1 weapon, 2 voice, 3 item, 4 body, 8 don't use PHS) (voice is default)
+"pitch" the pitch of the sample ( default 1, no pitch-shift )
+"fadetime" fade the sound in over a time period in seconds ( default 0, no fade )
+"timeofs" start time offset in milli-seconds into this sound ( default 0, no timeofs )
+"attenuation" attenuation factor (0 becomes 1 for non-ambients, 2 for ambients)
+   -1 - none, send to whole level
+    0 - default (normal or ambient)
+    1 - normal fighting sounds
+    2 - idle monster sounds
+    3 - ambient sounds
+"key"          The item needed to activate this. (default nothing)
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+Normal sounds play each time the target is used.
+
+Ambient Looped sounds have an attenuation of 2 by default, volume 1, and the use function toggles it on/off.
+Multiple identical ambient looping sounds will just increase volume without any speed cost.
+The attenuation factor can be over-ridden by specifying an attenuation factor.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_randomspeaker (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) x RELIABLE NOT_PLAYERS MONSTERS PROJECTILES x x
+
+play a sound at random times
+
+RELIABLE should only be set for crucial voice-overs or sounds
+
+"mindelay" minimum delay between sound triggers (default 3)
+"maxdelay" maximum delay between sound triggers (default 10)
+"volume" how loud 0-4 (1 default full volume)
+"noise" sound to play
+"channel" channel on which to play sound (0 auto, 1 weapon, 2 voice, 3 item, 4 body, 8 don't use PHS) (voice is default)
+"pitch" the pitch of the sample ( default 1, no pitch-shift )
+"fadetime" fade the sound in over a time period in seconds ( default 0, no fade )
+"timeofs" start time offset in milli-seconds into this sound ( default 0, no timeofs )
+"attenuation" attenuation factor
+   -1 - none, send to whole level
+    0 - default (normal)
+    1 - normal fighting sounds
+    2 - idle monster sounds
+    3 - ambient sounds
+"key"          The item needed to activate this. (default nothing)
+
+Normal sounds play each time the target is used.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_changelevel (0.5 0.5 0.5) ? NO_INTERMISSION x NOT_PLAYERS MONSTERS PROJECTILES
+
+When the player touches this, he gets sent to the map listed in the "map" variable.
+Unless the NO_INTERMISSION flag is set, the view will go to the info_intermission
+spot and display stats.
+
+"spawnspot"  name of the spawn location to start at in next map.
+"key"          The item needed to activate this. (default nothing)
+"thread" This defaults to "LevelComplete" and should point to a thread that is called just
+before the level ends.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_use (0.5 0.5 0.5) ? VISIBLE x NOT_PLAYERS MONSTERS
+
+Activates targets when 'used' by an entity
+"key"          The item needed to activate this. (default nothing)
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+*/
+
+/*QUAKED trigger_useonce (0.5 0.5 0.5) ? VISIBLE x NOT_PLAYERS MONSTERS
+
+Activates targets when 'used' by an entity, but only once
+"key"          The item needed to activate this. (default nothing)
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+*/
+
+/*QUAKED trigger_hurt (0.5 0.5 0.5) ? x x NOT_PLAYERS NOT_MONSTERS PROJECTILES
+
+"damage" amount of damage to cause. (default 10)
+"key"          The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the trigger does not hurt players
+If NOT_MONSTERS is set, the trigger does not hurt monsters
+If PROJECTILES is set, the trigger will hurt projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_damagetargets (0.5 0.5 0.5) ? SOLID x NOT_PLAYERS NOT_MONSTERS PROJECTILES
+
+"damage" amount of damage to cause. If no damage is specified, objects\
+are damaged by the current health+1
+
+"key"          The item needed to activate this. (default nothing)
+
+if a trigger_damagetargets is shot at and the SOLID flag is set,\
+the damage is passed on to the targets
+
+If NOT_PLAYERS is set, the trigger does not hurt players
+If NOT_MONSTERS is set, the trigger does not hurt monsters
+If PROJECTILES is set, the trigger will hurt projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_damagetargetsfixed (0.5 0.5 0.5) (-8 -8 -8) (8 8 8) SOLID x NOT_PLAYERS NOT_MONSTERS PROJECTILES
+
+"damage" amount of damage to cause. If no damage is specified, objects\
+are damaged by the current health+1
+
+"key"          The item needed to activate this. (default nothing)
+
+if a trigger_damagetargetsfixed is shot at and the SOLID flag is set,\
+the damage is passed on to the targets
+
+If NOT_PLAYERS is set, the trigger does not hurt players
+If NOT_MONSTERS is set, the trigger does not hurt monsters
+If PROJECTILES is set, the trigger will hurt projectiles (rockets, grenades, etc.)
+*/
+
+/*QUAKED trigger_particles (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) x NOSOUND NOT_PLAYERS MONSTERS PROJECTILES RANDSTYLE BRIGHT
+
+spawn some particles when triggered
+
+"count" number of particles to spawn ( default 10 )
+"noise" sound to play when triggered ( defaults to random spark sounds )
+"angles" specifies direction to spawn particles
+"key"   The item needed to activate this. (default nothing)
+"particlestyle" style of particles ( default 122 (sparks) )
+sample styles (121 blood, 120 gunsmoke, 123 orangeglow, 124 blueyellow, 125 debris trail, 128 oil, 129 waterspray)
+
+If NOSOUND is set, no sound will be played
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+If RANDSTYLE is set, the particles will be set to random colors in the particlestyle
+if BRIGHT is set, particles will be drawn extra bright
+*/
+
+/*QUAKED trigger_randomparticles (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) START_ON NOSOUND NOT_PLAYERS MONSTERS PROJECTILES RANDSTYLE BRIGHT
+
+START_ON start the effect on
+
+spawn some particles randomly
+triggering the object 
+
+"count" number of particles to spawn ( default 10 )
+"noise" sound to play when triggered ( default none )
+"mindelay" minimum delay between particle triggers (default 3)
+"maxdelay" maximum delay between particle triggers (default 10)
+"key"      The item needed to activate this. (default nothing)
+"particlestyle" style of particles ( default 122 (sparks) )
+sample styles (121 blood, 120 gunsmoke, 123 orangeglow, 124 blueyellow, 125 debris trail )
+
+If NOSOUND is set, no sound will be played
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+If RANDSTYLE is set, the particles will be set to random colors in the particlestyle
+if BRIGHT is set, particles will be drawn extra bright
+*/
+
+/*QUAKED trigger_thread (0.5 0.5 0.5) ? notouch x NOT_PLAYERS MONSTERS PROJECTILES
+
+Variable sized trigger. After firing cnt times, removes itself.  
+
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+You must set the key "target" to the name of another object in the 
+level that has a matching name
+
+"cnt" how many times it can be triggered ( default 1 )
+"targetname".  If "health" is set, the trigger must be killed to activate.
+
+if "killtarget" is set, any objects that have a matching "target" will be
+removed when the trigger is fired.
+
+if "angle" is set, the trigger will only fire when someone is facing the 
+direction of the angle.  Use "360" for an angle of 0.
+
+"key" The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+
+set "message" to text string
+*/
+
+/*QUAKED trigger_camerause (0.5 0.5 0.5) ? VISIBLE x NOT_PLAYERS MONSTERS
+
+Activates 'targeted' camera when 'used'
+If activated, toggles through cameras
+"key"          The item needed to activate this. (default nothing)
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+*/
+
+/*QUAKED trigger_mutate (0.5 0.5 0.5) ? x x NOT_PLAYERS NOT_MONSTERS
+mutates whatever triggers it.
+
+"key"          The item needed to activate this. (default nothing)
+
+If NOT_PLAYERS is set, the trigger does not activate on players
+If NOT_MONSTERS is set, the trigger does not activate on monsters
+*/
+
+/*QUAKED trigger_exit (0.5 0.5 0.5) ?
+
+When the player touches this, an exit icon will be displayed in his hud.
+This is to inform him that he is near an exit.
+*/
+
+/*QUAKED trigger_box (0.5 0.5 0.5) ? x x NOT_PLAYERS MONSTERS PROJECTILES
+
+Variable sized repeatable trigger.  Must be targeted at one or more entities.  Made to
+be spawned via script.
+
+If "health" is set, the trigger must be killed to activate each time.
+If "delay" is set, the trigger waits some time after activating before firing.
+
+"thread" name of thread to trigger.  This can be in a different script file as well\
+by using the '::' notation.
+
+"wait" : Seconds between triggerings. (.2 default)
+"cnt" how many times it can be triggered (infinite default)
+
+If NOT_PLAYERS is set, the trigger does not respond to players
+If MONSTERS is set, the trigger will respond to monsters
+If PROJECTILES is set, the trigger will respond to projectiles (rockets, grenades, etc.)
+
+set "message" to text string
+*/
+
+/*QUAKED worldspawn (0 0 0) ? CINEMATIC
+
+Only used for the world.
+"sky"			environment map name
+"skyaxis"	vector axis for rotating sky
+"skyrotate"	speed of rotation in degrees/second
+"cdtrack"	music cd track number
+"gravity"	800 is default gravity
+"message"	text to print at user logon
+"skipthread" thread that is activated to skip this level (if cinematic)
+*/
+

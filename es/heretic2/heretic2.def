@@ -1,0 +1,4422 @@
+/*
+Heretic 2 entity set
+Alexander Malmberg <alexander@malmberg.org>
+Based on game dll source.
+*/
+
+/*QUAKED SP_monster_elflord (0.5 0.5 1.0) (-24 -24 -64) (24 24 16)
+
+Celestial Watcher
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED breakable_brush (1.0 0.5 0.0) ? KILLALL NOLINK ORDERED TRANSLUCENT INVULNERABLE INVISIBLE PUSHPULL NOTPLAYERDAMAGE
+{
+choice "materialtype"
+((0,"STONE")
+( 1,"GREYSTONE (default)map")
+( 2,"CLOTH")
+( 3,"METAL")
+( 4,"FLESH")
+( 5,"POTTERY")
+( 6,"GLASS")
+( 7,"LEAF")
+( 8,"WOOD")
+( 9,"BROWNSTONE")
+(10,"NONE - just makes smoke"));
+}
+
+	A brush that explodes. 
+
+NOTPLAYERDAMAGE - players cannot damage this brush
+
+KILLALL - kills any brushes touching this one 
+
+HIERARCH - kills any brushes touching this one 
+
+NOLINK - can touch a KILLALL brush and not be linked to it
+
+INVULNERABLE - if set it can't be hurt
+
+*** VARIABLES ***
+health - amount of damage the brush can take before exploding
+materialtype - 
+0 = STONE
+1 = GREYSTONE (default)map 
+2 = CLOTH
+3 = METAL
+4 = FLESH
+5 = POTTERY
+6 = GLASS
+7 = LEAF
+8 = WOOD
+9 = BROWNSTONE
+10 = NONE - just makes smoke
+
+
+*/
+
+/*QUAKED character_corvus1 (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The cinematic corvus for the torture victim
+*/
+
+/*QUAKED character_corvus2 (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The cinematic Corvus for the celestial watcher scene
+*/
+
+/*QUAKED character_corvus3 (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The cinematic Corvus for the high priestess scene
+*/
+
+/*QUAKED character_corvus4 (1.0 0.5 0.0) (-16 -16 -34) (16 16 25) INVISIBLE
+The cinematic Corvus for the Scout scene
+*/
+
+/*QUAKED character_corvus5 (1.0 0.5 0.0) (-16 -16 -34) (16 16 25) INVISIBLE
+The cinematic Corvus for the Dranor scene
+*/
+
+/*QUAKED character_corvus6 (1.0 0.5 0.0) (-16 -16 -34) (16 16 25) INVISIBLE
+The cinematic Corvus for the Dranor scene
+*/
+
+/*QUAKED character_corvus7 (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The cinematic corvus for the Morcalavin scene
+*/
+
+/*QUAKED character_corvus8 (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The cinematic corvus for the Siernan scenes
+*/
+
+/*QUAKED character_corvus9 (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The cinematic corvus for the T'chekrik scenes
+*/
+
+/*QUAKED character_dranor (1.0 0.5 0.0) (-17 -25 -32) (22 12 32) INVISIBLE
+The elf who talks like Sean Connery
+*/
+
+/*QUAKED character_elflord (1.0 0.5 0.0) (-24 -24 -78) (24 24 16) INVISIBLE
+The Celestial Watcher who whispers when he talks
+*/
+
+/*QUAKED character_highpriestess (1.0 0.5 0.0) (-24 -24 -36) (24 24 36) INVISIBLE
+The cinematic High Priestess
+--------SPAWNFLAG-------------
+INVISIBLE - you won't see her
+*/
+
+/*QUAKED character_highpriestess2 (1.0 0.5 0.0) (-24 -24 -36) (24 24 36) INVISIBLE
+The cinematic High Priestess for the Pod Scene
+--------SPAWNFLAG-------------
+INVISIBLE - you won't see her
+*/
+
+/*QUAKED character_morcalavin (1.0 0.5 0.0) (-24 -24 -50) (24 24 50) INVISIBLE
+The cinematic morcalavin
+*/
+
+/*QUAKED character_sidhe_guard (1.0 0.5 0.0) (-16 -16 -26) (16 16 26) AMBUSH ASLEEP
+The Sidhe Guard
+*/
+
+/*QUAKED character_siernan1 (1.0 0.5 0.0) (-10 -10 -20) (10 10 20) INVISIBLE x LEANING
+The cinematic siernan standing
+INVISIBLE - can't be seen
+LEANING - leaning against a wall, idling
+*/
+
+/*QUAKED character_siernan2 (1.0 0.5 0.0) (-17 -25 0) (22 12 16) INVISIBLE
+The cinematic siernan laying down
+*/
+
+/*QUAKED character_ssithra_scout (1.0 0.5 0.0) (-26 -16 -13) (26 16 13)
+The scout
+*/
+
+/*QUAKED character_ssithra_victim (1.0 0.5 0.0) (-40 -16 -2) (40 16 2) INVISIBLE
+The Ssithra Victim for use in the torture scene
+*/
+
+/*QUAKED character_tome (1.0 0.5 0.0) (-4 -8 -12) (4 8 12) INVISIBLE
+The talking tome of power (sounds like a hot babe)
+*/
+
+/*QUAKED choose_CDTrack (0.5 0.5 0.5) ? NO_LOOP
+Variable sized repeatable trigger which chooses a CD track.
+------KEYS-----------
+style - # of CD track to play
+NO_LOOP - allows you to set the track to play not to loop
+*/
+
+/*QUAKED env_bubbler (1.0 0.5 0.0) (-4 -4 0) (4 4 4)
+Makes bubbles
+---------KEYS--------
+count - bubbles spawned per minute
+*/
+
+/*QUAKED env_dust (1.0 0.5 0.0) ?
+Generates dust and rock over an area. This is triggerable.
+-------KEYS--------
+count - number of rocks (default 1 rock per 28 x 28 square)
+*/
+
+/*QUAKED env_fire (1.0 0.5 0.0) (0 -10 -24) (20 10 0) INVULNERABLE ANIMATE EXPLODING FIRE_OFF MOVEABLE LIGHT_ON
+A fire about the size of a campfire. Triggerable.
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE -  N/A
+EXPLODING - N/A
+FIRE_OFF - fire will start off
+MOVEABLE - fire will move if given a velocity
+LIGHT_ON - fire will have light attached to it - if moveable, not required
+-----------------------------------
+scale - size of flame (default 1) (no bigger than 8)
+*/
+
+/*QUAKED env_mist (1.0 0.5 0.0) (-64 -1 -32) (64 1 32)
+scale sets the scale
+*/
+
+/*QUAKED env_muck (1.0 0.5 0.0) ?
+-------KEYS--------
+*/
+
+/*QUAKED env_smoke (1.0 0.5 0.0) (-4 -4 -4) (4 4 4) START_OFF
+Generates steady puffs of smoke.  This is triggerable.
+START_OFF - smoke will start off
+-------KEYS--------
+scale - size of puff  (default 1) range 0 - 8.
+angle - direction puff is to move (default 0)
+speed - how quickly puffs move (default 100) range 10 - 2500
+distance - how far smoke will move before disappearing (default 100) range 1 - 255
+wait - time in seconds between puffs (default 5) range 1 - 255
+*/
+
+/*QUAKED env_sun1 (1.0 0.5 0.0) (-12 -12 0) (12 12 38) INVULNERABLE ANIMATE EXPLODING
+Places two suns in the world and attaches a lens flare to them.
+One sun is blue, the other is yellow
+*/
+
+/*QUAKED env_water_drip (1.0 0.5 0.0) (-4 -4 0) (4 4 4) YELLOW
+Spawns a drip of water which falls straight down
+---- SPAWN FLAGS ------
+if YELLOW set.. uses a yellow drip
+------- KEYS ----------
+count - drips per minute (default 20)
+*/
+
+/*QUAKED env_water_fountain (1.0 0.5 0.0) (-4 -4 0) (4 4 4) RED GREEN BLUE DARK DARKER START_OFF
+-------SPAWN FLAGS--------
+START_OFF - fountain will be off until triggered
+
+--------KEYS-----------
+angles - xyz velocity of spawned particles
+delay  - the distance from emitter to ground (128 is Okay, max is 256)
+
+If targeted it can be turned on/off but it will start on unless START_OFF
+
+*/
+
+/*QUAKED env_waterfall_base (1.0 1.0 0.0) (-8 -8 -8) (8 8 8)
+angles - this first field is the x radius
+         second is the yaw
+		 third is the y radius
+*/
+
+/*QUAKED flamethrower (0.5 0.5 0.5) ? STEAM MONSTERTOUCH
+A jet of flame
+
+If steam is checked, it is a steam jet
+
+MONSTERTOUCH - will allow monsters to set it off
+
+--------SETUP----------
+
+------KEYS-----------
+dmg - damage per frame (1/10 of a second) (default 2)
+wait - delay between each burst (default 2) (-1 signifies it is a toggled effect)
+angles - Direction burst is to move in
+speed - velocity of the burst (default 400)
+*/
+
+/*QUAKED func_areaportal (0.0 0.0 0.0) ?
+
+	This is a non-visible object that divides the world into
+	areas that are seperated when this portal is not activated.
+	Usually enclosed in the middle of a door.
+*/
+
+/*QUAKED func_button (0.0 0.5 0.8) ? TOUCH
+{
+choice "sounds"
+((0,"silent")
+(1,"Basic Button")
+(2,"Clanky Button")
+(3,"Steam Button"));
+
+}
+When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again.
+
+"angle"		determines the opening direction
+"target"	all entities with a matching targetname will be used
+"speed"		override the default 40 speed
+"wait"		override the default 1 second wait (-1 = never return)
+"lip"		override the default 4 pixel lip remaining at end of move
+"health"	if set, the button must be killed instead of touched
+"sounds"
+0) silent
+1) Basic Button
+2) Clanky Button
+3) Steam Button
+
+--------SPAWNFLAGS--------
+TOUCH - player can touch button to set it off
+*/
+
+
+/*QUAKED _func_door_sounds
+{
+choice "sounds"
+((0,"silent")
+(1,"generic door")
+(2,"heavy stone door")
+(3,"for swing arm on palace level")
+(4,"for stone bridge in palace level")
+(5,"small/medium wood door swinging")
+(6,"large/huge wood door swinging")
+(7,"medium sized stone/wood door sliding")
+(8,"large stone/wood sliding door or portcullis")
+(9,"average metal door swinging")
+(10,"Fast sliding doors")
+(11,"Hive, Metal, Multipaneled sliding")
+(12,"Huge stone door swinging")
+(13,"Medium/large elevator")
+(14,"Crane (warehouse)")
+(15,"hammerlike pump in oglemine1")
+(16,"sliding metal table in cloudlabs")
+(17,"lab table which rotates up to ceiling - cloublabs")
+(18,"piston sound")
+(19,"short, sharp metal clang")
+(20,"something going under water")
+(21,"the bam sound"));
+}
+*/
+
+/*QUAKED func_door (0.0 0.5 0.8) ? START_OPEN x CRUSHER NOMONSTER ANIMATED TOGGLE ANIMATED_FAST
+{
+base("_func_door_sounds");
+}
+TOGGLE		wait in both the start and end states for a trigger event.
+START_OPEN	the door to moves to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not useful for touch or takedamage doors).
+NOMONSTER	monsters will not trigger this door
+
+"message"	is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"angle"		determines the opening direction
+"targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"	if set, door must be shot open
+"height"    if set, tells how far up door opens
+"speed"		movement speed (100 default)
+"wait"		wait before returning (3 default, -1 = never return,-2 = never stop cycle)
+"lip"		lip remaining at end of move (8 default)
+"dmg"		damage to inflict when blocked (2 default)
+"sounds"
+0)	silent
+1)	generic door
+2)	heavy stone door
+3)  for swing arm on palace level
+4)  for stone bridge in palace level
+5)  small/medium wood door swinging
+6)  large/huge wood door swinging
+7)  medium sized stone/wood door sliding
+8)  large stone/wood sliding door or portcullis
+9)  average metal door swinging
+10) Fast sliding doors
+11) Hive, Metal, Multipaneled sliding
+12) Huge stone door swinging
+13) Medium/large elevator
+14) Crane (warehouse)
+15) hammerlike pump in oglemine1
+16) sliding metal table in cloudlabs
+17) lab table which rotates up to ceiling - cloublabs
+18) piston sound
+19) short, sharp metal clang
+20) something going under water
+21) the bam sound
+*/
+
+/*QUAKED func_door_rotating (0 .5 .8) ? START_OPEN REVERSE CRUSHER NOMONSTER ANIMATED TOGGLE X_AXIS Y_AXIS SWINGAWAY x x x x x x x
+{
+base("_func_door_sounds");
+}
+TOGGLE causes the door to wait in both the start and end states for a trigger event.
+
+START_OPEN	the door to moves to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not useful for touch or takedamage doors).
+NOMONSTER	monsters will not trigger this door
+
+You need to have an origin brush as part of this entity.  The center of that brush will be
+the point around which it is rotated. It will rotate around the Z axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+
+"distance" is how many degrees the door will be rotated.
+"speed" determines how fast the door moves; default value is 100.
+
+REVERSE will cause the door to rotate in the opposite direction.
+
+SWINGAWAY door will always swing away from the activator...
+
+"message"	is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"angle"		determines the opening direction
+"targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"	if set, door must be shot open
+"speed"		movement speed (100 default)
+"wait"		wait before returning (3 default, -1 = never return,-2 = never stop cycle)
+"dmg"		damage to inflict when blocked (2 default)
+"sounds"
+0)	silent
+1)	generic door
+2)	heavy stone door
+3)  for swing arm on palace level
+4)  for stone bridge in palace level
+5)  small/medium wood door swinging
+6)  large/huge wood door swinging
+7)  medium sized stone/wood door sliding
+8)  large stone/wood sliding door or portcullis
+9)  average metal door swinging
+10) Fast sliding doors
+11) Hive, Metal, Multipaneled sliding
+12) Huge stone door swinging
+13) Medium/large elevator
+14) Crane (warehouse)
+15) hammerlike pump in oglemine1
+16) sliding metal table in cloudlabs
+17) lab table which rotates up to ceiling - cloublabs
+18) piston sound
+19) short, sharp metal clang
+20) something going under water
+21) the bam sound
+*/
+
+/*QUAKED func_door_secret (0.0 0.5 0.8) ? always_shoot 1st_left 1st_down
+{
+base("_func_door_sounds");
+}
+A secret door.  Slide back and then to the side.
+
+open_once		doors never closes
+1st_left		1st move is left of arrow
+1st_down		1st move is down from arrow
+always_shoot	door is shootebale even if targeted
+
+"angle"		determines the direction
+"dmg"		damage to inflic when blocked (default 2)
+"wait"		how long to hold in the open position (default 5, -1 means hold)
+"sounds"
+0)	silent
+1)	generic door
+2)	heavy stone door
+3)  for swing arm on palace level
+4)  for stone bridge in palace level
+5)  small/medium wood door swinging
+6)  large/huge wood door swinging
+7)  medium sized stone/wood door sliding
+8)  large stone/wood sliding door or portcullis
+9)  average metal door swinging
+10) Fast sliding doors
+11) Hive, Metal, Multipaneled sliding
+12) Huge stone door swinging
+13) Medium/large elevator
+14) Crane (warehouse)
+15) hammerlike pump in oglemine1
+16) sliding metal table in cloudlabs
+17) lab table which rotates up to ceiling - cloublabs
+18) piston sound
+19) short, sharp metal clang
+20) something going under water
+21) the bam sound
+*/
+
+/*QUAKED func_group (0.0 0.0 0.0) ?
+	
+	Used to group brushes together just for editor convenience.
+*/
+
+/*QUAKED func_monsterspawner (0.0 0.5 0.8) (-8 -8 -8) (8 8 8) ONDEATH RANDOMBUOY PEACEFUL
+Triggerable monster spawner
+-----SPAWNFLAGS--------------
+ONDEATH - the next monster will not spawn until the current one is dead  
+RANDOMBUOY - the monster will be teleported to a random buoy that the player cannot see
+PEACEFUL - Monsters are NOT spawned agry at ent that triggered spawner (monstrers will spawn angry only if the spawner was triggered by a player)
+-----------KEYS--------------
+count - number of monsters to spawn before stopping (default 1)
+distance - radius which monster can spawn from monsterspawner
+style - type of monster to spawn
+ 0 - nothing will spawn
+ 1 - RAT,
+ 2 - PLAGUEELF,
+ 3 - SPREADER,
+ 4 - GORGON,
+ 5 - CHKROKTK,
+ 6 - TCHEKRIK_MALE,
+ 7 - TCHEKRIK_FEMALE,
+ 8 - TCHEKRIK_MOTHERS,
+ 9 - HIGH_PRIESTESS,
+10 - OGLE,
+11 - SERAPH_OVERLORD,
+12 - SERAPH_GUARD,
+13 - ASSASSIN,
+14 - MORCALAVIN,
+15 - DRANOR,
+16 - SIDHE_GUARD,
+17 - SIERNAN,
+18 - SSITHRA_SCOUT,
+19 - SSITHRA_VICTIM,
+20 - Mutant Ssithra
+21 - Harpy
+22 - Fish
+23 - Chicken
+24 - Plague Ssithra
+25 - Gkrokon
+26 - Giant Rat
+27 - Palace Plague Guard
+28 - Invisible Palace Plague Guard
+
+
+
+wait - time to wait between spawnings (default 10)
+
+
+The following fields can be applied to the func_monsterspawner so that the monsters spawned from it will have the values you give them.  The defaults are the monster's normal defaults.  Monsters who do not use buoys may not use all of these fields (ie: rats, harpies, fish, imps, etc.)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+*/
+
+/*QUAKED func_object (0.0 0.5 0.8) ? TRIGGER_SPAWN ANIMATED ANIMATED_FAST
+	
+	This is solid bmodel that will fall if it's support it removed.
+*/
+
+/*QUAKED func_plat (0.0 0.5 0.8) ? PLAT_LOW_TRIGGER
+{
+base("_func_door_sounds");
+}
+speed	default 150
+
+Plats are always drawn in the extended position, so they will light correctly.
+
+If the plat is the target of another trigger or button, it will start out disabled in the extended position until it is trigger, when it will lower and become a normal plat.
+
+"speed"	overrides default 200.
+"accel" overrides default 500
+"lip"	overrides default 8 pixel lip
+
+If the "height" key is set, that will determine the amount the plat moves, instead of being implicitly determoveinfoned by the model's height.
+
+"sounds"
+0)	silent
+1)	generic door
+2)	heavy stone door
+3)  for swing arm on palace level
+4)  for stone bridge in palace level
+5)  small/medium wood door swinging
+6)  large/huge wood door swinging
+7)  medium sized stone/wood door sliding
+8)  large stone/wood sliding door or portcullis
+9)  average metal door swinging
+10) Fast sliding doors
+11) Hive, Metal, Multipaneled sliding
+12) Huge stone door swinging
+13) Medium/large elevator
+14) Crane (warehouse)
+15) hammerlike pump in oglemine1
+16) sliding metal table in cloudlabs
+17) lab table which rotates up to ceiling - cloublabs
+18) piston sound
+19) short, sharp metal clang
+20) something going under water
+21) the bam sound
+
+*/
+
+/*QUAKED func_rotating (0.0 0.5 0.8) ? START_ON REVERSE X_AXIS Y_AXIS TOUCH_PAIN STOP ANIMATED ANIMATED_FAST CRUSHER
+You need to have an origin brush as part of this entity.  The center of that brush will be
+the point around which it is rotated. It will rotate around the Z axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+----------KEYS-------------
+"speed" determines how fast it moves; default value is 100.
+"dmg"	damage to inflict when blocked (2 default)
+"sounds"
+0 -	silent
+1 -	generic rotate
+2 - huge wheel ogles push in cloudlabs
+3 - rock crusher which turns at end of conveyor on ogle2
+4 - 'spanking' paddles on gauntlet
+--------SPAWNFLAGS------------
+REVERSE will cause the it to rotate in the opposite direction.
+STOP mean it will stop moving instead of pushing entities
+*/
+
+/*QUAKED func_timer (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) START_ON
+"wait"			base time between triggering all targets, default is 1
+"random"		wait variance, default is 0
+
+so, the basic time between firing is a random time between
+(wait - random) and (wait + random)
+
+"delay"			delay before first firing when turned on, default is 0
+
+"pausetime"		additional delay used only the very first time
+				and only if spawned with START_ON
+
+These can used but not touched.
+*/
+
+/*QUAKED func_train (0.0 0.5 0.8) ? START_ON TOGGLE BLOCK_STOPS HASORIGIN NO_CLIP PUSHPULL
+Trains are moving platforms that players can ride.
+The targets origin specifies the min point of the train at each corner.
+The train spawns at the first target it is pointing at.
+If the train is the target of a button or trigger, it will not begin moving until activated. This means if it has a targetname it won't move unless triggered.
+
+-------KEYS------
+NO_CLIP - train will not block anything.
+
+----------SPAWNFLAGS-----------
+HASORIGIN - makes train move from an origin brush rather than the lower left point of the train.
+-----KEYS-------
+
+speed -	default 100
+dmg	  -	default	2
+noise -	looping file to play when the train is in motion
+- objects/piston.wav for large steam pistons in ogle2 and cloudlabs
+- objects/winch2.wav for wooden ore hauler going across river  
+
+rotate - speed train should rotate at
+wait - -1 : stop and don't move again until triggered
+       -3 : stop and explode
+	   -4 : go through animations (only if a model)
+file - specifies the train is a model.  This is the exact directory of the model.
+count - number of frames in animation (only if a model)
+example   models/objects/broom/tris.fm
+materialtype - 
+	0 = MAT_WOOD
+	1 = MAT_GREYSTONE (default)
+	2 = MAT_CLOTH
+	3 = MAT_METAL
+
+	9 = MAT_BROWNSTONE
+	10 = MAT_NONE - just makes smoke
+
+*/
+
+/*QUAKED func_wall (0.0 0.5 0.8) ? TRIGGER_SPAWN TOGGLE START_ON ANIMATED ANIMATED_FAST
+	
+	This is just a solid wall if not inhibited
+
+	TRIGGER_SPAWN	the wall will not be present until triggered
+					it will then blink in to existance; it will
+					kill anything that was in it's way
+
+	TOGGLE			only valid for TRIGGER_SPAWN walls
+					this allows the wall to be turned on and off
+
+	START_ON		only valid for TRIGGER_SPAWN walls
+					the wall will initially be present
+*/
+
+/*QUAKED func_water (0.0 0.5 0.8) ? START_OPEN
+func_water is a moveable water brush.  It must be targeted to operate.  Use a non-water texture at your own risk.
+
+START_OPEN causes the water to move to its destination when spawned and operate in reverse.
+
+"angle"		determines the opening direction (up or down only)
+"speed"		movement speed (25 default)
+"wait"		wait before returning (-1 default, -1 = TOGGLE)
+"lip"		lip remaining at end of move (0 default)
+"sounds"	(yes, these need to be changed)
+0)	no sound
+1)	water
+2)	lava
+*/
+
+/*QUAKED info_buoy (0.6 0.0 0.8) (-24 -24 -24) (24 24 24) JUMP ACTIVATE TURN ONEWAY
+BUOYAH! Navigation System
+Mike Gummelt & Josh Weier
+
+THOU SHALT NOT COMMIT GRIEVOUS DESIGN ERRORS FOR THEY ARE AN ABOMINATION BEFORE THE EYES OF THE PROGRAMMER AND THE PROGRAMMER'S WORD IS INFALLIBLE!
+
+THE BUOY TEN COMMANDMENTS as Handed Down to M0535 on Mount Sine-AI:
+  0) Thou shalt not give a buoy more than one targetname
+  1) Thou shalt have a buoy target up to two OTHER buoies
+	therefore:
+  2) Thou shalt connect each buoy to up to three other buoies (only three lines can come off a buoy)
+  3) Thou shalt knowest that direction of connection does not matter unless you are trying to make a one-way buoy (see ONEWAY) below
+  4) Thou shalt place thine buoy in an area that a monster can fit into
+  5) Thou shalt place thine buoies such that each buoy can "see" each buoy it's conencted to (have a clear line of sight)
+  6) Thou shalt knowest that buoies do not need to be placed throughout wide open areas, monsters can get around fine there.
+  7) Thou shalt not place buoies in the ground or walls or any other world object
+  8) Thou shalt not give any two buoies the same targetname, and each buoy should have a targetname, even if it is not targeted (this is for debug purposes)
+  9) Thou shalt not have any other AI system above the BUOYAH! Navigation System.
+
+Keep in mind that when choosing a buoy, monsters need to be able to find a buoy withing 1024 map units of them.  So make sure buoies are placed so that wherever they can get, they are within 1024 of a buoy.
+
+"showbuoys" - At the console, setting "showbuoys" to 1 and restarting the map will allow you to see each buoy.  The flags you will see are each monster's indicator of where they are trying to go at the minute.  In addition you will get buoy debug messages on the console in this mode, telling you if a monster has a hard time getting to a buoy (it times out) or if, for some reason, a connection cannot be made between two buoies.
+"cheating_monsters" - At the console, set this to 1 to allow monsters to teleport to a buoy it's having a hard time getting to.
+
+Lots of info and useful instructions here:
+JUMP - Will make monster jump ("angle" is the direction to go in (default = 0), "speed" if the forward velocity in this dir (default = 400), "height" is the height of the jump (default = 400))
+ACTIVATE - Will allow monster to activate doors, triggers, plats, etc.  NOTE: the activated object's "pathtargetname" must match the buoy's "pathtarget" field.
+(not implemented) TURN - Will make monster turn to buoy's angles
+ONEWAY - This buoy will not allow buoys it's targeting to send monsters backwards along the path.  Basically, does not back-link, paths from it to buoys it's targeting become one-way.
+
+"jumptarget" - used with JUMP - this buoy will only make monsters jump at the buoy whose "targetname" is the same as "jumpbuoy"- without this, the buoy WILL NOT MAKE MONSTERS JUMP!
+"wait" - used with ACTIVATE- will make the buoy wait this many seconds before allowing a monster to activate the targeted ent again
+"delay" - used with ACTIVATE - will make the monster stand and wait this long after activating the target ent (so it stands and waits on a lift or for the door to open)
+
+NOTE: AVOID GRIEVOUS DESIGN ERRORS!
+
+DEBUG INFO:
+For "showbuoys" = 2, in addition to the arrow paths indicating target->targetname direction, particles appear on buoys, here's what each color indicates:
+red - the buoy a monster has determined is your closest buoy
+green - the buoy a monster has determined is it's next buoy to get to
+cyan - this buoy has a jump flag
+blue - this buoy is the jumptarget of a jump flagged buoy
+magenta - this buoy has an activate flag
+white - this buoy has an oneway flag
+
+Standing over a buoy that has a spawnflag of BUOY_JUMP or BUOY_ACTIVATE and hitting "action" will print it's info to the console is in "showbuoys" mode
+*/
+
+/*QUAKED info_notnull (0.0 0.5 0.0) (-4 -4 -4) (4 4 4)
+
+	Used as a positional target for lightning.
+*/
+
+/*QUAKED info_null (0.0 0.5 0.0) (-4 -4 -4) (4 4 4)
+	
+	Used as a positional target for spotlights, etc.
+*/
+
+/*QUAKED info_player_coop (1.0 0.0 1.0) (-16 -16 -24) (16 16 32)
+potential spawning position for coop games
+*/
+
+/*QUAKED info_player_deathmatch (1.0 0.0 1.0) (-16 -16 -24) (16 16 32)
+potential spawning position for deathmatch games
+*/
+
+/*QUAKED info_player_intermission (1.0 0.0 1.0) (-16 -16 -24) (16 16 32)
+The deathmatch intermission point will be at one of these
+Use 'angles' instead of 'angle', so you can set pitch or roll as well as yaw.  'pitch yaw roll'
+*/
+
+/*QUAKED info_player_start (1.0 0.0 0.0) (-16 -16 -24) (16 16 32)
+The normal starting point for a level.
+*/
+
+/*QUAKED item_ammo_hellstaff (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup ammo for the Hellstaff
+*/
+
+/*QUAKED item_ammo_phoenix (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup ammo for the Phoenix Bow
+*/
+
+/*QUAKED item_ammo_redrain (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup ammo for the Red Rain Bow
+*/
+
+/*QUAKED item_defense_meteorbarrier (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Meteor Barrier defensive spell.
+*/
+
+/*QUAKED item_defense_polymorph (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Polymorph Barrier defensive spell.
+*/
+
+/*QUAKED item_defense_ringofrepulsion (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Ring of Repulsion defensive spell.
+*/
+
+/*QUAKED item_defense_shield (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Shield defensive spell.
+*/
+
+/*QUAKED item_defense_teleport (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Teleport defensive spell.
+*/
+
+/*QUAKED item_health_full (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup health (30 points)
+*/
+
+/*QUAKED item_health_half (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup health (10 points)
+*/
+
+/*QUAKED item_mana_combo_half (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for both defensive & offensive mana (50 points).
+*/
+
+/*QUAKED item_mana_defensive_full (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the defensive mana (100 points).
+*/
+
+/*QUAKED item_mana_defensive_half (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the defensive mana (50 points).
+*/
+
+/*QUAKED item_mana_offensive_full (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the offensive mana (100 points).
+*/
+
+/*QUAKED item_mana_offensive_half (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the offensive mana (50 points).
+*/
+
+/*QUAKED item_puzzle_canyonkey (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) x NO_DROP
+Key puzzle item
+Canyon Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_cloudkey (0.3 0.3 1.0) (-8 -8 -3) (8 8 6) x NO_DROP
+Key puzzle item
+Cloud Quarters 2 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_cog (0.3 0.3 1.0) (-10 -10 -24) (10 10 20) x NO_DROP
+Cog puzzle piece
+Palace level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_crystal (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) x NO_DROP
+Crystal puzzle item
+Academic Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_dungeonkey (0.3 0.3 1.0) (-1 -18 -9) (1 18 9) x NO_DROP
+Amulet puzzle item
+Dungeon Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_highpriestesskey (0.3 0.3 1.0) (-12 -12 -6) (12 12 6) x NO_DROP
+Key puzzle item
+High Priestess Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_highpriestesssymbol (0.3 0.3 1.0) (-12 -12 -4) (12 12 4) x NO_DROP
+Key puzzle item
+High Priestess Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_hive2amulet (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) x NO_DROP
+Amulet puzzle item
+Hive 2 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_hive2gem (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) x NO_DROP
+Gem puzzle item
+Hive 2 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_hive2spear (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) x NO_DROP
+Spear puzzle item
+Hive 2 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_minecartwheel (0.3 0.3 1.0) (-1 -6 -6) (1 6 6) x NO_DROP
+Mine Cart Wheel puzzle item
+Mine 1 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_ore (0.3 0.3 1.0) (-10 -10 -8) (10 10 8) x NO_DROP
+Unrefined Ore puzzle item
+Mine 2 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_plazacontainer (0.3 0.3 1.0) (-6 -6 -8) (6 6 6) x NO_DROP
+Container puzzle item
+Plaza Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_potion (0.3 0.3 1.0) (-3 -3 -10) (3 3 10) x NO_DROP
+Potion puzzle item
+Healer Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_refinedore (0.3 0.3 1.0) (-3 -12 -2) (3 12 2) x NO_DROP
+Refined Ore puzzle item
+Mine 2 Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_shield (0.3 0.3 1.0) (-2 -6 -12) (2 6 12) x NO_DROP
+Sithra Shield puzzle item
+Healer Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_slumcontainer (0.3 0.3 1.0) (-6 -6 -8) (6 6 6) x NO_DROP
+Full Container puzzle item
+Slum Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_tavernkey (0.3 0.3 1.0) (-8 -8 -4) (8 8 4) x NO_DROP
+Key puzzle piece
+Ssdocks Level
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_tome (0.3 0.3 1.0) (-12 -12 -4) (12 12 4) x NO_DROP
+Tome puzzle piece
+2 Cloud Levels
+NO_DROP - won't drop to ground
+*/
+
+/*QUAKED item_puzzle_townkey (0.3 0.3 1.0) (-8 -8 -4) (8 8 4) x NO_DROP
+Key puzzle piece
+Town Level
+NO_DROP - won't drop to ground
+
+*/
+
+/*QUAKED item_spitter (0.0 0.5 0.8) (-4 -4 -4) (4 4 4) 	NOFLASH
+When targeted it will spit out an number of items in various directions
+-------SPAWN FLAGS -----------
+NOFLASH - no flash is created when item is 'spit out'
+---------KEYS-----------------
+target - classname of item or object being spit out
+count - number of items being spit out (default 1)
+radius - distance from item_spitter origin that items will be spawned
+spawnflags2 - the spawnflags for the item being created.
+*/
+
+/*QUAKED item_weapon_firewall (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Fire Wall weapon.
+*/
+
+/*QUAKED item_weapon_hellstaff (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the hellstaff weapon.
+*/
+
+/*QUAKED item_weapon_maceballs (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Mace Balls weapon.
+*/
+
+/*QUAKED item_weapon_magicmissile (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Magic Missile weapon.
+*/
+
+/*QUAKED item_weapon_phoenixbow (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Phoenix Bow weapon.
+*/
+
+/*QUAKED item_weapon_redrain_bow (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Red Rain Bow weapon.
+*/
+
+/*QUAKED item_weapon_sphereofannihilation (0.3 0.3 1.0) (-16 -16 -16) (16 16 16) COOP_ONLY
+Pickup for the Sphere Annihilation weapon.
+*/
+
+/*QUAKED light (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_OFF
+
+	Non-displayed light.
+	Default light value is 300.
+	Default style is 0.
+	If targeted, will toggle between on and off.
+	Default _cone value is 10 (used to set size of light for spotlights)
+*/
+
+/*QUAKED light_buglight (1.0 0.5 0.0) (-7 -7 -7) (7 7 25) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+A light shaped like a bug
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_chandelier1 (1.0 0.5 0.0) (-36 -36 -43) (34 34 43) INVULNERABLE ANIMATE EXPLODING STARTOFF
+A big gold chandelier for the great hall
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+-----------------------------------
+*/
+
+/*QUAKED light_chandelier2 (1.0 0.5 0.0) (-18 -18 -40) (18 18 40) INVULNERABLE ANIMATE EXPLODING STARTOFF
+A very heavy chandelier that doesn't have a skin yet.
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - The flame flickers
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+-----------------------------------
+*/
+
+/*QUAKED light_chandelier3 (1.0 0.5 0.0) (-34 -34 -80) (34 34 0) INVULNERABLE ANIMATE EXPLODING STARTOFF
+A  thin gold chandelier 
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+-----------------------------------
+*/
+
+/*QUAKED light_floortorch (1.0 0.5 0.0) (-14 -14 -17) (14 14 17) INVULNERABLE ANIMATE EXPLODING STARTOFF
+A stand for a torch that sits on the floor.
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - Places a flame on it
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+-----------------------------------
+*/
+
+/*QUAKED light_gem2 (1.0 0.5 0.0) (-1 -6 -8) (4 6 8) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+A yellow gem in an octogonal frame
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect							
+-----------------------------------
+style 
+- 0 yellow light
+- 1 green light
+
+*/
+
+/*QUAKED light_lantern1 (1.0 0.5 0.0) (-28 -8 -22) (4 8 22) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+lantern on a wooden arm
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_lantern2 (1.0 0.5 0.0) (-6 -6 -24) (6 6 40) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+Lanern on a chain
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_lantern3 (1.0 0.5 0.0) (-6 -6 -12) (6 6 11) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+Ceiling lantern
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_lantern4 (1.0 0.5 0.0) (-18 -7 -7) (7 7 14) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+Wall lantern
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_lantern5 (1.0 0.5 0.0) (-7 -7 -7) (7 7 14) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+Lantern to place on a table
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_torch1 (1.0 0.5 0.0) (-4 -6 -5) (6 6 20) INVULNERABLE ANIMATE EXPLODING STARTOFF NOHALO
+Wall torch that uses a blue gem
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+NOHALO - turns off halo effect
+-----------------------------------
+*/
+
+/*QUAKED light_walltorch (1.0 0.5 0.0) (-16 -10 -12) (10 10 12) INVULNERABLE ANIMATE EXPLODING STARTOFF
+A torch that sticks out of a wall
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - Places a flame on it
+EXPLODING - N/A
+STARTOFF - Light will start off if targeted (default is on)
+-----------------------------------
+*/
+
+/*QUAKED misc_fire_sparker (0.0 0.0 0.0) (-4 -4 0) (4 4 8) FIREBALL
+
+  FIREBALL - more of a poofy fireball trail
+
+  Fires of sparks when used...
+  used a second time removes it
+
+  "delay" - how long to live for... (default is forever)
+*/
+
+/*QUAKED misc_flag (1.0 0.5 0.0) (-10 -10 0) (10 10 80)
+*/
+
+/*QUAKED misc_magic_portal (1.0 0.5 0.0) (-16 -16 -32) (16 16 32) START_OFF
+A magical glowing portal. Triggerable.
+-------  FIELDS  ------------------
+START_OFF - portal will start off
+-----------------------------------
+angles - manipulates the facing of the effect as normal.
+style - 0-blue, 1-red, 2-green
+count - Close after 1-255 seconds.  0 means stay until triggered.
+
+In order to be functional as a world teleport,
+  it must target a target_changelevel
+
+*/
+
+/*QUAKED misc_remote_camera (0.0 0.5 0.8) (-4 -4 -4) (4 4 4) ACTIVATING SCRIPTED NO_DELETE
+
+	pathtarget	- holds the name of the camera's owner entity (if any).
+	target		- holds the name of the entity to be looked at.
+	spawnflags	- 1 only the activating client will see the remote camera view.
+	            - 2 this is a scripted camera
+				- 4 don't delete camera
+*/
+
+/*QUAKED misc_teleporter (1.0 0.0 0.0) ? NO_MODEL DEATHMATCH_RANDOM START_OFF MULT_DEST
+This creates the teleporter disc that will send us places
+Stepping onto this disc will teleport players to the targeted misc_teleporter_dest object.
+-------  FIELDS  ------------------
+NO_MODEL - makes teleporter invisible
+DEATHMATCH_RANDOM - makes the teleporter dump you at random spawn points in deathmatch
+START_OFF - Pad has no effect, and won't teleport you anywhere till its activated 
+MULT_DEST - pad is targeted at more than one destination 
+---------- KEYS -----------------  
+style - number of destinations this pad has.
+
+*/
+
+/*QUAKED misc_teleporter_dest (1.0 0.0 0.0) (-32 -32 -24) (32 32 -16)
+
+	Point teleporters at these.
+*/
+
+/*QUAKED misc_update_spawner (0.5 0.5 0.5) ?
+  	This creates the spawner update entity, which upates the spawner position when triggered
+*/
+
+/*QUAKED monster_assassin (1.0 0.5 0.0) (-16 -16 -32) (16 16 48) AMBUSH ASLEEP WALKING FwdJumpAmbush NoCloak NoTeleport CINEMATIC FIXED WANDER MELEE_LEAD STALK COWARD TeleportAmbush CloakAmbush SideJumpAmbush TeleportDodge
+
+The assassin 
+
+SPAWNFLAGS:
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+FwdJumpAmbush - will jump out front or back when triggered (depending on whether player is in front or behind him)
+
+NoCloak - can't turn into a shadow
+
+NoTeleport - can't use smoke grenades to trick player and teleport
+
+CINEMATIC - puts monster into cinematic mode for scripting
+
+FIXED - Will stand in place and attack from afar.  Never moves.
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+TeleportAmbush - Will teleport into his origin when triggered (before triggered, is not anywhere at all, like "ASLEEP")
+
+CloakAmbush - Start as a shadow and decloak when wakes up
+
+SideJumpAmbush - Will jump out to left or right (depending on which side of the assassin the player is)
+
+TeleportDodge - Can use teleporting to dodge attacks
+
+FIELDS:
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 64
+melee_range				= 48
+missile_range			= 1024
+min_missile_range		= 64
+bypass_missile_chance	= 10
+jump_chance				= 100
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_bee (1.0 0.5 0.0) (-16 -16 -24) (16 16 16)
+The bee
+*/
+
+/*QUAKED monster_chicken (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP EATING
+
+The chicken 
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED monster_chkroktk (1.0 0.5 0.0) (-16 -16 -26) (16 16 26) AMBUSH ASLEEP
+The  chkroktk
+*/
+
+/*QUAKED monster_elflord (1.0 0.5 0.0) (-16 -16 0) (16 16 32)
+*/
+
+/*QUAKED monster_fish (1.0 0.5 0.0) (-25 -25 -14) (25 25 14)
+
+The fish
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+*/
+
+/*QUAKED monster_gkrokon (1.0 0.5 0.0) (-20 -20 0) (20 20 32) AMBUSH ASLEEP EATING 8 16 32 64 FIXED WANDER MELEE_LEAD STALK COWARD RESTING EXTRA2 EXTRA3 EXTRA4
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+EATING - Chomp chomp... chewie chomp
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will try to cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 12
+melee_range				= 0
+missile_range			= 256
+min_missile_range		= 48
+bypass_missile_chance	= 0
+jump_chance				= 100
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_gorgon (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP EATING SPEEDY 16 32 64 128 WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The gorgon
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+EATING - Chomp chomp... chewie chomp (wakeup_distance will default to 300)
+
+SPEEDY - generally faster gorgon
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 20
+melee_range				= 48
+missile_range			= 0
+min_missile_range		= 0
+bypass_missile_chance	= 0
+jump_chance				= 80
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_gorgon_leader (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP EATING 8 16 32 64 128
+
+The gorgon leader
+
+*/
+
+/*QUAKED monster_harpy (1.0 0.5 0.0) (-16 -16 -12) (16 16 12) AMBUSH ASLEEP PERCHING CIRCLING
+
+The harpy
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+PERCHING - Will watch player until get too close or get behind the harpy
+
+CIRCLING - harpy circles around in the air
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED monster_high_priestess (1.0 0.5 0.0) (-24 -24 0) (24 24 72)
+
+The High Priestess (what more do you need to know?!?!)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED monster_imp (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP Perching 8 16 32 64 FIXED
+
+Our old pal, the fire imp!
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+PERCHING - Will watch player until get too close or get behind the imp
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 14
+melee_range				= -64
+missile_range			= 1024
+min_missile_range		= 32
+bypass_missile_chance	= 20
+jump_chance				= 0 (flying, no jump)
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_morcalavin (1.0 0.5 0.0) (-24 -24 -50) (24 24 40)
+
+Morky
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED monster_mssithra (1.0 0.5 0.0) (-36 -36 0) (36 36 96) AMBUSH ASLEEP 4 8 16 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The  mssithra 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - Use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 16
+melee_range				= 100
+missile_range			= 400
+min_missile_range		= 100
+bypass_missile_chance	= 25
+jump_chance				= 25
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_ogle (1.0 0.5 0.0) (-16 -16 -24) (16 16 16) pushing pick_up pick_down chisel_up chisel_down hammer_up hammer_down singing CINEMATIC
+
+The little, disgruntled Ogle
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 16
+melee_range				= 48
+missile_range			= 0
+min_missile_range		= 0
+bypass_missile_chance	= 0
+jump_chance				= 10
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_palace_plague_guard (1.0 0.5 0.0) (-17 -25 -1) (22 12 63) AMBUSH ASLEEP WALKING CINEMATIC Missile 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+Can fire 2 ranged attacks, has a new skin, toucgher, has armor?
+
+The plagueElf 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 16
+melee_range				= 0
+missile_range			= 512
+min_missile_range		= 0
+bypass_missile_chance	= 60
+jump_chance				= 50
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_palace_plague_guard_invisible (1.0 0.5 0.0) (-17 -25 -1) (22 12 63) AMBUSH ASLEEP WALKING CINEMATIC Missile 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 StartVisible
+
+Can fire 2 ranged attacks, has a new skin, toucgher, has armor?
+
+Is invisible unless firing or hit
+
+The plagueElf 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 16
+melee_range				= -64
+missile_range			= 512
+min_missile_range		= 30
+bypass_missile_chance	= 80
+jump_chance				= 50
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_plagueElf (1.0 0.5 0.0) (-17 -25 -1) (22 12 63) AMBUSH ASLEEP WALKING CINEMATIC Missile 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+Missile - can fire a ranged attack
+
+The plagueElf 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS(melee P.E.):
+mintel					= 16
+melee_range				= 0
+missile_range			= 512
+min_missile_range		= 0
+bypass_missile_chance	= 0
+jump_chance				= 50
+wakeup_distance			= 1024
+
+DEFAULTS(missile P.E.):
+mintel					= 16
+melee_range				= 0
+missile_range			= 512
+min_missile_range		= 0
+bypass_missile_chance	= 60
+jump_chance				= 50
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_rat (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP EATING 8 16 32 64 FIXED na WANDER na MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The rat 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+EATING - Chomp chomp... chewie chomp
+
+COWARD - Runs away
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED monster_rat_giant (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP EATING 8 16 32 64 FIXED na WANDER na MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+A giant rat witha second skin and a bit tougher
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+EATING - Chomp chomp... chewie chomp  (wakeup_distance will default to 100)
+
+COWARD - Runs away
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+*/
+
+/*QUAKED monster_seraph_guard (1.0 0.5 0.0) (-24 -24 -34) (24 24 34) AMBUSH ASLEEP GOLEM 8 16 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+The big, ugly, brutal Guard..
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING- Use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 20
+melee_range				= 100
+missile_range			= 1024
+min_missile_range		= 64
+bypass_missile_chance	= 30
+jump_chance				= 20
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_seraph_overlord (1.0 0.5 0.0) (-24 -24 -34) (24 24 34) AMBUSH ASLEEP 4 8 16 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+The big, nasty, tyranical Overlords..
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING- Use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 24
+melee_range				= 100
+missile_range			= 0
+min_missile_range		= 0
+bypass_missile_chance	= 0
+jump_chance				= 30
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_spreader (1.0 0.5 0.0) (-16 -16 0) (16 16 32) AMBUSH ASLEEP WALKING 8 16 32 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The spreader 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 24
+melee_range				= 100
+missile_range			= 512
+min_missile_range		= 200
+bypass_missile_chance	= 50
+jump_chance				= 30
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_ssithra (1.0 0.5 0.0) (-16 -16 -32) (16 16 26) AMBUSH ASLEEP 4 Namor Spin ToughGuy Clothed FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The plague ssithra 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING- Use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 28
+melee_range				= 48
+missile_range			= 512
+min_missile_range		= 48
+bypass_missile_chance	= 25
+jump_chance				= 100
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_tcheckrik_female (1.0 0.5 0.0) (-16 -16 -32) (16 16 32) AMBUSH ASLEEP WALKING CINEMATIC 16 ALTERNATE 64 FIXED WANDER MELEE_LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The insect 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+ALTERNATE - fires alternate projectile, more damage, not multiple though
+
+MELEE_LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 32
+melee_range				= -72
+missile_range			= 512
+min_missile_range		= 48
+bypass_missile_chance	= 0
+jump_chance				= 40
+wakeup_distance			= 1024
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED monster_tcheckrik_male (1.0 0.5 0.0) (-16 -16 -32) (16 16 32) AMBUSH ASLEEP WALKING CINEMATIC BEAST_FODDER YELLOWJACKET 64 FIXED WANDER LEAD STALK COWARD EXTRA1 EXTRA2 EXTRA3 EXTRA4
+
+The insect 
+
+AMBUSH - Will not be woken up by other monsters or shots from player
+
+ASLEEP - will not appear until triggered
+
+WALKING - use WANDER instead
+
+BEAST_FODDER - Will run away if a Trial Beast is present
+
+YELLOWJACKET - uses black and yellow skin, shoots a spread of three yellow stinger projectiles
+
+WANDER - Monster will wander around aimlessly (but follows buoys)
+
+LEAD - Monster will tryto cut you off when you're running and fighting him, works well if there are a few monsters in a group, half doing this, half not
+
+STALK - Monster will only approach and attack from behind- if you're facing the monster it will just stand there.  Once the monster takes pain, however, it will stop this behaviour and attack normally
+
+COWARD - Monster starts off in flee mode- runs away from you when woken up
+
+"homebuoy" - monsters will head to this buoy if they don't have an enemy ("homebuoy" should be targetname of the buoy you want them to go to)
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -10self->classID == CID_MOTHER0 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 32
+melee_range				= 30
+missile_range			= 512
+min_missile_range		= 48
+bypass_missile_chance	= 30
+jump_chance				= 40
+wakeup_distance			= 1024
+*/
+
+/*QUAKED monster_tcheckrik_mothers (1.0 0.5 0.0) (-40 -40 -75) (40 40 75)
+Momma egg layer
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+*/
+
+/*QUAKED monster_trial_beast (1.0 0.5 0.0) (-100 -100 -36) (100 100 150) ?
+
+The Trial Beastie
+
+"wakeup_target" - monsters will fire this target the first time it wakes up (only once)
+
+"pain_target" - monsters will fire this target the first time it gets hurt (only once)
+
+mintel - monster intelligence- this basically tells a monster how many buoys away an enemy has to be for it to give up.
+
+melee_range - How close the player has to be, maximum, for the monster to go into melee.  If this is zero, the monster will never melee.  If it is negative, the monster will try to keep this distance from the player.  If the monster has a backup, he'll use it if too clode, otherwise, a negative value here means the monster will just stop running at the player at this distance.
+	Examples:
+		melee_range = 60 - monster will start swinging it player is closer than 60
+		melee_range = 0 - monster will never do a mele attack
+		melee_range = -100 - monster will never do a melee attack and will back away (if it has that ability) when player gets too close
+
+missile_range - Maximum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+min_missile_range - Minimum distance the player can be from the monster to be allowed to use it's ranged attack.
+
+bypass_missile_chance - Chance that a monster will NOT fire it's ranged attack, even when it has a clear shot.  This, in effect, will make the monster come in more often than hang back and fire.  A percentage (0 = always fire/never close in, 100 = never fire/always close in).- must be whole number
+
+jump_chance - every time the monster has the opportunity to jump, what is the chance (out of 100) that he will... (100 = jump every time)- must be whole number
+
+wakeup_distance - How far (max) the player can be away from the monster before it wakes up.  This just means that if the monster can see the player, at what distance should the monster actually notice him and go for him.
+
+DEFAULTS:
+mintel					= 100
+melee_range				= 400 (bite)
+missile_range			= 1500 (charge)
+min_missile_range		= 100
+bypass_missile_chance	= 77
+jump_chance				= 100
+wakeup_distance			= 3000
+
+NOTE: A value of zero will result in defaults, if you actually want zero as the value, use -1
+*/
+
+/*QUAKED obj_andwallhanging (1.0 0.5 0.0) (0 -19 -24) (4 19 24) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A circular Andorian wall hanging.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_banner (1.0 0.5 0.0) (-8 -44 -296) (8 44 0) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A really big banner.  
+-------  FIELDS  ------------------
+INVULNERABLE - N/A (it can't ever be hurt)
+ANIMATE - makes it flutter in the breeze, just like a...banner
+EXPLODING - N/A
+NOPUSH - N/A (banner can't be pushed)
+-------  KEYS  ------------------
+skinnum = 0 : blue
+          1 : red
+-----------------------------------
+*/
+
+/*QUAKED obj_banneronpole (1.0 0.5 0.0) (-8 -28 -30) (8 28 30) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A banner on a pole sticking out of a wall.  
+-------  FIELDS  ------------------
+INVULNERABLE - can it be hurt
+ANIMATE - makes it flutter in the breeze
+EXPLODING - N/A
+NOPUSH - N/A (banner can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_barrel (1.0 0.5 0.0) (-12 -12 -19) (12 12 19) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A barrel.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - the barrel will explode and cause radius damage
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_barrel_explosive (1.0 0.5 0.0) (-11 -12 -18) (11 12 18) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A barrel that explodes and does damage. 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_barrel_metal (1.0 0.5 0.0) (-11 -12 -18) (11 12 18) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A metal barrel. 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_basket (1.0 0.5 0.0) (-13 -13 -21) (13 13 21) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tall basket with a lid on it.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_bench (1.0 0.5 0.0) (-10 -21 -10) (10 21 10) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A stone bench to sit on
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_bigcrystal (1.0 0.5 0.0) (-35 -35 -50) (35 35 50) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A big circular crystal which rotates.
+-------  KEYS  ------------------
+speed - rate of rotation
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_biotank (1.0 0.5 0.0) (-20 -33 -52) (20 33 52) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A biotank
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-------  KEYS  ------------------
+style - what's in the biotank
+0 - empty
+1 - ET's head
+2 - hairless Critter
+3 - three fish
+4 - wasp
+*/
+
+/*QUAKED obj_bloodsplat (1.0 0.5 0.0) (-8 -8 -2) (8 8 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A red blood splat
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - can be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_bookclosed (1.0 0.5 0.0) (-8 -8 -2) (8 8 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A closed book standing up
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - can be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_bookopen (1.0 0.5 0.0) (-8 -16 -2) (8 16 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An open book
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - can be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_bottle1 (1.0 0.5 0.0) (-3 -3 -7) (3 3 7) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bottle that looks like the one Jennie came out of in I Dream of Jennie
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_broom (1.0 0.5 0.0) (-2 -2 -25) (2 2 25) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A broom.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_bucket (1.0 0.5 0.0) (-8 -8 -9) (8 8 10) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bucket
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_bush1 (1.0 0.5 0.0) (-34 -34 -19) (34 34 19) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A dome shaped bush
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_bush1 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_bush2 (1.0 0.5 0.0) (-56 -56 -40) (56 56 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A larger dome shaped bush
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_bush2 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_cactus (1.0 0.5 0.0) (-18 -18 -44) (18 18 44) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cactus.  Hurts the player 1 pt every five seconds he is pushes against it.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_cactus can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_cactus3 (1.0 0.5 0.0) (-14 -14 -32) (14 14 32) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cactus.  Hurts the player 1 pt every five seconds he is pushes against it.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_cactus3 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_cactus4 (1.0 0.5 0.0) (-11 -11 -11) (11 11 11) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A small cactus that open up or closes. Is triggerable.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_cactus4 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_cauldron (1.0 0.5 0.0) (-22 -22 -10) (22 22 10) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A metal cauldron filled with green liquid
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_chair1 (1.0 0.5 0.0) (-12 -8 -26) (12 8 26) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A highback wooden chair with a triangle at the top.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_chair2 (1.0 0.5 0.0) (-18 -29 -30) (18 29 30) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A thick chair with slanted sides
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_chair3 (1.0 0.5 0.0) (-14 -21 -28) (14 21 28) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A big stone throne.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_chest1 (1.0 0.5 0.0) (-10 -18 -19) (10 18 19) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A large chest with a snake carving on top. When used it opens its lid.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_chest2 (1.0 0.5 0.0) (-14 -17 -9) (14 17 9) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A medium sized chest with the top open - for use in the mines
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_chest3 (1.0 0.5 0.0) (-10 -17 -6) (10 17 6) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A medium sized chest with the top closed - for use in the mines
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_choppeddude (1.0 0.5 0.0) (-15 -40 -8) (15 40 8) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A guy who's all chopped up and laying on a table
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_claybowl (1.0 0.5 0.0) (-6 -6 -2) (6 6 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bowl made of clay
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_clayjar (1.0 0.5 0.0) (-15 -15 -24) (15 15 24) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A big honking urn made of clay
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_cocoon (1.0 0.5 0.0) (-20 -20 -36) (20 20 36) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cocoon which hangs from the ceiling
+For the HIVE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A (always animates)
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_cocoonopen (1.0 0.5 0.0) (-20 -20 -34) (20 20 34) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An open cocoon which hangs from the ceiling
+For the HIVE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_cog1 (1.0 0.5 0.0) (-8 -4 0) (8 4 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cog with spokes coming out the front of it.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (cog can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_corpse1 (1.0 0.5 0.0) (-30 -12 0) (30 12 5) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Plague elf dead.
+---------- KEYS -----------------  
+style - (default 0)
+   0 - both arms above head	
+   1 - on side	
+   2 - arm over face
+   3 - arms out to side
+   4 - skewered
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (corpse can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_corpse2 (1.0 0.5 0.0) (-30 -12 0) (30 12 5) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Plague elf dead with a different skin
+---------- KEYS -----------------  
+style - (default 0)
+   0 - both arms above head	
+   1 - on side	
+   2 - arm over face
+   3 - arms out to side
+   4 - skewered
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (corpse can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_corpse_ogle (1.0 0.5 0.0) (-30 -12 -2) (30 12 2) pushing pick_up pick_down chisel_up chisel_down hammer_up hammer_down
+A dead ogle.
+---------- KEYS -----------------  
+style - skin of ogle (default 0)
+0 - damage skin
+1 - normal skin
+-------  FIELDS  ------------------
+same as monster ogle
+-----------------------------------
+*/
+
+/*QUAKED obj_corpse_ssithra (1.0 0.5 0.0) (-30 -12 -2) (30 12 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A dead plague ssithra
+---------- KEYS -----------------  
+style - skin of ssithra (default 0)
+0 - damage skin
+1 - some bad bad skin. (not used)
+2 - normal skin
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (corpse can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_dying_elf (1.0 0.5 0.0) (-30 -12 0) (30 12 5) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Plague elf lying on the ground shaking.
+---------- KEYS -----------------  
+style - skin to use
+0 - 
+1 - 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (corpse can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_eggpan (1.0 0.5 0.0) (-4 -10 -1) (4 10 1) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A pan which is laying flat like it was on a stove
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_eyeball_jar (1.0 0.5 0.0) (-13 -13 -18) (13 13 18) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A jar full of eyeballs
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A (thing always animates)
+EXPLODING - N/A
+NOPUSH - can't be moved
+-----------------------------------
+*/
+
+/*QUAKED obj_firepot (1.0 0.5 0.0) (-18 -18 -12) (18 18 12) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A grey stone firepot
+-------  FIELDS  ------------------
+INVULNERABLE - always invulnerable
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't ever be moved by player)
+-----------------------------------
+*/
+
+/*QUAKED obj_fishhead1 (1.0 0.5 0.0) (0 -76 -86) (136 76 86) NODRIP
+ Large fish head fountain. No teeth in mouth and the fins on top are connected. Also spawns 4 drips frame 0
+-------  FIELDS  ------------------
+NODRIP - won't drip
+-----------------------------------
+*/
+
+/*QUAKED obj_fishhead2 (1.0 0.5 0.0) (0 -110 -118) (136 110 118) NODRIP
+Large fish head fountain. The mouth has teeth. The fins on top are not conntected. Also spawns 4 drips frame 0
+-------  FIELDS  ------------------
+NODRIP - won't drip
+-----------------------------------
+*/
+
+/*QUAKED obj_fishtrap (1.0 0.5 0.0) (-14 -28 -13) (14 28 13) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A fishtrap
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_flagonpole (1.0 0.5 0.0) (-8 -8 0) (8 8 60) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A flag on a pole
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (flagonpole can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_floor_candelabrum (1.0 0.5 0.0) (-8 -8 -35) (8 8 35) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A floor candelabrum.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be destroyed
+ANIMATE - makes flickering flames appear
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_fountain_fish (1.0 0.5 0.0) (-52 -34 -48) (52 34 48) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A two headed fish fountain
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_frypan (1.0 0.5 0.0) (-1 -3 -10) (1 3 10) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A pan which is hanging on a nail
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_gascan (1.0 0.5 0.0) (-8 -9 -13) (8 9 13) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A metal gas can. 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_gorgonbones (1.0 0.5 0.0) (-18 -38 -9) (18 38 1) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The bones of a dead gorgon.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_gorgonbones can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_grass (1.0 0.5 0.0) (-8 -8 -10) (8 8 10) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A clump of grass
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_grass can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_hanging_ogle (1.0 0.5 0.0) (-8 -16 -34) (8 16 34) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Poor little hanging ogle
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A (thing always animates)
+EXPLODING - N/A
+NOPUSH - N/A  (can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_hangingdude (1.0 0.5 0.0) (-3 -20 -55) (3 20 55) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A half a dude hanging from a wall ring plaque
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_hivepriestessssymbol (1.0 0.5 0.0) (-4 -4 -13) (4 4 13) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The Hive Priestess Symbol was created originally by T'jektaluck back in 14567 AH (After Hive).  It was stolen by Matt Pinkston in 20054.  He was promptly captured and fed Zots until he died from sugar overload.
+It starts off invisible.  When used it appears.
+For the HIVE level
+-------  FIELDS  ------------------
+INVULNERABLE - N/A it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_jawbone (1.0 0.5 0.0) (-11 -11 -12) (11 11 12) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The jaws of a fish. 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_jug1 (1.0 0.5 0.0) (-6 -6 -6) (6 6 6) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A wine jug
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_kettle (1.0 0.5 0.0) (-8 -8 0) (8 8 10) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A kettle.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_lab_parts_container (1.0 0.5 0.0) (-8 -8 -11) (8 8 11) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A container of moving body parts
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A (thing always animates)
+EXPLODING - N/A
+NOPUSH - can't be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_lab_tray (1.0 0.5 0.0) (-8 -8 -5) (8 8 5) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tray with a beating heart and some tools on it.
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A (thing always animates)
+EXPLODING - N/A
+NOPUSH - N/A  (can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_larva (1.0 0.5 0.0) (-8 -8 -2) (8 8 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A squirming larva
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - can be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_larvabrokenegg (1.0 0.5 0.0) (-6 -7 -5) (6 7 5) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A broken egg for the larva
+For the HIVE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_larvaegg (1.0 0.5 0.0) (-6 -14 -6) (6 14 6) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An egg for the larva
+For the HIVE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_lever1 (1.0 0.5 0.0) (-6 -14 -17) (6 14 17) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A wooden floor lever that is triggerable.
+-------  FIELDS  ------------------
+INVULNERABLE - always invulnerable
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_lever1 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_lever2 (1.0 0.5 0.0) (-14 -14 -9) (14 14 9) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A wooden wheel lever that is triggerable.
+-------  FIELDS  ------------------
+INVULNERABLE - always invulnerable
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_lever2 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_lever3 (1.0 0.5 0.0) (-4 -6 -16) (4 6 16) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A lever for the wall...and it's triggerable.
+-------  FIELDS  ------------------
+INVULNERABLE - always invulnerable
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (obj_lever3 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_metalchunk1 (1.0 0.5 0.0) (-10 -26 -4) (10 26 4) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A chunk of twisted metal.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_metalchunk2 (1.0 0.5 0.0) (-10 -26 -7) (10 26 7) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Another chunk of twisted metal.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_metalchunk3 (1.0 0.5 0.0) (-9 -30 -4) (9 30 4) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Another chunk of twisted metal.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_minecart (1.0 0.5 0.0) (-18 -29 -20) (18 29 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A full mine cart used on the mine levels.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_minecart2 (1.0 0.5 0.0) (-18 -29 -20) (18 29 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An empty mine cart used on the mine levels.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_minecart3 (1.0 0.5 0.0) (-18 -29 -15) (18 29 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A busted mine cart used on the mine levels.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_morcalavin_barrier (1.0 0.5 0.0) ? ?
+
+The magical barrier that prevents the player from entering the tome area and defeating 
+Morcalavin
+
+*/
+
+/*QUAKED obj_moss1 (1.0 0.5 0.0) (-4 -10 -40) (4 10 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (moss1 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_moss2 (1.0 0.5 0.0) (-4 -9 -40) (4 9 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (moss2 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_moss3 (1.0 0.5 0.0) (-4 -15 -40) (4 15 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (moss3 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_moss4 (1.0 0.5 0.0) (-4 -12 -40) (4 12 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (moss4 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_moss5 (1.0 0.5 0.0) (-4 -10 -40) (4 10 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (moss5 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_nest (1.0 0.5 0.0) (-25 -25 -4) (25 25 4) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A big bird nest
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_pick (1.0 0.5 0.0) (-12 -13 -2) (12 13 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tool that is a pick.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_pipe1 (1.0 0.5 0.0) (-11 -24 -7) (11 24 7) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A section of pipe with 90 degree bend in it.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_pipe2 (1.0 0.5 0.0) (-6 -25 -4) (6 25 4) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A straight section of pipe.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_pipewheel (1.0 0.5 0.0) (-14 -14 -12) (14 14 12) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A shutoff valve for pipe.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_plant1 (1.0 0.5 0.0) (-8 -8 -24) (8 8 24) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A clump of tall, thin, plants
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (plant1 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_plant2 (1.0 0.5 0.0) (-20 -20 -10) (20 20 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A plant with broad leaves.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (plant2 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_plant3 (1.0 0.5 0.0) (-8 -8 -12) (8 8 12) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A group of ferns
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (plant3 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_pot1 (1.0 0.5 0.0) (-3 -8 -8) (3 8 8) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cooking pot which hangs from a wall
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_pot2 (1.0 0.5 0.0) (-7 -7 -3) (7 7 3) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cooking pot which lays flat on a table
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_pottedplant (1.0 0.5 0.0) (-20 -20 -30) (20 20 30) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A potted plant with ferns
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_pushcart (1.0 0.5 0.0) (-13 -16 -41) (13 16 41) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A push cart for the ogles to push around
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - can be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_queenchair (1.0 0.5 0.0) (-30 -28 -31) (30 28 31) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A chair to go by the queen throne
+For the HIVE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_queenthrone (1.0 0.5 0.0) (-40 -56 -49) (40 56 49) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A throne for the queen
+For the HIVE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_ring_plaque2 (1.0 0.5 0.0) (-2 -24 -20) (2 24 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+More rings mounted into a wall plate
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - N/A  (can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_rocks1 (1.0 0.5 0.0) (-12 -13 -4) (12 13 4) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bunch of rocks together
+For the MINE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_rocks2 (1.0 0.5 0.0) (-9 -30 -4) (9 30 4) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A big rock
+For the MINE levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_rope (0.3 0.2 0.8) ? VINE CHAIN TENDRIL HANGING_CHICKEN
+
+A rope to climb or swing (default to rope model)
+
+Place the top of the entity at the top of the rope, and drag
+the bottom of the box to the end of the rope
+
+THE ENTITY MUST HAVE AN ORIGIN BRUSH
+
+------------  FIELDS  -------------
+ROPE (default) 
+VINE - use a vine model
+CHAIN - use a chain model
+TENDRIL - use a tendril model
+-------------  KEYS  --------------
+-----------------------------------
+*/
+
+/*QUAKED obj_ropechain (1.0 0.5 0.0) (-20 -20 -14) (20 20 14) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A pile of rope or chain
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (ropechain can't be moved)
+
+Variables:
+skinnum = 0 : rope
+          1 : chain
+-----------------------------------
+*/
+
+/*QUAKED obj_scroll (1.0 0.5 0.0) (-2 -18 -3) (2 18 3) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A paper scroll
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_seasonglobe (1.0 0.5 0.0) (-80 -80 0) (80 80 100) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The globe thingy
+-------  FIELDS  ------------------
+INVULNERABLE - N/A
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (globe can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_shovel (1.0 0.5 0.0) (-8 -8 -20) (8 8 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A shovel
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_shrine (1.0 0.5 0.0) (-26 -38 -38) (26 38 38) INVULNERABLE ANIMATE EXPLODING NOPUSH
+{
+choice "style"
+((0,"heal")
+( 1,"mana")
+( 2,"lungs")
+( 3,"light")
+( 4,"power up")
+( 5,"armor")
+( 6,"armor gold")
+( 7,"random")
+( 8,"reflection")
+( 9,"staff")
+(10,"ghost")
+(11,"speed"));
+}
+Its a shrine
+For all levels
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+---------- KEYS -----------------  
+style - (default 0) type of shrine
+   0 - heal
+   1 - mana
+   2 - lungs
+   3 - light
+   4 - power up
+   5 - armor
+   6 - armor gold
+   7 - random
+   8 - reflection
+   9 - staff
+  10 - ghost
+  11 - speed
+-----------------------------------
+
+*/
+
+/*QUAKED obj_sign1 (1.0 0.5 0.0) (-29 -4 -16) (29 4 16) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A square sign coming out of a wall.
+--------KEYS-------------------
+style -
+0 - sign with a dragon
+1 - sign with two steins
+2 - sign with a fish
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (sign1 can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_sign4 (1.0 0.5 0.0) (-8 -18 -29) (8 18 29) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A square sign that is on top of a post. It is leaning badly.
+For the MINE or DESERT areas.
+style - 
+0 for the Andorian skin
+1 for the Tchecktrik skin
+
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (sign4 can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_skullpole (1.0 0.5 0.0) (-10 -10 -47) (10 10 47) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A pole with skulls on it
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_spellbook (1.0 0.5 0.0) (-14 -14 -35) (14 14 40) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A spell book that closes when triggered.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_boulderfish (1.0 0.5 0.0) (-26 -16 -27) (26 16 27) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A statue of a fish. The one which raises up a boulder.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_corvus (1.0 0.5 0.0) (-16 -16 0) (16 16 32) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A statue of Corvus.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_dolphin1 (1.0 0.5 0.0) (-68 -22 -30) (68 22 30) VULNERABLE ANIMATE EXPLODING NOPUSH
+The dolphin on all fours
+-------  FIELDS  ------------------
+VULNERABLE - it can be hurt - default it can't be
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_dolphin2 (1.0 0.5 0.0) (-17 -20 -70) (17 20 70) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The dolphin on a wall. Head turned to the right
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_dolphin3 (1.0 0.5 0.0) (-17 -20 -70) (17 20 70) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The dolphin on a wall. Head turned to the left
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_dolphin4 (1.0 0.5 0.0) (-63 -22 -37) (63 22 37) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The dolphin up on two legs
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_dragon (1.0 0.5 0.0) (-53 -33 -72) (53 33 72) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A statue of a dragon
+---------- KEYS -----------------  
+style - (default 0)
+   0 - dragon looking left	
+   1 - dragon looking right
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_dragonhead (1.0 0.5 0.0) (-76 -28 -46) (76 28 46) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A statue of a dragon head
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_duckbill1 (1.0 0.5 0.0) (-67 -24 -51) (67 24 51) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The duckbilled thing - tail to the right
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_duckbill2 (1.0 0.5 0.0) (-67 -24 -50) (67 24 50) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The duckbilled thing - tail to the left
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_guardian (1.0 0.5 0.0) (-100 -64 0) (64 64 128) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A big statue of a fish guy on his haunches holding a spear.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_saraphbust (1.0 0.5 0.0) (-10 -20 -24) (10 20 24) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bust of a saraph
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_sariph (1.0 0.5 0.0) (-13 -16 -41) (13 16 41) INVULNERABLE ANIMATE EXPLODING NOPUSH
+Big statue in armor carrying an axe
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - N/A  (can't be pushed)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_sithraguard (1.0 0.5 0.0) (-22 -20 -57) (22 20 57) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A statue of a sithra guard with spear extended.  When used the guard pulls his arm back.
+style - type of statue
+-------  FIELDS  ------------------
+INVULNERABLE - N/A (can't be hurt)
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_tchecktrik_bust (1.0 0.5 0.0) (-8 -12 -15) (8 12 15) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bust of a tchecktrik.  When used a necklace appears aroundit's neck.
+style - 
+0 - no necklace until used then necklace appears
+1 - necklace until used then necklace disappears
+-------  FIELDS  ------------------
+INVULNERABLE - N/A  (can't be hurt)
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_techeckrikleft (1.0 0.5 0.0) (-26 -40 -50) (26 40 50) INVULNERABLE ANIMATE EXPLODING NOPUSH NOGEM
+The statue of the techeckrik with his arms raised up to the left.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+NOGEM - No gem in the chest (puzzle)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_techeckrikright (1.0 0.5 0.0) (-26 -40 -50) (26 40 50) INVULNERABLE ANIMATE EXPLODING NOPUSH NOGEM
+The statue of the techeckrik with his arms raised up to the right.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+NOGEM - No gem in the chest  (puzzle)
+-----------------------------------
+*/
+
+/*QUAKED obj_statue_techeckriktomb (1.0 0.5 0.0) (-41 -11 -14) (41 11 14) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The statue of the techeckrik laying down.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_stein (1.0 0.5 0.0) (-2 -2 -3) (2 2 3) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A beer stein.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_swampflat_bottom (1.0 0.5 0.0) (0 -100 -48) (2 100 48) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A flat poly to be used on the outer edge of swamp levels. Vegetation hanging down.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_swampflat_top (1.0 0.5 0.0) (0 -100 -48) (2 100 48) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A flat poly to be used on the outer edge of swamp levels. Vegetation growing up.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_table1 (1.0 0.5 0.0) (-28 -54 -18) (28 54 18) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A large wooden dining table with two legs.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_table2 (1.0 0.5 0.0) (-28 -54 -17) (28 54 17) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A grey stone table.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_tapper (1.0 0.5 0.0) (-2 -5 -2) (2 5 2) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tapper for a keg 
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_throne (1.0 0.5 0.0) (-20 -22 -44) (20 22 44) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A highbacked throne.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_torture_bed (1.0 0.5 0.0) (-21 -43 -94) (21 43 94) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A bed of spikes that falls from the ceiling.
+-------  FIELDS  ------------------
+INVULNERABLE - N/A (can't be hurt)
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_torture_ironmaiden (1.0 0.5 0.0) (-18 -18 -49) (18 18 49) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An iron maiden that closes when used
+-------  FIELDS  ------------------
+INVULNERABLE - N/A (can't be hurt)
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_torture_rack (1.0 0.5 0.0) (-22 -46 -19) (22 46 19) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A rack 
+-------  FIELDS  ------------------
+INVULNERABLE - N/A (can't be hurt)
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_torture_table (1.0 0.5 0.0) (-46 -14 -14) (46 14 14) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A table useful for wringing confessions from your broken and pitiful enemies.
+style - the frame of animation for model
+ 0 -table is down
+ 1 - table is in upright position
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't ever be moved by player)
+-----------------------------------
+*/
+
+/*QUAKED obj_torture_wallring (1.0 0.5 0.0) (-2 -4 -6) (2 4 6) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A ring that hangs from a wall
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't ever be moved by player)
+-----------------------------------
+*/
+
+/*QUAKED obj_tree (1.0 0.5 0.0) (-100 -100 -120) (100 100 120) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tree for Matt's level
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (tree can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_tree2 (1.0 0.5 0.0) (-50 -50 -286) (50 50 286) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tall spikey tree for the swamps
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (tree2 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_tree3 (1.0 0.5 0.0) (-50 -50 -286) (50 50 286) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tall spikey tree with big roots on the bottom.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (tree3 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_treefallen (1.0 0.5 0.0) (-24 -62 -35) (24 62 35) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A tree that is leaning as if it had over. Meant to be partially submerged in water or muck.
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (treefallen can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_treestump (1.0 0.5 0.0) (-18 -18 -16) (18 18 16) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A short tree stump  
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_treetall (1.0 0.5 0.0) (-46 -46 -340) (46 46 340) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A very tall tree
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (tree3 can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_treetop (1.0 0.5 0.0) (-176 -176 -125) (176 176 125) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A canopy for a tree. 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (treetop can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_urn (1.0 0.5 0.0) (-8 -8 -27) (8 8 30) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An urn 
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_venusflytrap (1.0 0.5 0.0) (-20 -20 -24) (20 20 24) INVULNERABLE ANIMATE EXPLODING NOPUSH
+The venus flytrap - a viscous beast of a plant
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_wallringplaque (1.0 0.5 0.0) (-3 -20 -55) (3 20 55) INVULNERABLE ANIMATE EXPLODING NOPUSH
+An iron plaque with rings hanging from it.  Great for hanging half corpses from 
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_web (1.0 0.5 0.0) (-2 -18 -20) (2 18 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A cobweb
+-------  FIELDS  ------------------
+INVULNERABLE - can't be hurt
+ANIMATE - N/A 
+EXPLODING - N/A
+NOPUSH - can be pushed
+-----------------------------------
+*/
+
+/*QUAKED obj_wheelbarrow (1.0 0.5 0.0) (-37 -20 -21) (37 20 21) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A wheelbarrow  
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - can't be moved by player
+-----------------------------------
+*/
+
+/*QUAKED obj_wheelbarrowdamaged (1.0 0.5 0.0) (-38 -26 -20) (38 26 20) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A wheelbarrow  on it's side missing a wheel
+-------  FIELDS  ------------------
+INVULNERABLE - it can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (wheelbarrowdamaged can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED obj_woodpile (1.0 0.5 0.0) (-12 -20 -7) (12 20 7) INVULNERABLE ANIMATE EXPLODING NOPUSH
+A pile of chopped  wood.
+-------  FIELDS  ------------------
+INVULNERABLE - Can't be hurt
+ANIMATE - N/A
+EXPLODING - N/A
+NOPUSH - N/A (can't be moved)
+-----------------------------------
+*/
+
+/*QUAKED path_corner (0.5 0.3 0.0) (-8 -8 -8) (8 8 8) TELEPORT
+---------KEYS---------------	
+target -  target name of next path corner
+pathtarget - used when an entity that has this path_corner targeted touches it
+angles - used to make the brush rotate. The brush MUST have an origin brush in it. It is an
+ accumulative value so if the value is 0 40 0 the brush rotate an additional 40 degrees along
+ the y axis before it reaches this path corner.
+wait - -1 makes trains stop until retriggered
+       -3 trains explode upon reaching this path corner
+
+noise -	file to play when corner is hit (trains only)
+-objects/bucket.wav
+*/
+
+/*QUAKED point_combat (0.5 0.3 0.0) (-8 -8 -8) (8 8 8) Hold
+	
+	Makes this the target of a monster and it will head here
+	when first activated before going after the activator.  If
+	hold is selected, it will stay here.
+
+  NOTE FROM MG: Probably still works... will test
+*/
+
+/*QUAKED script_runner (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+set Script to the name of the script to run when triggered
+use parm1 through parm16 to send parameters to the script
+*/
+
+/*QUAKED shrine_armor (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_armor_gold (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_ghost (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_heal (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_light (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_lung (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_mana (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_powerup (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_random (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_reflect (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_speed (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED shrine_staff (0.5 0.3 0.5) ? PERMANENT
+*/
+
+/*QUAKED sound_ambient_andoria (1.0 0.0 0.0) (-4 -4 0) (4 4 4) NON_LOCAL START_OFF
+{
+choice "style"
+((1,"small fountain (constant loop)")
+(2,"large fountain (constant loop)")
+(3,"water running out of sewer (constant loop)")
+(4,"rushing waterway outside (constant loop)")
+(5,"wind chime"));
+}
+Generates an ambient sound for andoria levels
+-------  FLAGS  ------------------
+NON_LOCAL - sound occurs everywhere in the level - attenuation is not operative with this type of sound
+wait    amount of seconds to wait + or - 50% before spawning sound again (default is 10 seconds)
+START_OFF - starts off, can be triggered on
+-------  KEYS  ------------------
+style  
+1 - small fountain (constant loop)
+2 - large fountain (constant loop)
+3 - water running out of sewer (constant loop)
+4 - rushing waterway outside (constant loop)
+5 - wind chime 
+
+attenuation  (how quickly sound drops off from origin)
+   0 - heard over entire level (default)
+   1 - 
+   2 - 
+   3 - diminish very rapidly with distance 
+
+volume   range of .1 to 1   (default .5)
+  0 - silent
+  1 - full volume
+-----------------------------------
+*/
+
+/*QUAKED sound_ambient_cloudfortress (1.0 0.0 0.0) (-4 -4 0) (4 4 4) NON_LOCAL START_OFF
+choice "style"
+((1,"Cauldron bubbling (looping sound)")
+(2,"wind, low, eerie (looping)")
+(3,"wind, low, noisy (looping)")
+(4,"wind, high, soft (looping)")
+(5,"wind, low, soft (looping)")
+(6,"wind, low, strong (looping)")
+(7,"wind, high, strong (looping)")
+(8,"wind, whistling, strong (looping)"));
+}
+Generates an ambient sound for cloud fortress levels
+-------  FLAGS  ------------------
+NON_LOCAL - sound occurs everywhere in the level - attenuation is not operative with this type of sound
+wait    amount of seconds to wait + or - 50% before spawning sound again (default is 10 seconds)
+START_OFF - starts off, can be triggered on
+-------  KEYS  ------------------
+style  
+1 - Cauldron bubbling (looping sound)
+2 - wind, low, eerie (looping)
+3 - wind, low, noisy (looping)
+4 - wind, high, soft (looping)
+5 - wind, low, soft (looping)
+6 - wind, low, strong (looping)
+7 - wind, high, strong (looping)
+8 - wind, whistling, strong (looping)
+
+attenuation  (how quickly sound drops off from origin)
+   0 - heard over entire level (default)
+   1 - 
+   2 - 
+   3 - diminish very rapidly with distance 
+
+volume   range of .1 to 1   (default .5)
+  0 - silent
+  1 - full volume
+-----------------------------------
+*/
+
+/*QUAKED sound_ambient_hive (1.0 0.0 0.0) (-4 -4 0) (4 4 4) NON_LOCAL START_OFF
+{
+choice "style"
+((1,"gong")
+(2,"wind, low, eerie (looping)")
+(3,"wind, low, noisy (looping)")
+(4,"wind, high, soft (looping)")
+(5,"wind, low, soft (looping)")
+(6,"wind, low, strong (looping)")
+(7,"wind, high, strong (looping)")
+(8,"wind, whistling, strong (looping)"));
+}
+Generates an ambient sound for hive levels
+-------  FLAGS  ------------------
+NON_LOCAL - sound occurs everywhere in the level - attenuation is not operative with this type of sound
+wait    amount of seconds to wait + or - 50% before spawning sound again (default is 10 seconds)
+START_OFF - starts off, can be triggered on
+-------  KEYS  ------------------
+style   
+1 - gong
+2 - wind, low, eerie (looping)
+3 - wind, low, noisy (looping)
+4 - wind, high, soft (looping)
+5 - wind, low, soft (looping)
+6 - wind, low, strong (looping)
+7 - wind, high, strong (looping)
+8 - wind, whistling, strong (looping)
+
+attenuation  (how quickly sound drops off from origin)
+   0 - heard over entire level (default)
+   1 - 
+   2 - 
+   3 - diminish very rapidly with distance 
+
+volume   range of .1 to 1   (default .5)
+  0 - silent
+  1 - full volume
+-----------------------------------
+*/
+
+/*QUAKED sound_ambient_mine (1.0 0.0 0.0) (-4 -4 0) (4 4 4) NON_LOCAL START_OFF
+{
+choice "style"
+((1,"Mud pool bubbling (looping)")
+(2,"Rocks falling (3 sounds)")
+(3,"wind, low, eerie (looping)")
+(4,"wind, low, soft (looping)")
+(5,"conveyor belt (looping)")
+(6,"bucket conveyor belt (looping)")
+(7,"three different creaks of heavy timbers"));
+}
+Generates an ambient sound for mine levels
+-------  FLAGS  ------------------
+NON_LOCAL - sound occurs everywhere in the level - attenuation is not operative with this type of sound
+wait    amount of seconds to wait + or - 50% before spawning sound again (default is 10 seconds)
+START_OFF - starts off, can be triggered on
+-------  KEYS  ------------------
+style  
+1 - Mud pool bubbling (looping)
+2 - Rocks falling (3 sounds)
+3 - wind, low, eerie (looping)
+4 - wind, low, soft (looping)
+5 - conveyor belt (looping)
+6 - bucket conveyor belt (looping)
+7 - three different creaks of heavy timbers
+
+attenuation  (how quickly sound drops off from origin)
+   0 - heard over entire level (default)
+   1 - 
+   2 - 
+   3 - diminish very rapidly with distance 
+
+volume   range of .1 to 1   (default .5)
+  0 - silent
+  1 - full volume
+-----------------------------------
+*/
+
+/*QUAKED sound_ambient_silverspring (1.0 0.0 0.0) (-4 -4 -4) (4 4 4) NON_LOCAL START_OFF
+{
+choice "style"
+((1,"fire (looping)")
+(2,"water lapping (looping)")
+(3,"seagulls (2 random calls)")
+(4,"ocean")
+(5,"birds (10 random bird calls)")
+(6,"crickets (3 random chirps)")
+(7,"frogs (2 random ribbets)")
+(8,"distant women/children crying (4 total)")
+(9,"mosquitoes (2 random sounds)")
+(10,"bubbles")
+(11,"bell tolling")
+(12,"footsteps (3 random sounds)")
+(13,"moans/screams/coughing (5 random sounds)")
+(14,"Sewer drips (3 random sounds)")
+(15,"Water drips (3 random sounds)")
+(16,"Solid drips - heavy liquid (3 random sounds)")
+(17,"Cauldron bubbling (looping sound)")
+(18,"Creaking for the spit that's holding the elf over a fire"));
+}
+Generates an ambient sound for silverspring levels
+-------  FLAGS  ------------------
+NON_LOCAL - sound occurs everywhere in the level - attenuation is not operative with this type of sound
+wait    amount of seconds to wait + or - 50% before spawning sound again (default is 10 seconds)
+START_OFF - starts off, can be triggered on
+-------  KEYS  ------------------
+style :  
+1 - fire (looping)
+2 - water lapping (looping)
+3 - seagulls (2 random calls)
+4 - ocean
+5 - birds (10 random bird calls)
+6 - crickets (3 random chirps)
+7 - frogs (2 random ribbets)
+8 - distant women/children crying (4 total)
+9 - mosquitoes (2 random sounds)
+10 - bubbles 
+11 - bell tolling
+12 - footsteps (3 random sounds)
+13 - moans/screams/coughing (5 random sounds)
+14 - Sewer drips (3 random sounds)
+15 - Water drips (3 random sounds)
+16 - Solid drips - heavy liquid (3 random sounds)
+17 - Cauldron bubbling (looping sound)
+18 - Creaking for the spit that's holding the elf over a fire
+
+attenuation  (how quickly sound drops off from origin)
+0 - heard over entire level (default)
+1 - 
+2 - 
+3 - diminish very rapidly with distance 
+
+volume   range of .1 to 1   (default .5)
+  0 - silent
+  1 - full volume
+-----------------------------------
+*/
+
+/*QUAKED sound_ambient_swampcanyon (1.0 0.0 0.0) (-4 -4 0) (4 4 4) NON_LOCAL START_OFF
+choice "style"
+((1,"bird, quick, high pitch")
+( 2,"bird, low, medium pitch")
+( 3,"huge waterfall")
+( 4,"mud pool bubbling (looping)")
+( 5,"wind, low, eerie (looping)")
+( 6,"wind, low, noisy (looping)")
+( 7,"wind, high, soft (looping)")
+( 8,"wind, low, soft (looping)")
+( 9,"wind, low, strong (looping)")
+(10,"wind, high, strong (looping)")
+(11,"wind, whistling, strong (looping)"));
+}
+Generates an ambient sound for swamp or canyon levels
+-------  FLAGS  ------------------
+NON_LOCAL - sound occurs everywhere in the level - attenuation is not operative with this type of sound
+wait    amount of seconds to wait + or - 50% before spawning sound again (default is 10 seconds)
+START_OFF - starts off, can be triggered on
+-------  KEYS  ------------------
+style   
+1 - bird, quick, high pitch
+2 - bird, low, medium pitch
+3 - huge waterfall
+4 - mud pool bubbling (looping)
+5 - wind, low, eerie (looping)
+6 - wind, low, noisy (looping)
+7 - wind, high, soft (looping)
+8 - wind, low, soft (looping)
+9 - wind, low, strong (looping)
+10 - wind, high, strong (looping)
+11 - wind, whistling, strong (looping)
+
+
+attenuation  (how quickly sound drops off from origin)
+   0 - heard over entire level (default)
+   1 - 
+   2 - 
+   3 - diminish very rapidly with distance 
+
+volume   range of .1 to 1   (default .5)
+  0 - silent
+  1 - full volume
+-----------------------------------
+*/
+
+/*QUAKED target_changelevel (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+Changes map player is on.
+
+map - the map to change to
+     'newmap'$'target'
+
+newmap is the map the player is changing to
+$ - has to be there
+target is the targetname of the info_player_start to go to. 
+
+If an info_player_start is not given a random one on the level is chosen
+
+
+*/
+
+/*QUAKED target_crosslevel_target (0.5 0.5 0.5) (-8 -8 -8) (8 8 8) trigger1 trigger2 trigger3 trigger4 trigger5 trigger6 trigger7 trigger8
+Triggered by a trigger_crosslevel elsewhere within a unit.  If multiple triggers are checked, all must be true.  Delay, target and
+killtarget also work.
+
+"delay"		delay before using targets if the trigger has been activated (default 1)
+*/
+
+/*QUAKED target_crosslevel_trigger (0.5 0.5 0.5) (-8 -8 -8) (8 8 8) trigger1 trigger2 trigger3 trigger4 trigger5 trigger6 trigger7 trigger8
+Once this trigger is touched/used, any trigger_crosslevel_target with the same trigger number is automatically used when a level is started within the same unit.  It is OK to check multiple triggers.  Message, delay, target, and killtarget also work.
+*/
+
+/*QUAKED target_lightramp (0.0 0.5 0.8) (-8 -8 -8) (8 8 8) TOGGLE
+speed		How many seconds the ramping will take
+message		two letters; starting lightlevel and ending lightlevel
+*/
+
+/*QUAKED target_splash (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+Creates a particle splash effect when used.
+
+Set "sounds" to one of the following:
+  1) sparks
+  2) blue water
+  3) brown water
+  4) slime
+  5) lava
+  6) blood
+
+"count"	how many pixels in the splash
+"dmg"	if set, does a radius damage at this location when it splashes
+		useful for lava/sparks
+*/
+
+/*QUAKED trigger_Activate (0.5 0.5 0.5) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Variable sized repeatable trigger, which posts a UNSUSPEND message to its target.
+Must be targeted at one or more entities.
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+------KEYS-----------
+delay - If set, the trigger waits this amount after activating before firing.
+wait  - Seconds between triggerings. (.2 default)
+message - text string displayed when triggered
+*/
+
+/*QUAKED trigger_Damage (0.5 0.5 0.5) ? START_OFF TOGGLE SILENT NO_PROTECTION SLOW
+Any entity that Touches this will be Damage.
+
+It does dmg points of Damage each server frame
+
+SILENT			supresses playing the sound
+SLOW			changes the Damage rate to once per second
+NO_PROTECTION	*nothing* stops the Damage
+
+"dmg"			default 5 (whole numbers only)
+
+*/
+
+/*QUAKED trigger_Deactivate (0.5 0.5 0.5) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Variable sized repeatable trigger, which posts a SUSPEND message to its target.
+Must be targeted at one or more entities.
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+--------KEYS-----------
+delay - If set, the trigger waits this amount after activating before firing.
+wait  - Seconds between triggerings. (.2 default)
+message - text string displayed when triggered
+*/
+
+/*QUAKED trigger_Gravity (0.5 0.5 0.5) ?
+Changes the Touching entites Gravity to
+the value of "Gravity".  1.0 is standard
+Gravity for the level.
+*/
+
+/*QUAKED trigger_MonsterJump (0.5 0.5 0.5) ?
+Walking monsters that Touch this will jump in the direction of the trigger's angle
+"speed" default to 200, the speed thrown forward
+"height" default to 200, the speed thrown upwards
+*/
+
+/*QUAKED trigger_always (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+This trigger will always fire.  It is activated by the world.
+*/
+
+/*QUAKED trigger_counter (0.5 0.5 0.5) ? NOMESSAGE
+Acts as an intermediary for an action that takes multiple inputs.
+
+If NOMESSAGE is not set, t will print "1 more.. " etc when triggered and "sequence complete" when finished.
+
+After the counter has been triggered "count" times (default 2), it will fire all of it's targets and remove itself.
+*/
+
+/*QUAKED trigger_elevator (0.3 0.1 0.6) (-8 -8 -8) (8 8 8)
+*/
+
+/*QUAKED trigger_endgame (0.5 0.5 0.5) ?
+End game trigger. once used, game over
+*/
+
+/*QUAKED trigger_farclip (0.5 0.5 0.5) ?
+Allows the console var Farclip to be reset - this is a toggle function - if triggered
+and far-clip is set to the default, it will be reset to the value passed in. If its the
+value passed in, its reset to the default. Be aware that there must be no teleport
+destinations within the area that has a reset far-clip.
+-------SPAWN FLAGS-------------
+-------KEYS--------------------
+scale - distance to set far clip to. Default of farclip is 4096.0
+*/
+
+/*QUAKED trigger_fogdensity (0.5 0.5 0.5) ?
+Sets the value of r_fog_density
+and the fog color
+---------KEY----------------
+target - fog density (.01 - .0001)
+color - red green blue values (0 0 0)
+        range of 1.0 - 0
+----------------------------
+*/
+
+/*QUAKED trigger_goto_buoy (0.5 0.5 0.5) ? Touch IgnoreEnemy TeleportSafe TeleportUnSafe FIXED STAND WANDER
+A monster touching this trigger will find the buoy with the "pathtarget" targetname and head for it if it can.
+
+This is NOT a touch trigger for a player, only monsters should ever touch it and only if the TOUCH spawnflag is on.
+
+To have a player touch-trigger it, have the player touch a normal trigger that fires this trigger... (sorry!)
+
+Otherwise, acts like a normal trigger.
+
+"pathtarget" - targetname of buoy monster should head to
+
+Touch - should be able to be touch-activated by monsters- NOTE: This will try to force the entity touching the trigger to it's buoy- should NOT be intended to be touched by anything but monsters
+
+IgnoreEnemy - Monster will ignore his enemy until he gets to his target buoy (or until attacked or woken up some other way, working on preventing this if desired)
+
+TeleportSafe - Make monster teleport to target buoy only if there is nothing there and the player cannot see the monster and/or desination buoy
+
+TeleportUnSafe - Same as TeleportSafe, but ignores whether or not the player can see the monster and/or desination buoy
+
+If you wish to make an assassin teleport to a buoy, use TeleportUnsafe since he doesn't need to hide the teleport from the player
+
+FIXED - Upon arriving at the target buoy, the monster will become fixed and wait for an enemy (will not move from that spot no matter what)
+
+STAND - Upon arriving at the target buoy, the monster will forget any aenemy it has and simply stand around there until it sees another enemy
+
+WANDER - Upon arriving at the target buoy, the monster will forget any aenemy it has and begin to wander around that buoy's vicinity
+
+"wait" how long to wait between firings
+"delay" how long to wait after being activated to actually try to send the monster away
+*/
+
+/*QUAKED trigger_lightning (0.3 0.1 0.6) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Triggers a lightning bolt
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+-------KEYS--------------------
+origin-- Starting point.
+target-- Ending point entity.  
+         There may be more than one with a given targetname.
+delay-- (0-25.5) Sec. duration of lightning.  
+         Leave this at zero for a normal strike
+materialtype-- 0=blue, 1=red
+style-- Width of bolt.  Red rain uses 6.
+wait - amount of time until it will become active again (default 10).
+*/
+
+/*QUAKED trigger_mappercentage (0.3 0.1 0.6) ? MONSTER NOT_PLAYER TRIGGERED ANY
+When triggered it updates Player with the percentage of the level completed.
+--------FLAGS----------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+----------KEYS---------------
+count - amount of level completed
+*/
+
+/*QUAKED trigger_mission_give (0.3 0.1 0.6) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Gives player(s) the current mission objectives
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+-------KEYS--------------------
+message - number of line from strings.txt, put in objectives
+wait - amount of time until it will become active again (default 10).
+*/
+
+/*QUAKED trigger_mission_take (0.3 0.1 0.6) ? MONSTER NOT_PLAYER TRIGGERED ANY TAKE1 TAKE2
+Removes player(s) the current mission objectives
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+TAKE1 mission statement 1
+TAKE2 mission statement 2
+-------KEYS--------------------
+wait - amount of time until it will become active again (default 10).
+*/
+
+/*QUAKED trigger_multiple (0.5 0.5 0.5) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Variable sized repeatable trigger.  Must be targeted at one or more entities.
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+--------KEYS---------
+delay   - Time to wait after activating before firing.
+message - text string to display when activated
+wait    - Seconds between triggerings. (.2 default)
+sounds  - sound made when activating
+1)	secret
+2)	none
+3)	large switch
+*/
+
+/*QUAKED trigger_once (0.5 0.5 0.5) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Triggers once, then removes itself.
+You must set the key "target" to the name of another object in the level that has a matching "targetname".
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+
+sounds
+ 1)	secret
+ 2)	no sound
+ 3)	large switch
+
+"message"	string to be displayed when triggered
+*/
+
+/*QUAKED trigger_playerpushbutton (0.5 0.5 0.5) ?
+Triggers player to know he is near a button. 
+*/
+
+/*QUAKED trigger_playerpushlever (0.5 0.5 0.5) ? x1 x2 TRIGGERED
+Triggers player to know he is near a lever.
+*/
+
+/*QUAKED trigger_playerusepuzzle (0.5 0.5 0.5) ? MONSTER NOT_PLAYER TRIGGERED ANY NO_INVENTORY DONT_REMOVE
+Player can 'use' puzzle items within this entity.  Will remove itself after one use.
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+NO_INVENTORY - don't show inventory bar, don't take puzzle piece
+DONT_REMOVE - entity won't remove itself after one use
+*/
+
+/*QUAKED trigger_push (0.5 0.5 0.5) ? FORCE_ONCE
+Pushes the player
+---------KEYS----------
+speed -  how fast the player is pushed (default 500)
+angle - the angle to push the player along the X,Y
+zangle - the up direction to push the player (0 is straight up, 180 is straight down)
+------------------------------------
+-------FLAGS---------------
+FORCE_ONCE - pushes once and then goes away
+------------------------------------
+*/
+
+/*QUAKED trigger_puzzle (0.5 0.5 0.5) (-8 -8 -8) (8 8 8) NO_TEXT NO_TAKE
+A relay trigger that only fires it's targets if player has the proper puzzle item.
+------KEYS--------------
+NO_TEXT - won't generate the "You need..." text when triggered
+NO_TAKE - don't take puzzle item from player inventory
+------FIELDS------------
+Use "item" to specify the required puzzle item, for example "key_data_cd"
+*/
+
+/*QUAKED trigger_quake (0.3 0.1 0.6) ? MONSTER NOT_PLAYER TRIGGERED ANY
+Triggers an earth quake
+-------SPAWN FLAGS-------------
+MONSTER - only a monster will trigger it
+NOT_PLAYER -  can't be triggered by player
+TRIGGERED - starts trigger deactivated
+ANY - anything can activate it
+--------KEYS---------------------
+wait - amount of time until it will become active again (default 10). -1 makes it go away for ever.
+count - max number of pixels to shake screen (default 20)
+time - duration to the tenth of a second  (range 0 - 12.8) (default 2)
+style - direction of shake
+1 - SHAKE_LATERAL   
+2 - SHAKE_VERTICAL  
+4 - SHAKE_DEPTH     
+7 - SHAKE_ALL_DIR  (default)
+*/
+
+/*QUAKED trigger_quit_to_menu (0.5 0.5 0.5) ?
+Player only, quits to menu
+*/
+
+/*QUAKED trigger_relay (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+This fixed size trigger cannot be touched, it can only be fired by other events.
+*/
+
+/*QUAKED worldspawn (0.0 0.0 0.0) ? NOBODIES
+
+Only used for the world.
+
+NOBODIES - In DM, no bodies will be left behind by players- for maps with large amounts of visibility
+
+"sky"			environment map name:
+
+	andoria
+	desert
+	hive
+	sky1	- Night Sky
+	storm
+	swamp
+	town
+
+"skyaxis"		vector axis for rotating sky
+"skyrotate"		speed of rotation in degrees/second
+"sounds"		music cd track number
+"gravity"		800 is default gravity
+"message"		text to print at user logon
+"skinnum"		plague level for corvus: 0-2
+"cooptimeout"	time to wait (in seconds) for all clients to have joined a map in coop (default is 0).
+
+"offensive"		starting offensive weapons (flag bits): 
+
+  1		- swordstaff
+  2		- fireball
+  4		- hellstaff
+  8		- magic missile array
+  16	- red-rain bow
+  32	- sphere of annihlation
+  64	- phoenix bow
+  128	- mace balls
+  256	- firewall
+
+"defensive"		starting defensive weapons (flag bits):
+
+  1		- ring of repulsion
+  2		- lightning shield
+  4		- teleport
+  8		- morph ovum
+  16	- meteor barrier
+
+*/
+

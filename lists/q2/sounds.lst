@@ -1,0 +1,314 @@
+world/10_0.wav
+Computer: "10..9..8..7..6..5..4..3..2..1.."
+world/airhiss1.wav
+Air hiss (short, soft)
+world/airhiss2.wav
+Air hiss (short, louder)
+world/amb1.wav
+Soft energy whistle
+world/amb10.wav
+Alien computer sound
+world/amb11.wav
+Rattling sound
+world/amb12.wav
+Air pumping sound
+world/amb13.wav
+Machinery
+world/amb14.wav
+Air whistle
+world/amb15.wav
+Deep computer hum
+world/amb16.wav
+Air/computer sound
+world/amb17.wav
+Machines rattling/cranking
+world/amb18.wav
+Very soft drone sound
+world/amb19.wav
+Air/computer sound
+world/amb2.wav
+Fluorescent light hum
+world/amb20.wav
+Fireball sound
+world/amb21.wav
+Air at intervals
+world/amb22.wav
+Very soft computer sound
+world/amb23.wav
+Computer hum, shorter
+world/amb24.wav
+Funny alien humming
+world/amb3.wav
+Soft rattle, machines
+world/amb4.wav
+Alien machines
+world/amb5.wav
+Sounds like a helicopter
+world/amb6.wav
+Helicopter, higher pitched
+world/amb7.wav
+Fluorescent lights
+world/amb8.wav
+Water or steam rushing
+world/amb9.wav
+Rattling machines
+world/battle1.wav
+Distant explosion
+world/battle2.wav
+Distant explosion
+world/battle3.wav
+Three explosions
+world/battle4.wav
+Loud explosion + soft explosion
+world/battle5.wav
+Loud explosion
+world/bigpump.wav
+A water pump
+world/bigpump2.wav
+A pump machine
+world/blackhole.wav
+A blackhole generator sound
+world/brkglas.wav
+Loud glass shattering sound
+world/bubbl4.wav
+Water glurp
+world/bubl1.wav
+Underwater bubbles
+world/bubl2.wav
+Underwater bubbles
+world/bubl3.wav
+Underwater bubbles
+world/comlas1.wav
+Computer: "Communication laser neutralized."
+world/comp_hum1.wav
+Soft computer hum
+world/comp_hum2.wav
+Sounds like computer talk
+world/comp_hum3.wav
+Computer beeps
+world/curnt1.wav
+Moving water (fast stream, small waterfall)
+world/curnt2.wav
+Small stream (trickle)
+world/curnt3.wav
+Stream with a little echo
+world/dataspin.wav
+Computer: "Data spinner reprogrammed."
+world/deactivated.wav
+Computer: "Deactivated."
+world/dish1.wav
+Satellite Dish moving
+world/drill1.wav
+Drill hum
+world/drill2a.wav
+Vehicle moving
+world/driller1.wav
+Drill engine
+world/drip1.wav
+Water drip
+world/drip2.wav
+Water drip
+world/drip3.wav
+Water drip
+world/drip_amb.wav
+A few drips
+world/dr_long.wav
+A crane moving (long)
+world/dr_short.wav
+Crane (short)
+world/electro.wav
+Sizzling
+world/explod1.wav
+Explosion
+world/explod2.wav
+Short explosion
+world/fan1.wav
+Soft fan hum
+world/flesh1.wav
+Guts sound
+world/flesh2.wav
+Guts sound
+world/flyby.wav
+Flyby sound
+world/flyby1.wav
+Flyby sound
+world/flyby2.wav
+Flyby sound
+world/flyby3.wav
+Flyby sound
+world/force1.wav
+Deep forcefield hum
+world/force2.wav
+Force field shutting off
+world/force3.wav
+Spark sound
+world/fusein.wav
+Plugin sound
+world/fuseout.wav
+Unplug sound
+world/incoming.wav
+Computer: "Incoming air strike."
+world/klaxon1.wav
+Warning klaxon
+world/klaxon2.wav
+High pitched klaxon
+world/land.wav
+Hit the ground
+world/laser.wav
+Laser hum
+world/lashum1.wav
+Few second delay, then "
+world/lasoff1.wav
+Laser hum, fades away
+world/lava1.wav
+Lava fizzling
+world/lite_on1.wav
+Lights on
+world/lite_on2.wav
+Lights on
+world/lite_on3.wav
+Lights fade on
+world/lite_out.wav
+Lights out
+world/l_hum1.wav
+Light fizzling sound
+world/l_hum2.wav
+Deep light hum
+world/mach1.wav
+Rackety machines
+world/mach2.wav
+Longer rackety machines
+world/mach3.wav
+Slower rackety machines
+world/mov_watr.wav
+Moving water
+world/pilot1.wav
+Pilot: "We had a fix on target but no lock. Re-establish contact with ground unit and paint us a clean target."
+world/pilot2.wav
+Pilot: "Mother goose, target is painted and green for fox 3. ECM is active and I'm going <something> for payload delivery."
+world/pilot3.wav
+Pilot: "Red leader, this is papa sierra 3-3. We need some paint on the ground for payload."
+world/pump1.wav
+Pump machines
+world/pump2.wav
+Pump machines
+world/pump3.wav
+Pumping hum
+world/pumping.wav
+Computer: "Pumping system activated."
+world/pyramid.wav
+Alien pyramid moving
+world/quake.wav
+Earthquake sound
+world/radio2.wav
+Radio fizzling sound
+world/radio3.wav
+Radio fizzling sound
+world/reactor.wav
+Computer: "Reactor core exposed."
+world/redforce.wav
+Computer: "Red force fields deactivated."
+world/ric1.wav
+Bullet ricocheting
+world/ric2.wav
+Bullet ricocheting
+world/ric3.wav
+Bullet ricocheting
+world/rocks1.wav
+Rocks tumbling
+world/scan1.wav
+Alien scanner sound
+world/short1.wav
+Electrical short
+world/spark1.wav
+Sparks
+world/spark2.wav
+Sparks
+world/spark3.wav
+Sparks
+world/spark5.wav
+Sparks
+world/spark6.wav
+Sparks
+world/spark7.wav
+Sparks
+world/steam1.wav
+Steam puff
+world/steam2.wav
+Steam puff, longer
+world/steam3.wav
+Four steam puffs
+world/stp_watr.wav
+Water swish
+world/tele1.wav
+Teleporter hum
+world/train1.wav
+Train racketing
+world/train2.wav
+Train stopping
+world/turbine1.wav
+Turbine hum
+world/uplink2.wav
+Computer: "Communication uplink established."
+world/ventsys.wav
+Computer: "Ventilation systems activated."
+world/voice1.wav
+Radio: "All pods launched."
+world/voice10.wav
+Radio: "All personnel copying this transmission rendezvous at designated points alpha, bravo, charlie."
+world/voice11.wav
+Radio: "Establish communications, priority alpha."
+world/voice3.wav
+Radio: "Remaining fire teams engage in primary and secondary objectives
+world/voice4.wav
+Radio: "Reporting 80%, failing vital sign track."
+world/voice5.wav
+Radio: "All squad leaders coordinate with sister tapes."
+world/voice6.wav
+Radio: "Any squad leaders this freq. fall back to primary L-Z."
+world/voice7.wav
+Radio: "Reporting 95%, failing vital sign track."
+world/v_bas1.wav
+Radio: "EOD confirms bridge is down."
+world/v_bas2.wav
+Radio: "Last recon beta indicates access through sewers."
+world/v_bas3.wav
+Radio: "<something> indicate possible camouflaged access in wet sector 432."
+world/v_bas4.wav
+Radio: "Recon established and confirm heavy fortification near enemy comm facility."
+world/v_bas5.wav
+Radio: "Copy that recon 1 charlie. Scan for keycode pass now."
+world/v_bas6.wav
+Radio: "Marines we're at %5 ground force operational status."
+world/v_cit1.wav
+Radio: "All units locate and acquire working enemy data device."
+world/v_cit2.wav
+Radio: "We have a disable and destroy order on communication link."
+world/v_cmd1.wav
+Radio: "All units, we have a disable and destroy order on enemy central computer."
+world/v_cmd2.wav
+Radio: "All units, we have target confirmation for EOD on enemy launch computers and black hole generator."
+world/v_fac2.wav
+Radio: "We have confirmed visual on troops being....being disassembled."
+world/v_fac3.wav
+Radio: "Somebody shut that place down."
+world/v_gun1.wav
+Radio: "Disable and destroy orders are green for big gun and primary area."
+world/v_gun2.wav
+Radio: "IR just spiked in big gun area. Explosion imminent."
+world/v_war1.wav
+Radio: "Tactical has given a disable and destroy order on enemy supply train."
+world/water1.wav
+Water leaking
+world/wind2.wav
+Wind rushing
+world/xian1.wav
+Groovy beat
+world/xianbeats.wav
+Another shorter groovy beat
+world/x_alarm.wav
+A klaxon, almost identical to klaxon2.wav
+world/x_light.wav
+Alien light
+world/yelforce.wav
+Computer: "Yellow force fields deactivated."

@@ -1,0 +1,41 @@
+Quake 3 support in Quest
+------------------------
+
+First, get the Q3Radient editing package. It contains the programs needed to
+compile maps (q3map and bspc), some important textures in mapmedia.pk3, and
+the shader files.
+
+Quest can't load .pk3 files directly (yet), so you'll need to extract all
+the textures from pak0.pk3 and mapmedia.pk3 . q3map seems to have problems
+if you extract them to your normal baseq3 directory, so I suggest extracting
+them to a textures/ directory under a new directory
+(.../quake3/foo/textures). You also need to place the scripts/ directory
+from the map editing package in this directory (.../quake3/foo/scripts/).
+Note that you only have to extract the textures from the .pk3 files, i.e.
+only the files in the textures/ directory.
+
+Now, point texture_path in quest.cfg at your new directory (.../quake3/foo),
+and make sure the other settings are OK.
+
+
+In Quake 3 mode, Quest uses the texture cache (like it does for just
+about every game, the manual has more information). When you select a
+texture in the texture picker or hold the mouse cursor above a texture
+in the fullscreen texture picker, Quest will display a short line of
+information about the texture. The most important thing to note is whether
+the texture is a shader or just a raw image. Shaders are used in Quake 3
+for all special effects, like skies, water, lava, mirrors, portals,
+animations, etc. Thus, if you want a texture to be special, make sure
+you're using a shader. There's nothing wrong with raw images, and
+some textures have no shaders, but raw images will just be tiled normally,
+even if they look special (some sky textures are just raw images). Shaders
+are very powerful, and you can easily create your own, but you'll have to
+find detailed information about them elsewhere.
+
+
+To test your map in Quake 3, you need to set sv_pure to 0. Otherwise,
+Quake 3 will refuse to load maps that aren't in a .pk3 file.
+
+If you want to use 'cheats' (noclip and r_showtris are useful) in a
+map, use '\devmap foo' instead of '\map foo' to enter the map.
+

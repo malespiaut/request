@@ -1,0 +1,45 @@
+# Makefile.cfg.in for Quest
+
+# Change these manually
+CPPFLAGS	= -D_UNIX
+CFLAGS		= -g -Wall -O2
+
+
+# The rest should be automatically set by ./configure, if not you'll
+# have to fix this part manually as well.
+
+# Which of the versions to build, set to yes to build
+DO_X            = @with_x@
+DO_SVGA         = @with_svga@
+
+# Add xquest for the X-Windows version, squest for the SVGALib version
+TARGETS         = @TARGETS@
+
+
+# The C compiler to use, usually gcc or egcs
+CC		= @CC@
+
+# The C++ compiler to use, usually g++ or egcs
+CXX             = @CXX@
+
+# Use the same flags for C++ files as for C files
+CXXFLAGS	= $(CFLAGS)
+
+# What make you're using, uncommenting the next line should work most of 
+# the time
+#MAKE		= make
+@SET_MAKE@
+
+# Linker flags
+LDFLAGS		= -ljpeg
+
+# Extra flags when compiling and linking the X version, typically
+# '-L/usr/X11R6/lib -lXext -lX11 -lXpm' and '-I/usr/X11R6/include'.
+X_LDFLAGS	= $(LDFLAGS) -L@x_libraries@ -lXext -lX11 -lXpm
+X_CPPFLAGS      = $(CPPFLAGS) -I@x_includes@
+
+# Extra flags when compiling and linking the SVGALib version, typically
+# '-lvga' and ''
+SVGA_LDFLAGS	= $(LDFLAGS) -lvga
+SVGA_CPPFLAGS	= $(CPPFLAGS)
+

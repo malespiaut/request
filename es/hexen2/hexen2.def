@@ -1,0 +1,2488 @@
+/*
+hexen.qc created by QCParse copyright (c) 1997, 1998 Alexander Malmberg
+218 classes
+modified by Simon Reichelt
+*/
+
+/*QUAKED Ring_Flight (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/ringft.mdl
+Ring of Flight
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED Ring_Regeneration (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/ringre.mdl
+Ring of Regeneration
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED Ring_Turning (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/ringtn.mdl
+Ring of Turning
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED Ring_WaterBreathing (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/ringwb.mdl
+Ring of Water Breathing
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_HealthBoost (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_hboost.mdl
+Artifact for the Health Boost
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_SuperHBoost (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_shbost.mdl
+Artifact for the Super Health Boost
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_blastradius (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_blast.mdl
+Artifact for Blast Radius
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_cubeofforce (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_cube.mdl
+Artifact for Cube Of Force
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_glyph (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_glyph.mdl
+Artifact for Glyph of the Ancients
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_haste (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_haste.mdl
+Artifact for Haste
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_invincibility (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_invinc.mdl
+Artifact for Invincibility
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_invisibility (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_invis.mdl
+Artifact for Invisibility
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_manaboost (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_mboost.mdl
+Artifact for Mana Boost
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_polymorph (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_poly.mdl
+Artifact for Polymorph
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_summon (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_summon.mdl
+Artifact for Summoning
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_teleport (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_telprt.mdl
+Artifact for Teleportation
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_tomeofpower (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_tome.mdl
+Artifact for Tome of Power
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED art_torch (0.0 0.0 0.5) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/a_torch.mdl
+Artifact for the torch
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED breakable_brush (0.0 0.0 1.0) ? KILLALL HIERARCH NOLINK CHECKNAME ORDERED TRANSLUCENT INVINCIBLE INVISIBLE
+Breakable window or wall
+
+You can manually control the heirarchy of breaking by targeting all the brushes you want this brush to break.
+If you target a light with this object and turn on the "breaklight" spawnflag, it will turn off that light when it's broken.  The light will default to 300 if no lightvalue1 is given.
+
+AUTOMATIC LINKING OPTIONS:
+killall - when killed, the brush will kill all connected brushes
+hierarch - link all brushes in a hierarchy.  The hierarchy priority is set in the 
+			  frags field of each brush.  Lower numbers will kill higher numbers.  If
+			  brushes share the same priority, they will die at the same time.
+nolink - don't automatically link this brush with other brushes (use only manual targeting to link)
+checkname - link brushes, but also check the name you place in the netname field.
+				Brushes must then not only touch, but also have the same netname to link
+ordered - like hierarch, except that no matter which brush you kill, the brushes 
+			 will always break in a certain order.  The order is set in the frags field.
+			 The brush with a frags set to 1 will break first, brush with frags set to
+			 2 will break second, etc.
+
+OTHER FIELDS:
+translucent - you can see through it
+invincible - can't be shot and broken, but will break by linking
+-------------------------FIELDS-------------------------
+flag - order number
+thingtype - type of chunks and sprites it will generate
+    0 - glass (default)
+    1 - grey stone
+    2 - wood
+    3 - metal
+    4 - flesh 
+    5 - fire
+    6 - clay
+    7 - leaves
+    8 - hay
+    9 - brown stone
+   10 - cloth
+   11 - wood & leaf
+   12 - wood & metal
+   13 - wood stone
+   14 - metal stone
+   15 - metal cloth
+   16 - spider web
+   19 - clear glass
+   20 - red glass
+
+health - amount of damage item can take.  Default is based on thingtype
+   glass       -  25
+   grey stone  -  75
+   wood        -  50
+   metal       - 100
+   flesh       -  30
+   fire        - 999
+   clay        -  25
+   leaves      -  35
+   hay         -  35
+   brown stone -  75
+   cloth       -  35
+   wood&leaf   -  35
+   wood&metal  -  75
+   wood&stone  -  65
+   metal&stone -  90
+   metal&cloth -  60
+   others      -  25
+
+abslight - to set the absolute light level
+
+--------------------------------------------------------
+
+*/
+
+/*QUAKED brush_pushable (0.3 0.1 0.6) ?
+A brush the player can push
+-------------------------FIELDS-------------------------
+mass - (default 5)
+--------------------------------------------------------
+*/
+
+/*QUAKED camera_remote (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+A camera which the player becomes when triggered. 
+-------------------------FIELDS-------------------------
+"wait" - amount of time player is stuck in camera mode
+   (default 3 seconds)
+
+To point camera in a direction
+
+target a "target_null" entity
+
+
+or fill out the angle fields:
+angles_x - pitch of camera
+angles_y - yaw of camera
+
+
+--------------------------------------------------------
+*/
+
+/*QUAKED func_angletrigger (0.0 0.5 0.8) ? REVERSE X_AXIS Y_AXIS
+Rotates at certain intervals, and fires off when a set angle is met
+
+mangle = desired angle to trigger at (relative to the world!)
+cnt	 = degrees to turn each move
+dmg	 = damage if blocked
+*/
+
+/*QUAKED func_button (0.0 0.5 0.8) ? deactivated FIREONLY FIRE_MULTIPLE x x x
+When a button is touched, it moves some distance in the direction of it's angle, triggers all of it's targets, waits some time, then returns to it's original position where it can be triggered again,
+unless it's a pressure plate, in which case it will not return to it's position until it's not being touched anymore.
+FIREONLY - has to be killed, touching won't do it.
+FIRE_MULTIPLE - can be shot over and over (give it a high health)
+-----------------------FIELDS-------------------------
+"angle"		determines the opening direction
+"target"	all entities with a matching targetname will be used
+"speed"		override the default 40 speed
+"wait"		override the default 1 second wait (-1 = never return)
+"lip"		override the default 4 pixel lip remaining at end of move
+"health"	if set, the button can be killed and touched
+"abslight" - to set the absolute light level
+"soundtype"
+0) steam metal
+1) wooden clunk
+2) metallic click
+3) in-out
+
+deactivated - button must be activated before it will work
+--------------------------------------------------------
+*/
+
+/*QUAKED func_crusher (0.0 0.5 0.8) ? multiple slide start_open end_open
+speed	default 150
+dmg default 10
+
+If not targetname is given, crushers will start working immediatly
+
+Crushers are always drawn in the extended position, so they will light correctly.
+
+start_open = start in open position
+multiple = go once, return, and wait to be triggered again
+slide = slide move (like doors)
+end_open = stop in the position opposite what they were drawn in
+
+"lip" same as doors
+"speed" speed of the crusher
+"wait pause until going in the other direction
+"targetname" if set, no trigger is needed (use with multiple)
+"dmg" damage the crusher does to a victim
+
+Set "soundtype" to one of the following:
+1) base fast
+2) chain slow
+3) Guillotine
+*/
+
+/*QUAKED func_door (0.0 0.5 0.8) ? START_OPEN REVERSE DOOR_DONT_LINK TOGGLE SLIDE NORMAL_MOVE remove_pp no_pp
+if two doors touch, they are assumed to be connected and operate as a unit.
+
+-----------------------FIELDS-------------------------
+TOGGLE causes the door to wait in both the start and end states for a trigger event.
+
+START_OPEN causes the door to move to its destination when spawned, and operate in reverse.  It is used to temporarily or permanently close off an area when triggered (not usefull for touch or takedamage doors).
+
+Key doors are allways wait -1.
+
+"message" is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"angle"	determines the opening direction
+"level" how far (in map units) to move in the specified angle- overrides default movement that is size of door
+"targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health" if set, door must be shot open
+"speed"	movement speed (100 default), -1 will not move, just rotate
+"wait" wait before returning (3 default, -1 = never return)
+"lip" lip remaining at end of move (8 default)
+"dmg" damage to inflict when blocked (2 default)  If you make it 666, it will gib anything it touches, and behead players.
+
+ROTATING DOORS: MUST HAVE AN ORIGIN BRUSH
+"v_angle" Angle to turn, in: pitch yaw roll, '0 0 0' will not rotate, just move (default = '0 0 0')
+"anglespeed" how quickly to turn in that direction.  no anglespeed will force it to choose one that will synch the completion of the rotation iwth the completion of the move.  (default = 0)
+"strength" When set to 1, it will throw something if it gets in the way
+
+"soundtype"
+0) no sound
+1) Big metal door, swinging
+2) Big stone door, sliding
+3) Big wood door, swinging
+4) Normal wood door, swinging
+5) Big wood door, sliding
+6) Drawbridge
+7) Rotating walkway
+8) Big metal door, sliding
+9) Pendulum swinging
+
+Puzzle Pieces (use the puzzle_id value from the pieces)
+   puzzle_piece_1
+   puzzle_piece_2
+   puzzle_piece_3
+   puzzle_piece_4
+   no_puzzle_msg: message when player doesn't have the right pieces
+--------------------------------------------------------
+
+*/
+
+/*QUAKED func_door_rotating (0.0 0.5 0.8) ? START_OPEN REVERSE DOOR_DONT_LINK remove_pp no_pp TOGGLE X_AXIS Y_AXIS
+if two doors touch, they are assumed to be connected and operate as  
+a unit.
+
+TOGGLE causes the door to wait in both the start and end states for  
+a trigger event.
+
+START_OPEN causes the door to move to its destination when spawned,  
+and operate in reverse.  It is used to temporarily or permanently  
+close off an area when triggered (not usefull for touch or  
+takedamage doors).
+
+Key doors are allways wait -1.
+
+You need to have an origin brush as part of this entity.  The  
+center of that brush will be
+the point around which it is rotated. It will rotate around the Z  
+axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+
+REVERSE will cause the door to rotate in the opposite direction.
+
+"flags" is how many degrees the door will be rotated.
+"message"	is printed when the door is touched if it is a trigger door and it hasn't been fired yet
+"targetname" if set, no touch field will be spawned and a remote button or trigger field activates the door.
+"health"	if set, door must be shot open
+"speed"		movement speed (100 default)
+"wait"		wait before returning (3 default, -1 = never return)
+"dmg"		damage to inflict when blocked (2 default)
+"flags2" will damage the object that touches it
+"strength" When set to 1, it will throw something if it gets in the way
+
+"soundtype"
+0) no sound
+1) Big metal door, swinging
+2) Big stone door, sliding
+3) Big wood door, swinging
+4) Normal wood door, swinging
+5) Big wood door, sliding
+6) Drawbridge
+7) Rotating walkway
+8) Big metal door, sliding
+9) Pendulum swinging
+
+
+"abslight" - to set the absolute light level
+
+Puzzle Pieces (use the puzzle_id value from the pieces)
+   puzzle_piece_1
+   puzzle_piece_2
+   puzzle_piece_3
+   puzzle_piece_4
+   no_puzzle_msg: message when player doesn't have the right pieces
+*/
+
+/*QUAKED func_door_secret (0.0 0.5 0.8) ? open_once 1st_left 1st_down no_shoot always_shoot x remove_pp no_pp
+Basic secret door. Slides back, then to the side. Angle determines direction.
+-----------------------FIELDS-------------------------
+wait  = # of seconds before coming back
+1st_left = 1st move is left of arrow
+1st_down = 1st move is down from arrow
+always_shoot = even if targeted, keep shootable
+t_width = override WIDTH to move back (or height if going down)
+t_length = override LENGTH to move sideways
+"dmg"		damage to inflict when blocked (2 default)
+
+If a secret door has a targetname, it will only be opened by it's botton or trigger, not by damage.
+
+"soundtype"
+0) no sound
+1) Big metal door, swinging
+2) Big stone door, sliding
+3) Big wood door, swinging
+4) Normal wood door, swinging
+5) Big wood door, sliding
+6) Drawbridge
+7) Rotating walkway
+8) Big metal door, sliding
+9) Pendulum swinging
+
+
+Puzzle Pieces (use the puzzle_id value from the pieces)
+   puzzle_piece_1
+   puzzle_piece_2
+   puzzle_piece_3
+   puzzle_piece_4
+   no_puzzle_msg: message when player doesn't have the right pieces
+--------------------------------------------------------
+*/
+
+/*QUAKED func_illusionary (0.0 0.5 0.8) ? TRANSLUCENT LIGHT
+A simple entity that looks solid but lets you walk through it.
+*/
+
+/*QUAKED func_monsterspawn_spot (1.0 0.3 0.0) (-16 -16 0) (16 16 56) IMP ARCHER WIZARD SCORPION SPIDER ONDEATH QUIET
+All this does is mark where to spawn monsters for a spawn spot.
+
+You can set any monster type for each spawnspot.
+
+Just make the spawnername of this entity equal to the spawnername of the spawner and the spawner will cycle through all it's spawnspots in the world.
+
+If you don't set the aflag, the spawn spot will NOT be used.
+
+Note that if you set a trigger to activate this spawnspot, you can have it turn on and be included in the spawner's cycle, but you still always have to set the aflag.
+
+aflag = order in the spawning cycle, you MUST set this, or it's useless.
+cnt = number of monsters this spot will spawn, defaults to 17.
+spawnername = this HAS to match the spawner's spawnername!
+wait = how long the minimum interval should be between monster spawns for THIS spot.
+targetname = used if you want this to wait to be activated by a seperate trigger before being included in the spawning cycle.
+*/
+
+/*QUAKED func_monsterspawner (1.0 0.8 0.0) (-16 -16 0) (16 16 56) IMP ARCHER WIZARD SCORPION SPIDER ONDEATH QUIET TRIGGERONLY
+If something is blocking the spawnspot, this will telefrag it as long as it's not a living entity (flags2&FL_ALIVE)
+
+You can set up as many spots as you want for it to spawn at and it will cycle
+between these.  Make them classname func_monsterspawn_spot and
+their spawnername has to match this entity's spawnername.
+You can control the order in which they are used by setting thier
+aflag (1, 2, 3, etc- there is NO ZERO, that's for you designers!)
+You should give the spawner an aflag too if you want it's origin
+included in the cycle of spawning, but if there are no spawn spots (just a spawner), no aflag is needed anywhere.
+
+WARNING!!!  If you forget to put spawnspots and you give the spawner a spawnername, it will go into an infinite loop and the Universe will cease to exist!
+
+If you only want monsters to spawn at the monster spawner origin, then don't worry about aflags or the spawnername, it will know... It's that cool.
+
+The Monsters will be spawned at the origin of the spawner (and/or spawnspots), so if you want them not to stick in the ground, put this above the ground some- maybe 24?  Make sure there's enough room around it for the monsters.
+
+ONDEATH = only spawn the new monster after the last has died, defaults to FALSE (doesn't wait)
+TRIGGERONLY = Will only spawn a monster when it's been used by a trigger.  The default is continous spawning.
+wait = time to wait after spawning a monster until the next monster is spawned, defaults to 0.5 seconds. If there are multiple spawn spots, this will be the time between cycles (default 0.5)
+cnt = number of monsters, max to spawn, defaults to 17 (no reason, just like that number!)	If there are multiple spots, this should be the total off ALL the spots, including the spawner itself.
+aflag = order in the spawning cycle
+spawnername = spawnspots to look for- be sure to make spawnspots!
+targetname = not needed unless you plan to activate this with a trigger
+
+There will be a test on this on Thursday.  Interns are NOT exempt.
+*/
+
+/*QUAKED func_newplat (0.0 0.5 0.8) ? START_BOTTOM STRT_RTRN CONTINUE
+speed	default 150
+
+If the "height" key is set, that will determine the amount the plat moves, instead of being implicitly determined by the model's height.
+
+Set "soundtype" to one of the following:
+1) base fast
+2) chain slow
+
+START_BOTTOM - where plat starts at
+if checked plat starts at the bottom of it's movement
+
+START_RTRN - if check will return plat to start position.
+
+CONTINUE - plat will never stop moving
+
+
+height - distance plat moves up or down
+
+wait - amount of time plat waits before moving (default 3)
+
+
+*/
+
+/*QUAKED func_plat (0.0 0.5 0.8) ? PLAT_LOW_TRIGGER
+speed	default 150
+
+Plats are always drawn in the extended position, so they will light correctly.
+
+If the plat is the target of another trigger or button, it will start out disabled in the extended position until it is trigger, when it will lower and become a normal plat.
+
+If the "height" key is set, that will determine the amount the plat moves, instead of being implicitly determined by the model's height.
+Set "soundtype" to one of the following:
+1) pulley
+2) chain 
+*/
+
+/*QUAKED func_pressure (0.0 0.5 0.8) ? ACTIVATE
+-----------------------FIELDS-------------------------
+"mass"		amount of mass a plate must have on it to fire-this can be cumulative so you have to put more than one thing on pressure plate to work (default 0)
+NOTE:
+Player mass ~= 60-80
+Normal barrel mass = 75
+Normal barrel mass = 85
+Indestructible barrel mass = 95
+"angle"		determines the opening direction
+"target"	all entities with a matching targetname will be used
+"speed"		override the default 40 speed
+"wait"		override the default 1 second wait (-1 = never return)
+"lip"		override the default 4 pixel lip remaining at end of move
+"health"	if set, the button must be killed instead of touched
+"soundtype"
+0) steam metal
+1) wooden clunk
+2) metallic click
+3) in-out
+--------------------------------------------------------
+*/
+
+/*QUAKED func_rotating (0.0 0.5 0.8) ? START_ON REVERSE X_AXIS Y_AXIS BREAK GRADUAL TOGGLE_REVERSE KEEP_START
+You need to have an origin brush as part of this entity.  The  
+center of that brush will be the point around which it is rotated. 
+It will rotate around the Z axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+BREAK makes the brush breakable
+REVERSE will cause the it to rotate in the opposite direction.
+GRADUAL will make it slowly speed up and slow down.
+TOGGLE_REVERSE will make it go in the other direction next time it's triggered
+KEEP_START means it will return to it's starting position when turned off
+
+"speed" determines how fast it moves; default value is 100.
+"dmg"	damage to inflict when blocked (2 default)
+"lifetime" this will make it stop after a while, then start up again after "wait".  Default is staying on.
+"wait" if it has a lifetime, this is how long it will wait to start up again.  default is 3 seconds.
+"thingtype" type of brush (if breakable - default is wood)
+"health" (if breakable - default is 25)
+"abslight" - to set the absolute light level
+"anglespeed" - If using GRADUAL, this will determine how fast the speed up and down will occur.  1 will be very slow, 100 will be instant.  (Default is 10)
+
+thingtype - type of chunks and sprites it will generate
+    0 - glass (default)
+    1 - stone
+    2 - wood
+    3 - metal
+    4 - flesh 
+    
+health - amount of damage item can take.  Default is based on thingtype
+   glass -  25
+   stone -  75
+   wood -   50
+   metal - 100
+   flesh -  30
+*/
+
+/*QUAKED func_rotating_movechain (0.0 0.5 0.8) ? NOANGLECHAIN
+
+Only one other object in the world should have the same netname.  If not, it will find and use only the first one it finds!
+
+If you're making multiple sawblades, for instance, label the mover and the rotater "sawblade1" for the first one, "sawblade2" for the second, and so on.
+
+If you give it a targetname, it will wait to be activated, this can be seperate from the object it's attached to.
+
+It will not do damage until it's been activated.
+
+NOANGLECHAIN = Setting this flag will stop it from modifying it's angles by the owner's angles, but will still movechain.
+dmg	= How much damage it should do when it touches.
+noise = Noise it should make, if any, be sure to set the wait time
+noise1 = noise it should make when it hits something
+wait = Length of the sound so it knows when to loop it.
+avelocity = The direction and speed it should spin: pitch yaw roll (this is relative to it's own axis, not the world)
+netname = the name of the object it's linked to, that object must have a matching netname!!!
+
+
+Needs something to tell it to stop?
+
+A way to make it die at the end of a path or if triggered again?
+
+Maybe make movechain_angle optional spawnflag?
+
+What do YOU think?  We'd like to know...
+*/
+
+/*QUAKED func_train (0.0 0.5 0.8) ? GLOW TOGGLE RETURN TRANSLUCENT
+Trains are moving platforms that players can ride.
+The targets origin specifies the min point of the train at each corner.
+The train spawns at the first target it is pointing at.
+If the train is the target of a button or trigger, it will not begin moving until activated.
+speed	default 100
+dmg		default	2
+soundtype
+1) ratchet metal
+
+if train is only moving to one spot
+"angle"    - to tell it's direction
+"distance" - in pixels, how far to move
+"speed" - how fast it moves between spots (default=100)
+"anglespeed" - how fast it rotates to a new angle (default = 100)
+"wait" - -1 will make it stop forever, -2 will make it blow up (you can put the waits on the pathcorners and it will take the wait from there.
+"pausetime" - How long to wait after getting to the end of it's path before blowing up, default is 0
+NOTE: If you give it a wait of -2, be sure to set the thingtype.
+thingtype - type of chunks and sprites it will generate
+    0 - glass
+    1 - grey stone (default for trains)
+    2 - wood
+    3 - metal
+    4 - flesh 
+    5 - fire
+    6 - clay
+    7 - leaves
+    8 - hay
+    9 - brown stone
+   10 - cloth
+   11 - wood & leaf
+   12 - wood & metal
+   13 - wood stone
+   14 - metal stone
+   15 - metal cloth
+
+The train will modify it's angles by whatever angles it's next path point has, so if it heads towards a path corner with an angle of '0 90 0', the train will rotate '0 90 0' on it's way to the pathpoint.  If you make the anglespeed the same as the angle, the turn should finish right as the train gets to the new spot.
+
+NOTE: A path_corner using spawnflag "SYNCH" will make the train automatically calculate a new anglespeed based on the distance it's going and will finish the turn at the same time the move is done.
+
+As usual, any rotating brush needs an origin brush.
+
+"abslight" - to set the absolute light level
+
+if TRAIN_GLOW is checked, changes to a light globe sprite and lights up an area
+*/
+
+/*QUAKED func_wall (0.0 0.5 0.8) ? TRANSLUCENT
+This is just a solid wall if not inhibitted
+TRANSLUCENT - makes it see-through
+abslight = how bright to make it
+*/
+
+/*QUAKED fx_colorbeam_end (0.0 1.0 1.0) (-8 -8 -8) (8 8 8)
+Where colorbeam from weather_colorbeam_start will hit.
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED fx_colorbeam_start (0.0 1.0 1.0) (-8 -8 -8) (8 8 8) STARTOFF
+Generates a ray of colored light which ends at the fx_colorbeam_end that is the target
+
+STARTOFF - if clicked the colorbeam becomes triggerable, will run constantly once triggered. Wait will still tell how long to wait between strikes
+-------------------------FIELDS-------------------------
+noise  - sound generated when lightning appears
+      1 - no sound (default)
+      2 - lightning 
+
+target - be sure to give this a target fx_lightning_end to hit
+
+wait   - amount of time between strikes
+      -1   beam is triggerable.  
+      > -1 beam is constantly running.
+      default -1
+
+color - color of the beam
+	0 = red (default)
+	1 = blue
+	2 = green
+	3 = white
+	4 = yellow
+
+lifespan - amount of time beam will exist.
+--------------------------------------------------------
+*/
+
+/*QUAKED fx_smoke_generator (0.0 1.0 1.0) (-8 -8 -8) (8 8 8)
+Generates smoke puffs
+-------------------------FIELDS-------------------------
+wait - how often it should generate smoke (default 2)
+thingtype - type of smoke to generate
+ 0 - white puff       (fire place)
+ 1 - red              (lava)
+ 2 - green            (slime)
+ 3 - grey             (oil)
+
+lifespan - fill this in and it will only puff for this long
+--------------------------------------------------------
+*/
+
+/*QUAKED info_intermission (1.0 0.5 0.5) (-16 -16 -16) (16 16 16)
+This is the camera point for the intermission. Use mangle instead of angle, so you can set pitch or roll as well as yaw.  'pitch roll yaw'
+-----------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED info_null (0.0 0.5 0.0) (-4 -4 -4) (4 4 4)
+Used as a positional target for spotlights, etc.
+*/
+
+/*QUAKED info_player_coop (1.0 0.0 1.0) (-16 -16 -24) (16 16 24) DEFAULT
+:model=:models/paladin.mdl
+potential spawning position for coop games
+-----------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED info_player_deathmatch (1.0 0.0 1.0) (-16 -16 -24) (16 16 24)
+:model=:models/paladin.mdl
+potential spawning position for deathmatch games
+-----------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED info_player_start (1.0 0.0 0.0) (-16 -16 -24) (16 16 24)
+:model=:models/paladin.mdl
+The normal starting point for a level.
+-----------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED info_player_start2 (1.0 0.0 0.0) (-16 -16 -24) (16 16 24)
+:model=:models/paladin.mdl
+Only used on start map for the return point from an episode.
+-----------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED info_teleport_destination (0.5 0.5 0.5) (-8 -8 -8) (8 8 32) NO_THROW
+This is the destination marker for a teleporter.  It should have a "targetname" field with the same value as a teleporter's "target" field.
+
+NO_THROW = won't throw the entity it teleports in the direction (angles) it's facing
+=====FIELDS=====
+"angles" - Will turn player this way and push him in this direction unless the NO_THROW spawnflag is on.
+================
+*/
+
+/*QUAKED item_armor_amulet (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING
+:model=:models/i_amulet.mdl
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_armor_bracer (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING
+:model=:models/i_bracer.mdl
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_armor_breastplate (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING
+:model=:models/i_bplate.mdl
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_armor_helmet (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING
+:model=:models/i_helmet.mdl
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_health (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING
+:model=:models/i_hboost.mdl
+Player is given 10 health instantly
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_mana_blue (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING BIG
+:model=:models/i_bmana.mdl
+Player is given 15 blue mana instantly
+BIG = 30
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_mana_both (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING BIG
+:model=:models/i_btmana.mdl
+Player is given 15 green and 10 blue mana instantly
+BIG = 30 each
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED item_mana_green (0.0 0.5 0.8) (-8 -8 -45) (8 8 20) FLOATING BIG
+:model=:models/i_gmana.mdl
+Player is given 15 green mana instantly
+BIG = 30 mana.
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED item_spawner (0.0 0.0 0.5) (-8 -8 -44) (8 8 20)
+Generic item spawner
+-------------------------FIELDS-------------------------
+None
+--------------------------------------------------------
+*/
+
+/*QUAKED light (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_LOW
+Non-displayed fading light.
+Default light value is 300
+Default style is 0
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_flame_large_yellow (0.0 1.0 0.0) (-10 -10 -12) (12 12 18) START_LOW
+:model=:models/flame1.mdl
+Large yellow flame
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_flame_small_yellow (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_LOW
+:model=:models/flame2.mdl
+Small yellow flame ball
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_gem (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_LOW
+:model=:models/gemlight.mdl
+A gem that displays light.
+Default light value is 300
+Default style is 0
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_thunderstorm (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) LIGHTNING
+Default light value is 300
+This will create a light source that will occaisionally flash with light followed shortly by an ambient thunder sound
+
+.wait = the shorter the wait, the more active the thunderstorm.  Valid values for this are 1 - 100.  100 is a stupid value because it will never thunder!  Default is 33
+.dmg = how often lighting strikes, 0 will be the equvalent of never, 100 will be very frequent.  default is 10
+.lightvalue1 = the light value the storm should always return to.  Valid range is 0 - 25, 25 being the brightest.  Default is 11 (about 300 brightness)
+.frags = The radius in which lightning can stike from this entity. (default=1000)
+
+The LIGHTNING spawnflag will make it cast random lightning strikes
+
+NOTE: These MUST be targeted.  They will never actually be used by the trigger, but targeting is required to give them a distince lightstyle
+Targeting can be used to link several thunderstorms together so they all use the same lightstyle (they'll all flash at the same time)
+*/
+
+/*QUAKED light_torch_castle (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_LOW
+:model=:models/castrch.mdl
+The Castle style torch that displays light
+Default light value is 300
+
+.health = If you give the torch health, it can be shot out.  It will automatically select it's second skin (the beat-up torch look)
+You must give it a targetname too, just any junk targetname will do like "junk"
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_torch_eqypt (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_LOW
+:model=:models/egtorch.mdl
+An Egyptian style torch that displays light
+Default light value is 300
+
+.health = If you give the torch health, it can be shot out.  It will automatically select it's second skin (the beat-up torch look)
+You must give it a targetname too, just any junk targetname will do like "junk"
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_torch_meso (0.0 1.0 0.0) (-12 -12 -16) (12 12 16) START_LOW
+:model=:models/mesotrch.mdl
+The Meso style torch that displays light
+Default light value is 300
+
+.health = If you give the torch health, it can be shot out.  It will automatically select it's second skin (the beat-up torch look)
+You must give it a targetname too, just any junk targetname will do like "junk"
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED light_torch_rome (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_LOW
+:model=:models/rometrch.mdl
+The Roman style torch that displays light
+Default light value is 300
+
+.health = If you give the torch health, it can be shot out.  It will automatically select it's second skin (the beat-up torch look)
+You must give it a targetname too, just any junk targetname will do like "junk"
+----------------------------------
+If triggered, will toggle between lightvalue1 and lightvalue2
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11, equivalent to 300 brightness)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+.fadespeed (default 1) = How many seconds it will take to complete the desired lighting change
+The light will start on at a default of the higher light value unless you turn on the startlow flag.
+START_LOW = will make the light start at the lower of the lightvalues you specify (default uses brighter)
+
+NOTE: IF YOU DON'T PLAN ON USING THE DEFAULTS, ALL LIGHTS IN THE BANK OF LIGHTS NEED THIS INFO
+*/
+
+/*QUAKED misc_fireball (0.0 0.5 0.8) (-8 -8 -8) (8 8 8)
+:model=:models/lavaball.mdl
+Lava Balls
+*/
+
+/*QUAKED misc_fountain (0.0 1.0 0.8) (0 0 0) (32 32 32)
+New item for QuakeEd
+
+-------------------------FIELDS-------------------------
+angles    0 0 0  the direction it should move the particles
+movedir   1 1 1  the force it should move them
+color     256    the color
+cnt       2      the number of particles each time
+--------------------------------------------------------
+
+*/
+
+/*QUAKED misc_noisemaker (1.0 0.5 0.0) (-10 -10 -10) (10 10 10)
+For optimzation testing, starts a lot of sounds.
+*/
+
+/*QUAKED monster_archer (1.0 0.3 0.0) (-16 -16 0) (16 16 50) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/archer.mdl
+The Archer Knight monster
+-------------------------FIELDS-------------------------
+Health : 80
+Experience Pts: 25
+Favorite TV shows: Friends & Baywatch
+Favorite Color: Blue
+Likes: Shooting arrows into people and long walks along the beach
+Dislikes: Anything having to do with Pauly Shore
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_archer_lord (1.0 0.3 0.0) (-16 -16 0) (16 16 50) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/archer.mdl
+The Archer Lord monster
+-------------------------FIELDS-------------------------
+Health : 325
+Experience Pts: 200
+Favorite Cities: Madrid & Las Vegas
+Favorite Flower: Orchid
+What people don't know about me: I cry at sad movies
+What people say when they see me: Don't shoot!! Don't shoot!!
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_eidolon (1.0 0.0 0.0) (-100 -100 0) (100 100 666) CUTE CUDDLY
+:model=:models/boss/smaleido.mdl
+The big bad ugly boss guy
+
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_fallen_angel (1.0 0.3 0.0) (-14 -14 -41) (14 14 23) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/fangel.mdl
+New item for QuakeEd
+
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_fallen_angel_lord (1.0 0.3 0.0) (-14 -14 -41) (14 14 23) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/fangel.mdl
+New item for QuakeEd
+
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_fish (1.0 0.0 0.0) (-16 -16 -8) (16 16 8)
+:model=:models/fish.mdl
+Ambient Fish
+
+-------------------------FIELDS-------------------------
+skin:  0 = bright colored, 1 = darker colored
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_golem_bronze (1.0 0.3 0.0) (-64 -64 0) (64 64 194) AMBUSH
+:model=:models/golem_b.mdl
+Bronze Golem.
+------- key / value ----------------------------
+health = 500
+experience_value = 275
+------- spawnflags -----------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_golem_crystal (1.0 0.3 0.0) (-32 -32 -24) (32 32 64) AMBUSH
+:model=:models/golem_s.mdl
+Crystal Golem.
+------- key / value ----------------------------
+health = 400
+experience_value = 650
+------- spawnflags -----------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_golem_iron (1.0 0.3 0.0) (-55 -55 0) (55 55 120) AMBUSH
+:model=:models/golem_i.mdl
+Iron Golem.
+------- key / value ----------------------------
+health = 400
+experience_value = 200
+------- spawnflags -----------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_golem_stone (1.0 0.3 0.0) (-32 -32 0) (32 32 88) AMBUSH
+:model=:models/golem_s.mdl
+Stone Golem.
+------- key / value ----------------------------
+health = 200
+experience_value = 125
+------- spawnflags -----------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_hydra (1.0 0.3 0.0) (-40 -40 -42) (40 40 42) STAND HOVER JUMP PLAY_DEAD DORMANT
+:model=:models/hydra.mdl
+New item for QuakeEd
+
+-------------------------FIELDS-------------------------
+NOTE:  Normal QuakEd monster spawnflags don't apply here (no_jump, play_dead, no_drop)
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_imp_fire (1.0 0.3 0.0) (-16 -16 0) (16 16 55) STAND HOVER x x gargoyle
+:model=:models/imp.mdl
+Grunt monster - common.  Shoots a fireball. Can only be killed by defrosting it.
+
+gargoyle = uses the grey stone texture to make it look like a gargoyl- will wake up if the player looks at him long enough, gets close, or hurts him.
+-------------------------FIELDS-------------------------
+wait = if you give it a -1, the gargoyle will not come alive, it's just a decoration
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_imp_ice (1.0 0.3 0.0) (-16 -16 0) (16 16 55) STAND HOVER x x gargoyle
+:model=:models/imp.mdl
+Grunt monster - common.  Shoots multiple ice shards. Can only be killed by defrosting it.
+immune to ice attacks
+
+gargoyle = uses the grey stone texture to make it look like a gargoyl- will wake up if the player looks at him long enough, gets close, or hurts him.
+-------------------------FIELDS-------------------------
+wait = if you give it a -1, the gargoyle will not come alive, it's just a decoration
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_imp_lord (1.0 0.3 0.0) (-16 -16 0) (16 16 55) STAND HOVER x x gargoyle
+:model=:models/imp.mdl
+Big imp dude- kicks butt and takes names
+
+gargoyle = uses the grey stone texture to make it look like a gargoyl- will wake up if the player looks at him long enough, gets close, or hurts him.
+-------------------------FIELDS-------------------------
+wait = if you give it a -1, the gargoyle will not come alive, it's just a decoration
+--------------------------------------------------------
+
+*/
+
+/*QUAKED monster_medusa_green (1.0 0.3 0.0) (-16 -16 0) (16 16 56) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/medusa.mdl
+
+The medusa monster with its nasty sharp pointy teeth
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_medusa_red (1.0 0.3 0.0) (-16 -16 0) (16 16 56) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/medusa.mdl
+
+The medusa monster with its nasty sharp pointy teeth
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_mummy (1.0 0.3 0.0) (-16 -16 0) (16 16 50) AMBUSH
+:model=:models/mummy.mdl
+No, it's not Keith Richards or Bob Dylan.
+It's the mummy.
+-------------------------FIELDS-------------------------
+health : 150
+experience : 500
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_mummy_lord (1.0 0.3 0.0) (-16 -16 0) (16 16 50) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/mummy.mdl
+He's big, he's bad, he's wrapped in moldy bandages - he's the mummy.
+-------------------------FIELDS-------------------------
+health : 500
+experience : 300
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_rat (1.0 0.3 0.0) (-3 -3 0) (3 3 7)
+:model=:models/rat.mdl
+If the rat is targeted to a path, the rats will follow that path
+------- key / value ----------------------------------
+------- spawnflags -----------------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_ratnest (1.0 0.3 0.0) (-20 -20 0) (20 20 10)
+:model=:models/rat.mdl
+A group of 3 to 6 rats that flee when triggered
+If the nest is targeted to a path, the rats will follow that path
+------- key / value ----------------------------------
+------- spawnflags -----------------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_raven (1.0 0.0 0.0) (-16 -16 0) (16 16 56)
+:model=:models/raven.mdl
+Scavenger black bird of ill portent.
+"Nevermore!"
+*/
+
+/*QUAKED monster_scorpion_black (1.0 0.3 0.0) (-10 -10 0) (10 10 64) AMBUSH
+:model=:models/scorpion.mdl
+Black scorpion.
+------- key / value ----------------------------
+health = 200
+experience_value = 150
+------- spawnflags -----------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_scorpion_yellow (1.0 0.3 0.0) (-10 -10 0) (10 10 64) AMBUSH
+:model=:models/scorpion.mdl
+Yellow scorpion.
+------- key / value ----------------------------
+health = 100
+experience_value = 60
+------- spawnflags -----------------------------
+AMBUSH
+*/
+
+/*QUAKED monster_skull_wizard (1.0 0.3 0.0) (-24 -24 0) (24 24 64) AMBUSH
+:model=:models/skullwiz.mdl
+A skull wizard
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_skull_wizard_lord (1.0 0.3 0.0) (-24 -24 0) (24 24 64) AMBUSH
+:model=:models/skullwiz.mdl
+A skull wizard lord
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_snake (1.0 0.3 0.0) (-80 -80 0) (80 80 200) AMBUSH
+:model=:models/snake.mdl
+Monster snake that comes to life and attacks
+-------------------------FIELDS-------------------------
+
+--------------------------------------------------------
+*/
+
+/*QUAKED monster_spider_red_large (1.0 0.3 0.0) (-16 -16 0) (16 16 26) AMBUSH STUCK JUMP PLAY_DEAD DORMANT ONWALL
+:model=:models/spider.mdl
+Large red spider.
+
+------- key / value ----------------------------------
+health = 100
+experience_value = 800
+------- spawnflags -----------------------------------
+AMBUSH
+ONWALL = Spider can wait on a wall or ceiling and jump down then it finds an enemy or is triggered.  Put the spider next to a wall or cieling and face him away from the surface you want it to hang from.
+IMPORTANT!  Put ONWALL spiders 8 pixels away from the wall you want them to be on, or they'll be all screwed up!
+*/
+
+/*QUAKED monster_spider_red_small (1.0 0.3 0.0) (-12 -12 0) (12 12 16) AMBUSH STUCK JUMP PLAY_DEAD DORMANT ONWALL
+:model=:models/spider.mdl
+Small red spider.
+
+------- key / value ----------------------------------
+health = 100
+experience_value = 800
+------- spawnflags -----------------------------------
+AMBUSH
+ONWALL = Spider can wait on a wall or ceiling and jump down then it finds an enemy or is triggered.  Put the spider next to a wall or cieling and face him away from the surface you want it to hang from.
+IMPORTANT!  Put ONWALL spiders 8 pixels away from the wall you want them to be on, or they'll be all screwed up!
+*/
+
+/*QUAKED monster_spider_yellow_large (1.0 0.3 0.0) (-16 -16 0) (16 16 26) AMBUSH STUCK JUMP PLAY_DEAD DORMANT ONWALL
+:model=:models/spider.mdl
+Large yellow spider.
+
+------- key / value ----------------------------------
+health = 100
+experience_value = 800
+------- spawnflags -----------------------------------
+AMBUSH
+ONWALL = Spider can wait on a wall or ceiling and jump down then it finds an enemy or is triggered.  Put the spider next to a wall or cieling and face him away from the surface you want it to hang from.
+IMPORTANT!  Put ONWALL spiders 8 pixels away from the wall you want them to be on, or they'll be all screwed up!
+*/
+
+/*QUAKED monster_spider_yellow_small (1.0 0.3 0.0) (-12 -12 0) (12 12 16) AMBUSH STUCK JUMP PLAY_DEAD DORMANT ONWALL
+:model=:models/spider.mdl
+Small yellow spider.
+------- key / value ----------------------------------
+health = 100
+experience_value = 800
+------- spawnflags -----------------------------------
+AMBUSH
+ONWALL = Spider can wait on a wall or ceiling and jump down then it finds an enemy or is triggered.  Put the spider next to a wall or cieling and face him away from the surface you want it to hang from.
+IMPORTANT!  Put ONWALL spiders 8 pixels away from the wall you want them to be on, or they'll be all screwed up!
+*/
+
+/*QUAKED monster_werejaguar (1.0 0.3 0.0) (-16 -16 0) (16 16 56) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/mezzoman.mdl
+WereCat with jaguar skin
+If they're targetted by a trigger and used, they'll atack the activator of the target
+If they can't see the activator, they'll roll left or right (in the direction of the activator)
+Their roll is 128 units long, so place the mezzoman 128 units away from where you want the roll to stop
+
+My babies!!! - MG
+*/
+
+/*QUAKED monster_werepanther (1.0 0.3 0.0) (-16 -16 0) (16 16 56) AMBUSH STUCK JUMP PLAY_DEAD DORMANT
+:model=:models/mezzoman.mdl
+WereCat with panther skin
+If they're targetted by a trigger and used, they'll atack the activator of the target
+If they can't see the activator, they'll roll left or right (in the direction of the activator)
+Their roll is 128 units long, so place the mezzoman 128 units away from where you want the roll to stop
+
+My babies!!! - MG
+*/
+
+/*QUAKED obj_ballista (0.3 0.1 0.6) (-45 -45 0) (45 45 60) SPAWNFLAG_BALLISTA_TRACK
+:model=:models/ballista.mdl
+A ballista which is animated to shoot an arrow
+-------------------------FIELDS-------------------------
+health = default = 0 (indestructable)
+cnt    = degrees of pitch off the starting point pos & neg (default = 30)
+count  = degrees per movement (default = 5)
+dmg	   = amount of damage projectile will do (default  = 50)
+speed  = delay, in seconds, between firings (higher number means longer wait) (default = 5)
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_barrel (0.3 0.1 0.6) (-13 -13 0) (13 13 36) DOWNHILL NO_DROP ON_SIDE SINK
+:model=:models/barrel.mdl
+
+A barrel, just a plain old barrel
+-------------------------FIELDS-------------------------
+.health  - How hard it is to smash
+           Default: 25
+DOWNHILL - This barrel will slide downhill with gravity.
+NO_DROP - Will not drop to floor before spawning
+ON_SIDE - Will make the barrel appear to be on it's side, the top will point right (90 degrees)
+			Note- barrels on their side must be placed at least 13 units above the floor.
+SINK - Floats in water
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_barrel_exploding (0.3 0.1 0.6) (-13 -13 0) (13 13 36) DOWNHILL NO_DROP ON_SIDE SINK
+:model=:models/barrel.mdl
+An exploding barrel with red XXX on the side
+WARNING!:  Putting too many exploding barrels next to each other will cause a crash, there is no way around this, so if it happens, it's to be considered a Designer error!  
+Putting them in lines and chains seems to be ok, as long as you don't stack them or group them too closely, more than 4 in a tight group is probably pushing it.
+-------------------------FIELDS-------------------------
+.health  - How hard it is to blow up
+           Default: 25
+DOWNHILL - This barrel will slide downhill with gravity.
+NO_DROP - Will not drop to floor before spawning
+ON_SIDE - Will make the barrel appear to be on it's side, the top will point right (90 degrees)
+			Note- barrels on their side must be placed at least 13 units above the floor.
+SINK - Sinks in water
+ --------------------------------------------------------
+*/
+
+/*QUAKED obj_barrel_indestructible (0.3 0.1 0.6) (-13 -13 0) (13 13 36) DOWNHILL NO_DROP ON_SIDE SINK
+:model=:models/barrel.mdl
+
+A barrel you just can't break
+-------------------------FIELDS-------------------------
+DOWNHILL - This barrel will slide downhill with gravity.
+NO_DROP - Will not drop to floor before spawning
+ON_SIDE - Will make the barrel appear to be on it's side, the top will point right (90 degrees)
+			Note- barrels on their side must be placed at least 13 units above the floor.
+SINK - Floats in water
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_barstool (0.3 0.1 0.6) (-10 -10 -5) (10 10 32)
+:model=:models/stool.mdl
+A bar stool - Drinks on the house!
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_beefslab (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/beefslab.mdl
+A slab of beef.
+-------------------------FIELDS-------------------------
+health = 50
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_bell (0.3 0.1 0.6) (-100 -100 -210) (100 100 8)
+:model=:models/bellring.mdl
+A big bell that rings when hit. 
+-------------------------FIELDS-------------------------
+health = 250
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_bench (0.3 0.1 0.6) (-30 -30 0) (30 30 40)
+:model=:models/bench.mdl
+A wooden bench 
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_bonepile (0.3 0.1 0.6) (-10 -10 0) (10 10 10)
+:model=:models/bonepile.mdl
+A pile of bones. Uses the model of the puzzle keep1
+-------------------------FIELDS-------------------------
+health = 
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_book_closed (0.3 0.1 0.6) (-8 -8 0) (8 8 10)
+:model=:models/bookclos.mdl
+A book that is closed
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_book_open (0.3 0.1 0.6) (-8 -8 0) (8 8 10)
+:model=:models/bookopen.mdl
+A book that is open
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_bush1 (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/bush1.mdl
+A small round bush
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_cart (0.3 0.1 0.6) (-36 -32 -10) (36 75 64)
+:model=:models/cart.mdl
+A cart 
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_catapult2 (0.0 0.5 0.8) (-150 -150 0) (150 150 28) ?
+:model=:models/cattest.mdl
+
+"speed"		Throw speed (300 default)
+"wait"		wait before resetting (3 default)
+"health"	Just how tough is it (defaults to 1000)
+"mass"		How hard is it to push (defaults to 1000)
+"thingtype" Defaults to THINGTYPE_WOOD
+"sounds"
+0)	no sound
+1)	stone
+2)	base
+3)	stone chain
+4)	screechy metal
+
+*/
+
+/*QUAKED obj_cauldron (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/cauldron.mdl
+A cauldron
+-------------------------FIELDS-------------------------
+health = 50
+mass = 15
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_chair (0.3 0.1 0.6) (-10 -10 -5) (10 10 40)
+:model=:models/chair.mdl
+A wooden chair. 
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_chaos_orb (1.0 0.0 0.0) (-100 -100 0) (100 100 200) JEAN LUC PICARD
+:model=:models/boss/chaosorb.mdl
+Big round smooth thingie.
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_chest1 (0.3 0.1 0.6) (-16 -16 0) (16 16 32)
+:model=:models/chest1.mdl
+A treasure chest
+-------------------------FIELDS-------------------------
+skin - 0 - generic texture (default)
+       1 - roman texture
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_chest2 (0.3 0.1 0.6) (-16 -16 0) (16 16 32)
+:model=:models/chest2.mdl
+A treasure chest on legs
+-------------------------FIELDS-------------------------
+skin - 0 - generic texture (default)
+       1 - meso texture
+       2 - egypt texture
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_chest3 (0.3 0.1 0.6) (-16 -16 0) (16 16 32)
+:model=:models/chest3.mdl
+A treasure chest on legs
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_corpse1 (0.3 0.1 0.6) (-32 -32 0) (32 32 10)
+:model=:models/corps1.mdl
+A body laying face down
+-------------------------FIELDS-------------------------
+health = 20
+mass = 200;
+
+skin = determines the skin of the model
+ 0 - burnt, nude guy
+ 1 - normal, nude guy
+ 2 - yucky diseased, nude guy
+ 3 - wound in back, has on pants
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_corpse2 (0.3 0.1 0.6) (-32 -32 0) (32 32 10)
+:model=:models/corps2.mdl
+A body laying face up
+-------------------------FIELDS-------------------------
+health = 20
+mass = 200;
+skin = determines the skin of the model
+ 0 - shoulder and facial wounds
+ 1 - clawed chest
+ 2 - stomach wound
+ 3 - just dead
+ 4 - webbed 
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_fence (0.3 0.1 0.6) (-26 -26 0) (26 26 70)
+:model=:models/fence.mdl
+A section of fence
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_flag (0.3 0.1 0.6) (-16 -16 0) (16 16 160)
+:model=:models/flag.mdl
+A flag that wave in the breeze
+-------------------------FIELDS-------------------------
+health = 50
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_fountain (0.3 0.1 0.6) (-24 -24 0) (24 24 80)
+:model=:models/fountain.mdl
+A water fountain
+-------------------------FIELDS-------------------------
+health = 20
+mass = 200;
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_hedge1 (0.3 0.1 0.6) (-16 -16 0) (16 16 80)
+:model=:models/hedge1.mdl
+A hedge that looks like an X-mas tree
+-------------------------FIELDS-------------------------
+health = 20
+mass = 200;
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_hedge2 (0.3 0.1 0.6) (-16 -16 0) (16 16 80)
+:model=:models/hedge2.mdl
+A hedge that is square and of medium height
+-------------------------FIELDS-------------------------
+health = 20
+mass = 200;
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_hedge3 (0.3 0.1 0.6) (-16 -16 0) (16 16 80)
+:model=:models/hedge3.mdl
+A hedge that is tall and thin
+-------------------------FIELDS-------------------------
+health = 20
+mass = 200;
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_ice (0.0 0.0 1.0) ? NOTRANS
+Slippery, slidey ice
+NOTRANS = No translucency
+-------------------------FIELDS-------------------------
+health = default = 20
+friction = default is 0.2, 0 is none, 1 is normal, 10 is max
+abslight = default is 0.5
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_pew (0.3 0.1 0.6) (-16 -40 0) (16 40 50)
+:model=:models/pew.mdl
+A church pew - like you might find in a church.
+-------------------------FIELDS-------------------------
+health = 50
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_plant_generic (0.3 0.1 0.6) (-10 -10 0) (10 10 20)
+:model=:models/plantgen.mdl
+A generic plant that should have some kind of pot placed below it.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_plant_meso (0.3 0.1 0.6) (-10 -10 0) (10 10 40)
+:model=:models/plantmez.mdl
+A generic plant that should have some kind of pot placed below it.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_plant_rome (0.3 0.1 0.6) (-24 -24 0) (24 24 90)
+:model=:models/plantrom.mdl
+A plant for the Rome area.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_playerhead_assassin (0.3 0.1 0.6) (-8 -8 0) (8 8 16)
+:model=:models/h_ass.mdl
+The head of the assassin.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_playerhead_crusader (0.3 0.1 0.6) (-8 -8 0) (8 8 16)
+:model=:models/h_cru.mdl
+The head of the crusader.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_playerhead_necromancer (0.3 0.1 0.6) (-8 -8 0) (8 8 16)
+:model=:models/h_nec.mdl
+The head of the necromancer.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_playerhead_paladin (0.3 0.1 0.6) (-8 -8 0) (8 8 16)
+:model=:models/h_pal.mdl
+The head of the paladin.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_pot1 (0.3 0.1 0.6) (-24 -24 0) (24 24 50)
+:model=:models/pot1.mdl
+A clay pot with handles
+-------------------------FIELDS-------------------------
+health = 10
+mass = 100;
+worldspawn worldtype determines which skin texture gets used
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_pot2 (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/pot2.mdl
+A pot with gently curved sides
+-------------------------FIELDS-------------------------
+health = 10
+mass = 100;
+worldspawn worldtype determines which skin texture gets used
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_pot3 (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/pot3.mdl
+A pot with a sharply curved sides
+-------------------------FIELDS-------------------------
+health = 10
+mass = 100;
+worldspawn worldtype determines which skin texture gets used
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_seaweed (0.3 0.1 0.6) (-8 -8 0) (8 8 32)
+:model=:models/seaweed.mdl
+An animate seaweed that sways from side to side.
+-------------------------FIELDS-------------------------
+health = 10
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_skull (0.3 0.1 0.6) (-8 -8 0) (8 8 16)
+:model=:models/skull.mdl
+A skull, suitable for over the fireplace or perhaps a colorful holiday display
+-------------------------FIELDS-------------------------
+health = 10
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_skull_stick2 (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/skllstk2.mdl
+Two skulls on a stick
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_skullstick (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/skllstk1.mdl
+A skull on a stick - mmm,mmm, good
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_angel (0.3 0.1 0.6) (-60 -60 0) (60 60 120)
+:model=:models/anglstat.mdl
+A statue of Xena in all her glory, sorry - just wishful thinking. It's a statue of an angle praying.
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_athena (0.3 0.1 0.6) (-30 -30 0) (30 30 90)
+:model=:models/athena.mdl
+Statue of a Athena
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+
+*/
+
+/*QUAKED obj_statue_caesar (0.3 0.1 0.6) (-24 -24 0) (24 24 90)
+:model=:models/caesar.mdl
+Statue of a Caesar Romero
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_king (0.3 0.1 0.6) (-30 -30 0) (30 30 120)
+:model=:models/king.mdl
+A statue of a king holding a sword in front of him.
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_lion (0.3 0.1 0.6) (-56 -14 0) (56 14 60)
+:model=:models/lion.mdl
+Statue of a lion.
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+
+*/
+
+/*QUAKED obj_statue_mars (0.3 0.1 0.6) (-30 -30 0) (30 30 80)
+:model=:models/mars.mdl
+A statue of Mars.
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_mummy (0.3 0.1 0.6) (-16 -16 0) (16 16 160)
+:model=:models/mumstatu.mdl
+Statue of the mummy monster
+-------------------------FIELDS-------------------------
+health = 200
+mass = 150
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_mummy_head (0.3 0.1 0.6) (-16 -16 -26) (16 16 160)
+:model=:models/mhdstatu.mdl
+Statue of the nubis head
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+
+*/
+
+/*QUAKED obj_statue_neptune (0.3 0.1 0.6) (-30 -30 0) (30 30 100)
+:model=:models/neptune.mdl
+Statue of Neptune (I think)
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+
+*/
+
+/*QUAKED obj_statue_olmec (0.3 0.1 0.6) (-40 -40 0) (40 40 130)
+:model=:models/olmec1.mdl
+A olmec statue, of course. What the heck is an olmec?
+-------------------------FIELDS-------------------------
+health = 50
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_snake (0.3 0.1 0.6) (-16 -16 0) (16 16 80) INVINCIBLE
+:model=:models/snkstatu.mdl
+The front of a snake
+INVINCIBLE = Won't take damage
+-------------------------FIELDS-------------------------
+defaults:
+health = 100
+mass = 200;
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_snake_coil (0.3 0.1 0.6) (-44 -44 0) (44 44 90)
+:model=:models/snake.mdl
+Statue of a coiled snake (just like the one that comes to life) but this one doesn't come to life.
+-------------------------FIELDS-------------------------
+health = 200
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_statue_tut (0.3 0.1 0.6) (-36 -36 0) (36 36 248)
+:model=:models/tutstatu.mdl
+An Egyptian statue of a guy with a flat head hat
+-------------------------FIELDS-------------------------
+health = 1000
+mass = 2000
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_sword (0.3 0.1 0.6) (-16 -16 -8) (16 16 8)
+:model=:models/sword.mdl
+A sword 
+-------------------------FIELDS-------------------------
+health = 50
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_tombstone1 (0.3 0.1 0.6) (-24 -24 0) (24 24 60)
+:model=:models/tombstn1.mdl
+A tombstone in the shape of a cross
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_tombstone2 (0.3 0.1 0.6) (-16 -16 0) (16 16 40)
+:model=:models/tombstn2.mdl
+A tombstone with a rounded top
+-------------------------FIELDS-------------------------
+health = 20
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_tree (0.3 0.1 0.6) (-42 -42 0) (42 42 160)
+:model=:models/tree.mdl
+A tree that has no leaves
+-------------------------FIELDS-------------------------
+health : 1000
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_tree2 (0.3 0.1 0.6) (-140 -140 -16) (140 140 220)
+:model=:models/tree2.mdl
+A tree with a round top of leaves 
+-------------------------FIELDS-------------------------
+health : 1000
+--------------------------------------------------------
+*/
+
+/*QUAKED obj_webs (0.3 0.1 0.6) (-25 -25 -25) (25 25 25) SOLID ANIMATE WEAK TOUCHMOVE FLAT NOTRANS
+:model=:models/megaweb.mdl
+Big webby stuff.
+Origin is in the center.
+Note that the web is only 46 wide and 2 or 3 pixels thick, and 50 tall.
+
+SOLID = Make it so you can walk on it and not pass though it.
+ANIMATE = give it a slight constant animation so it looks like it's being moved by a breeze.  Looks best on cobwebs and corner web.
+WEAK = This will make it break apart upon touch.
+TOUCHMOVE = Will cycle through it's animation once only when touched, not meant to be used with any other spawnflag
+FLAT = Meant to be used with solid, this will lay it out flat (all you have to do then is give it it's yaw angle) and adjust the bounding box size so it can be walked on.
+NOTRANS = No translucency, totally solid coloring
+
+FEILDS:
+-----------------------------
+abslight = Spiderwebs may need to be brighter or darker than their surroundings to look best.
+health = default is 0, which means it won't take damage, otherwise, you can shoot it away or, if it has low health, you can break it by landing very hard on it
+skin = default is 0 
+	0 = many little spider webs
+	1 = corner web, will appear in right side of the front of the box.
+	2 = cobwebs, light and very nice looking
+	3 = One giant web
+	4 = One big-ass web, 15 times normal size.
+scale = scale it up or down, note that this defaults to 1, and the maximum is 2.5
+
+THESE ANGLES ARE RELATIVE TO IT'S FRONT (given by angle at bottom)
+v_angle_x = how much pitch to tilt it front-back
+v_angle_y = how much yaw to turn it (same as angle field at bottom)
+v_angle_z = how much roll to tilt it sideways
+These can also be entered in one field, such as:
+v_angle = 0 0 0 (x, y, z)
+-----------------------------
+*/
+
+/*QUAKED path_corner (0.5 0.3 0.0) (-8 -8 -8) (8 8 8) SYNCH
+Monsters will continue walking towards the next target corner.
+
+FOR TRAINS:
+-------------------------FIELDS-------------------------
+SYNCH - Will make the train automatically calculate a new anglespeed based on the distance it's going and will finish the turn at the same time the move is done.
+"speed" - how fast the train should move to this path corner.  This will change the train's default speed to whatever you specify.  Nice for trains that should speed up and slow down.  No speed will let the train move at whatever speed it was last set to.
+"angles" - how much to modify the train's angles by.  So if you set it at '0 90 0', and the train was at an angle of '30 60 90', the train would rotate unitl it's angles equalled '30 150 90'
+"anglespeed" - how fast the train should rotate to the new angle.  Again, this will change the train's default anglespeed.
+The defaults of all of these are 0.
+--------------------------------------------------------
+
+As usual, any rotating brush needs an origin brush.
+*/
+
+/*QUAKED plaque (0.5 0.5 0.5) ? INVISIBLE deactivated
+
+A plaque on the wall a player can read
+-------------------------FIELDS-------------------------
+
+"message" the index of the string in the text file
+
+"noise1" the wav file activated when plaque is used
+
+deactivated - if this is on, the plaque will not be readable until a trigger has activated it.
+--------------------------------------------------------
+*/
+
+/*QUAKED player_sheep (0.3 0.1 0.6) (-8 -8 0) (8 8 32) stationary STUCK JUMP PLAY_DEAD DORMANT NODROP
+:model=:models/sheep.mdl
+A sheep player model
+-------------------------FIELDS-------------------------
+stationary- sheep will not wander around or change angles
+nodrop- won't drop to floor (and through other entities!) on spawn
+--------------------------------------------------------
+*/
+
+/*QUAKED puzzle_piece (1.0 0.6 0.0) (-8 -8 -28) (8 8 8) SPAWN FLOATING AUTO_GET
+Puzzle Piece
+-------------------------FIELDS-------------------------
+puzzle_id: the number that identifies the piece
+           (this should 5 characters or less)
+netname: the name the player sees when picked up
+--------------------------------------------------------
+*/
+
+/*QUAKED puzzle_static_piece (1.0 0.6 0.0) (-8 -8 -8) (8 8 8)
+Puzzle Static Piece
+-------------------------FIELDS-------------------------
+puzzle_id: the name of the model to be created
+lifespan: how long the puzzle piece should be around
+--------------------------------------------------------
+*/
+
+/*QUAKED rider_death (1.0 0.0 0.0) (-55 -55 -24) (55 55 100) TRIGGER_WAIT
+:model=:models/boss/dthrider.mdl
+Death rider monster.  You must place rider_path entites
+on the map.  The rider will first proceed to the 
+rider_path point with a path_id of 1.
+-------------------------FIELDS-------------------------
+map: next map to go to when you kill the rider
+target: start spot on the next map
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_famine (1.0 0.0 0.0) (-55 -55 -24) (55 55 150) TRIGGER_WAIT
+:model=:models/boss/famrider.mdl
+Famine rider monster.  You must place rider_path entites
+on the map.  The rider will first proceed to the 
+rider_path point with a path_id of 1.
+-------------------------FIELDS-------------------------
+map: next map to go to when you kill the rider
+target: start spot on the next map
+--------------------------------------------------------
+*/
+
+/*QUAKED rider_path (0.5 0.3 0.0) (-8 -8 -8) (8 8 8)
+Specifies a path point for a rider.  You can specify
+up to 4 other places that the rider can go after this
+point.
+-------------------------FIELDS-------------------------
+path_id: number (id) of this path point
+next_path_1: number (id) of a possible next point
+next_path_2: number (id) of a possible next point
+next_path_3: number (id) of a possible next point
+next_path_4: number (id) of a possible next point
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_pestilence (1.0 0.0 0.0) (-55 -55 -24) (55 55 100) TRIGGER_WAIT
+:model=:models/boss/pstrider.mdl
+Pestilence rider monster.  You must place rider_path entites
+on the map.  The rider will first proceed to the 
+rider_path point with a path_id of 1.
+-------------------------FIELDS-------------------------
+map: next map to go to when you kill the rider
+target: start spot on the next map
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_quake (1.0 0.0 0.0) ?
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_quake_center (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+-------------------------FIELDS-------------------------
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_trigger_multiple (0.5 0.2 0.0) ?
+-------------------------FIELDS-------------------------
+rt_chance: chance (0-1) that the trigger will be run
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_trigger_once (0.5 0.2 0.0) ?
+-------------------------FIELDS-------------------------
+rt_chance: chance (0-1) that the trigger will be run
+--------------------------------------------------------
+
+*/
+
+/*QUAKED rider_war (1.0 0.0 0.0) (-50 -50 -24) (50 50 100) TRIGGER_WAIT
+:model=:models/boss/warrider.mdl
+War rider monster.  You must place rider_path entites
+on the map.  The rider will first proceed to the 
+rider_path point with a path_id of 1.
+-------------------------FIELDS-------------------------
+map: next map to go to when you kill the rider
+target: start spot on the next map
+--------------------------------------------------------
+
+*/
+
+/*QUAKED sound_ambient (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+Creates an ambient sound in the world.
+-------------------------FIELDS-------------------------
+ "soundtype" values :
+
+   1 - windmill 
+   2 - dripping, echoing sewer water sound
+   3 - dripping water with no echo 
+   4 - subtle sky/wind
+   5 - crickets / night sounds
+   6 - birds
+   7 - raven caw
+   8 - rocks falling
+   9 - lava bubble
+  10 - water gurgle
+  11 - metal
+  12 - pounding
+  13 - random moans and screams
+  14 - creaking
+  15 - chain rattling
+--------------------------------------------------------
+*/
+
+/*QUAKED sound_maker (0.3 0.1 0.6) (-10 -10 -8) (10 10 8)
+A sound that can be triggered.
+-------------------------FIELDS-------------------------
+ "soundtype" values :
+
+  1 - bell ringing
+  2 - Organ Music (not the organ you're thinking about)
+  3 - Tomb sound (hey, it's too late in the project to waste time typing comments!
+--------------------------------------------------------
+*/
+
+/*QUAKED target_null (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+A null target for the camera 
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED trap_fireball (1.0 0.3 0.0) (0 0 0) (16 16 16) TRIGGER_ONLY
+New item for QuakeEd
+It works!  It really works!
+If TRIGGER_ONLY is turned on, it will fire once each time it's triggered (used)
+otherwise, each time it's used, it's turned on or off.
+If it's targetted to something, it will fire at that rather than tracking the player.
+-------------------------FIELDS-------------------------
+.wait = How long to wait between firings (default 0.5)
+.dmg = How much damage to do with each shot (default 10)
+--------------------------------------------------------
+*/
+
+/*QUAKED trap_lightning (0.0 1.0 1.0) (-8 -8 -8) (8 8 8) TRACK ONCE
+Generates a bolt of lightning which ends at the weather_lightning_end that is the target
+-------------------------FIELDS-------------------------
+noise  - sound generated when lightning appears
+      1 - no sound
+      2 - lightning (default)
+
+wait - time between shots
+aflag - radius limiter
+target - be sure to give this a target fx_lightning_end to hit
+dmg - damage this bolt does
+--------------------------------------------------------
+*/
+
+/*QUAKED trap_shooter (0.0 0.5 0.8) (-8 -8 -8) (8 8 8) superspike laser
+Continuously fires spikes.
+"wait" time between spike (1.0 default)
+"nextthink" delay before firing first spike, so multiple shooters can be stagered.
+*/
+
+/*QUAKED trap_spikeshooter (0.0 0.5 0.8) (-8 -8 -8) (8 8 8) superspike laser
+When triggered, fires a spike in the direction set in QuakeEd.
+Laser is only for REGISTERED.
+*/
+
+/*QUAKED trap_spikeshooter_spray (0.0 0.5 0.8) (-8 -8 -8) (8 8 8)
+When triggered, fires a spike in the direction set in QuakeEd.
+*/
+
+/*QUAKED trigger_activate (0.5 0.5 0.5) ? ONCE RELAY x deactivated
+*/
+
+/*QUAKED trigger_attack (0.5 0.5 0.5) ?
+Checks to see if a player touching it has tried to fire.
+*/
+
+/*QUAKED trigger_changelevel (0.5 0.5 0.5) ? x END_OF_UNIT END_OF_EPISODE
+When the player touches this, he gets sent to the map listed in the "map" variable.  Unless the NO_INTERMISSION flag is set, the view will go to the info_intermission spot and display stats.
+*/
+
+/*QUAKED trigger_check (0.5 0.5 0.5) ?
+Checks to see if its child entities are active, and if they are, it triggers
+
+netname = the name to check for its child entities.  Like the trigger_counter, each
+			 entity that this checks must share its netname.  
+
+You do not need to specify how many children the trigger has
+*/
+
+/*QUAKED trigger_combination_assign (0.5 0.5 0.5) ? notouch monstertouch pushtouch deactivated remove_pp no_pp lighttoggle lightstartlow
+This will pass it's "mangle" field to it's target- meant for use with an ordered trigger_counter.
+It will pass the "mangle" but not USE the counter (it WILL use other targets normally, however).
+Otherwise, it behaves just like any other trigger.
+Giving it a wait of -1 will make it only work once.
+*/
+
+/*QUAKED trigger_control (0.5 0.5 0.5) ?
+
+Takes over a ballista when the player is inside of it
+*/
+
+/*QUAKED trigger_counter (0.5 0.5 0.5) ? nomessage ordered always_return deactivated
+Acts as an intermediary for an action that takes multiple inputs.
+
+nomessage = it will print "1 more.. " etc when triggered and "sequence complete" when finished.
+ordered = things must be triggered in order to make the counter go off
+always_return = Buttons will pop back to ready position even if successful (default is that they stay down once correct combination is found)
+
+ - The triggers that trigger the counter need to be ordered using the "aflag" field
+ - The first trigger is 1, second is 2, etc.
+ - If a trigger is hit out of order, the counter resets
+ - Triggers need a name in their netname function, the same name must be in the counter triggers netname fields (the target of the counter should NOT have a netname field, only the things triggering the counter)
+ - Count must still be the number of triggers until the counter fires, minus 1 (don't ask why)
+
+"wait" = how long to wait after successful before giving it another try.  Default is -1, meaning it works once and shut off.  If you specify a wait time, the trigger will become a multiple trigger.
+"mangle" = This entity has the ability to have a non-sequential sequence of numbers as a combination using mangle.
+The format is like a vector, for example, if you want the counter (ordered) to work only if the cnt order of 3, 5, 7 is used, enter the value "3 5 7" (no quotes).
+A trigger_combination_assign trigger can pass it's "mangle" value to trigger_counter when it uses it.
+This way you can have a number of different possible combinations that could be used and only one wouldbe right (depending, say, on which path the player took).
+The values can be as high as you like (okay, from 1 to 65336), so you can have any number of buttons in this puzzle.
+
+After the counter has been triggered "count" times (default 2), it will fire all of it's targets and shut off, unless you specify a wait time.
+*/
+
+/*QUAKED trigger_counter_reset (0.5 0.5 0.5) ? notouch monstertouch pushtouch deactivated remove_pp no_pp lighttoggle lightstartlow
+This will reset a trigger_counter to start counting again as if it hasn't been used yet.  Useful for when you want a counter to count more than once but the counting can be interrupted.
+It will reset the counter but not USE the counter (it WILL use other targets normally, however).
+Otherwise, it behaves just like any other trigger.
+Giving it a wait of -1 will make it only work once.
+*/
+
+/*QUAKED trigger_crosslevel (0.5 0.5 0.5) ? trigger1 trigger2 trigger3 trigger4 trigger5 trigger6 trigger7 trigger8
+Once this trigger is touched/used, any trigger_crosslevel_target with the same trigger number is automatically used when a level is started within the same unit.  It is OK to check multiple triggers.  Message, delay, target, and killtarget also work.
+*/
+
+/*QUAKED trigger_crosslevel_target (0.5 0.5 0.5) ? trigger1 trigger2 trigger3 trigger4 trigger5 trigger6 trigger7 trigger8
+Triggered by a trigger_crosslevel elsewhere within a unit.  It is OK to check multiple triggers.  Delay, target and killtarget also work.
+*/
+
+/*QUAKED trigger_deactivate (0.5 0.5 0.5) ? ONCE RELAY x deactivated
+*/
+
+/*QUAKED trigger_hurt (0.5 0.5 0.5) ?
+Any object touching this will be hurt
+set dmg to damage amount
+defalt dmg = 5
+*/
+
+/*QUAKED trigger_interval (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+*/
+
+/*QUAKED trigger_message_transfer (0.5 0.5 0.5) ?
+Special case- will player it's message and transfer it's activating trigger's next target to it's target.
+Does NOT activate it's target, only transfers the name to the activating trigger
+These triggers also cannot be deactivated by touch
+===================
+FEILDS
+.message = A message to display when used.
+*/
+
+/*QUAKED trigger_monsterjump (0.5 0.5 0.5) ?
+Walking monsters that touch this will jump in the direction of the trigger's angle
+"speed" default to 200, the speed thrown forward
+"height" default to 200, the speed thrown upwards
+*/
+
+/*QUAKED trigger_multiple (0.5 0.5 0.5) ? notouch monstertouch pushtouch deactivated remove_pp no_pp	lighttoggle lightstartlow
+Variable sized repeatable trigger.  Must be targeted at one or more entities.
+If "health" is set, the trigger must be killed to activate each time.
+If "delay" is set, the trigger waits some time after activating before firing.
+"wait" : Seconds between triggerings. (.2 default)
+If notouch is set, the trigger is only fired by other entities, not by touching.
+If monstertouch is set, only monsters may set of the trigger
+If deactivated is set, trigger will not fire until it is triggered itself
+NOTOUCH has been obsoleted by trigger_relay!
+soundtype
+1)	secret
+2)	beep beep
+3)	large switch
+4)
+set "message" to text string
+
+Puzzle Pieces (use the puzzle_id value from the pieces)
+   puzzle_piece_1
+   puzzle_piece_2
+   puzzle_piece_3
+   puzzle_piece_4
+   no_puzzle_msg: message when player doesn't have the right pieces
+
+*/
+
+/*QUAKED trigger_once (0.5 0.5 0.5) ? notouch monstertouch pushtouch deactivated remove_pp no_pp lighttoggle lightstartlow
+Variable sized trigger. Triggers once, then removes itself.  You must set the key "target" to the name of another object in the level that has a matching
+"targetname".  If "health" is set, the trigger must be killed to activate.
+If notouch is set, the trigger is only fired by other entities, not by touching.
+If monstertouch is set, only monsters can set of the triggers
+If deactivated is set, trigger will not work until it is triggered
+if "killtarget" is set, any objects that have a matching "target" will be removed when the trigger is fired.
+if "angle" is set, the trigger will only fire when someone is facing the direction of the angle.  Use "360" for an angle of 0.
+soundtype
+1)	secret
+2)	beep beep
+3)	large switch
+4)
+set "message" to text string
+
+---------------------------------------
+lighttoggle = It will toggle on/off all lights in a level with a matching .style field.
+.style = Valid light styles are 33-63.
+
+.lightvalue1 (default 0) 
+.lightvalue2 (default 11)
+Two values the light will fade-toggle between, 0 is black, 25 is brightest, 11 is equivalent to a value of 300.
+The lightvalue of .style will always start with the lightvalue1 of the FIRST trigger or button spawned with that .style.
+
+.fadespeed (default 0.5) = How many seconds it will take to complete the desired lighting change
+
+If you turn on lighttoggle, you MUST give this trigger a style value or it will turn on and off all the "normal" lights in the level (hey, maybe that's what you want!)
+If you give a .style value between 0 and 32 it will change one of the preset lightstyles.
+---------------------------------------
+
+Puzzle Pieces (use the puzzle_id value from the pieces)
+   puzzle_piece_1
+   puzzle_piece_2
+   puzzle_piece_3
+   puzzle_piece_4
+   no_puzzle_msg: message when player doesn't have the right pieces
+*/
+
+/*QUAKED trigger_push (0.5 0.5 0.5) ? PUSH_ONCE
+
+Pushes the player in the direction set by angles
+-------------------------FIELDS-------------------------
+Angles - the direction to push
+Speed - how hard to push (default 500)
+If PUSH_ONCE is clicked it will go away after one use.
+If you target it, it removes itself when trigger is set off.
+--------------------------------------------------------
+*/
+
+/*QUAKED trigger_quake (3.0 26.0 0.0) (-10 -10 -10) (10 10 10) dodamage multiple
+Earthquake effect
+
+Sorry some of the entity names are screwy, but it saves space
+
+damage default = 5;
+lifespan default = 2;
+wait default = 1;
+
+dodamage = inflict damage on player
+
+"items" radius of quake
+"dmg" damage done to victim
+"lifespan" duration of the quake
+"target" name of trigger to target (for other effects)
+"targetname" set this if you want something else to trigger the trigger
+"wait" delay before the quake goes off
+*/
+
+/*QUAKED trigger_relay (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+This fixed size trigger cannot be touched, it can only be fired by
+other events.  It can contain killtargets, targets, delays, and 
+messages.
+*/
+
+/*QUAKED trigger_setskill (0.5 0.5 0.5) ?
+sets skill level to the value of "message".
+Only used on start map.
+*/
+
+/*QUAKED trigger_teleport (0.5 0.5 0.5) ? PLAYER_ONLY SILENT ACTIVATE
+Any object touching this will be transported to the corresponding info_teleport_destination entity. You must set the "target" field, and create an object with a "targetname" field that matches.
+
+SILENT = No effect or sound
+
+COOL DESIGN IDEA: If you like, you can use a trigger_message_transfer to change the target of the teleporter so it can go different places at different times.
+
+If the trigger_teleport has a targetname, it will only teleport entities when it has been fired.
+*/
+
+/*QUAKED weather_dust (0.0 1.0 1.0) ?
+Dust falls, or is stirred up within this entity.
+-------------------------FIELDS-------------------------
+color   - palette number of the dust's color
+        default - 101
+*/
+
+/*QUAKED weather_lightning_end (0.0 1.0 1.0) (-8 -8 -8) (8 8 8)
+Where lightning from weather_lightning_start will hit.
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED weather_lightning_start (0.0 1.0 1.0) (-8 -8 -8) (8 8 8) STARTOFF thunder_sound
+Generates a bolt of lightning which ends at the weather_lightning_end that is the target
+
+STARTOFF - if clicked the lightning becomes triggerable, will run constantly once triggered. Wait will still tell how long to wait between strikes
+thunder_sound - will randomly play lightning strike sounds when it fires
+-------------------------FIELDS-------------------------
+noise  - sound generated when lightning appears
+      1 - no sound
+      2 - lightning (default)
+
+target - be sure to give this a target fx_lightning_end to hit
+
+wait   - amount of time between strikes
+      -1   lightning is triggerable.  
+      > -1 lightning is constantly running.
+      default -1
+
+lifespan - amount of time lightning bolt will exist.
+--------------------------------------------------------
+*/
+
+/*QUAKED weather_rain (0.0 1.0 1.0) ? STRAIGHT NO_SPLAT
+MG&RL
+Rain falls within this entity.
+STRAIGHT = Rain will fall straight down rather than at an angle
+NO_SPLAT = Rain will not make "splats" on the ground
+-------------------------FIELDS-------------------------
+color   - palette number of the rain's color - will range between this color and this color + 8 unless monochrome is checked
+        default - 414 (translucent blue)
+counter - number of rain particles to generate every 10th of a second.
+        default - 300
+wait    - how often to generate rain particles
+        default - .1 of a second
+soundtype - 0 = rain (default)
+			1 = drip (cave-type- wetness)
+--------------------------------------------------------
+*/
+
+/*QUAKED weather_sunbeam_end (0.0 1.0 1.0) (-8 -8 -8) (8 8 8)
+Where sunbeam from weather_sunbeam_start will hit.
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED weather_sunbeam_start (0.0 1.0 1.0) (-8 -8 -8) (8 8 8) STARTOFF
+Generates a ray of sunlight which ends at the weather_sunbeam_end that is the target
+
+STARTOFF - if clicked the sunbeam becomes triggerable, will run constantly once triggered. Wait will still tell how long to wait between strikes
+-------------------------FIELDS-------------------------
+noise  - sound generated when lightning appears
+      1 - no sound (default)
+      2 - lightning 
+
+target - be sure to give this a target fx_lightning_end to hit
+
+wait   - amount of time between strikes
+      -1   sunbeam is triggerable.  
+      > -1 sunbeam is constantly running.
+      default -1
+
+lifespan - amount of time sunbeam will exist.
+--------------------------------------------------------
+*/
+
+/*QUAKED worldspawn (0.0 0.0 0.0) ?
+Only used for the world entity.
+Set message to the level name.
+Set sounds to the cd track to play.
+-------------------------FIELDS-------------------------
+worldtype - determines different models to use (pots, torches)
+0 - castle
+1 - egypt
+2 - meso
+3 - roman
+--------------------------------------------------------
+*/
+
+/*QUAKED wp_weapon2 (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/w_l2_c1.mdl
+In world weapon 2 pickup for single player mode
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED wp_weapon3 (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/w_l3_c1.mdl
+In world weapon 3 pickup for single player mode
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED wp_weapon4_head (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/w_l41_c1.mdl
+In world weapon 4 pickup (staff head) for single player mode
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+
+/*QUAKED wp_weapon4_staff (0.0 0.0 0.0) (-8 -8 -44) (8 8 20) FLOATING
+:model=:models/w_l42_c1.mdl
+In world weapon 4 pickup (staff) for single player mode
+-------------------------FIELDS-------------------------
+none
+--------------------------------------------------------
+*/
+

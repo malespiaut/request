@@ -1,0 +1,1574 @@
+/*QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 32)
+{
+model(":vehicles/planes/attack/a10/tris.md2");
+}
+
+SINGLE-PLAYER START:
+
+This point-entity specifies locations where single-players are
+spawned. There must be at least one single-player start in a
+map.
+
+Keys:
+
+sounds(bitflag): 0 = all vehicles
+                 1 = aircraft
+                 2 = helicopters
+                 4 = ground vehicles
+                16 = drone
+    
+The 'sounds' key specifies which kinds of vehicle can spawn at
+that spot. This value is used to specify specific starts for
+specific vehicles, so that (for instance) an aircraft won't
+spawn in a ground-vehicle garage. 'sounds' is a bitflag: you
+can add these values together to let more than one type spawn
+at the spot. Eg 1 + 2 = 3 will allow aircraft and helicopters
+to spawn at the spot.
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+The 'spawnflags' key is used to specify which difficulty
+levels and gameplay modes the player start won't be spawned
+in. Normally (with spawnflags = 0) a player start is spawned
+in all modes; but this key can be used to narrow this down.
+
+'spawnflags' is a bitflag: you can add these values together
+to prohibit the player start from spawning in more than one
+mode. Eg 256 + 1024 = 1280 will prohibit the start from
+spawning in easy or hard mode.  Since AirQuake2 doesn't use
+the single player mode or the difficulty levels, the
+spawnflags are basically useless for now.
+*/
+
+/*QUAKED info_player_deathmatch (0 1 0) (-16 -16 -24) (16 16 32)
+{
+model(":vehicles/planes/fighter/mig29/tris.md2");
+choice "aqteam"
+ (
+  ("0","all teams")
+  ("1","team 1")
+  ("2","team 2")
+ );
+}
+
+DEATHMATCH START:
+
+This point-entity specifies locations where deathmatch players
+are spawned. There must be at least one deathmatch start in a
+map.
+
+Keys:
+
+sounds(bitflag): 0 = all vehicles
+                 1 = aircraft
+                 2 = helicopters
+                 4 = ground vehicles
+                16 = drone
+    
+The 'sounds' key specifies which kinds of vehicle can spawn at
+that spot. This value is used to specify specific starts for
+specific vehicles, so that (for instance) an aircraft won't
+spawn in a ground-vehicle garage. 'sounds' is a bitflag: you
+can add these values together to let more than one type spawn
+at the spot. Eg 1 + 2 = 3 will allow aircraft and helicopters
+to spawn at the spot.
+
+aqteam(choices): 0 = all teams
+                 1 = team 1
+                 2 = team 2
+
+The 'aqteam' key specifies which teams can spawn at that point
+in teamplay mode. A value of 0 lets any team spawn there; this
+is best for 'neutral' start points in between bases. A value of
+1 or 2 will restrict it to team 1 or two respectively, and is
+best for starts in or around each respective base.
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+The 'spawnflags' key is used to specify which difficulty
+levels and gameplay modes the player start won't be spawned
+in. Normally (with spawnflags = 0) a player start is spawned
+in all modes; but this key can be used to narrow this down.
+
+'spawnflags' is a bitflag: you can add these values together
+to prohibit the player start from spawning in more than one
+mode. Eg 256 + 1024 = 1280 will prohibit the start from
+spawning in easy or hard mode.  Since AirQuake2 doesn't use
+the single player mode or the difficulty levels, the
+spawnflags are basically useless for now.
+*/
+
+/*QUAKED misc_vehicle (0 0 1) (-16 -16 -8) (16 16 16)
+{
+model(":vehicles/ground/special/2s6/tris.md2");
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+default("count","0");
+}
+
+PARKED VEHICLE:
+
+This is a vehicle that is parked on the ground, and will
+explode if damaged enough. Certain features of the vehicle,
+such as speedbrakes on/off if the vehicle is an aircraft, are
+randomly determined at spawn.  It is best to place these in
+spots where player vehicles do not normally spawn and where
+the vehicle is unlikely to block player vehicles.
+
+Keys:
+
+sounds(bitflag): Ok, here we go....
+                  xxx
+   Vehicle Class--|||
+Vehicle Category---||
+Specific Vehicle----|
+
+The 'sounds' key is used for specifying the vehicle you want
+the parked vehicle to be. The keyvalue is composed of up to 3
+integers. The first number specifies the class of the vehicle,
+as in aircraft, helo, ground-vehicle etc. The second number
+defines the category within that class, i.e. fighter, bomber,
+transport.  And the third number specifies the exact vehicle
+within that category within that class, as in F-16, F-22,
+EF-2000 and so on.
+
+Sounds complicated? It is. But it mirrors the structure of the
+vehicle selection dialog. The actual values to use are the
+orders that the options come when they're in the selection
+menu: For instance, the value '1' for the first number
+specifies that the vehicle is an aircraft, since aircraft is
+the first option in the menu. '2' for the second number
+specifies that it's a bomber, the second option in the
+aircraft class menu. And a '1' for the third specifies a
+Tornado, the first option in the bomber category menu.
+
+You don't have to specify each of the numbers, of course. If
+you don't specify any number (ie you leave 'sounds' blank),
+AirQuake2 will randomly choose a vehicle. If you only specify
+the first number, it will randomly choose a vehicle from
+within the class you specified.  If you only specify the first
+two numbers, it will randomly choose a vehicle from within the
+category you specified.
+
+eg: 211 = Apache (Helicopter, Attack, Apache)
+    12 = Random Bomber (Aircraft, Bomber)
+    321 = Scorpion (Ground-vehicle, Scout, Scorpion)
+    2 = Random Helicopter (Helicopter)
+
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+The 'aqteam' key specifies which team the parked vehicle belongs
+to. The upshot of this is deciding which team gets the frags
+(see the next key below) when the vehicle is destroyed. A value
+of 0 indicates a neutral team, meaning that the frag value below
+is ignored.
+
+This key has no effect in regular deathmatch.
+
+count(integer): default 0
+
+The 'count' key specifies what frag value the parked vehicle has.
+This is used in teamplay; when a player on a different team
+destroys the parked vehicle, he/she will get the frag amount
+specified by this key. Likewise, if a member of the same team
+destroys the parked vehicle, he/she will get negative the
+specified frags for it.
+This key has no effect in regular deathmatch.
+*/
+
+/*QUAKED enemy_drone (0 0 1) (-16 -16 -8) (16 16 16)
+{
+model(":vehicles/planes/fighter/f16/tris.md2");
+}
+
+ENEMY VEHICLE:
+
+This is an enemy vehicle. At present all it will do is follow
+a waypoint path; in future it will be able to break from the
+path to engage targets, as well as being able to perform
+scripted actions at each waypoint (eg attack a ground
+structure or something)
+
+At the present time (v0.83)this vehicle is very unfinished, 
+so it is recommended you don't use it in a map.
+
+Keys:
+
+target(string):
+
+The 'target' key is used to link the drone to the waypoint it
+is meant to go to. The 'target' string should match the
+'targetname' string of the first waypoint. Waypoints are
+defined by path_corners, in much the same was as a path for a
+func_train is constructed.  The target can also point to
+another enemy_drone entity; this allows for a leader vehicle
+that follows the waypoints, and other vehicles that follow the
+leader. In this case, the target string should match the
+'targetname' string of the leader enemy_drone.
+
+Note: If the leader vehicle is destroyed, all the following
+vehicles will adopt the leader's next waypoint.
+
+targetname(string):
+
+As described above, this is used to allow other drone vehicles
+to follow the vehicle (as well as the more common purposes for
+the targetname key, such as allowing the drone to be the
+target of player-triggered effects).  The 'targetname' string
+must match the 'target' string of whatever you want to
+follow/effect the vehicle.
+
+sounds(bitflag):
+                  xxx
+   Vehicle Class--|||
+Vehicle Category---||
+Specific Vehicle----|
+
+See the description for this flag under the 'misc_vehicle'
+point-entity, above.
+*/
+
+/*QUAKED ammo_bullets (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/items/ammo/bullets/medium/tris.md2");
+}
+
+AUTOCANNON/MACHINEGUN ROUNDS:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED ammo_sidewinder (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/weapons/aam/phoenix.md2");
+}
+
+SHORT-RANGE MISSILES:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED ammo_amraam (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/weapons/aam/amraam.md2");
+}
+
+LONG-RANGE MISSILES:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED ammo_shells (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/weapons/shell/shell.md2");
+}
+
+TANK CANNON SHELLS:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED ammo_rockets (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/weapons/ffar/ffar.md2");
+}
+
+FFAR ROCKETS:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED ammo_bombs (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/weapons/bomb/tris.md2");
+}
+
+BOMBS:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED ammo_atgm (.3 .3 1) (-16 -16 -16) (16 16 16)
+{
+model(":models/weapons/hellfire/hellfire.md2");
+}
+
+AIR TO GROUND MISSILES:
+
+These point-entities are pickup items: they give you ammo when
+you drive/fly over them and appear as spinning representations
+of the ammo.  After being picked up in deathmatch they respawn
+about 30 seconds later.
+
+Keys:
+
+team(string):
+
+The 'team' key is used for alternate respawning. Multiple
+entities of different types that have the same 'team' string
+are placed in the same spot. The first of them spawns; when
+picked up, a random other one with the same 'team' string
+respawns in its place about 30 seconds later. When that is
+picked up, another random one respawns...
+
+spawnflags(bitflag): 256 = Not in easy mode
+                     512 = Not in normal mode
+                    1024 = Not in hard mode
+                    2048 = Not in deathmatch mode
+
+See the description for the spawnflags key under the
+info_player_start/info_player_deathmatch entity, above.
+*/
+
+/*QUAKED misc_explobox (0 0 1) (-16 -16 0) (16 16 40)
+{
+model(":models/objects/oiltank/tris.md2");
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+default("mass","10000");
+default("health","80");
+default("dmg","150");
+default("count","0");
+}
+
+OIL TANK:
+
+This is an AirQuake2 oil-tank, ripe to be blown to
+smithereens.  Functionally it is exactly the same as the
+original Quake2 exploding barrel, but with a different model
+and bounding-box.
+
+Keys:
+
+mass(integer): Default 10000
+
+The 'mass' key determines how heavy or light the oiltank is,
+in practice determining how easy it is to push around with the
+player and how far it gets pushed by explosions. In AirQuake2
+this value should always be kept high (say around 10000) to
+prevent the oiltank from moving at all.
+
+health(integer): Default 80
+
+The 'health' key determines how much damage the oiltank can
+take before it pops its load.The default value is 80, increase
+if you the tank to be tougher.
+
+dmg (integer): Default 150
+
+The 'dmg' integer determines how much splash damage the
+oiltank does over how big a radius when it blows up. The
+default of 150 is enough to dent a tank quite considerably.
+
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+See the description for the 'aqteam' key under the misc_vehicle
+entity above.
+
+count(integer): default 0
+
+See the description for the 'count' key under the misc_vehicle
+entity above.
+*/
+
+/*QUAKED object_tree_single (0 1 0) (-8 -8 -8) (8 8 8)
+{
+model(":models/objects/trees/palm/single.md2");
+choice "sounds"
+ (
+  ("0","Random")
+  ("1","Palm Tree")
+ );
+choice "mass"
+ (
+  ("0","Random")
+  ("1","Position 1")
+  ("2","Position 2")
+  ("3","Position 3")
+ );
+default("health","25");
+}
+
+SINGLE TREE:
+
+As the name suggests, object_tree_single is just a single
+tree.
+
+Keys:
+
+sounds(choices): 0 = Random
+                 1 = Palm Tree
+
+The 'sounds' key specifies the variety of tree
+spawned. Currently there are ony palm trees, but in future
+there will be more types. 'Random' will randomly select a
+type of tree; it isn't recommended, since the type of tree
+selected may not fit the theme of your map.
+
+mass(choices): 0 = Random
+               1 = Position 1
+               2 = Position 2
+               3 = Position 3
+
+The 'mass' key controls the position of the tree; each tree
+has 3 different positions it can be in, varying in angle,
+location and shape. 'Random' will randomly select a position.
+
+health(integer): Default 25
+
+The 'health' key determines how much damage the tree can take
+before it is destroyed.
+*/
+
+/*QUAKED object_tree_multiple (0 1 0) (-8 -8 -8) (8 8 8)
+{
+model(":models/objects/trees/palm/multiple.md2");
+choice "sounds"
+ (
+  ("0","Random")
+  ("1","Palm Tree")
+ );
+choice "mass"
+ (
+  ("0","Random")
+  ("1","Position 1")
+  ("2","Position 2")
+  ("3","Position 3")
+ );
+default("health","25");
+}
+
+MULTIPLE TREES:
+
+object_tree_multiple is a group of three trees around a
+central point.  Use it when you want to do groups of trees; it
+is much more economical than using lots of single trees
+because it means fewer entities.
+
+Keys:
+
+sounds(choices): 0 = Random
+                 1 = Palm Tree
+
+The 'sounds' key specifies the variety of tree
+spawned. Currently there are ony palm trees, but in future
+there will be more types.  'Random' will randomly select a
+type of tree; it isn't recommended, since the type of tree
+selected may not fit the theme of your map.
+
+mass(choices): 0 = Random
+               1 = Position 1
+               2 = Position 2
+               3 = Position 3
+
+The 'mass' key controls the position of the trees; each tree
+has 3 different positions it can be in, varying in angle,
+location and shape. 'Random' will randomly select a position.
+
+health(integer): Default 25
+
+The 'health' key determines how much damage the tree(s) can
+take before it is destroyed.  
+*/
+
+/*QUAKED object_tent (0 1 0) (-8 -8 -8) (8 8 8)
+{
+model(":models/objects/tent/tent_small.md2");
+choice "sounds"
+ (
+  ("0","Random")
+  ("1","Stripy circus-style")
+  ("2","Forest camo")
+  ("3","Desert camo")
+ );
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+default("health","50");
+default("count","0");
+}
+
+TENT:
+
+A tent. (Campers  - go away!)
+
+Keys:
+
+sounds(choices): 0 = Random
+                 1 = Stripy circus-style
+                 2 = Forest camo
+                 3 = Desert camo
+
+The sounds key determines the camoflage of the tent. 'Random'
+randomly selects a camoflage color.
+
+health(integer): Default 50
+
+Health determines how much damage the tent can take before it
+is destroyed.
+
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+See the description for the 'aqteam' key under the
+misc_vehicle entity above.
+
+count(integer): default 0
+
+See the description for the 'count' key under the misc_vehicle
+entity above.
+*/
+
+/*QUAKED func_runway (1 1 0) ?
+
+RUNWAY:
+
+This brush entity specifies that the brush is 'land-onable' by
+aircraft.  Make sure that the runway is flat, that all
+separate pieces of runway are handled by separate entities,
+and avoid angled runways. This is because in AirQuake2 you
+land on the _bounding-box_ of the runway, not on the runway
+surface itself.
+
+For ground vehicles to be able to cross it it should not be
+higher than 1 unit above the neighboring brushes.
+
+Keys:
+
+It has no keys at the moment.
+*/
+
+/*QUAKED func_water (0.0 0.5 0.8) ? START_OPEN
+{
+choice "sounds"
+ (
+  (0,"no sound")
+  (1,"water")
+  (2,"lava")
+ );
+default("speed","25");
+default("wait","-1");
+default("lip","0");
+}
+
+MOVABLE WATER:
+
+func_water is a moveable water brush.  It must be targeted to
+operate.  Use a non-water texture at your own risk.
+
+Spawnflags:
+
+START_OPEN causes the water to move to its destination when
+    spawned and operate in reverse.
+
+Keys:
+
+angle(integer): determines the opening direction (up or down only)
+targetname(string): if set, no touch field will be spawned and
+    a remote button or trigger field activates the door.
+speed(integer): movement speed (25 default)
+wait(integer): wait before returning (-1 default, -1 = TOGGLE)
+    return)
+lip(integer): lip remaining at end of move (0 default)
+sounds(choices): 0 = no sound
+                 1 = water
+                 2 = lava
+*/
+
+/*QUAKED func_explosive (0.0 0.5 0.8) ? TRIGGER_SPAWN ANIMATED ANIMATED_FAST
+{
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+default("health","100");
+default("mass","75");
+default("count","0");
+}
+
+DESTRUCTIBLE STRUCTURE:
+
+This is your bog-standard destructible brush, used for
+buildings, walls, bridges and pretty much anything else you
+want to be able to be blown up. If you want an explosion, set
+dmg and it will do a radius explosion of that amount at the
+center of the brush. It differs from the regular Quake2
+implementation in that it has a few extra AirQuake2-specific
+keys.
+
+Keys:
+
+targetname(string): If targeted it will not be shootable.
+health(integer): defaults to 100.
+mass(integer): defaults to 75.  This determines how much
+    debris is emitted when it explodes.  You get one large
+    chunk per 100 of mass (up to 8) and one small chunk per 25
+    of mass (up to 16).  So 800 gives the most.
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+See the description for the 'aqteam' key under the
+misc_vehicle entity above.
+
+count(integer): default 0
+
+See the description for the 'count' key under the misc_vehicle
+entity above.
+
+message(string):
+
+The 'message' key specifies the name of the structure: This is
+used for the death message printed when the structure is
+destroyed.
+The format of the death message is as follows: "<player's
+name> destroyed <name of team>'s <name of building>". So, for
+instance if the player 'Uberian' destroyed a structure whose
+message keyvalue was 'Sewage Plant' and which belonged to the
+NATO team, the death message would read "Uberian destroyed
+NATO's Sewage Plant".
+It is therefore important to phrase your structure's name to
+avoid 'the's or 'a's at the beginning, so that it makes
+grammatical sense as part of the death message.
+*/
+
+/*QUAKED trigger_recharge (0 1 1) ?
+{
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+}
+
+RECHARGE AREA:
+
+This is an invisible brush entity that, when triggered (by
+driving into it and cutting speed to 0) will slowly recharge
+the vehicle.
+
+Keys:
+
+sounds(bitflag): 0 = all vehicles
+                 1 = aircraft
+                 2 = helicopters
+                 4 = ground vehicles
+
+The 'sounds' key specifies which kinds of vehicle can use the
+recharge area. Vehicles that aren't of the specified type
+don't get recharged by it. 'sounds' is a bitflag: you can add
+these values together to allow the area to recharge more than
+one type of vehicle. Eg 1 + 2 = 3 will allow aircraft and
+helicopters to recharge at the area.  
+
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+As you'd expect, the 'aqteam' key controls which team can recharge
+at the recharge area. If the value ofthis key is 0, any team can
+use the recharge area (the mechanics aren't too picky about which
+planes they patch up unless they're specifically told, you see).
+This key has no effect in regular deathmatch.
+*/
+
+/*QUAKED trigger_hurt (0.5 0.5 0.5) ? START_OFF TOGGLE SILENT NO_PROTECTION SLOW
+{
+default("dmg","5");
+}
+
+DAMAGING AREA :
+
+Any entity that touches this will be hurt. It does dmg points
+of damage each server frame
+
+Spawnflags:
+
+SILENT supresses playing the sound
+SLOW changes the damage rate to once per second
+NO_PROTECTION *nothing* stops the damage
+
+Keys:
+
+dmg(integer): overrides default 5
+*/
+
+/*QUAKED func_killbox (1.0 0.0 0.0) ?
+
+INSTANT-KILL AREA :
+
+Kills everything inside when fired, irrespective of
+protection.
+*/
+
+/*QUAKED func_areaportal (0.0 0.0 0.0) ?
+
+AREA PORTAL:
+
+This is a non-visible object that divides the world into areas
+that are seperated when this portal is not activated.  Usually
+enclosed in the middle of a door.
+*/
+
+/*QUAKED trigger_once (0.5 0.5 0.5) ? x x TRIGGERED
+{
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+choice "sounds"
+ (
+  ("-1","Silent")
+  ("0","Double Beep")
+  ("1","Trigger sound")
+ );
+default("delay","0");
+default("health","0");
+}
+
+TRIGGER (ONCE-ONLY):
+
+This invisible brush entity is used for triggering the
+functions of various other entities around the map. It can
+only be triggered once. It is the same as its venerable Quake2
+original, except it's been updated to capable of being
+team-specific and activated by damage.
+
+Keys:
+
+target(string):
+
+The 'target' string should match the 'targetname' string of
+the object you wish to have the trigger activate.
+
+targetname(string):
+
+The 'targetname' string should match the 'target' string of
+the object you wish shall activate this trigger.
+
+killtarget(string):
+
+The 'killtarget' string works like the target string above,
+except that it will kill (destroy, remove from play) the
+entity(s) with the matching targetname. 'Killtarget' and
+'target' can be set to different strings.
+
+delay(float): default 0
+
+'delay' specifies the delay in seconds (after the trigger has
+been activated), after which the trigger will actually do what
+it's meant to. Decimals are acceptable.
+
+message(string):
+
+The 'message' key holds the message you would like to be
+printed when the trigger is activated. This message will only
+be sent to the activator of the trigger.
+
+sounds(choices): -1 = Silent
+                  0 = Double Beep
+                  1 = Trigger sound
+
+The 'sounds' key specifies the sound the trigger will make
+upon being activated.
+
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+The 'aqteam' key controls which team can activate the trigger;
+If the value of this key is 0, any team can activate the
+trigger.  This key has no effect in regular deathmatch.
+
+health(integer): default 0
+
+The 'health' key specifies the amount of damage the trigger
+must sustain in order to be activated. If this keyvalue is
+left at 0, the trigger cannot be activated by damage.
+*/
+
+/*QUAKED trigger_multiple (0.5 0.5 0.5) ? MONSTER NOT_PLAYER TRIGGERED
+{
+choice "aqteam"
+ (
+  ("0","no team")
+  ("1","team 1")
+  ("2","team 2")
+ );
+choice "sounds"
+ (
+  ("-1","Silent")
+  ("0","Double Beep")
+  ("1","Trigger sound")
+ );
+default("delay","0");
+default("health","0");
+}
+
+TRIGGER (MULTIPLE):
+
+This invisible brush entity is used for triggering the
+functions of various other entities around the map. It can be
+triggered an infinite number of times. It is the same as its
+venerable Quake2 original, except it's been updated to capable
+of being team-specific and activated by damage.
+
+Keys:
+
+target(string):
+
+The 'target' string should match the 'targetname' string of
+the object you wish to have the trigger activate.
+
+targetname(string):
+
+The 'targetname' string should match the 'target' string of
+the object you wish shall activate this trigger.
+
+killtarget(string):
+
+The 'killtarget' string works like the target string above,
+except that it will kill (destroy, remove from play) the
+entity(s) with the matching targetname. 'Killtarget' and
+'target' can be set to different strings.
+
+delay(float): default 0
+
+'delay' specifies the delay in seconds (after the trigger has
+been activated), after which the trigger will actually do what
+it's meant to. Decimals are acceptable.
+
+message(string):
+
+The 'message' key holds the message you would like to be
+printed when the trigger is activated. This message will only
+be sent to the activator of the trigger.
+
+sounds(choices): -1 = Silent
+                  0 = Double Beep
+                  1 = Trigger sound
+
+The 'sounds' key specifies the sound the trigger will make
+upon being activated.
+
+aqteam(choices): 0 = no team
+                 1 = team 1
+                 2 = team 2
+
+The 'aqteam' key controls which team can activate the trigger;
+If the value of this key is 0, any team can activate the
+trigger.  This key has no effect in regular deathmatch.
+
+health(integer): default 0
+
+The 'health' key specifies the amount of damage the trigger
+must sustain in order to be activated. If this keyvalue is
+left at 0, the trigger cannot be activated by damage.
+*/
+
+/*QUAKED trigger_relay (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+
+TRIGGER (RELAY):
+
+This fixed size trigger cannot be touched, it can only be
+fired by other events.
+*/
+
+/*QUAKED trigger_counter (0.5 0.5 0.5) ? NOMESSAGE
+{
+default("count","2");
+}
+
+TRIGGER (COMBINATION):
+
+Acts as an intermediary for an action that takes multiple
+inputs. If nomessage is not set, t will print "1 more.. " etc
+when triggered and "sequence complete" when finished.
+
+Keys:
+
+count(integer): After the counter has been triggered "count"
+    times (default 2), it will fire all of it's targets and
+    remove itself.
+*/
+
+/*QUAKED trigger_always (0.5 0.5 0.5) (-8 -8 -8) (8 8 8)
+
+TRIGGER (TRIGGERED AT MAP START):
+
+This trigger will always fire.  It is activated by the world.
+*/
+
+/*QUAKED func_timer (0.3 0.1 0.6) (-8 -8 -8) (8 8 8) START_ON
+{
+default("delay","0");
+default("wait","1");
+default("random","0");
+}
+
+TRIGGER (COUNTDOWN):
+
+These can used but not touched.
+
+Keys:
+
+delay(integer): delay before first firing when turned on,
+    default is 0
+pausetime(integer): additional delay used only the very first
+    time and only if spawned with START_ON
+wait(integer or float?): base time between triggering all
+    targets, default is 1
+random(integer or float?): wait variance, default is 0
+
+so, the basic time between firing is a random time between
+(wait - random) and (wait + random)
+*/
+
+/*QUAKED trigger_radio (0 1 1) ?
+
+TOWER-CONTROLLED TRIGGER:
+
+This is an invisible brush entity that is triggered by driving
+into it and issuing the <contact_tower> console command, which
+is normally bound to the <ENTER> key. Thus, it is a trigger
+that is activated by 'using' it rather than just by touching
+it. This is very useful for a wide variety of applications
+around a base, such as making aircraft elevators and doors.
+
+Keys:
+
+The same as for trigger_once and trigger_multiple above,
+except that trigger_radio lacks the 'health' and the
+'targetname' keyvalue.
+*/
+
+/*QUAKED func_button (0 .5 .8) ?
+{
+choice "sounds"
+ (
+  ("1","silent")
+  ("2","steam metal")
+  ("3","wooden clunk")
+  ("4","metallic click")
+  ("5","in-out")
+ );
+default("speed","40");
+default("wait","1");
+default("lip","4");
+}
+
+
+STANDARD BUTTON
+
+When a button is touched, it moves some distance in the
+direction of it's angle, triggers all of it's targets, waits
+some time, then returns to it's original position where it can
+be triggered again.
+
+Keys:
+
+angle(integer): determines the opening direction
+target(string): all entities with a matching targetname will
+    be used
+speed(integer): override the default 40 speed
+wait(integer): override the default 1 second wait (-1 = never
+    return)
+lip(integer): override the default 4 pixel lip remaining at
+    end of move
+health(integer): if set, the button must be killed instead of
+    touched
+sounds(choices): 1 = silent
+                 2 = steam metal
+                 3 = wooden clunk
+                 4 = metallic click
+                 5 = in-out
+*/
+
+/*QUAKED func_door (0 .5 .8) ? START_OPEN x CRUSHER NOMONSTER ANIMATED TOGGLE ANIMATED_FAST
+{
+choice "sounds"
+ (
+  ("1","silent")
+  ("2","light")
+  ("3","medium")
+  ("4","heavy")
+ );
+default("speed","100");
+default("wait","3");
+default("lip","8");
+default("dmg","2");
+}
+
+STANDARD DOOR
+
+TOGGLE wait in both the start and end states for a trigger
+event.  START_OPEN the door to moves to its destination when
+spawned, and operate in reverse.  It is used to temporarily or
+permanently close off an area when triggered (not useful for
+touch or takedamage doors).  NOMONSTER monsters will not
+trigger this door
+
+Keys:
+
+message(string): is printed when the door is touched if it is
+    a trigger door and it hasn't been fired yet
+angle(integer): determines the opening direction
+targetname(string): if set, no touch field will be spawned and
+    a remote button or trigger field activates the door.
+health(integer): if set, door must be shot open
+speed(integer): movement speed (100 default)
+wait(integer): wait before returning (3 default, -1 = never
+    return)
+lip(integer): lip remaining at end of move (8 default)
+dmg(integer): damage to inflict when blocked (2 default)
+sounds(choices): 1 = silent
+                 2 = light
+                 3 = medium
+                 4 = heavy
+*/
+
+/*QUAKED func_door_secret (0.0 0.5 0.8) ? ALWAYS_SHOOT 1ST_LEFT 1ST_DOWN
+{
+default("speed","100");
+default("wait","5");
+default("lip","8");
+default("dmg","2");
+}
+
+DOOR (SECRET):
+
+A secret door.  Slide back and then to the side.
+
+Spawnflags:
+
+OPEN_ONCE  doors never closes
+1ST_LEFT  1st move is left of arrow
+1ST_DOWN  1st move is down from arrow
+ALWAYS_SHOOT  door is shootable even if targeted
+
+Keys:
+
+angle(integer): determines the opening direction
+targetname(string): if set, no touch field will be spawned and
+    a remote button or trigger field activates the door.
+health(integer): if set, door must be shot open
+speed(integer): movement speed (100 default)
+wait(integer): wait before returning (5 default, -1 = never
+    return)
+lip(integer): lip remaining at end of move (8 default)
+dmg(integer): damage to inflict when blocked (2 default)
+*/
+
+/*QUAKED func_door_rotating (0.0 0.5 0.8) ? START_OPEN REVERSE CRUSHER NOMONSTER ANIMATED TOGGLE X_AXIS Y_AXIS
+{
+choice "sounds"
+ (
+  ("1","silent")
+  ("2","light")
+  ("3","medium")
+  ("4","heavy")
+ );
+default("speed","100");
+default("wait","3");
+default("dmg","2");
+}
+
+DOOR (ROTATING):
+
+You need to have an origin brush as part of this entity.  The
+center of that brush will be the point around which it is
+rotated. It will rotate around the Z axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+
+Spawnflags:
+
+TOGGLE causes the door to wait in both the start and end
+    states for a trigger event.
+START_OPEN the door to moves to its destination when spawned,
+    and operate in reverse.  It is used to temporarily or
+    permanently close off an area when triggered (not useful
+    for touch or takedamage doors).
+NOMONSTER monsters will not trigger this door
+REVERSE will cause the door to rotate in the opposite direction.
+
+Keys:
+
+angle(integer): determines the opening direction
+distance(integer): is how many degrees the door will be rotated.
+targetname(string): if set, no touch field will be spawned and
+    a remote button or trigger field activates the door.
+health(integer): if set, door must be shot open
+speed(integer): movement speed (100 default)
+wait(integer): wait before returning (3 default, -1 = never
+    return)
+dmg(integer): damage to inflict when blocked (2 default)
+message(string): is printed when the door is touched if it is
+    a trigger door and it hasn't been fired yet
+sounds(choices): 1 = silent
+                 2 = light
+                 3 = medium
+                 4 = heavy
+*/
+
+/*QUAKED func_train (0.0 0.5 0.8) ? START_ON TOGGLE BLOCK_STOPS
+{
+default("speed","100");
+default("dmg","2");
+}
+
+PATH-FOLLOWING STRUCTURE:
+
+Trains are moving platforms that players can ride. The targets
+origin specifies the min point of the train at each
+corner. The train spawns at the first target it is pointing
+at. If the train is the target of a button or trigger, it will
+not begin moving until activated.
+
+Keys:
+
+speed(integer): default 100
+dmg(integer): default 2
+noise(integer): looping sound to play when the train is in
+    motion
+*/
+
+/*QUAKED func_plat (0.0 0.5 0.8) ? PLAT_LOW_TRIGGER
+{
+choice "sounds"
+ (
+  ("1","base fast")
+  ("2","chain slow")
+ );
+default("speed","200");
+default("accel","500");
+default("lip","8");
+}
+
+STANDARD PLAT
+
+Plats are always drawn in the extended position, so they will
+light correctly. If the plat is the target of another trigger
+or button, it will start out disabled in the extended position
+until it is trigger, when it will lower and become a normal
+plat.
+
+Keys:
+
+speed(integer):	overrides default 200.
+accel(integer): overrides default 500
+lip(integer): overrides default 8 pixel lip
+height(integer): If set, that will determine the amount the
+    plat moves, instead of being implicitly determinned by the
+    model's height.
+sounds(choices): 1 = base fast
+                 2 = chain slow
+*/
+
+/*QUAKED item_health (.3 .3 1) (0 0 0) (32 32 32)
+{
+model(":models/items/healing/medium/tris.md2");
+}
+
+STANDARD HEALTH
+
+*/
+
+/*QUAKED _light_style
+{
+choice "style"
+ (
+  (0,"normal")
+  (1,"flicker (first variety)")
+  (2,"slow strong pulse")
+  (3,"candle (first variety)")
+  (4,"fast strobe")
+  (5,"gentle pulse 1")
+  (6,"flicker (second variety)")
+  (7,"candle (second variety)")
+  (8,"candle (third variety)")
+  (9,"slow strobe (fourth variety)")
+  (10,"fluorescent flicker")
+  (11,"slow pulse not fade to black")
+ );
+q2_color "_color";
+}
+*/
+
+/*QUAKED light (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) START_OFF
+{
+model(":models/objects/grenade/tris.md2");
+base("_light_style");
+default("value","300");
+default("style","0");
+default("cone","10");
+}
+
+STANDARD LIGHT
+
+Non-displayed light.
+
+Keys:
+
+value(integer): Default light value is 300.
+style(choices): Default style is 0.
+targetname(string): If targeted, will toggle between on and
+    off.
+cone(integer): Default cone value is 10 (used to set size of
+    light for spotlights)
+*/
+
+/*QUAKED path_corner (0.5 0.3 0) (-8 -8 -8) (8 8 8)
+
+WAYPOINT:
+
+Used to give drones and platforms a path they to follow.
+
+Keys:
+
+target(string):
+
+The 'target' key is used to link this waypoint to the next
+waypoint to head to after reaching this one.
+
+targetname(string):
+
+'targetname' must match the 'target' key of the previous
+waypoint in the path or the 'target' key of the platform or
+drone if this path_corner should be the startpoint of the
+path.
+*/
+
+/*QUAKED worldspawn (0.0 0.0 0.0) ?
+{
+model(":models/items/quaddama/tris.md2");
+choice "sky"
+ (
+  ("unit1_","")
+  ("unit2_","")
+  ("unit3_","")
+  ("unit4_","")
+  ("unit5_","")
+  ("unit6_","")
+  ("unit7_","")
+  ("unit8_","")
+  ("unit9_","")
+  ("space1","")
+ );
+default("gravity","800");
+default("message","hello world!");
+}
+
+WORLDSPAWN
+
+Only used for the world.
+
+Keys:
+
+sky(string-choice): environment map name
+skyaxis(vector): vector axis for rotating sky
+skyrotate(integer): speed of rotation in degrees/second
+sounds(integer): music cd track number
+gravity(integer): 800 is default gravity
+message(string): text to print at user logon
+*/
+
+/*QUAKED func_wall (0.0 0.5 0.8) ? TRIGGER_SPAWN TOGGLE START_ON ANIMATED ANIMATED_FAST
+
+STANDARD WALL
+
+This is just a solid wall if not inhibited
+
+Spawnflags:
+
+TRIGGER_SPAWN the wall will not be present until triggered
+	      it will then blink in to existance; it will
+              kill anything that was in it's way
+TOGGLE only valid for TRIGGER_SPAWN walls
+       this allows the wall to be turned on and off
+START_ON only valid for TRIGGER_SPAWN walls
+         the wall will initially be present
+*/
+
+/*QUAKED func_object (0.0 0.5 0.8) ? TRIGGER_SPAWN ANIMATED ANIMATED_FAST
+
+STRUCTURE (AFFECTED BY GRAVITY):
+
+This is a solid bmodel that will fall if its support is
+removed.
+*/
+
+/*QUAKED func_rotating (0.0 0.5 0.8) ? START_ON REVERSE X_AXIS Y_AXIS TOUCH_PAIN STOP ANIMATED ANIMATED_FAST
+{
+default("speed","100");
+default("dmg","2");
+}
+
+STRUCTURE (ROTATING):
+
+You need to have an origin brush as part of this entity.  The
+center of that brush will be the point around which it is
+rotated. It will rotate around the Z axis by default.  You can
+check either the X_AXIS or Y_AXIS box to change that.
+
+Spawnflags:
+
+REVERSE will cause it to rotate in the opposite direction.
+STOP means it will stop moving instead of pushing entities
+
+Keys:
+
+speed(integer): overrides default 100; determines how fast it
+    moves.
+dmg(integer): overrides default 2; damage to inflict when
+    blocked
+*/
+
+/*QUAKED info_null (0.0 0.5 0.0) (-4 -4 -4) (4 4 4)
+
+LIGHT TARGET
+
+Used as a positional target for spotlights, etc.
+*/
+
+/*QUAKED info_notnull (0.0 0.5 0.0) (-4 -4 -4) (4 4 4)
+
+MISC TARGET
+
+Used as a positional target for spotlights, etc.
+*/
+
+/*QUAKED target_explosion (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+{
+default("dmg","0");
+}
+
+BOOM MAKER
+
+Spawns an explosion temporary entity when used.
+
+Keys:
+
+"delay"		wait this long before going off
+"dmg"		how much radius damage should be done, defaults to 0
+*/
+
+/*QUAKED target_speaker (1.0 0.0 0.0) (-8 -8 -8) (8 8 8) LOOPED-ON LOOPED-OFF RELIABLE
+{
+choice "attenuation"
+ (
+  ("-1","none, send to whole level")
+  ("1","normal fighting sounds")
+  ("2","idle sound level")
+  ("3","ambient sound level")
+ );
+list "noise" ("lists/q2/sounds.lst");
+}
+
+SOUND EFFECT:
+
+Normal sounds play each time the target is used.  The reliable
+flag can be set for crucial voiceovers.
+
+Looped sounds are allways atten 3 / vol 1, and the use
+function toggles it on/off.  Multiple identical looping sounds
+will just increase volume without any speed cost.
+
+Keys:
+
+noise(string): wav file to play
+attenuation(choices):-1 = none, send to whole level
+                      1 = normal fighting sounds
+                      2 = idle sound level
+                      3 = ambient sound level
+volume(float): 0.0 to 1.0
+*/
+
+/*QUAKED target_splash (1.0 0.0 0.0) (-8 -8 -8) (8 8 8)
+{
+choice "sounds"
+ (
+  (1,"sparks")
+  (2,"blue water")
+  (3,"brown water")
+  (4,"slime")
+  (5,"lava")
+  (6,"blood")
+ );
+}
+
+PARTICLE EFFECT:
+
+Creates a particle splash effect when used.
+
+Keys:
+
+sounds(choices): 1 = sparks
+                 2 = blue water
+                 3 = brown water
+                 4 = slime
+                 5 = lava
+                 6 = blood
+count(integer): how many pixels in the splash
+dmg(integer): if set, does a radius damage at this location
+    when it splashes useful for lava/sparks
+*/
+

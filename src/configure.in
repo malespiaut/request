@@ -1,0 +1,83 @@
+AC_INIT(quest.c)
+
+
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_CXX
+AC_PROG_MAKE_SET
+
+
+AC_PATH_X
+
+if ( [test $no_x] ); then
+ with_x=no
+else
+ with_x=yes
+
+fi
+
+
+
+AC_ARG_WITH(svga,
+ [  --without-svga          Do not build SVGALib version],
+ eval with_svga=$withval
+ ,
+ AC_CHECK_LIB(vga,vga_setmode,
+  with_svga=yes
+  ,
+  with_svga=no
+ )
+)
+
+
+TARGETS=
+
+if ( test $with_x = yes); then
+ echo -- Including XWindows version
+ eval TARGETS=["'$TARGETS'\ xquest"]
+
+
+ OLD_LDFLAGS=$LDFLAGS
+ LDFLAGS=-L$x_libraries
+
+ AC_CHECK_LIB(X11, XOpenDisplay,,
+  AC_MSG_ERROR([Library X11 not found!])
+ )
+ AC_CHECK_LIB(Xext, XShmQueryVersion,,
+  AC_MSG_ERROR([Library Xext not found!])
+ )
+ AC_CHECK_LIB(Xpm, XpmGetErrorString,,
+  AC_MSG_ERROR([Library Xpm not found!])
+ )
+
+ LDFLAGS=$OLD_LDFLAGS
+ LIBS=
+ 
+fi
+if ( test $with_svga = yes); then
+ echo -- Including SVGALib version
+ eval TARGETS=["'$TARGETS'\ squest"]
+
+ AC_CHECK_HEADER(vga.h,,
+  AC_MSG_ERROR([vga.h not found!])
+ )
+ AC_CHECK_LIB(vga,vga_setmode,,
+  AC_MSG_ERROR([SVGALib not found!])
+ )
+fi
+
+if ( [test -z "$TARGETS" ] ); then
+ AC_MSG_ERROR([You must build at least one of the X or SVGALib version!])
+fi
+
+
+AC_SUBST(x_libraries)
+AC_SUBST(x_includes)
+
+AC_SUBST(with_x)
+AC_SUBST(with_svga)
+AC_SUBST(TARGETS)
+
+
+AC_OUTPUT(Makefile.cfg)
+

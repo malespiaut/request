@@ -1,0 +1,2502 @@
+/*QUAKED worldspawn (0.0 0.0 0.0) ?
+{
+choice "newunit"
+ (
+  ("0","No, keep current")
+  ("1","Yes, clear previous levels")
+ );
+choice "sky"
+ (
+  ("2desert","")
+  ("alien1","")
+  ("black","")
+  ("cliff","")
+  ("dawn","")
+  ("day","")
+  ("desert","")
+  ("dusk","")
+  ("morning","")
+  ("neb6","")
+  ("neb7","")
+  ("night","")
+  ("xen8","")
+  ("xen9","")
+  ("xen10","")
+ );
+}
+'message'	Map Description / Title
+'skyname'	environment map (cl_skyname)
+'sounds'	CD track to play (default 1)
+'light'		Default light level
+'WaveHeight'	Default Wave Height
+'MaxRange'	Max viewable distance (default 4096)
+'chaptertitle'	Chapter Title Message
+'startdark'	Level Fade In (default 0)
+'gametitle'	Display game title (default 0)
+'newunit'	New Level Unit (default 0)
+*/
+
+/*QUAKED _Targetname
+'targetname'	Name
+*/
+
+/*QUAKED _Target
+'target'	Target
+*/
+
+/*QUAKED _Global
+'globalname'	Global Entity Name
+*/
+
+/*QUAKED _Targetx
+{
+base("_Target");
+}
+'delay'		Delay before trigger (default 0)
+'killtarget'	KillTarget
+*/
+
+/*QUAKED _RenderFxChoices
+{
+choice "renderfx"
+ (
+  ("0","Normal")
+  ("1","Slow Pulse")
+  ("2","Fast Pulse")
+  ("3","Slow Wide Pulse")
+  ("4","Fast Wide Pulse")
+  ("9","Slow Strobe")
+  ("10","Fast Strobe")
+  ("11","Faster Strobe")
+  ("12","Slow Flicker")
+  ("13","Fast Flicker")
+  ("5","Slow Fade Away")
+  ("6","Fast Fade Away")
+  ("7","Slow Become Solid")
+  ("8","Fast Become Solid")
+  ("14","Constant Glow")
+  ("15","Distort")
+  ("16","Hologram (Distort + fade)")
+ );
+}
+'renderfx'	Render FX (default 0)
+*/
+
+/*QUAKED _RenderFields
+{
+base("_RenderFxChoices");
+choice "rendermode"
+ (
+  ("0","Normal")
+  ("1","Color")
+  ("2","Texture")
+  ("3","Glow")
+  ("4","Solid")
+  ("5","Additive")
+ );
+hl_color "rendercolor";
+}
+'rendermode'	Render Mode (default 0)
+'renderamt'	FX Amount (1 - 255)
+'rendercolor'	FX Color (R G B) (default 0 0 0)
+*/
+
+/*QUAKED _Monster
+{
+base("_Target");
+base("_Targetname");
+base("_RenderFields");
+choice "TriggerCondition"
+ (
+  ("0","No Trigger")
+  ("1","See Player, Mad at Player")
+  ("2","Take Damage")
+  ("3","50% Health Remaining")
+  ("4","Death")
+  ("5","(N/A) Squad Member Dead")
+  ("6","(N/A)Squad Leader Dead")
+  ("7","Hear World")
+  ("8","Hear Player")
+  ("9","Hear Combat")
+  ("10","See Player Unconditional")
+  ("11","See Player, Not In Combat")
+ );
+}
+'target'	Movetarget
+'TriggerTarget'	TriggerTarget
+'TriggerCondition'	Trigger Condition (default 0)
+*/
+
+/*QUAKED _TalkMonster
+'UseSentence'	Use Sentence
+'UnUseSentence'	Un-Use Sentence
+*/
+
+/*QUAKED _gibshooterbase
+'targetname'	Name
+'m_iGibs'	Number of Gibs (default 3)
+'delay'		Delay between shots (default 0)
+'m_flVelocity'	Gib Velocity (default 200)
+'m_flVariance'	Course Variance (default 0.15)
+'m_flGibLife'	Gib Life (default 4)
+*/
+
+/*QUAKED _Light
+{
+hl_color "_light";
+choice "style"
+ (
+  ("0","Normal")
+  ("10","Fluorescent flicker")
+  ("2","Slow, strong pulse")
+  ("11","Slow pulse, noblack")
+  ("5","Gentle pulse")
+  ("1","Flicker A")
+  ("6","Flicker B")
+  ("3","Candle A")
+  ("7","Candle B")
+  ("8","Candle C")
+  ("4","Fast strobe")
+  ("9","Slow strobe")
+ );
+}
+'_light'	Brightness (default 255 255 128 200)
+'style'		Appearance (default 0)
+'pattern'	Custom Appearance
+*/
+
+/*QUAKED _Breakable
+{
+base("_Targetname");
+base("_Global");
+choice "material"
+ (
+  ("0","Glass")
+  ("1","Wood")
+  ("2","Metal")
+  ("3","Flesh")
+  ("4","Cinder Block")
+  ("5","Ceiling Tile")
+  ("6","Computer")
+  ("7","Unbreakable Glass")
+  ("8","Rocks")
+ );
+choice "explosion"
+ (
+  ("0","Random")
+  ("1","Relative to Attack")
+ );
+choice "spawnobject"
+ (
+  ("0","Nothing")
+  ("1","Battery")
+  ("2","Healthkit")
+  ("3","9mm Handgun")
+  ("4","9mm Clip")
+  ("5","Machine Gun")
+  ("6","Machine Gun Clip")
+  ("7","Machine Gun Grenades")
+  ("8","Shotgun")
+  ("9","Shotgun Shells")
+  ("10","Crossbow")
+  ("11","Crossbow Bolts")
+  ("12","357")
+  ("13","357 clip")
+  ("14","RPG")
+  ("15","RPG Clip")
+  ("16","Gauss clip")
+  ("17","Hand grenade")
+  ("18","Tripmine")
+  ("19","Satchel Charge")
+  ("20","Snark")
+  ("21","Hornet Gun")
+ );
+}
+'target'	Target on break
+'health'	Strength (default 1)
+'material'	Material type (default 0)
+'explosion'	Gibs Direction (default 0)
+'delay'		Delay before fire (default 0)
+'gibmodel'	Gib Model (default )
+'spawnobject'	Spawn On Break (default 0)
+'explodemagnitude'	Explode Magnitude (0=none) (default 0)
+*/
+
+/*QUAKED _Door
+{
+base("_Targetname");
+base("_RenderFields");
+base("_Global");
+choice "movesnd"
+ (
+  ("0","No Sound")
+  ("1","Servo (Sliding)")
+  ("2","Pneumatic (Sliding)")
+  ("3","Pneumatic (Rolling)")
+  ("4","Vacuum")
+  ("5","Power Hydraulic")
+  ("6","Large Rollers")
+  ("7","Track Door")
+  ("8","Snappy Metal Door")
+  ("9","Squeaky 1")
+  ("10","Squeaky 2")
+ );
+choice "stopsnd"
+ (
+  ("0","No Sound")
+  ("1","Clang with brake")
+  ("2","Clang reverb")
+  ("3","Ratchet Stop")
+  ("4","Chunk")
+  ("5","Light airbrake")
+  ("6","Metal Slide Stop")
+  ("7","Metal Lock Stop")
+  ("8","Snappy Metal Stop")
+ );
+choice "wait"
+ (
+  ("-1","Stays open")
+ );
+choice "locked_sound"
+ (
+  ("0","None")
+  ("2","Access Denied")
+  ("8","Small zap")
+  ("10","Buzz")
+  ("11","Buzz Off")
+  ("12","Latch Locked")
+ );
+choice "unlocked_sound"
+ (
+  ("0","None")
+  ("1","Big zap & Warmup")
+  ("3","Access Granted")
+  ("4","Quick Combolock")
+  ("5","Power Deadbolt 1")
+  ("6","Power Deadbolt 2")
+  ("7","Plunger")
+  ("8","Small zap")
+  ("9","Keycard Sound")
+  ("10","Buzz")
+  ("13","Latch Unlocked")
+ );
+choice "locked_sentence"
+ (
+  ("1","Gen. Access Denied")
+  ("2","Security Lockout")
+  ("3","Blast Door")
+  ("4","Fire Door")
+  ("5","Chemical Door")
+  ("6","Radiation Door")
+  ("7","Gen. Containment")
+  ("8","Maintenance Door")
+  ("9","Broken Shut Door")
+ );
+choice "unlocked_sentence"
+ (
+  ("1","Gen. Access Granted")
+  ("2","Security Disengaged")
+  ("3","Blast Door")
+  ("4","Fire Door")
+  ("5","Chemical Door")
+  ("6","Radiation Door")
+  ("7","Gen. Containment")
+  ("8","Maintenance area")
+ );
+}
+'killtarget'	KillTarget
+'speed'		Speed (default 100)
+'master'	Master
+'movesnd'	Move Sound (default 0)
+'stopsnd'	Stop Sound (default 0)
+'wait'		Delay before close (default 4)
+'lip'		Lip
+'dmg'		Damage inflicted when blocked (default 0)
+'message'	Message if triggered
+'target'	Target
+'delay'		Delay before fire
+'netname'	Fire on Close
+'health'	Health (shoot open) (default 0)
+'locked_sound'	Locked Sound (default 0)
+'unlocked_sound'	Unlocked Sound (default 0)
+'locked_sentence'	Locked Sentence (default 0)
+'unlocked_sentence'	Unlocked Sentence (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED _BaseTank
+{
+base("_Targetname");
+base("_Target");
+base("_RenderFields");
+base("_Global");
+choice "firespread"
+ (
+  ("0","Perfect Shot")
+  ("1","Small cone")
+  ("2","Medium cone")
+  ("3","Large cone")
+  ("4","Extra-large cone")
+ );
+}
+'yawrate'	Yaw rate (default 30)
+'yawrange'	Yaw range (default 180)
+'yawtolerance'	Yaw tolerance (default 15)
+'pitchrate'	Pitch rate (default 0)
+'pitchrange'	Pitch range (default 0)
+'pitchtolerance'	Pitch tolerance (default 5)
+'barrel'	Barrel Length (default 0)
+'barrely'	Barrel Horizontal (default 0)
+'barrelz'	Barrel Vertical (default 0)
+'spritesmoke'	Smoke Sprite (default )
+'spriteflash'	Flash Sprite (default )
+'spritescale'	Sprite scale (default 1)
+'rotatesound'	Rotate Sound (default )
+'firerate'	Rate of Fire (default 1)
+'bullet_damage'	Damage Per Bullet (default 0)
+'persistence'	Firing persistence (default 1)
+'firespread'	Bullet accuracy (default 0)
+'minRange'	Minmum target range (default 0)
+'maxRange'	Maximum target range (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED _PlatSounds
+{
+choice "movesnd"
+ (
+  ("0","No Sound")
+  ("1","big elev 1")
+  ("2","big elev 2")
+  ("3","tech elev 1")
+  ("4","tech elev 2")
+  ("5","tech elev 3")
+  ("6","freight elev 1")
+  ("7","freight elev 2")
+  ("8","heavy elev")
+  ("9","rack elev")
+  ("10","rail elev")
+  ("11","squeek elev")
+  ("12","odd elev 1")
+  ("13","odd elev 2")
+ );
+choice "stopsnd"
+ (
+  ("0","No Sound")
+  ("1","big elev stop1")
+  ("2","big elev stop2")
+  ("3","freight elev stop")
+  ("4","heavy elev stop")
+  ("5","rack stop")
+  ("6","rail stop")
+  ("7","squeek stop")
+  ("8","quick stop")
+ );
+}
+'movesnd'	Move Sound (default 0)
+'stopsnd'	Stop Sound (default 0)
+'volume'	Sound Volume 0.0 - 1.0 (default 0.85)
+*/
+
+/*QUAKED _Trackchange
+{
+base("_Targetname");
+base("_RenderFields");
+base("_Global");
+base("_PlatSounds");
+}
+'height'	Travel altitude (default 0)
+'rotation'	Spin amount (default 0)
+'train'		Train to switch
+'toptrack'	Top track
+'bottomtrack'	Bottom track
+'speed'		Move/Rotate speed (default 0)
+*/
+
+/*QUAKED _Trigger
+{
+base("_Target");
+base("_Targetname");
+choice "sounds"
+ (
+  ("0","No Sound")
+ );
+}
+'killtarget'	Kill target
+'netname'	Target Path
+'style'		Style (default 32)
+'master'	Master
+'sounds'	Sound style (default 0)
+'delay'		Delay before trigger (default 0)
+'message'	Message (set sound too!)
+*/
+
+/*QUAKED aiscripted_sequence (1.0 0.0 1.0) (-16 -16 0) (16 16 72) "WaitTillSeen" "Exit Agitated" "Repeatable" "Leave Corpse"
+{
+base("_Targetname");
+base("_Targetx");
+choice "m_fMoveTo"
+ (
+  ("0","No")
+  ("1","Walk")
+  ("2","Run")
+  ("4","Instantaneous")
+  ("5","No - Turn to Face")
+ );
+choice "m_iFinishSchedule"
+ (
+  ("0","Default AI")
+  ("1","Ambush")
+ );
+}
+'m_iszEntity'	Target Monster
+'m_iszPlay'	Action Animation (default )
+'m_flRadius'	Search Radius (default 512)
+'m_flRepeat'	Repeat Rate ms (default 0)
+'m_fMoveTo'	Move to Position (default 1)
+'m_iFinishSchedule'	AI Schedule when done (default 0)
+*/
+
+/*QUAKED ambient_generic (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Play Everywhere" "Small Radius" "Medium Radius" "Large Radius" "Start Silent" "Is NOT Looped"
+{
+base("_Targetname");
+choice "preset"
+ (
+  ("0","None")
+  ("1","Huge Machine")
+  ("2","Big Machine")
+  ("3","Machine")
+  ("4","Slow Fade in")
+  ("5","Fade in")
+  ("6","Quick Fade in")
+  ("7","Slow Pulse")
+  ("8","Pulse")
+  ("9","Quick pulse")
+  ("10","Slow Oscillator")
+  ("11","Oscillator")
+  ("12","Quick Oscillator")
+  ("13","Grunge pitch")
+  ("14","Very low pitch")
+  ("15","Low pitch")
+  ("16","High pitch")
+  ("17","Very high pitch")
+  ("18","Screaming pitch")
+  ("19","Oscillate spinup/down")
+  ("20","Pulse spinup/down")
+  ("21","Random pitch")
+  ("22","Random pitch fast")
+  ("23","Incremental Spinup")
+  ("24","Alien")
+  ("25","Bizzare")
+  ("26","Planet X")
+  ("27","Haunted")
+ );
+list "message" ("lists/hl/ab_g_msg.lst");
+}
+'message'	Path/filename.wav of WAV
+'health'	Volume (10 = loudest) (default 10)
+'preset'	Dynamic Presets (default 0)
+'volstart'	Start Volume (default 0)
+'fadein'	Fade in time (0-100) (default 0)
+'fadeout'	Fade out time (0-100) (default 0)
+'pitch'		Pitch (> 100 = higher) (default 100)
+'pitchstart'	Start Pitch (default 100)
+'spinup'	Spin up time (0-100) (default 0)
+'spindown'	Spin down time (0-100) (default 0)
+'lfotype'	LFO type 0)off 1)sqr 2)tri 3)rnd (default 0)
+'lforate'	LFO rate (0-1000) (default 0)
+'lfomodpitch'	LFO mod pitch (0-100) (default 0)
+'lfomodvol'	LFO mod vol (0-100) (default 0)
+'cspinup'	Incremental spinup count (default 0)
+*/
+
+/*QUAKED ammo_9mmclip (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_9mmAR (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_9mmbox (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_ARgrenades (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_buckshot (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_357 (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_rpgclip (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_gaussclip (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED ammo_crossbow (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED button_target (1.0 0.0 1.0) ? "Use Activates" "Start On"
+'target'	Targetted object
+'master'	Master
+*/
+
+/*QUAKED cycler (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+choice "model"
+ (
+  ("models/apache.mdl","")
+  ("models/base.mdl","")
+  ("models/fungus(large).mdl","")
+  ("models/fungus(small).mdl","")
+  ("models/fungus.mdl","")
+  ("models/hair.mdl","")
+  ("models/pipe_bubbles.mdl","")
+  ("models/protozoa.mdl","")
+  ("models/rengine.mdl","")
+  ("models/rip.mdl","")
+  ("models/sat_globe.mdl","")
+ );
+}
+'model'		model
+*/
+
+/*QUAKED cycler_sprite (1.0 0.0 1.0) (-16 -16 0) (16 16 72)
+{
+base("_RenderFields");
+}
+'model'		model
+'framerate'	Frames per second
+*/
+
+/*QUAKED cycler_weapon (0.0 0.8 0.8) (-16 -16 16) (16 16 16) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'model'		model
+*/
+
+/*QUAKED env_beverage (1.0 0.0 1.0) (-4 -4 -4) (4 4 4)
+{
+base("_Targetname");
+choice "skin"
+ (
+  ("0","Coca-Cola")
+  ("1","Sprite")
+  ("2","Diet Coke")
+  ("3","Orange")
+  ("4","Surge")
+  ("5","Moxie")
+  ("6","Random")
+ );
+}
+'health'	Capacity (default 10)
+'skin'		Beverage Type (default 0)
+*/
+
+/*QUAKED env_blood (1.0 0.0 0.0) (-16 -16 -16) (16 16 16) "Random Direction" "Blood Stream" "On Player" "Spray decals"
+{
+base("_Targetname");
+choice "color"
+ (
+  ("0","Red (Human)")
+  ("1","Yellow (Alien)")
+ );
+}
+'color'		Blood Color (default 0)
+'amount'	Amount of blood (damage to simulate) (default 100)
+*/
+
+/*QUAKED env_bubbles (1.0 0.0 1.0) ? "Start Off"
+{
+base("_Targetname");
+}
+'density'	Bubble density (default 2)
+'frequency'	Bubble frequency (default 2)
+'current'	Speed of Current (default 0)
+*/
+
+/*QUAKED env_explosion (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "No Damage" "Repeatable" "No Fireball" "No Smoke" "No Decal" "No Sparks"
+{
+base("_Targetname");
+}
+'iMagnitude'	Magnitude (default 100)
+*/
+
+/*QUAKED env_global (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Set Initial State"
+{
+base("_Targetname");
+choice "triggermode"
+ (
+  ("1","On")
+  ("0","Off")
+  ("3","Toggle")
+  ("2","Dead")
+ );
+choice "initialstate"
+ (
+  ("0","Off")
+  ("1","On")
+  ("2","Dead")
+ );
+}
+'globalstate'	Global State to Set
+'triggermode'	Trigger Mode (default 0)
+'initialstate'	Initial State (default 0)
+*/
+
+/*QUAKED env_fade (1.0 0.0 1.0) (-8 -8 -8) (8 8 8) "Fade From" "Modulate"
+{
+base("_Targetname");
+hl_color "rendercolor";
+}
+'duration'	Duration (seconds) (default 2)
+'holdtime'	Hold Fade (seconds) (default 0)
+'renderamt'	Fade Alpha (default 255)
+'rendercolor'	Fade Color (R G B) (default 0 0 0)
+*/
+
+/*QUAKED env_funnel (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Reverse"
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED env_message (1.0 0.0 1.0) (-8 -8 -8) (8 8 8) "Play Once" "All Clients"
+{
+base("_Targetname");
+base("_Target");
+choice "messageattenuation"
+ (
+  ("0","Small Radius")
+  ("1","Medium Radius")
+  ("2","Large  Radius")
+  ("3","Play Everywhere")
+ );
+}
+'message'	Message Name
+'messagesound'	Sound effect
+'messagevolume'	Volume 0-10 (default 10)
+'messageattenuation'	Sound Radius (default 0)
+*/
+
+/*QUAKED env_render (0.4 0.4 0.0) (-16 -16 -16) (16 16 16) "No Renderfx" "No Renderamt" "No Rendermode" "No Rendercolor"
+{
+base("_Targetname");
+base("_Target");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED env_shake (1.0 0.0 1.0) (-8 -8 -8) (8 8 8) "GlobalShake"
+{
+base("_Targetname");
+}
+'amplitude'	Amplitude 0-16 (default 4)
+'radius'	Effect radius (default 500)
+'duration'	Duration (seconds) (default 1)
+'frequency'	0.1 = jerk, 255.0 = rumble (default 2.5)
+*/
+
+/*QUAKED env_shooter (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Repeatable"
+{
+base("_gibshooterbase");
+base("_RenderFields");
+choice "shootsounds"
+ (
+  ("-1","None")
+  ("0","Glass")
+  ("1","Wood")
+  ("2","Metal")
+  ("3","Flesh")
+  ("4","Concrete")
+ );
+choice "shootmodel"
+ (
+  ("models/bleachbones.mdl","")
+  ("models/bm_leg.mdl","")
+  ("models/bm_sack.mdl","")
+  ("models/bm_shell.mdl","")
+  ("models/bonegibs.mdl","")
+  ("models/can.mdl","")
+  ("models/catwalkgibs.mdl","")
+  ("models/computergibs.mdl","")
+  ("models/concrete_gibs.mdl","")
+  ("models/fleshgibs.mdl","")
+  ("models/glassgibs.mdl","")
+  ("models/grenade.mdl","")
+  ("models/metalplategibs.mdl","")
+  ("models/metalplategibs_dark.mdl","")
+  ("models/rockgibs.mdl","")
+  ("models/shell.mdl","")
+  ("models/w_satchel.mdl","")
+  ("models/webgibs.mdl","")
+  ("models/woodgibs.mdl","")
+  ("sprites/flare3.spr","")
+  ("sprites/glow01.spr","")
+  ("sprites/hotglow.spr","")
+ );
+}
+'shootmodel'	Model (default )
+'shootsounds'	Material Sound (default 0)
+'scale'		Gib Scale (default )
+'skin'		Gib Skin (default 0)
+*/
+
+/*QUAKED env_sound (1.0 0.0 1.0) (-8 -8 -8) (8 8 8)
+{
+choice "roomtype"
+ (
+  ("0","Normal (off)")
+  ("1","Generic")
+  ("2","Metal Small")
+  ("3","Metal Medium")
+  ("4","Metal Large")
+  ("5","Tunnel Small")
+  ("6","Tunnel Medium")
+  ("7","Tunnel Large")
+  ("8","Chamber Small")
+  ("9","Chamber Medium")
+  ("10","Chamber Large")
+  ("11","Bright Small")
+  ("12","Bright Medium")
+  ("13","Bright Large")
+  ("14","Water 1")
+  ("15","Water 2")
+  ("16","Water 3")
+  ("17","Concrete Small")
+  ("18","Concrete Meejum")
+  ("19","Concrete Large")
+  ("20","Big 1")
+  ("21","Big 2")
+  ("22","Big 3")
+  ("23","Cavern Small")
+  ("24","Cavern Medium")
+  ("25","Cavern Large")
+  ("26","Weirdo 1")
+  ("27","Weirdo 2")
+  ("28","Weirdo 3")
+ );
+}
+'radius'	Radius (default 128)
+'roomtype'	Room Type (default 0)
+*/
+
+/*QUAKED env_spark (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) x x x x x "Toggle" "Start ON"
+{
+base("_Targetname");
+}
+'MaxDelay'	Max Delay (default 0)
+*/
+
+/*QUAKED env_sprite (1.0 0.0 1.0) (-4 -4 -4) (4 4 4) "Start on" "Play Once"
+{
+base("_Targetname");
+base("_RenderFields");
+list "model" ("lists/hl/e_sp_mdl.lst");
+}
+'framerate'	Framerate (default 10.0)
+'model'		Sprite Name (default sprites/glow.spr)
+'scale'		Scale (default )
+*/
+
+/*QUAKED func_breakable (0.0 0.5 0.8) ? "Only Trigger" "Touch" "Pressure" x x x x x "Instant Crowbar"
+{
+base("_Breakable");
+base("_RenderFields");
+}
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_button (0.0 0.5 0.8) ? "Don't move" x x x x "Toggle" "Sparks" x "Touch Activates"
+{
+base("_Targetname");
+base("_RenderFields");
+choice "sounds"
+ (
+  ("0","None")
+  ("1","Big zap & Warmup")
+  ("2","Access Denied")
+  ("3","Access Granted")
+  ("4","Quick Combolock")
+  ("5","Power Deadbolt 1")
+  ("6","Power Deadbolt 2")
+  ("7","Plunger")
+  ("8","Small zap")
+  ("9","Keycard Sound")
+  ("10","Buzz")
+  ("11","Buzz Off")
+  ("14","Lightswitch")
+ );
+choice "wait"
+ (
+  ("-1","Stays pressed")
+ );
+choice "locked_sound"
+ (
+  ("0","None")
+  ("2","Access Denied")
+  ("8","Small zap")
+  ("10","Buzz")
+  ("11","Buzz Off")
+  ("12","Latch Locked")
+ );
+choice "unlocked_sound"
+ (
+  ("0","None")
+  ("1","Big zap & Warmup")
+  ("3","Access Granted")
+  ("4","Quick Combolock")
+  ("5","Power Deadbolt 1")
+  ("6","Power Deadbolt 2")
+  ("7","Plunger")
+  ("8","Small zap")
+  ("9","Keycard Sound")
+  ("10","Buzz")
+  ("13","Latch Unlocked")
+  ("14","Lightswitch")
+ );
+choice "locked_sentence"
+ (
+  ("1","Gen. Access Denied")
+  ("2","Security Lockout")
+  ("3","Blast Door")
+  ("4","Fire Door")
+  ("5","Chemical Door")
+  ("6","Radiation Door")
+  ("7","Gen. Containment")
+  ("8","Maintenance Door")
+  ("9","Broken Shut Door")
+ );
+choice "unlocked_sentence"
+ (
+  ("1","Gen. Access Granted")
+  ("2","Security Disengaged")
+  ("3","Blast Door")
+  ("4","Fire Door")
+  ("5","Chemical Door")
+  ("6","Radiation Door")
+  ("7","Gen. Containment")
+  ("8","Maintenance area")
+ );
+}
+'speed'		Speed (default 5)
+'target'	Targetted object
+'netname'	Target Path
+'health'	Health (shootable if > 0)
+'lip'		Lip
+'master'	Master
+'sounds'	Sounds (default 0)
+'wait'		Delay before reset (default 3)
+'delay'		Delay before trigger (default 0)
+'locked_sound'	Locked Sound (default 0)
+'unlocked_sound'	Unlocked Sound (default 0)
+'locked_sentence'	Locked Sentence (default 0)
+'unlocked_sentence'	Unlocked Sentence (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_conveyor (0.0 0.5 0.8) ? "No Push" "Not Solid"
+{
+base("_RenderFields");
+base("_Targetname");
+}
+'speed'		Conveyor Speed (default 100)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_door (0.0 0.5 0.8) ? "Starts Open" x "Don't link" "Passable" x "Toggle" x x "Use Only" "Monsters Can't" x "Not in Deathmatch"
+{
+base("_Door");
+}
+*/
+
+/*QUAKED func_door_rotating (0.0 0.5 0.8) ? "Starts Open" "Reverse Dir" "Don't link" "Passable" "One-way" "Toggle" "X Axis" "Y Axis" "Use Only" "Monsters Can't" x "Not in Deathmatch"
+{
+base("_Door");
+}
+'distance'	Distance (deg) (default 90)
+'angles'	Pitch Yaw Roll (Y Z X) (default 0 0 0)
+*/
+
+/*QUAKED func_friction (0.0 0.5 0.8) ? x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_RenderFields");
+}
+'modifier'	Percentage of standard (0 - 100) (default 15)
+*/
+
+/*QUAKED func_guntarget (0.0 0.5 0.8) ?
+{
+base("_Targetname");
+base("_RenderFields");
+base("_Global");
+}
+'speed'		Speed (units per second) (default 100)
+'target'	First stop target
+'message'	Fire on damage
+'health'	Damage to Take (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_healthcharger (0.0 0.5 0.8) ?
+{
+base("_Global");
+}
+'dmdelay'	Deathmatch recharge delay (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_illusionary (0.0 0.5 0.8) ?
+{
+base("_RenderFields");
+choice "skin"
+ (
+  ("-1","Empty")
+  ("-7","Volumetric Light")
+ );
+}
+'skin'		Contents (default -1)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_ladder (0.0 0.5 0.8) ?
+*/
+
+/*QUAKED func_monsterclip (0.0 0.5 0.8) ?
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED func_mortar_field (0.0 0.5 0.8) ?
+{
+base("_Targetname");
+choice "m_fControl"
+ (
+  ("0","Random")
+  ("1","Activator")
+  ("2","Table")
+ );
+}
+'m_flSpread'	Spread Radius (default 64)
+'m_iCount'	Repeat Count (default 1)
+'m_fControl'	Targeting (default 0)
+'m_iszXController'	X Controller
+'m_iszYController'	Y Controller
+*/
+
+/*QUAKED func_pendulum (0.0 0.5 0.8) ? "Start ON" x x "Passable" "Auto-return" x "X Axis" "Y Axis" x x x "Not in Deathmatch"
+{
+base("_Targetname");
+base("_RenderFields");
+}
+'speed'		Speed (default 100)
+'distance'	Distance (deg) (default 90)
+'damp'		Damping (0-1000) (default 0)
+'dmg'		Damage inflicted when blocked (default 0)
+'_minlight'	_minlight
+'angles'	Pitch Yaw Roll (Y Z X) (default 0 0 0)
+*/
+
+/*QUAKED func_plat (0.0 0.5 0.8) ? "Toggle"
+{
+base("_RenderFields");
+base("_PlatSounds");
+}
+'height'	Travel altitude (can be negative) (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_platrot (0.0 0.5 0.8) ? "Toggle" x x x x x "X Axis" "Y Axis"
+{
+base("_Targetname");
+base("_RenderFields");
+base("_PlatSounds");
+}
+'height'	Travel altitude (can be negative) (default 0)
+'rotation'	Spin amount (default 0)
+'angles'	Pitch Yaw Roll (Y Z X) (default 0 0 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_pushable (0.0 0.5 0.8) ? x x x x x x x "Breakable"
+{
+base("_Breakable");
+base("_RenderFields");
+choice "size"
+ (
+  ("0","Point size")
+  ("1","Player size")
+  ("2","Big Size")
+  ("3","Player duck")
+ );
+}
+'size'		Hull Size (default 0)
+'friction'	Friction (0-400) (default 50)
+'buoyancy'	Buoyancy (default 20)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_recharge (0.0 0.5 0.8) ?
+'dmdelay'	Deathmatch recharge delay (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_rot_button (0.0 0.5 0.8) ? "Not solid" "Reverse Dir" x x x "Toggle" "X Axis" "Y Axis" "Touch Activates"
+{
+base("_Targetname");
+base("_Global");
+choice "sounds"
+ (
+  ("21","Squeaky")
+  ("22","Squake Pneumatic")
+  ("23","Ratchet Groan")
+  ("24","Clean Ratchet")
+  ("25","Gas Clunk")
+ );
+choice "wait"
+ (
+  ("-1","Stays pressed")
+ );
+}
+'target'	Targetted object
+'changetarget'	ChangeTarget Name
+'master'	Master
+'speed'		Speed (default 5)
+'health'	Health (shootable if > 0)
+'sounds'	Sounds (default 21)
+'wait'		Delay before reset (default 3)
+'delay'		Delay before trigger (default 0)
+'distance'	Distance (deg) (default 90)
+'_minlight'	_minlight
+'angles'	Pitch Yaw Roll (Y Z X) (default 0 0 0)
+*/
+
+/*QUAKED func_rotating (0.0 0.5 0.8) ? "Start ON" "Reverse Direction" "X Axis" "Y Axis" "Acc/Dcc" "Fan Pain" "Not Solid" "Small Radius" "Medium Radius" "Large Radius"
+{
+base("_Targetname");
+base("_RenderFields");
+choice "sounds"
+ (
+  ("0","No Sound")
+  ("1","Fast Whine")
+  ("2","Slow Rush")
+  ("3","Medium Rickety")
+  ("4","Fast Beating")
+  ("5","Slow Smooth")
+ );
+choice "message"
+ (
+  ("ambience/boomer.wav","")
+  ("ambience/industrial2.wav","")
+  ("ambience/industrial4.wav","")
+  ("ambience/zapmachine.wav","")
+  ("plats/bigmove2.wav","")
+ );
+}
+'speed'		Rotation Speed (default 0)
+'volume'	Volume (10 = loudest) (default 10)
+'fanfriction'	Friction (0 - 100%) (default 20)
+'sounds'	Fan Sounds (default 0)
+'message'	Path/filename.wav of WAV
+'_minlight'	_minlight
+'angles'	Pitch Yaw Roll (Y Z X) (default 0 0 0)
+'spawnorigin'	X Y Z - Move here after lighting (default 0 0 0)
+'dmg'		Damage inflicted when blocked (default 0)
+*/
+
+/*QUAKED func_tank (0.0 0.5 0.8) ? "Active" "Player" "Humans" "Aliens" "Only Direct" "Controllable"
+{
+base("_BaseTank");
+choice "bullet"
+ (
+  ("0","None")
+  ("1","9mm")
+  ("2","MP5")
+  ("3","12mm")
+ );
+}
+'bullet'	Bullets (default 0)
+*/
+
+/*QUAKED func_tankcontrols (0.0 0.5 0.8) ?
+'target'	Tank entity name
+*/
+
+/*QUAKED func_tanklaser (0.0 0.5 0.8) ? "Active" "Player" "Humans" "Aliens" "Only Direct" "Controllable"
+{
+base("_BaseTank");
+}
+'laserentity'	env_laser Entity
+*/
+
+/*QUAKED func_tankrocket (0.0 0.5 0.8) ? "Active" "Player" "Humans" "Aliens" "Only Direct" "Controllable"
+{
+base("_BaseTank");
+}
+*/
+
+/*QUAKED func_tankmortar (0.0 0.5 0.8) ? "Active" "Player" "Humans" "Aliens" "Only Direct" "Controllable"
+{
+base("_BaseTank");
+}
+'iMagnitude'	Explosion Magnitude (default 100)
+*/
+
+/*QUAKED func_trackautochange (0.0 0.5 0.8) ? "Auto Activate train" "Relink track" x "Start at Bottom" "Rotate Only" x "X Axis" "Y Axis"
+{
+base("_Trackchange");
+}
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_trackchange (0.0 0.5 0.8) ? "Auto Activate train" "Relink track" x "Start at Bottom" "Rotate Only" x "X Axis" "Y Axis"
+{
+base("_Trackchange");
+}
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_tracktrain (0.0 0.5 0.8) ? "No Pitch (X-rot)" "No User Control" x "Passable"
+{
+base("_Targetname");
+base("_RenderFields");
+base("_Global");
+choice "sounds"
+ (
+  ("0","None")
+  ("1","Rail 1")
+  ("2","Rail 2")
+  ("3","Rail 3")
+  ("4","Rail 4")
+  ("5","Rail 6")
+  ("6","Rail 7")
+ );
+}
+'target'	First stop target
+'sounds'	Sound (default 1)
+'wheels'	Distance between the wheels (default 50)
+'height'	Height above track (default 4)
+'startspeed'	Initial speed (default 0)
+'speed'		Speed (units per second) (default 64)
+'dmg'		Damage on crush (default 0)
+'volume'	Volume (10 = loudest) (default 10)
+'bank'		Bank angle on turns (default 0)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_traincontrols (0.0 0.5 0.8) ?
+'target'	Train Name
+*/
+
+/*QUAKED func_train (0.0 0.5 0.8) ? x x x "Not solid"
+{
+base("_Targetname");
+base("_RenderFields");
+base("_Global");
+choice "movesnd"
+ (
+  ("0","No Sound")
+  ("1","big elev 1")
+  ("2","big elev 2")
+  ("3","tech elev 1")
+  ("4","tech elev 2")
+  ("5","tech elev 3")
+  ("6","freight elev 1")
+  ("7","freight elev 2")
+  ("8","heavy elev")
+  ("9","rack elev")
+  ("10","rail elev")
+  ("11","squeek elev")
+  ("12","odd elev 1")
+  ("13","odd elev 2")
+ );
+choice "stopsnd"
+ (
+  ("0","No Sound")
+  ("1","big elev stop1")
+  ("2","big elev stop2")
+  ("3","freight elev stop")
+  ("4","heavy elev stop")
+  ("5","rack stop")
+  ("6","rail stop")
+  ("7","squeek stop")
+  ("8","quick stop")
+ );
+}
+'target'	First stop target
+'movesnd'	Move Sound (default 0)
+'stopsnd'	Stop Sound (default 0)
+'speed'		Speed (units per second) (default 64)
+'dmg'		Damage on crush (default 0)
+'skin'		Contents (default 0)
+'volume'	Sound Volume 0.0 - 1.0 (default 0.85)
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_wall (0.0 0.5 0.8) ? x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetname");
+base("_RenderFields");
+base("_Global");
+}
+'_minlight'	Minimum light level
+*/
+
+/*QUAKED func_wall_toggle (0.0 0.5 0.8) ? "Starts Invisible" x x x x x x x x x x "Not in Deathmatch"
+{
+base("func_wall");
+}
+*/
+
+/*QUAKED func_water (0.0 0.5 0.8) ? "Starts Open" x "Don't link" "Passable" x "Toggle" x x "Use Only" "Monsters Can't" x "Not in Deathmatch"
+{
+base("_Door");
+choice "skin"
+ (
+  ("-3","Water")
+  ("-4","Slime")
+  ("-5","Lava")
+ );
+}
+'skin'		Contents (default -3)
+'WaveHeight'	Wave Height (default 3.2)
+*/
+
+/*QUAKED gibshooter (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Repeatable"
+{
+base("_gibshooterbase");
+}
+*/
+
+/*QUAKED infodecal (1.0 0.0 1.0) (-8 -8 -8) (8 8 8) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetname");
+texture "texture";
+}
+'texture'
+*/
+
+/*QUAKED info_bigmomma (0.1 0.7 0.2) (-24 -24 0) (24 24 16) "Run To Node" "Wait Indefinitely"
+{
+base("_Targetname");
+}
+'target'	Next node
+'radius'	Radius (default 0)
+'reachdelay'	Wait after approach (default 0)
+'killtarget'	KillTarget
+'reachtarget'	Fire on approach
+'reachsequence'	Sequence on approach (default )
+'health'	Health on approach (default )
+'presequence'	Sequence before approach (default )
+*/
+
+/*QUAKED info_intermission (0.0 1.0 0.0) (-4 -4 -4) (4 4 4)
+{
+base("_Target");
+}
+*/
+
+/*QUAKED info_landmark (1.0 0.0 1.0) (-8 -8 -8) (8 8 8)
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED info_node (1.0 0.5 0.0) (-24 -24 -4) (24 24 4)
+{
+choice "hinttype"
+ (
+  ("0","None")
+  ("1","World: Door")
+  ("2","World: Window")
+  ("3","World: Button")
+  ("4","World: Machinery")
+  ("5","World: Ledge")
+  ("6","World: Light Source")
+  ("7","World: Heat Source")
+  ("8","World: Blinking Light")
+  ("9","World: Bright Colors")
+  ("10","World: Human Blood Decal")
+  ("11","World: Alien Blood Decal")
+  ("300","Stuka: Ceiling Perch")
+  ("301","Stuka: Landing spot")
+ );
+choice "activity"
+ (
+  ("0","None")
+  ("35","Eat")
+  ("45","Inspect Ground")
+  ("46","Inspect Wall")
+ );
+}
+'hinttype'	Hint (default 0)
+'activity'	Activity (default 45)
+*/
+
+/*QUAKED info_node_air (1.0 0.5 0.0) (-32 -32 0) (32 32 64)
+*/
+
+/*QUAKED info_null (1.0 0.0 1.0) (-16 -16 -16) (16 16 16)
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED info_player_coop (0.0 1.0 0.0) (-16 -16 -36) (16 16 36) x x x x x x x x x x x "Not in Deathmatch"
+*/
+
+/*QUAKED info_player_deathmatch (0.0 1.0 0.0) (-16 -16 -36) (16 16 36) x x x x x x x x x x x "Not in Deathmatch"
+*/
+
+/*QUAKED info_player_start (0.0 1.0 0.0) (-16 -16 -36) (16 16 36) x x x x x x x x x x x "Not in Deathmatch"
+*/
+
+/*QUAKED info_player_start2 (0.0 1.0 0.0) (-16 -16 -36) (16 16 36) x x x x x x x x x x x "Not in Deathmatch"
+*/
+
+/*QUAKED info_target (0.8 0.4 0.2) (-4 -4 -4) (4 4 4)
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED info_teleport_destination (0.0 1.0 0.0) (-8 -8 0) (8 8 16) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED item_airtank (1.0 0.0 1.0) (-16 -16 0) (16 16 36)
+*/
+
+/*QUAKED item_antidote (1.0 0.0 1.0) (-16 -16 0) (16 16 36)
+*/
+
+/*QUAKED item_battery (1.0 0.0 1.0) (-16 -16 0) (16 16 36)
+*/
+
+/*QUAKED item_healthkit (1.0 0.0 1.0) (-16 -16 0) (16 16 36)
+*/
+
+/*QUAKED item_longjump (1.0 0.0 1.0) (-16 -16 0) (16 16 36)
+*/
+
+/*QUAKED item_security (1.0 0.0 1.0) (-16 -16 0) (16 16 36)
+*/
+
+/*QUAKED item_suit (1.0 0.0 1.0) (-16 -16 0) (16 16 36) "Short Logon"
+*/
+
+/*QUAKED light (0.0 1.0 0.0) (-8 -8 -8) (8 8 8) "Initially dark"
+{
+base("_Target");
+base("_Targetname");
+base("_Light");
+}
+*/
+
+/*QUAKED light_spot (0.0 1.0 0.0) (-16 -16 -16) (16 16 16) "Initially dark"
+{
+base("_Targetname");
+hl_color "_light";
+choice "_sky"
+ (
+  ("0","No")
+  ("1","Yes")
+ );
+choice "style"
+ (
+  ("0","Normal")
+  ("10","Fluorescent flicker")
+  ("2","Slow, strong pulse")
+  ("11","Slow pulse, noblack")
+  ("5","Gentle pulse")
+  ("1","Flicker A")
+  ("6","Flicker B")
+  ("3","Candle A")
+  ("7","Candle B")
+  ("8","Candle C")
+  ("4","Fast strobe")
+  ("9","Slow strobe")
+ );
+}
+'_cone'		Inner Radius (default 32)
+'_cone2'	Outer Radius (default 64)
+'pitch'		Pitch (default -90)
+'_light'	Brightness (default 255 255 128 200)
+'_sky'		Is Sky (default 0)
+'style'		Appearance (default 0)
+'pattern'	Custom Appearance
+*/
+
+/*QUAKED light_environment (0.0 1.0 0.0) (-16 -16 -16) (16 16 16)
+{
+hl_color "_light";
+}
+'pitch'		Pitch (default 0)
+'_light'	Brightness (default 255 255 128 200)
+*/
+
+/*QUAKED momentary_door (1.0 0.0 1.0) ? "Starts Open" x "Don't link" "Passable" x "Toggle" x x "Use Only" "Monsters Can't" x "Not in Deathmatch"
+{
+base("_Door");
+}
+*/
+
+/*QUAKED momentary_rot_button (1.0 0.0 1.0) ? "Door Hack" "Not useable" x x "Auto Return" x "X Axis" "Y Axis"
+{
+base("_RenderFields");
+base("_Targetname");
+choice "sounds"
+ (
+  ("0","None")
+  ("1","Big zap & Warmup")
+  ("2","Access Denied")
+  ("3","Access Granted")
+  ("4","Quick Combolock")
+  ("5","Power Deadbolt 1")
+  ("6","Power Deadbolt 2")
+  ("7","Plunger")
+  ("8","Small zap")
+  ("9","Keycard Sound")
+  ("21","Squeaky")
+  ("22","Squake Pneumatic")
+  ("23","Ratchet Groan")
+  ("24","Clean Ratchet")
+  ("25","Gas Clunk")
+ );
+}
+'target'	Targetted object
+'speed'		Speed (default 5)
+'master'	Master
+'sounds'	Sounds (default 0)
+'distance'	Distance (deg) (default 90)
+'returnspeed'	Auto-return speed (default 0)
+'_minlight'	_minlight
+'angles'	Pitch Yaw Roll (Y Z X) (default 0 0 0)
+*/
+
+/*QUAKED monster_alien_controller (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_alien_grunt (0.0 0.8 0.8) (-32 -32 0) (32 32 64) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "SquadLeader" x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'netname'	Squad Name
+*/
+
+/*QUAKED monster_alien_slave (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "SquadLeader" "IgnorePlayer" "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'netname'	Squad Name
+*/
+
+/*QUAKED monster_apache (0.0 0.8 0.8) (-360 -360 -172) (360 360 8) "WaitTillSeen" "Gag" "MonsterClip" "NoWreckage" "Prisoner" x "Start Inactive" "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_babycrab (0.0 0.8 0.8) (-16 -16 0) (16 16 36) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_barnacle (1.0 0.0 1.0) (-16 -16 -36) (16 16 0)
+{
+base("_RenderFields");
+}
+*/
+
+/*QUAKED monster_barney (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+base("_TalkMonster");
+}
+*/
+
+/*QUAKED monster_barney_dead (1.0 0.0 1.0) (-16 -16 0) (16 16 72) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_RenderFields");
+choice "pose"
+ (
+  ("0","On back")
+  ("1","On side")
+  ("2","On stomach")
+ );
+}
+'pose'		Pose (default 0)
+*/
+
+/*QUAKED monster_bigmomma (0.0 0.8 0.8) (-95 -95 0) (95 95 190) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'netname'	First node (default )
+*/
+
+/*QUAKED monster_bloater (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_bullchicken (0.0 0.8 0.8) (-32 -32 0) (32 32 64) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_cockroach (0.0 0.8 0.8) (-3 -3 0) (3 3 3) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_flyer_flock (0.0 0.8 0.8) (-16 -16 0) (16 16 16) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'iFlockSize'	Flock Size (default 8)
+'flFlockRadius'	Flock Radius (default 128)
+*/
+
+/*QUAKED monster_furniture (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'model'		model
+*/
+
+/*QUAKED monster_gargantua (0.0 0.8 0.8) (-32 -32 0) (32 32 128) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_generic (0.0 0.8 0.8) (-16 -16 -36) (16 16 36) "WaitTillSeen" "Gag" "Not solid" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+base("_RenderFields");
+choice "model"
+ (
+  ("MODELS/ABONE_Template1.mdl","")
+  ("MODELS/BSKULL_Template1.mdl","")
+  ("MODELS/GIB_legbone.mdl","")
+  ("MODELS/PELVIS.mdl","")
+  ("MODELS/RIBCAGE.mdl","")
+  ("MODELS/Riblet1.mdl","")
+  ("MODELS/ZOMBIEGibs1.mdl","")
+  ("models/barney.mdl","")
+  ("models/forklift.mdl","")
+  ("models/holo.mdl","")
+  ("models/loader.mdl","")
+  ("models/scientist.mdl","")
+  ("models/scigun.mdl","")
+ );
+}
+'model'		model
+'body'		Body (default 0)
+*/
+
+/*QUAKED monster_gman (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_grunt_repel (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_handgrenade (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED monster_headcrab (0.0 0.8 0.8) (-16 -16 0) (16 16 36) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_hevsuit_dead (1.0 0.0 1.0) (-16 -16 0) (16 16 72) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_RenderFields");
+choice "pose"
+ (
+  ("0","On back")
+  ("1","Seated")
+  ("2","On stomach")
+  ("3","On Table")
+ );
+}
+'pose'		Pose (default 0)
+*/
+
+/*QUAKED monster_hgrunt_dead (1.0 0.0 1.0) (-16 -16 0) (16 16 72) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_RenderFields");
+choice "pose"
+ (
+  ("0","On stomach")
+  ("1","On side")
+  ("2","Seated")
+ );
+choice "body"
+ (
+  ("0","Grunt with Gun")
+  ("1","Commander with Gun")
+  ("2","Grunt no Gun")
+  ("3","Commander no Gun")
+ );
+}
+'pose'		Pose (default 0)
+'body'		Body (default 0)
+*/
+
+/*QUAKED monster_houndeye (0.0 0.8 0.8) (-16 -16 0) (16 16 36) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "SquadLeader" x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+'netname'	Squad Name
+*/
+
+/*QUAKED monster_human_assassin (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_human_grunt (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "SquadLeader" x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+choice "weapons"
+ (
+  ("1","9mmAR")
+  ("3","9mmAR + HG")
+  ("5","9mmAR + GL")
+  ("8","Shotgun")
+  ("10","Shotgun + HG")
+ );
+}
+'netname'	Squad Name
+'weapons'	Weapons (default 3)
+*/
+
+/*QUAKED monster_ichthyosaur (0.0 0.8 0.8) (-32 -32 0) (32 32 64) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_leech (0.0 0.8 0.8) (-6 -6 0) (6 6 6) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_miniturret (0.0 0.8 0.8) (-16 -16 -32) (16 16 32) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "Autostart" "Start Inactive" "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+choice "orientation"
+ (
+  ("0","Floor Mount")
+  ("1","Ceiling Mount")
+ );
+}
+'orientation'	Orientation (default 0)
+*/
+
+/*QUAKED monster_nihilanth (0.0 0.8 0.8) (-192 -192 0) (192 192 384) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_osprey (0.0 0.8 0.8) (-480 -480 -112) (480 480 24) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x "Start Inactive" "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_rat (0.0 0.8 0.8) (-6 -6 0) (6 6 6) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_satchelcharge (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetname");
+base("_Targetx");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED monster_scientist (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+base("_TalkMonster");
+choice "body"
+ (
+  ("-1","Random")
+  ("0","Glasses")
+  ("1","Einstein")
+  ("2","Luther")
+  ("3","Slick")
+ );
+}
+'body'		Body (default -1)
+*/
+
+/*QUAKED monster_scientist_dead (1.0 0.0 1.0) (-16 -16 0) (16 16 72) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_RenderFields");
+choice "body"
+ (
+  ("-1","Random")
+  ("0","Glasses")
+  ("1","Einstein")
+  ("2","Luther")
+  ("3","Slick")
+ );
+choice "pose"
+ (
+  ("0","On back")
+  ("1","On Stomach")
+  ("2","Sitting")
+  ("3","Hanging")
+  ("4","Table1")
+  ("5","Table2")
+  ("6","Table3")
+ );
+}
+'body'		Body (default -1)
+'pose'		Pose (default 0)
+*/
+
+/*QUAKED monster_sitting_scientist (0.0 0.8 0.8) (-14 -14 22) (14 14 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+choice "body"
+ (
+  ("-1","Random")
+  ("0","Glasses")
+  ("1","Einstein")
+  ("2","Luther")
+  ("3","Slick")
+ );
+}
+'body'		Body (default -1)
+*/
+
+/*QUAKED monster_sentry (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "Autostart" "Start Inactive" "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_snark (0.0 0.8 0.8) (-16 -16 0) (16 16 36) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_tentacle (0.0 0.8 0.8) (-32 -32 0) (32 32 64) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+choice "sound"
+ (
+  ("-1","None")
+  ("0","Silo")
+  ("1","Dirt")
+  ("2","Water")
+ );
+}
+'sweeparc'	Sweep Arc (default 130)
+'sound'		Tap Sound (default 0)
+*/
+
+/*QUAKED monster_tripmine (0.0 0.8 0.8) (-8 -8 -8) (8 8 8) "Instant On" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monster_turret (0.0 0.8 0.8) (-32 -32 -32) (32 32 32) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" "Autostart" "Start Inactive" "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+choice "orientation"
+ (
+  ("0","Floor Mount")
+  ("1","Ceiling Mount")
+ );
+}
+'orientation'	Orientation (default 0)
+*/
+
+/*QUAKED monster_zombie (0.0 0.8 0.8) (-16 -16 0) (16 16 72) "WaitTillSeen" "Gag" "MonsterClip" x "Prisoner" x x "WaitForScript" "Pre-Disaster" "Fade Corpse" x "Not in Deathmatch"
+{
+base("_Monster");
+}
+*/
+
+/*QUAKED monstermaker (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Start ON" "PVS On/Off" "Cyclic" "MonsterClip"
+{
+base("_Targetname");
+}
+'target'	Target On Release
+'monstertype'	Monster Type
+'netname'	Childrens' Name
+'monstercount'	Number of Monsters (default -1)
+'delay'		Frequency (default 5)
+'m_imaxlivechildren'	Max live children (default 5)
+*/
+
+/*QUAKED multi_manager (1.0 0.0 1.0) (-16 -16 -16) (16 16 16)
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED multisource (1.0 0.0 1.0) (-16 -16 -16) (16 16 16)
+{
+base("_Targetname");
+base("_Target");
+}
+'globalstate'	Global State Master
+*/
+
+/*QUAKED path_corner (1.0 0.7 0.3) (-8 -8 -8) (8 8 8) "Wait for retrigger" "Teleport" "Fire once"
+{
+base("_Targetname");
+}
+'target'	Next stop target
+'message'	Fire On Pass
+'wait'		Wait here (secs) (default 0)
+'speed'		New Train Speed (default 0)
+'yaw_speed'	New Train rot. Speed (default 0)
+*/
+
+/*QUAKED path_track (1.0 0.0 1.0) (-8 -8 -8) (8 8 8) "Disabled" "Fire once" "Branch Reverse" "Disable train"
+{
+base("_Targetname");
+}
+'target'	Next stop target
+'message'	Fire On Pass
+'altpath'	Branch Path
+'netname'	Fire on dead end
+'speed'		New Train Speed (default 0)
+*/
+
+/*QUAKED player_loadsaved (1.0 0.0 1.0) (-16 -16 -16) (16 16 16)
+{
+base("_Targetname");
+hl_color "rendercolor";
+}
+'duration'	Fade Duration (seconds) (default 2)
+'holdtime'	Hold Fade (seconds) (default 0)
+'renderamt'	Fade Alpha (default 255)
+'rendercolor'	Fade Color (R G B) (default 0 0 0)
+'messagetime'	Show Message delay (default 0)
+'message'	Message To Display (default )
+'loadtime'	Reload delay (default 0)
+*/
+
+/*QUAKED player_weaponstrip (1.0 0.0 1.0) (-16 -16 -16) (16 16 16)
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED scripted_sentence (1.0 0.0 1.0) (-16 -16 0) (16 16 72) "Fire Once" "Followers Only" "Interrupt Speech" "Concurrent"
+{
+base("_Targetname");
+base("_Targetx");
+choice "attenuation"
+ (
+  ("0","Small Radius")
+  ("1","Medium Radius")
+  ("2","Large  Radius")
+  ("3","Play Everywhere")
+ );
+list "sentence" ("lists/hl/sc_s_sen.lst");
+}
+'sentence'	Sentence Name (default )
+'entity'	Speaker Type
+'duration'	Sentence Time (default 3)
+'radius'	Search Radius (default 512)
+'refire'	Delay Before Refire (default 3)
+'listener'	Listener Type
+'volume'	Volume 0-10 (default 10)
+'attenuation'	Sound Radius (default 0)
+*/
+
+/*QUAKED scripted_sequence (1.0 0.0 1.0) (-16 -16 0) (16 16 72) "WaitTillSeen" "Exit Agitated" "Repeatable" "Leave Corpse" x "No Interruptions" "Override AI" "No Script Movement"
+{
+base("_Targetname");
+base("_Targetx");
+choice "m_fMoveTo"
+ (
+  ("0","No")
+  ("1","Walk")
+  ("2","Run")
+  ("4","Instantaneous")
+  ("5","No - Turn to Face")
+ );
+}
+'m_iszEntity'	Target Monster
+'m_iszIdle'	Idle Animation (default )
+'m_iszPlay'	Action Animation (default )
+'m_flRadius'	Search Radius (default 512)
+'m_flRepeat'	Repeat Rate ms (default 0)
+'m_fMoveTo'	Move to Position (default 0)
+*/
+
+/*QUAKED speaker (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Start Silent"
+{
+choice "preset"
+ (
+  ("1","C1A0 Announcer")
+  ("2","C1A1 Announcer")
+  ("3","C1A2 Announcer")
+  ("4","C1A3 Announcer")
+  ("5","C1A4 Announcer")
+  ("6","C2A1 Announcer")
+  ("7","C2A2 Announcer")
+  ("9","C2A4 Announcer")
+  ("11","C3A1 Announcer")
+  ("12","C3A2 Announcer")
+ );
+}
+'preset'	Announcement Presets (default 0)
+'message'	Sentence Group Name
+'targetname'	Target Name
+'health'	Volume (10 = loudest) (default 5)
+*/
+
+/*QUAKED target_cdaudio (1.0 0.0 1.0) (-16 -16 -16) (16 16 16)
+{
+base("_Targetname");
+choice "health"
+ (
+  ("-1","Stop")
+  ("1","Track 1")
+  ("2","Track 2")
+  ("3","Track 3")
+  ("4","Track 4")
+  ("5","Track 5")
+  ("6","Track 6")
+  ("7","Track 7")
+  ("8","Track 8")
+  ("9","Track 9")
+  ("10","Track 10")
+  ("11","Track 11")
+  ("12","Track 12")
+  ("13","Track 13")
+  ("14","Track 14")
+  ("15","Track 15")
+  ("16","Track 16")
+  ("17","Track 17")
+  ("18","Track 18")
+  ("19","Track 19")
+  ("20","Track 20")
+  ("21","Track 21")
+  ("22","Track 22")
+  ("23","Track 23")
+  ("24","Track 24")
+  ("25","Track 25")
+  ("26","Track 26")
+  ("27","Track 27")
+  ("28","Track 28")
+  ("29","Track 29")
+  ("30","Track 30")
+ );
+}
+'health'	Track # (default -1)
+'radius'	Player Radius
+*/
+
+/*QUAKED trigger_auto (0.5 0.5 0.5) (-16 -16 -16) (16 16 16) "Remove On fire"
+{
+base("_Targetx");
+choice "triggerstate"
+ (
+  ("0","Off")
+  ("1","On")
+  ("2","Toggle")
+ );
+}
+'globalstate'	Global State to Read
+'triggerstate'	Trigger State (default 0)
+*/
+
+/*QUAKED trigger_autosave (0.5 0.5 0.5) ?
+{
+base("_Targetname");
+}
+'master'	Master
+*/
+
+/*QUAKED trigger_camera (0.5 0.5 0.5) (-16 -16 -16) (16 16 16) "Start At Player" "Follow Player" "Freeze Player"
+{
+base("_Targetx");
+base("_Targetname");
+}
+'wait'		Hold time (default 10)
+'moveto'	Path Corner
+'speed'		Initial Speed (default 0)
+'acceleration'	Acceleration units/sec^2 (default 500)
+'deceleration'	Stop Deceleration units/sec^2 (default 500)
+*/
+
+/*QUAKED trigger_cdaudio (0.5 0.5 0.5) ?
+{
+base("_Targetname");
+choice "health"
+ (
+  ("-1","Stop")
+  ("1","Track 1")
+  ("2","Track 2")
+  ("3","Track 3")
+  ("4","Track 4")
+  ("5","Track 5")
+  ("6","Track 6")
+  ("7","Track 7")
+  ("8","Track 8")
+  ("9","Track 9")
+  ("10","Track 10")
+  ("11","Track 11")
+  ("12","Track 12")
+  ("13","Track 13")
+  ("14","Track 14")
+  ("15","Track 15")
+  ("16","Track 16")
+  ("17","Track 17")
+  ("18","Track 18")
+  ("19","Track 19")
+  ("20","Track 20")
+  ("21","Track 21")
+  ("22","Track 22")
+  ("23","Track 23")
+  ("24","Track 24")
+  ("25","Track 25")
+  ("26","Track 26")
+  ("27","Track 27")
+  ("28","Track 28")
+  ("29","Track 29")
+  ("30","Track 30")
+ );
+}
+'master'	Master
+'health'	Track # (default -1)
+*/
+
+/*QUAKED trigger_changelevel (0.5 0.5 0.5) ? "No Intermission" "USE Only"
+'targetname'	Name
+'map'		New map name
+'landmark'	Landmark name
+'changetarget'	Change Target
+'changedelay'	Delay before change target (default 0)
+*/
+
+/*QUAKED trigger_changetarget (0.5 0.5 0.5) (-16 -16 -16) (16 16 16)
+{
+base("_Targetx");
+base("_Targetname");
+}
+'m_iszNewTarget'	New Target
+*/
+
+/*QUAKED trigger_counter (0.5 0.5 0.5) ? "No Message" "No Clients" "Pushables"
+{
+base("_Trigger");
+base("_Targetname");
+}
+'master'	Master
+'count'		Count before activation (default 2)
+*/
+
+/*QUAKED trigger_endsection (0.5 0.5 0.5) ? "USE Only"
+{
+base("_Targetname");
+}
+'section'	Section
+*/
+
+/*QUAKED trigger_gravity (0.5 0.5 0.5) ? "Monsters" "No Clients" "Pushables"
+{
+base("_Trigger");
+}
+'gravity'	Gravity (0-1) (default 1)
+*/
+
+/*QUAKED trigger_hurt (0.5 0.5 0.5) ? "Target Once" "Start Off" x "No clients" "FireClientOnly" "TouchClientOnly"
+{
+base("_Targetname");
+base("_Target");
+choice "damagetype"
+ (
+  ("0","GENERIC")
+  ("1","CRUSH")
+  ("2","BULLET")
+  ("4","SLASH")
+  ("8","BURN")
+  ("16","FREEZE")
+  ("32","FALL")
+  ("64","BLAST")
+  ("128","CLUB")
+  ("256","SHOCK")
+  ("512","SONIC")
+  ("1024","ENERGYBEAM")
+  ("16384","DROWN")
+  ("32768","PARALYSE")
+  ("65536","NERVEGAS")
+  ("131072","POISON")
+  ("262144","RADIATION")
+  ("524288","DROWNRECOVER")
+  ("1048576","CHEMICAL")
+  ("2097152","SLOWBURN")
+  ("4194304","SLOWFREEZE")
+ );
+}
+'master'	Master
+'dmg'		Damage (default 10)
+'delay'		Delay before trigger (default 0)
+'damagetype'	Damage Type (default 0)
+*/
+
+/*QUAKED trigger_monsterjump (0.5 0.5 0.5) ? "Monsters" "No Clients" "Pushables"
+{
+base("_Trigger");
+}
+'master'	Master
+'speed'		Jump Speed (default 40)
+'height'	Jump Height (default 128)
+*/
+
+/*QUAKED trigger_multiple (0.5 0.5 0.5) ? "Monsters" "No Clients" "Pushables"
+{
+base("_Trigger");
+}
+'wait'		Delay before reset (default 10)
+*/
+
+/*QUAKED trigger_once (0.5 0.5 0.5) ? "Monsters" "No Clients" "Pushables"
+{
+base("_Trigger");
+}
+*/
+
+/*QUAKED trigger_push (0.5 0.5 0.5) ? "Once Only" "Start Off" "Pushables"
+{
+base("_Trigger");
+}
+'speed'		Speed of push (default 40)
+*/
+
+/*QUAKED trigger_relay (0.5 0.5 0.5) (-16 -16 -16) (16 16 16) "Remove On fire"
+{
+base("_Targetx");
+base("_Targetname");
+choice "triggerstate"
+ (
+  ("0","Off")
+  ("1","On")
+  ("2","Toggle")
+ );
+}
+'master'	Master
+'triggerstate'	Trigger State (default 0)
+*/
+
+/*QUAKED trigger_teleport (0.5 0.5 0.5) ? "Monsters" "No Clients" "Pushables"
+{
+base("_Trigger");
+}
+'master'	Master
+*/
+
+/*QUAKED trigger_transition (0.5 0.5 0.5) ?
+{
+base("_Targetname");
+}
+*/
+
+/*QUAKED weapon_crowbar (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_9mmhandgun (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_357 (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_9mmAR (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_shotgun (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_rpg (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_gauss (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_crossbow (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_egon (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_tripmine (0.0 0.0 0.8) (-16 -16 -5) (16 16 27) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_satchel (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_handgrenade (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_snark (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weapon_hornetgun (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+}
+*/
+
+/*QUAKED weaponbox (0.0 0.5 0.0) (-16 -16 0) (16 16 64)
+*/
+
+/*QUAKED world_items (0.0 0.0 0.8) (-16 -16 0) (16 16 32) x x x x x x x x x x x "Not in Deathmatch"
+{
+base("_Targetx");
+choice "type"
+ (
+  ("44","Battery")
+  ("42","Antidote")
+  ("43","Security Card")
+  ("45","Suit")
+ );
+}
+'type'		types (default 1)
+*/
+
+/*QUAKED xen_plantlight (1.0 0.0 1.0) (-48 -48 0) (48 48 32)
+{
+base("_Target");
+base("_Targetname");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED xen_hair (1.0 0.0 1.0) (-8 -8 0) (8 8 32) "Sync Movement"
+{
+base("_Targetname");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED xen_tree (1.0 0.0 1.0) (-24 -24 0) (24 24 188)
+{
+base("_Targetname");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED xen_spore_small (1.0 0.0 1.0) (-16 -16 0) (16 16 64)
+{
+base("_Targetname");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED xen_spore_medium (1.0 0.0 1.0) (-40 -40 0) (40 40 120)
+{
+base("_Targetname");
+base("_RenderFields");
+}
+*/
+
+/*QUAKED xen_spore_large (1.0 0.0 1.0) (-90 -90 0) (90 90 220)
+{
+base("_Targetname");
+base("_RenderFields");
+}
+*/
+
+
+/*QUAKED env_glow (0.1 0.4 0.0) (-4 -4 -4) (4 4 4)
+{
+base("_Targetname");
+base("_RenderFields");
+
+choice "model"
+ (
+  ("sprites/flare1.spr","")
+  ("sprites/flare3.spr","")
+  ("sprites/glow01.spr","")
+  ("sprites/glow02.spr","")
+  ("sprites/glow03.spr","")
+  ("sprites/glow04.spr","")
+  ("sprites/glow05.spr","")
+  ("sprites/yelflare1.spr","")
+ );
+}
+'model'		model
+*/
+
+
+/*QUAKED env_beam (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Start On" "Toggle" "Random Strike" "Ring" "StartSparks" "EndSparks" "Decal End" "Shade Start" "Shade End"
+{
+base("_Targetname");
+base("_RenderFxChoices");
+hl_color "rendercolor";
+
+choice "texture"
+ (
+  ("sprites/fire.spr","")
+  ("sprites/laserbeam.spr","")
+  ("sprites/lgtning.spr","")
+  ("sprites/plasma.spr","")
+  ("sprites/xbeam3.spr","")
+  ("sprites/xenobeam.spr","")
+  ("sprites/XBeam2.spr","")
+ );
+}
+'LightningStart'	Start Entity
+'LightningEnd'	Ending Entity
+'Radius'	Radius (default 256)
+'renderamt'	Brightness (1 - 255) (default 100)
+'rendercolor'	Beam Color (R G B) (default 0 0 0)
+'life'		Life (seconds 0 = infinite) (default 1)
+'BoltWidth'	Width of beam (pixels*0.1 0-255) (default 20)
+'NoiseAmplitude'	Amount of noise (0-255) (default 0)
+'texture'	Sprite Name (default sprites/laserbeam.spr)
+'TextureScroll'	Texture Scroll Rate (0-100) (default 35)
+'framerate'	Frames per 10 seconds (default 0)
+'framestart'	Starting Frame (default 0)
+'StrikeTime'	Strike again time (secs) (default 1)
+'damage'	Damage / second (default 0)
+*/
+
+
+/*QUAKED env_laser (1.0 0.0 1.0) (-16 -16 -16) (16 16 16) "Start On" x x x "StartSparks" "EndSparks" "Decal End"
+{
+base("_Targetname");
+base("_RenderFxChoices");
+hl_color "rendercolor";
+
+choice "EndSprite"
+ (
+  ("sprites/flare3.spr","")
+  ("sprites/glow01.spr","")
+  ("sprites/glow03.spr","")
+  ("sprites/hotglow.spr","")
+  ("sprites/laserbeam.spr","")
+  ("sprites/tinyspit.spr","")
+ );
+choice "texture"
+ (
+  ("sprites/laserbeam.spr","")
+  ("sprites/lgtning.spr","")
+  ("sprites/plasma.spr","")
+  ("sprites/smoke.spr","")
+ );
+}
+'LaserTarget'	Target of Laser
+'renderamt'	Brightness (1 - 255) (default 100)
+'rendercolor'	Beam Color (R G B) (default 0 0 0)
+'width'		Width of beam (pixels*0.1 0-255) (default 20)
+'NoiseAmplitude'	Amount of noise (0-255) (default 0)
+'texture'	Sprite Name (default sprites/laserbeam.spr)
+'EndSprite'	End Sprite (default )
+'TextureScroll'	Texture Scroll Rate (0-100) (default 35)
+'framestart'	Starting Frame (default 0)
+'damage'	Damage / second (default 100)
+*/
+

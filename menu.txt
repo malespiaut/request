@@ -1,0 +1,80 @@
+@"File..."
+ @@"New"=CMD_NEW
+ @@"Load.."=CMD_LOAD
+ @@"Save"=CMD_SAVE
+ @@"Save As.."=CMD_SAVE_AS
+ @@"Load group.."=CMD_GRP_LOAD
+ @@"Save group.."=CMD_GRP_SAVE
+ @@"Load PTS.."=CMD_PTS_LOAD
+ @@"Exit"=CMD_EXIT
+
+@"Brush..."
+ @@"Create..."
+  @@@"Cube"=CMD_BRUSH_CREATE_CUBE
+  @@@"Prism"=CMD_BRUSH_CREATE_PRISM
+  @@@"Room"=CMD_BRUSH_CREATE_ROOM
+  @@@"Pyramid"=CMD_BRUSH_CREATE_PYRAMID
+  @@@"Dodecahedron"=CMD_BRUSH_CREATE_DODEC
+  @@@"Icosahedron"=CMD_BRUSH_CREATE_ICOS
+  @@@"Buckyball"=CMD_BRUSH_CREATE_BUCKY
+  @@@"Torus"=CMD_BRUSH_CREATE_TORUS
+ @@"Modify..."
+  @@@"Rotate"=CMD_BRUSH_ROTATE
+  @@@"Scale"=CMD_BRUSH_SCALE
+  @@@"Snap brush"=CMD_BRUSH_GRIDSNAP
+  @@@"Snap vertices"=CMD_BRUSH_VERTSNAP
+ @@"Delete"=CMD_BRUSH_DELETE
+ @@"CSG..."
+  @@@"Subtract"=CMD_CSG_SUBTRACT
+  @@@"Intersect"=CMD_CSG_INTERSECT
+  @@@"Make hollow"=CMD_CSG_MAKEHOLLOW
+  @@@"Make room"=CMD_CSG_MAKEROOM
+ @@"Join"=CMD_JOIN
+
+@"Curve..."
+ @@"Create"=CMD_CURVE_NEW
+
+@"Entity..."
+ @@"Create"=CMD_ENTITY_CREATE
+ @@"Edit"=CMD_ENTITY_EDIT
+ @@"Rotate"=CMD_ENTITY_ROTATE
+ @@"Delete"=CMD_ENTITY_DELETE
+
+@"Model..."
+ @@"Create"=CMD_MODEL_CREATE
+ @@"Add to"=CMD_MODEL_ADD
+ @@"Edit"=CMD_ENTITY_EDIT
+ @@"Delete"=CMD_ENTITY_DELETE
+ @@"List"=CMD_MODEL_LIST
+
+@"View..."
+ @@"Build BSP Tree"=CMD_BSP_REBUILD
+ @@"Set 2D Grid"=CMD_TOGGLE_GRID
+ @@"Toggle 2D/3D"=CMD_TOGGLE_PERSP
+ @@"3/4 viewports"=CMD_TOGGLE_NUM_VPORTS
+ @@"Shaded preview"=CMD_TOGGLE_SHADED
+ @@"BSP preview"=CMD_TOGGLE_BSP
+ @@"Textured preview"=CMD_TOGGLE_TEXTURED
+ @@"Lighted preview"=CMD_TOGGLE_LIGHT
+ @@"Shadowed preview"=CMD_TOGGLE_LIGHTS
+
+@"Misc..."
+ @@"Create Link"=CMD_LINK_CREATE
+ @@"Check Map"=CMD_CHECK_MAP
+ @@"Map Information"=CMD_MAPINFO
+ @@"Build Level"=CMD_BUILD_POPUP
+ @@"Find leak"=CMD_FINDLEAK
+ @@"Group"=CMD_GROUP_POPUP
+ @@"Screen Capture"=CMD_SCREEN_SHOT
+
+@"Textures..."
+ @@"Def texture"=CMD_TEXTURE_PICK
+ @@"Select textures"=CMD_SELECT_WAD
+ @@"Reread cache"=CMD_REREAD_CACHE
+ @@"Fix duplicates"=CMD_FIX_DUPLICATES
+
+@"Settings..."
+ @@"ReInit Camera"=CMD_CAMERA_REINIT
+ @@"Preferences"=CMD_SETPREFS
+
+@"Undo Last"=CMD_UNDO

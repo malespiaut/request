@@ -1,0 +1,761 @@
++---------------------------+
+| Quest log of changes, etc |
++---------------------------+
+
+
+  version 2.4
++-------------+
+
+
+Features added:
+---------------
+*  Quake 3 support. Detailed information on Quake 3 and curves is in
+  quake3.txt .
+
+*  Sin and Heretic 2 support. They both work mostly like Quake 2 support.
+
+*  Quake 3 bezier patch support. Create a bezier patch array with
+  Curve->Create in the menu. Each patch is a 3 by 3 array of vertices. The
+  corner vertices define the position of the corners, and the vertices
+  in-between change the shape of the curve. Curves can be edited mostly like
+  normal brushes. To change texture alignment on curves switch to face mode,
+  select one (any, but only one) face from a curve and hit ctrl-e. You then
+  get a dialog where you can change the texture coordinates at each vertex.
+  Texture coordinates are given in multiples of the texture size.
+  Unfortunately, since id hasn't released the source to their utilities yet,
+  I don't know exactly how textures are mapped to curves, so you'll have
+  to use trail and error. For the same reason, and due to the BSP stuff
+  not really liking curves, viewing curves in BSP modes is currently
+  disabled.
+
+*  When you hold down the shift or ctrl for a while to select an entity or a
+  brush/face and there are several entities/brushes/faces near the cursor,
+  a window will pop up with a list of the entities/etc. near the cursor,
+  so you can select one from the list. The list will be sorted by distance
+  from the camera.
+
+*  In the face edit dialog, you can choose to align, scale, or flip
+  in only one direction (x or y) or both. You can also click the numbers
+  for shift/scale/rotate and enter new values directly.
+
+*  The entity editor can now help you edit a lot of entities. Right click
+  on a supported key and you'll get a dialog with choices. This is used for
+  many entities in the Quake, Quake 2, Quake 3, Halflife, Sin and Heretic 2
+  entity sets. Among other things, it allows you to easily set colors for
+  lights, set texture for decals (Halflife) and select stuff from lists
+  (sounds, models, light styles, etc.). This is controlled in the entity
+  set files, so you can easily have your own entity sets use these features.
+  Look at the existing entity sets or contact me for information.
+
+*  General UI improvements. Some dialogs are now using new GUI elements, so
+  they'll (hopefully) look and behave better. All text boxes should also
+  work better, and you should be able to exit from every dialog with
+  enter or escape.
+
+*  Customizable viewports. Use 'View->3/4 viewports' to switch between
+  the standard 3 viewport view and a 4 viewport view. If you feel brave
+  you can manually edit .map files to support any arrangment of up to 5
+  viewports.
+
+*  By Tony McDonald: New primitives: dodecahedron, icosahedron, buckyball,
+  and torus. They can all be found under 'Brush->Create->' in the menu.
+
+*  If you want to get the distance between two points in a 2d viewport,
+  move the cursor to the first point, hit ctrl-d, and then move the cursor
+  around to get the distance to the new point.
+
+Changes:
+--------
+*  If you use the rotate brush command when you have vertices selected,
+  only the selected vertices will be rotated (around their center). If no
+  vertices are selected, it behaves like before, i.e. the entire brushes
+  are rotated.
+
+
+Bugs fixed:
+-----------
+*  BSP tree generating is now much better. It will detect and handle all
+  errors, so even if some advanced geometry messes up the BSP tree locally,
+  you'll still be able to see most of the map. Handles special textures
+  (water, lava, etc.) for more games.
+
+*  Handling textures when you're editing multiple maps should work much
+  better now.
+
+*  Loading and saving groups work again.
+
+*  Lots of minor bugfixes.
+
+
+Known bugs:
+-----------
+*  Not all colors will fade with distance in non-fullbright mode.
+   Also, in non-fullbright mode in 2d views, entities with the same z value
+  as the camera will only be drawn sometimes. Non-fullbright and 2d
+  seems strange anyway. I always turn fullbright on.
+
+*  Quest won't run under Windows NT.
+
+Todo:
+-----
+*  Make mirroring curves work.
+
+*  Make BSP, textured, and solid view even more faster???
+
+*  OpenGL support?
+
+
+  version 2.36
++--------------+
+Released December 31 1998.
+
+Features added:
+---------------
+*  Halflife support. Just set everything in quest.cfg correctly and it should
+  work fine. The entity set is a bit crude, but it's complete and accurate,
+  so it should work. Halflife uses 16 bit color textures, and Quest is
+  a 256 color program, so I need to dither the textures before displaying
+  them. This reduces quality some, but it's very fast and the results are
+  quite good. Halflife support uses the same texture cache system as
+  the Quake 2 support. Model drawing is not in, yet.
+
+*  The texture picker and face editor dialogs are dithered (sort of)
+  while drawn, so they'll come up all right no matter what palette you're
+  using. For Quake and Quake 2 there's hardly any difference, but it was
+  neccesary for the palette I use for Halflife textures, and also helps
+  with other palettes (Hexen 2's should work better now, too).
+
+*  Simon Churchill has made a powerful Quake 1 compiling configuration.
+  It can be found in bldq1_2.cfg. Instructions for it are in the file. Also
+  thanks to Simon Churchill for enhancing the menu.
+
+Changes:
+--------
+*  Removed some stuff from the menus (texture remover and fullscreen all).
+  Also removed the old texture adder for Quake 2. Some old, unused stuff
+  was removed from 'quest.cfg'.
+
+Bugs fixed:
+-----------
+*  The odd BSP crashes should be fixed now (at least the causes for them
+  I know).
+
+*  Improved some internal CSG stuff. Loading complex, old style .map files 
+  should no longer cause damaged brushes.
+
+
+  version 2.35
++--------------+
+Released November 14 1998.
+
+Features added:
+---------------
+*  BSP modes use span-buffering. This means no overdraw, and that makes the
+  textured BSP modes MUCH faster.
+
+*  New automatic map building system. Copy buildq1.cfg or buildq2.cfg to
+  build.cfg (depending on which game your using), and see that file for
+  additional instructions. The building system can be accessed in Quest
+  by pressing Alt-B. Cancel closes the dialog without doing anything.
+  Run game toggles whether you want to run the game after compiling the
+  map (build configuration 0). Only visible toggles whether the actual .map
+  file is passed to the building utils or if Quest should write a new .map
+  file with only the currently visible groups in it. Add shell can only
+  be on if Only visible is on. If Add shell is on, Quest will add a shell
+  around your map, thus ensuring there are no leaks. This allows you to test
+  unclosed parts of your map easily. After you've made your choices, click
+  on the button corresponding to the build configuration you want to use.
+  The included buildq1.cfg and buildq2.cfg contains some examples, but it
+  is easy to add your own.
+
+*  Leak finder. Select 'Misc->Find leak' in the menu and Quest will try to
+  find a leak in your map. If it finds a leak, it will be displayed as a line
+  from the outside of the map to an entity. The leak is somewhere along the
+  line. Very complicated architecture may cause the algorithm to fail. If so,
+  use qbsp/qbsp3 to find leaks and use 'File->Load .pts/.lin' to see where it
+  is.
+
+*  Lighted and shadowed preview. Just pick 'Misc->Lighted preview' or
+  'Misc->Shadowed preview' from the menu and the current viewport will
+  switched to lighted/shadowed preview mode. Hit F3, T, or any other
+  key that switches to another mode to turn lighted preview off. Lighted
+  and especially shadowed preview is very slow, so it will update the screen
+  as it draws. It can handle both Quake's and Quake 2's lighting models,
+  although radiosity isn't supported, and light emitting faces aren't split.
+
+*  The Face edit dialog has Flip buttons. These multiply the texture scale
+  by -1 in the axis you choose.
+
+*  The menu is loaded directly from 'menu.txt'. 'menu.dat' is no longer used.
+  If you are brave, you can customize the menu now.
+
+
+  Thanks to Gyro Gearloose for submitting the following three features.
+
+*  New primitive, pyramid. Select 'Brush->Create->Pyramid' in the menu.
+
+*  Snap to vertex. Select some vertices to snap and hit U. If you only
+  selected one vertex, that one will be used as a 'handle', otherwise
+  select the handle and hit the right mouse button. After that select the
+  vertex to snap to, and hit the right mouse button. Quest will now move
+  the vertices so the 'handle' vertex is aligned with the vertex to snap
+  to, while keeping them arranged like before.
+
+*  Brush joining. Select two brushes and hit J. Quest will create a new
+  brush from all planes in the brushes that don't intersect any face in the
+  original brushes. It's like taking the outer faces of the brushes and
+  creating a new one from them.
+
+
+  version 2.3
++-------------+
+Released August 15 1998.
+
+Features added:
+---------------
+*  New texture system. Pressing Ctrl-T brings up the new texture
+  picker/adder. The left list is a list of all categories. The right
+  list has all textures in the current category. To select a category
+  or texture click on it. The selected texture will be drawn in the big
+  area to the right. Flags, contents, and value will appear underneath.
+  You can create new categories with the New button, and delete categories
+  with the Delete button. The *All* category contains all textures. The
+  *Unassigned* contains all texture not in any other category. These
+  categories are standard and can't be deleted. The other categories are
+  user defined. To place a texture in a category, drag it from the texture
+  list to the category, using the RIGHT mouse button. When you've selected
+  a texture, use the Done button to exit the dialog. The fullscreen button
+  will bring up the fullscreen texture picker with the textures in the
+  current category. The cache button toggles whether only textures in the
+  cache are displayed (default), or all textures. The Add button adds the
+  selected texture to the cache. When all textures are displayed, the
+  fullscreen button lets you add textures instead of selecting them (like
+  Fullscreen all, but with only textures in the current category). I've
+  included some sample categories that you can base your categories on,
+  or you could delete all of them and start from scratch.
+
+*  New, neat way to create brushes. In a 2d viewport, hold down control and
+  shift and click somewhere. A vertex will appear where you clicked, and
+  you can continue clicking to add more vertices and define a shape. Click
+  on the first vertex when you're done, and Quest will create a brush with
+  that shape. Right-clicking will also close the shape. Click on the last
+  vertex to delete it. In the third dimension, Quest will place according
+  to where the viewport is placed, unless you had a brush selected when
+  you started creating this brush. If so, Quest will use the selected
+  brush's size. The new brush will be selected after you're done, so if
+  you're creating many brushes that have the same size, you only need
+  to adjust the first one. After that, keep it selected when you create
+  the next brush and it will have the same size. It's a bit hard to
+  explain, but try it, I've found this feature to be very useful, and
+  I use it almost exclusively to create new brushes.
+
+*  The BSP modes are faster and use less memory.
+
+*  item_tech1-4 removed from the Q2 CTF entity set.
+
+Bugs fixed:
+-----------
+*  Some internal CSG stuff would break sometimes.
+
+*  The fullscreen texture picker wouldn't work if there were too many
+  textures.
+
+
+  version 2.28
++--------------+
+Released July 12 1998.
+
+First version distributed under GNU GPL.
+
+Bugs fixed:
+-----------
+*  Strings in the face editor would sometimes be misplaced.
+
+Features added:
+---------------
+*  3-point clipping plane. Hit Shift-C to create one. It can be manipulated
+  just like a brush. To use it, select the brushes to split, hit Shift-S,
+  select the clipping plane, hit the right mouse button, and the brushes
+  will be split.
+
+*  Editing multiple faces. You can select many faces with the same normal
+  and edit them at once in the face editor. They will then all have the
+  same texture and alignment. Also, the auto-align has been split into
+  auto-align and auto-scale, and they behave slightly differently.
+
+
+  version 2.27
++--------------+
+Released June 18 1998.
+
+Features added:
+---------------
+*  Perspective correcting texture mapper. Press Shift-T to use it. It's very
+  slow, but it looks very good. The old, ugly, fast one can still be used
+  by pressing 'T'.
+
+*  All BSP modes are MUCH faster (old textured ~20, others ~70%).
+
+*  Removal of duplicate textures for Quake 2. If you delete your current
+  'textures.dat', Quest will generate a new one and use 'textures.dup' to
+  remove the duplicates. This file has a precompiled lists of duplicates
+  based on image data, and covers Quake 2's and the point release's textures.
+  If you have used textures that are now removed, use
+  'Textures->Fix duplicates' to replace them with the corresponding remaining
+  texture.
+
+*  Quake 2 sound list in the entity editor. Right click on a 'noise' key
+  and you'll get a list of all Quake 2 sounds in the 'world/' directory,
+  with descriptions. The list was written by Gary Marshall.
+
+*  New stuff you create will always be placed in a visible group. This makes
+  it possible to work with the 'World' group hidden.
+
+
+  version 2.26
++--------------+
+Released May 24 1998.
+
+Bugs fixed:
+-----------
+*  Brush copying had a harmless bug that caused Quest to crash under
+  some DPMI servers.
+
+*  Brush welding had some problems. They're fixed now, and welding a lot
+  of brushes is MUCH faster.
+
+*  Keyboard entity movement left didn't work.
+
+Features added:
+---------------
+*  Support for a profiles system. Using the Quest front end, you can define
+  profiles and use them in Quest. This will allow you to easily edit
+  maps for different mods/games. Note that Quest can't switch profiles
+  while running, so if you want to use a different profile, you'll have
+  to exit Quest and start it again. If called with a map on the command
+  line, Quest will switch to that map's profile.
+
+*  In the Texture adder, there is a Fullscreen button. Use this to
+  bring up the fullscreen texture picker with the textures in the
+  current directory. Textures with a white frame are already in the cache.
+  Click on a texture to add it to the cache. Right-click when done. The
+  'Textures->Fullscreen all' menu option will bring this up with ALL
+  textures.
+
+*  Quest will now load and save which textures are in the cache, even those
+  that aren't actually used in the map.
+
+*  Added some warnings when building maps if you haven't saved changes.
+
+
+  version 2.25
++--------------+
+Released April 28 1998.
+
+Features added:
+---------------
+*  Texture locking. Toggle with 'e'. This will attempt to keep the
+  textures correctly aligned to the faces. Note that skewing textures
+  isn't possible, so the texture locking won't work there.
+
+*  New map format. No vertex drifting at all. Smaller files. Faster
+  loading. Set 'map2' to 1 if you want to use it. I've also released a new
+  version of qbsp3 that can load the new format. Quest can still save the
+  old format (set 'map2' to 0), and it will automatically load both the old
+  and new format. You can change 'map2' while in Quest, just bring up the
+  Preferences dialog (Ctrl-P). It's somewhere near the bottom.
+
+*  Multiple maps open at the same time. Switch maps with Alt-1 to Alt-5. You
+  can copy and paste between maps. Remember to save all maps before exiting.
+  You can now add several files to Quest's command line, and it'll load them
+  all.
+
+*  MUCH faster texture mapping.
+
+*  I rearranged the directories. All entity sets can now be found under
+  the 'es' directory. The new Rocket Arena 2 entity set can also be found
+  here. It's basically the normal Quake 2 entity set with some stuff
+  removed, and some comments updated.
+
+*  Hide all but selected. Select some brushes/entities, and hit Ctrl-H.
+  Everything but the ones you selected will disappear. Hit Ctrl-H to make
+  everything else appear again.
+
+*  Grey scale shaded view. Activate with Alt-H. Uses the BSP mode.
+
+*  Keyboard entity movement. Use Shift-Arrows and Shift-Page up and
+  Shift-Page down.
+
+*  Movement of stuff in freelook viewports will be snapped to the
+  nearest axis. Also, you can use Shift-Page up and Shift-Page down to
+  move vertices/entities towards/away from the camera.
+
+*  You can now access the texture adder from the texture picker.
+
+*  The texture adder has a fullscreen mode. Hit the fullscreen button and
+  Quest will bring up the fullscreen texture picker with all the textures
+  in the current directory. The ones with a white frame are already in the
+  cache. Click on a texture to add it. Right click when you're done.
+
+*  Popup menu. Set 'pop_menu' to 2 to use it. The menu will only appear
+  when you right click (not drag), or if you click the third mouse button
+  (if you have one). Click outside the menu, or click the right/third mouse
+  button again to close it, or pick a command as usual.
+
+*  The face editor has been changed. It will now position itself in the
+  lower left corner of the screen, and will change size depending on the
+  size of the face being edited.
+
+*  Brush weld. Select lots of brushes. Hit 'w'. Quest will now attempt
+  to combine the brushes. If you selected lots of brushes, this will take
+  lots of time. Note that for Quest to weld two brushes, the resulting brush
+  must be convex. Also, the two original brushes must be attached to the same
+  entity, and they may not have two identical planes with the same texture
+  (although different alignment doesn't matter).
+
+*  Messages in the status bar now have a number in front of them, so you
+  can see if it gets updated.
+
+*  Added some checking to the consistency checker. Should now find brushes
+  with 'bad normal' errors. They'll be flagged as 'Degenerated edge!'.
+
+Bugs fixed:
+-----------
+*  BSP mode should work without any textures at all now.
+
+
+  version 2.21
++--------------+
+Released April 04 1998.
+
+Bugs fixed:
+-----------
+*  Using BSP or textured mode error messages is fixed now. It wasn't
+  completely fixed in the last version.
+
+*  Link lines (target/targetname) in model mode weren't always drawn.
+
+Features added:
+---------------
+*  MDL and MD2 viewing. Make sure mdlpaks and draw_models are correct in
+  quest.cfg, start Quest, and go to entity mode. Not all entities have
+  models, but a lot of them have.
+
+*  Hexen 2 support. Set quake2 to 0 and point classdir at qchexen2/*.qc.
+
+*  The entity edit dialog now has the ability to easily edit some
+  keys. Those keys will be drawn in a light grey color, instead of black.
+  Select one and press Edit, or right click on it, and you'll get a
+  dialog for that key. Currently supported keys are classname, which
+  brings up the entity picker, and _color, which brings up a color
+  editing dialog. See the Quest manual for more info.
+
+*  In model mode, Quest now draws a pink line to indicate
+  pathtarget/targetname relations.
+
+*  The undo system is now complete. Everything is undoable.
+
+Changes:
+--------
+*  The keyboard increase and decrease depth clip behave differently now.
+
+*  Made the text editing cursor easier to see (red).
+
+  version 2.2
++-------------+
+Released March 28 1998.
+
+Bugs fixed:
+-----------
+*  If you tried to use BSP or textured preview without having the textures,
+  you'd get one error message per face. Now you only get one per redraw.
+
+Features added:
+---------------
+*  Quest is now compiled with GCC 2.8.0 with instruction rescheduling, so it
+  is faster than the previous versions (at least on Pentiums and later).
+
+*  Undo system! Make some changes, and then press Ctrl-Z. Quest will now undo
+  them. It's a 5 level undo system, and it can undo almost everything.
+  However, the CSG Subtraction can't currently be undone.
+
+*  New way to split faces! Select a face. Select an edge (ie. two vertices).
+  Press Alt-S. Select another edge. Press the right mouse button. The two
+  edges will be split in half, and the face will be split with an edge
+  thru the two new vertices.
+
+*  Bookmarks in the fullscreen texture selector. Use Alt-1..0 to define a
+  bookmark, and 1..0 to go to it.
+
+*  You can hold down the keys when moving vertices with the keyboard.
+
+*  A new setting in quest.cfg, snap_to_int. When set to 1 (default), Quest
+  will snap all vertices to integer positions when saving the map. This
+  might fix problems with vertex drifting.
+
+*  In quest.cfg, you can now control the mouse sensitivity in both the x and
+  y axis.
+
+*  Improved CSG subtraction. Quest will now split with the axis-aligned
+  planes before the non-axis-aligned ones. This improves the result in some
+  cases, for example when subtracting prisms from cubes.
+
+*  Quest can now load the .pts and .lin files generated by qbsp and qbsp3.
+  This should help you track leaks. Use File->Load PTS to load the file.
+  Toggle the display of the lines with 'L'. The lines will show up red, with
+  the ends marked with blue and green. The leak is somewhere along the line.
+   QBSP3 (for Quake2) generates a really useful lin file, and finding leaks
+  using it is easy.
+   Old qbsp (for Quake) generates a pts file with hundreds of points, most
+  of them unnecessesary. Finding leaks using this is not as easy, but it
+  should point you in the right direction.
+
+*  Quake 2 specific: You can use the keyboard in the Texture adder. Press a
+  letter and Quest will jump to the first texture starting with that letter.
+  You can also use up, down, home, end, and enter to navigate.
+
+*  The texture information for Quake 2 editing is saved to textures.dat. This
+  means Quest will load a lot faster again. If you add textures to your
+  texture directories, delete textures.dat and Quest will regenerate it the
+  next time you start it.
+
+Changes:
+--------
+*  I've rewritten the configuration file system to avoid some old problems.
+
+*  In textured preview, Quest will only texture map faces within the
+  depth clip distance. The other faces will be drawn in a single color.
+
+
+  version 2.12
++--------------+
+Released March 15 1998.
+
+Bugs fixed:
+-----------
+*  The 'Unable to set requested video mode' error that some of you were
+  getting should be fixed now.
+
+
+  version 2.11
++--------------+
+Release March 14 1998.
+
+Features added:
+---------------
+*  Added keyboard vertex movement again. In face or brush mode, select the
+  vertices you want to move, and use shift-arrows to move them.
+
+*  Added support for Quest to load the textures directly from the pak files.
+  See wadfilename in quest.cfg for instructions on how to do this. This also
+  means Quest will build a list a all textures upon startup, which might take
+  some time (3 seconds on my P90).
+
+Bugs fixed:
+-----------
+*  The Quake 2 texture adder (Textures->Select textures) had a bug in it that
+  made some textures not appear. With the new texture system, this should be
+  fixed.
+
+*  The code to handle video cards with granularities that weren't 64kb was
+  buggy. I hope this will fix most of the strange video problems.
+
+*  There was a strange bug in the keyboard system that hardly ever appeared,
+  but I found it while adding keyboard vertex movement.
+
+*  If there weren't any textures, the texture picker would come up garbled.
+  Now it gives you an error message instead.
+
+Changes:
+--------
+*  If you call Quest with the new of a map without the extension, Quest will
+  now automatically add '.map'.
+
+*  The texture picker will now allow '/' and '\' in texture names. '\'s will
+  be converted to '/'s.
+
+*  The coordinates for the second grid will now only be displayed if you 
+  aren't zoomed out too much.
+
+*  The dump core question upon unrecoverable errors has been removed, as it
+  wasn't useful for normal users anyway.
+
+*  Creating a new entity will switch you to entity mode.
+
+
+  version 2.1
++-------------+
+Released March 12 1998.
+
+Bugs fixed:
+-----------
+*  If class_dir was incorrectly set in quest.cfg, the entity picker would
+  crash.
+
+*  Unloading a map (eg. when loading or creating a new map) would zero out
+  the wadfilename. This is good in Quake, but is causes the new Quake 2 map
+  to not be able to load the textures.
+
+Features added:
+---------------
+*  Textured preview!!! Just enter BSP mode with F3, and press 't'. Then
+  wait a while, and eventually the viewport should become textured. This
+  is REALLY slow, and as the texture mapping is all linear, it looks pretty
+  bad sometimes. But still, it gives you a good impression of what the level
+  is going to look like, and it's faster than building the level and starting
+  Quake/Quake 2. As it uses BSP mode, you'll have to rebuild the BSP tree
+  with shift-F3 to see any changes you make to the level.
+   The normal (non-textured) BSP mode has also been changed. Instead of
+  assigning colors at random (almost), it will calculate an average color
+  for the texture and draw the face with that color. This looks much better
+  than the old way, and is just as fast.
+   If you want the textured preview to look like Quake, you'll have to
+  switch to Quake's palette. This can be done with shift-P. Ctrl-shift-P
+  should switch back to Quest's palette.
+
+*  I also added a debug mode. Run:
+     quest -D > debug.txt
+  and Quest will output debugging info to debug.txt. If you have strange
+  problems with the video system, this is what should run, and then send
+  me the file.
+
+
+  version 2.0
++-------------+
+Released March 09 1998.
+
+Bugs fixed:
+-----------
+*  Button system would leak buttons, especially the group dialog. It would
+  eventually overflow and overwrite memory.
+
+*  Edit face dialog would leak bitmaps, eventually leading to a crash.
+
+*  Grid drawer would sometimes try to draw the grid outside the window,
+  resulting in blue lines across the screen and/or overwritten memory.
+
+*  BSP functions referenced the real map data, so if you changed something,
+  the change would be semi-reflected in BSP mode. This made it draw
+  everything wrong or crash.
+
+*  In BSP mode, the face drawing function would sometimes crash.
+
+*  Copy and paste have been fixed. Previously they only made a reference
+  to the brush/entity you copied, and duplicated it when you pasted. If
+  you edited the original after copying, the change would appear in the
+  copy too. If you deleted the original and then pasted, it would crash.
+
+*  Lots of other stuff I forgot.
+
+
+Changes:
+--------
+*  Should an unrecoverable error happen, Quest will make an attempt to save
+  the current map to 'q_backup.map' before terminating.
+
+
+Features added:
+---------------
+*  Quake2 support. Quest can load and save the new Quake2 fields. The
+  texture system has been upgraded to handle Quake2 textures.
+
+*  New dialog, Surface flags (Alt-F, face|brush mode), used to modify the
+  Quake2 specific fields of faces. All selected faces and faces on selected
+  brushes will be edited with this command.
+
+*  Quest can now be run from any directory. For most files, it will look
+  in first the current directory and then the directory 'quest.exe' is
+  in. This allows you to only have one version of Quest installed and still
+  edit both Quake and Quake 2. All you need to do is have multiple quest.cfg
+  files and run Quest from the directory containing the one you want to use.
+
+*  Textures are completely cached, they will only be loaded once.
+
+*  The face dialog has support for rotation, and will display ALL faces
+  correctly (I hope). There is also a auto-align button. This will attempt
+  to align a texture automatically by scaling and shifting it. It won't
+  rotate, and only works (properly) with rectangular faces.
+
+*  Two grids are now drawn, a dark-blue, normal one and a light-blue one,
+  every fourth normal grid line. Thus, if you set the gridsize to 16,
+  you will get one grid with a size of 16, and one with a size of 64.
+  You will also see coordinates for every fourth grid line.
+
+*  New CSG function, Make Hollow (H, brush mode). This will make all selected
+  brushes hollow. The resulting brushes will have a perfect interior and
+  exterior surface,  but will overlap.
+
+*  Another new CSG function, Make Room (R, brush mode). This is like Make
+  Hollow, except it won't bother about the exterior. It will create a perfect
+  interior and no overlapping brushes.
+
+*  The entire keyboard configuration is read from 'key.cfg'. This allows you
+  to customize it to your liking. The menu system also uses the commands
+  described in 'key.cfg', so you can easily bind keys to your favorite
+  menu commands.
+
+*  The old entity/script handling has been removed and replaced with a much
+  better (IMO) system.
+   The new system will parse the files selected in 'quest.cfg' to find valid
+  classnames and information about them. For Quake, the files parsed should
+  be the .qc files, and for Quake2, the .c files in the game/ directory.
+  Both are available for download from a lot of places.
+   The entities are no longer drawn using the .mdl file. Instead the exact
+  clip sizes will be used to draw a simple box. While this doesn't look as
+  pretty as the .mdl files, it allows you to see exactly how big entities
+  are and place them correctly.
+   The script system has been replaced by a model system. Entities with
+  brushes (models) will be displayed with their origin at the center of its
+  brushes and the box will have extents of them. This allows you to select,
+  edit, and move models just like normal entities. You can also copy and
+  paste models.
+   The entity editor, used for both entities and models, will display all
+  information it has about the classname, and allows you to edit any key.
+  You can also edit many entities at the same time. It should be easy to
+  use. Just select a entity and press Ctrl-E. The window will have three
+  parts. The first displays available help for this entity, the second
+  will list all valid spawnflags, allowing you to easily change them,
+  and the third lists all keys/values. To add a new key/value, just click
+  in the "new key" field at the bottom and type the key, press enter, and
+  then type the value (and press enter). The new key/value should now
+  appear in the list.
+   The entity picker has been redone, and is very different.
+
+*  Vertex/edge/face merging is implemented. Just drag two vertices over
+  each other and they will be merged, removing edges and faces as needed.
+  This is a good way to create degenerated brushes.
+
+*  Edge/face splitting is also implemented.
+   In face mode, select two vertices on the same edge and press Ctrl-L. A
+  new vertices will be created between the two original vertices.
+   To split a face, select it and two vertices not on the same edge. A new
+  edge will be created between the two vertices and the face will be split.
+
+*  A freelook mode has been implemented. While in a 3d mode, press V and
+  the turn keys will turn in 5 degree steps instead of 90 degrees. If you
+  feel brave, you can also edit in this mode, although it is primarily
+  useful for selecting.
+
+*  Map info dialog (Ctrl-I). Tells you how many brushes, entities, and
+  models your map contains. Also give information about used targets and
+  teams, to simplify usage of these.
+
+*  Model dialog (Ctrl-M, entity|model mode). Gives you a list of all models
+  in the map, and how many brushes they have. This allows you to edit/delete
+  models you can't select any other way.
+
+*  The message system will only save the last 10 messages, so as not to eat
+  too much memory.
+
+*  The screenshot function will now compress the output file.
+
+*  Support for VBE 2.0 and linear frame buffer. This speeds up drawing
+  pretty much.
+
+
+
+  version 1.1
++-------------+
+Original source code release from Chris Carollo and Trey Harrison. Released
+November 23 1996 (I think).
+

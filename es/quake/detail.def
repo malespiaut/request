@@ -1,0 +1,4 @@
+/*QUAKED am_detail (1 0.5 1) ?
+Brushes belonging to an am_detail entity are detail brushes and will not
+be used to create visibility portals.
+*/

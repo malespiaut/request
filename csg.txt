@@ -1,0 +1,27 @@
+
+ - Brush CSG Subtraction!  Here's how to use this:
+
+    1. Select the brushes you want to subtract 'from'. They will be 
+       smashed, split, cut, however you want to say it.
+    
+    2. Hit 'i'.
+    
+    3. Select the brushes you want to subtract 'with'. They will do 
+       the subtracting and remain unchanged. After the subtraction,
+       these brushes will remain highlighted. So if you wanna get rid
+       of all of them, just hit the delete key after subtracting.
+    
+    4. Right-click.
+    
+    5. Poof! The subtraction has been done.
+
+ - Brush CSG Intersection!  This is similar to the subtraction concept,
+   but in reverse.  It creates a brush that is the space that the
+   two brushes have in common.  The easiest way to see what this does
+   is to use it on two brushes that are intersecting.  Anyway, here's
+   how to do it:
+
+   1. Select two brushes.  Order doesn't matter.
+   2. hit 'o'.
+   3. Poof! The intersection brush has been created.
+
