@@ -68,8 +68,8 @@
  @@"Screen Capture"=CMD_SCREEN_SHOT
 
 @"Textures..."
- @@"Def texture"=CMD_TEXTURE_PICK
- @@"Select textures"=CMD_SELECT_WAD
+ @@"Select texture"=CMD_TEXTURE_PICK
+ @@"Select .wad file"=CMD_SELECT_WAD
  @@"Reread cache"=CMD_REREAD_CACHE
  @@"Fix duplicates"=CMD_FIX_DUPLICATES
 
