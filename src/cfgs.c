@@ -1370,14 +1370,8 @@ int ExecCmd(int cmd)
       break;
 
    case CMD_CHECK_MAP:
-		if (!ConsistencyCheck())
-		{
-			NewMessage("Consistency Check: Map has errors");
-		}
-		else
-		{
-		   NewMessage("Consistency Check: Map has no errors");
-      }
+		ConsistencyCheck();
+      redraw=2;
       break;
 
    case CMD_SCREEN_SHOT:

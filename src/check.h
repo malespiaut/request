@@ -3,7 +3,7 @@
 
 int CheckBrush(struct brush_s *b, int verbose);
 
-int ConsistencyCheck(void);
+void ConsistencyCheck(void);
 
 #endif
 
