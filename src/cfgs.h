@@ -18,7 +18,7 @@ typedef struct
    const char *desc;
 } def_t;
 
-extern def_t keys[];
+extern def_t key_defs[];
 
 extern def_t k_flags[];
 
