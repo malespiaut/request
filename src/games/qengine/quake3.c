@@ -905,3 +905,98 @@ void Q3_Init(void)
    }
 }
 
+
+/* TODO */
+
+/*
+
+
+(a,b,c) -> (d,e,f)
+
+d=a+vx*t
+e=b+vy*t
+f=c+vz*t-400*t^2
+
+vz-800*t=0
+vz=800*t
+
+f=c+800*t*t-400*t*t=c+400*t^2
+t^2=(f-c)/400
+t=(f-c)^0.5/20
+
+*/
+#include <math.h>
+
+#include "3d.h"
+#include "entity.h"
+#include "quest.h"
+
+#define NUMPTS   32
+#define STEP     0.1
+#define GRAVITY  800.0
+void Quake3_JumpPad(void)
+{
+   vec3_t to;
+   const char *c1,*c2;
+   entity_t *e1,*e2;
+
+   vec3_t pos,vel;
+   float t;
+
+   int i;
+
+
+   if (M.display.num_eselected!=2)
+      return;
+
+   FreePts();
+   M.pts=Q_malloc(sizeof(vec3_t)*NUMPTS);
+   M.tpts=Q_malloc(sizeof(vec3_t)*NUMPTS);
+   if (!M.pts || !M.tpts)
+   {
+      Q_free(M.pts);
+      Q_free(M.tpts);
+      M.pts=M.tpts=NULL;
+      return;
+   }
+   status.draw_pts=1;
+   M.npts=NUMPTS;
+
+   c1=GetKeyValue(M.display.esel->Entity,"classname");
+   c2=GetKeyValue(M.display.esel->Next->Entity,"classname");
+
+   if (!strcmp(c1,"target_position"))
+      e1=M.display.esel->Entity,e2=M.display.esel->Next->Entity;
+   else
+      e2=M.display.esel->Entity,e1=M.display.esel->Next->Entity;
+
+   c1=GetKeyValue(e1,"origin");
+   sscanf(c1,"%f %f %f",&to.x,&to.y,&to.z);
+   pos=e2->center;
+
+/*   printf("(%g %g %g) -> (%g %g %g)\n",
+      pos.x,pos.y,pos.z,to.x,to.y,to.z);*/
+
+   t=to.z-pos.z;
+   if (t<0)
+      t=0;
+
+   t=sqrt(t)/20; /* 20=sqrt(gravity/2) */
+
+   vel.z=t*GRAVITY;
+   vel.x=(to.x-pos.x)/t;
+   vel.y=(to.y-pos.y)/t;
+
+//   printf("t=%g vel=(%g %g %g)\n",t,vel.x,vel.y,vel.z);
+
+   for (i=0;i<NUMPTS;i++)
+   {
+      M.pts[i]=pos;
+      pos.x+=vel.x*STEP;
+      pos.y+=vel.y*STEP;
+      pos.z+=vel.z*STEP;
+
+      vel.z-=GRAVITY*STEP;
+   }
+}
+

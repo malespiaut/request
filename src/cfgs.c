@@ -1561,9 +1561,15 @@ int ExecCmd(int cmd)
 
    case CMD_TOGGLE_POLY:
       if (M.display.vport[M.display.active_vport].mode != SOLID)
+      {
+         SetPal(PAL_TEXTURE);
 		   M.display.vport[M.display.active_vport].mode = SOLID;
+      }
       else
+      {
+         SetPal(PAL_QUEST);
          M.display.vport[M.display.active_vport].mode = WIREFRAME;
+      }
       redraw=1;
       break;
 
@@ -1934,6 +1940,8 @@ int ExecCmd(int cmd)
          if (i)
             LoadPortals(buf);
       }*/
+      Quake3_JumpPad(); /* TODO */
+      redraw=2;
       break;
 
    case CMD_DEBUG_3: /* TODO */
