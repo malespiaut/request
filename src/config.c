@@ -116,6 +116,7 @@ void LoadConfig(const char *filename,int first)
       status.zoom_speed      = 1.125;
       status.flip_mouse      = 0;
       status.use_vbe2        = 0;
+      status.turn_frames     = 5;
    }
 
    FindFile(name,filename);

@@ -1868,6 +1868,8 @@ void RotateDisplay(int from,int to)
    v->camera_dir=to;
    GetRotValues(vport,&er[0],&er[1],&er[2]);
 
+   if (status.turn_frames<=0) status.turn_frames=1;
+
    for (i=0;i<3;i++)
    {
       dr[i]=er[i]-sr[i];
