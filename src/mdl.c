@@ -190,10 +190,14 @@ void DrawModel(int vport,entity_t *ent,matrix_t m,int selected)
 
    if (!M.display.vport[vport].fullbright)
    {
-/* TODO: lookup color in dark[] table to make it darker */
       if (M.display.vport[vport].mode == WIREFRAME ||
           M.display.vport[vport].mode == SOLID )
-         color -= ent->trans.z*9;
+      {
+         i=ent->trans.z*9;
+         if (i<0) i=0;
+         if (i>15) i=15;
+         color = COL_DARK(color,i);
+      }
    }
 
    if (c->mdl && status.draw_models)

@@ -19,6 +19,7 @@ See legal.txt for more information.
 #include "entclass.h"
 
 #include "button.h"
+#include "color.h"
 #include "entity.h"
 #include "error.h"
 #include "filedir.h"
@@ -41,49 +42,6 @@ static int num_base_classes;
 
 static FILE *f;
 static char l[256];
-
-
-int GetCol(float rf,float gf,float bf,int update)
-{
-   int r,g,b;
-   int i;
-
-   r=rf*64;
-   g=gf*64;
-   b=bf*64;
-   if (r>63) r=63;
-   if (r<0) r=0;
-   if (g>63) g=63;
-   if (g<0) g=0;
-   if (b>63) b=63;
-   if (b<0) b=0;
-
-   for (i=0;i<256;i++)
-   {
-      if ((video.pal[i*3+0]==r) &&
-          (video.pal[i*3+1]==g) &&
-          (video.pal[i*3+2]==b))
-      {
-         return i;
-      }
-   }
-   for (i=176;i<256;i++)
-   {
-      if ((!video.pal[i*3+0]) &&
-          (!video.pal[i*3+1]) &&
-          (!video.pal[i*3+2]))
-      {
-         video.pal[i*3+0]=r;
-         video.pal[i*3+1]=g;
-         video.pal[i*3+2]=b;
-
-         if (update) SetGammaPal(video.pal);
-
-         return i;
-      }
-   }
-   return 15;
-}
 
 
 static void FixStr(char *str)
@@ -689,7 +647,7 @@ void DrawClassInfo(int bx,int by,int sizex,int sizey,char *name)
 
       return;
    }
-   col=GetCol(c->col[0],c->col[1],c->col[2],1);
+   col=AddColor(c->col[0],c->col[1],c->col[2],1);
 
    QUI_DrawStr(bx,by+ 0,BG_COLOR,col,0,0,
       "%s",name);
@@ -930,7 +888,7 @@ void FixColors(void)
    for (i=0;i<num_classes;i++)
    {
       c=classes[i];
-      c->color=GetCol(c->col[0],c->col[1],c->col[2],0);
+      c->color=AddColor(c->col[0],c->col[1],c->col[2],0);
    }
    SetGammaPal(video.pal);
 }

@@ -77,7 +77,7 @@ int GetTexColor(texture_t *tex)
    r/=i;
    g/=i;
    b/=i;
-   tex->color=GetCol(r,g,b,0);
+   tex->color=AddColor(r,g,b,0);
 
    tex->colv[0]=r;
    tex->colv[1]=g;

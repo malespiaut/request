@@ -990,8 +990,6 @@ static void DrawBrushFace(brush_t *b,int face,int base_color,int force_bright)
       DrawBrushFaceEdges(b,face,base_color,force_bright);
       return;
    }
-/* TODO : draw individual curve faces, have to avoid drawing earlier to make
-   it work */
 }
 
 
@@ -1100,19 +1098,18 @@ static void DrawBrushEdges(int vport,brush_t *b,int base_color,int selected)
 					if ((tverts[from].z > 1) && (tverts[to].z > 1)) continue;
 				}
 
-/* TODO: lookup color in dark[] table to make it darker */
 				if ((!M.display.vport[vport].fullbright) && (!selected))
 				{
 					if (tverts[to].z < 0)
-						color = base_color - tverts[from].z * 6;
+						color = COL_DARK(base_color,tverts[from].z * 6);
 					else
 					if (b->tverts[from].z < 0)
-						color = base_color - tverts[to].z * 6;
+						color = COL_DARK(base_color,tverts[to].z * 6);
 					else
 					{
 						color = (tverts[from].z + tverts[to].z) * 5;
 						if (color > 15) color = 15;
-						color = base_color - color;
+                  color = COL_DARK(base_color,color);
 					}
 				}
 				else
@@ -1618,6 +1615,7 @@ static void DrawViewport(matrix_t m)
                for (b=M.BrushHead; b; b=b->Next)
                {
                   if (!b->drawn) continue;
+                  if (b->bt->type==BR_Q3_CURVE) continue;
 
                   for (i=0; i<b->num_planes; i++)
                   {
