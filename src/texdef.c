@@ -40,7 +40,8 @@ void SetTexture(texdef_t *t,char *name)
    {
       strcpy(t->name,name);
    }
-   Game.tex.settexdefdefault(t);
+   if (Game.tex.settexdefdefault)
+      Game.tex.settexdefdefault(t);
 }
 
 void InitTexdef(texdef_t *t)
