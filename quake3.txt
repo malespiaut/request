@@ -2,8 +2,9 @@ Quake 3 support in Quest
 ------------------------
 
 First, get the Q3Radient editing package. It contains the programs needed to
-compile maps (q3map and bspc), some important textures in mapmedia.pk3, and
-the shader files.
+compile maps (q3map and bspc, only Win32 versions, I'll port them to Linux
+as soonas Id releases the source), some important textures in mapmedia.pk3,
+and the shader files.
 
 Quest can't load .pk3 files directly (yet), so you'll need to extract all
 the textures from pak0.pk3 and mapmedia.pk3 . q3map seems to have problems
@@ -38,4 +39,13 @@ Quake 3 will refuse to load maps that aren't in a .pk3 file.
 
 If you want to use 'cheats' (noclip and r_showtris are useful) in a
 map, use '\devmap foo' instead of '\map foo' to enter the map.
+
+
+If you're having problems setting the destination of a jumppad, Quest can
+calculate the path for you. Select the target_position and the trigger_push
+and hit ctrl-alt-p and Quest will display the path a person that steps
+on the trigger_push will follow. This way you can check if he'll land where
+you want him to, and if not, move the target_position and use the command
+again, etc.
+
 

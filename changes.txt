@@ -5,34 +5,58 @@
 
   version 2.4
 +-------------+
-
+Released March 28 2000.
 
 Features added:
 ---------------
-*  Quake 3 support. Detailed information on Quake 3 and curves is in
+*  Quake 3 support. Detailed information on editing Quake 3 is in
   quake3.txt .
 
 *  Sin and Heretic 2 support. They both work mostly like Quake 2 support.
+  See quest.cfg for details on setting it up.
 
 *  Quake 3 bezier patch support. Create a bezier patch array with
   Curve->Create in the menu. Each patch is a 3 by 3 array of vertices. The
   corner vertices define the position of the corners, and the vertices
   in-between change the shape of the curve. Curves can be edited mostly like
-  normal brushes. To change texture alignment on curves switch to face mode,
-  select one (any, but only one) face from a curve and hit ctrl-e. You then
-  get a dialog where you can change the texture coordinates at each vertex.
-  Texture coordinates are given in multiples of the texture size.
-  Unfortunately, since id hasn't released the source to their utilities yet,
-  I don't know exactly how textures are mapped to curves, so you'll have
-  to use trail and error. For the same reason, and due to the BSP stuff
-  not really liking curves, viewing curves in BSP modes is currently
-  disabled.
+  normal brushes.
+   To change texture alignment on curves selecet a curve (only one) and hit
+  ctrl-e. You then get a dialog where you can change the texture coordinates
+  at each vertex. Texture coordinates are given in multiples of the texture
+  size. The 'Reset' button resets the texture coordinates. The 'Fit' button
+  will fit the texture coordinates, i.e. it will calculate place the texture
+  coordinates at all vertices, using the top left and bottom right corners
+  as a reference. The 'Even' button is like fit, but instead of just using
+  linear values between corners, it will use the shape of the curve in the
+  calculations to get a more even alignment (i.e. texels will be the same
+  size all over the curve). If you hit the 'Natural' button you get to
+  select a major axis, and once you've done that, Quest will align the
+  texture on the face is if it were a normal face (but with scale 0.5). This
+  is useful when you want the texture to line up with textures on nearby
+  faces.
+   Curves aren't display in any of the BSP-modes, but they are display in
+  the z-buffered polygon view mode.
+
+*  The z-buffered polygon view is now texture-mapped and allows editing.
+  Click on a brush or a face (any part of it that you can see) to
+  select it. Vertices are selected like in normal 3d views (shift+drag
+  mouse). This mode is still a bit slow, but it's very useful when you
+  want to see changes as you make them.
+
+*  You can also align textures in the map view now. Select one or several
+  faces or brushes, and hit ctrl-key arrows to move the texture, and
+  ctrl-shift-key arrows to scale it. In polygon mode, you can see the
+  changes as you make them. These keys are also useful when you want to
+  change the alignment of many faces or brushes at the same time.
+   If you select a curve, only the ctrl-keys work (not ctrl-shift-arrows).
+  Also, if you select some vertices on the curve, only the texture
+  coordinates at those vertices are changed.
 
 *  When you hold down the shift or ctrl for a while to select an entity or a
-  brush/face and there are several entities/brushes/faces near the cursor,
+  brush/face and there are several entities/brushes/faces under the cursor,
   a window will pop up with a list of the entities/etc. near the cursor,
   so you can select one from the list. The list will be sorted by distance
-  from the camera.
+  from the camera (closest first).
 
 *  In the face edit dialog, you can choose to align, scale, or flip
   in only one direction (x or y) or both. You can also click the numbers
@@ -52,12 +76,15 @@ Features added:
   work better, and you should be able to exit from every dialog with
   enter or escape.
 
+*  Quest now runs on Linux (i386 svgalib and X11). A big thanks to
+  Stephan Kanthak and everyone else who helped with this.
+
 *  Customizable viewports. Use 'View->3/4 viewports' to switch between
   the standard 3 viewport view and a 4 viewport view. If you feel brave
   you can manually edit .map files to support any arrangment of up to 5
   viewports.
 
-*  By Tony McDonald: New primitives: dodecahedron, icosahedron, buckyball,
+*  From Tony McDonald: New primitives: dodecahedron, icosahedron, buckyball,
   and torus. They can all be found under 'Brush->Create->' in the menu.
 
 *  If you want to get the distance between two points in a 2d viewport,
@@ -92,7 +119,7 @@ Known bugs:
 *  Not all colors will fade with distance in non-fullbright mode.
    Also, in non-fullbright mode in 2d views, entities with the same z value
   as the camera will only be drawn sometimes. Non-fullbright and 2d
-  seems strange anyway. I always turn fullbright on.
+  seems strange anyway. I always turn fullbright on, at least in 2d views.
 
 *  Quest won't run under Windows NT.
 

@@ -1,0 +1,122 @@
+ Installation instructions for Quest 2.4 (beta version) under Linux
+written by Alexander Malmberg, last updated 9/2-2000.
+
+Legal
+=====
+Copyright 1997, 1998, 1999, 2000 Alexander Malmberg <alexander@malmberg.org>
+Copyright 1996, Trey Harrison and Chris Carollo
+
+Distributed under the GNU General Public
+License. See legal.txt for more information.
+
+
+Fast install
+============
+Try:
+
+'cd src; ./configure; make; make install; cd ..'
+
+Configure Quest by editing quest.cfg and try to start it. This should
+work. If it doesn't, check the rest of this file for information.
+
+Introduction
+============
+Welcome to Quest! Quest is a fully-featured map editor for Quake, Quake 2,
+Quake 3 and related games. It runs under DOS/Win32 (DJGPP) and Linux-i386
+(SVGALib and X-Windows). This file will tell you how to install Quest
+under Linux, and will also document any Linux-specific stuff. The rest
+of the documentation was written for the DJGPP version, but a lot of it
+still applies (format of configuration files and behavior of Quest
+once it's up and running is identical). Most of the documentation is
+out of date, but changes.txt should be a reliable source of
+information, and information there overrides any other source.
+
+Quest is currently maintained by me (Alexander Malmberg), so any questions,
+comments, etc. should be sent to <alexander@malmberg.org> . If you have
+a general Quest question, you might want to try the Quest mailing list.
+Instructions for joining, and instructions for getting the latest versions
+by CVS, the Quest manual, and general Quest news and information can be
+found at http://www.frag.com/quest/ .
+
+Requirements
+============
+General:
+ - i386 computer running Linux. The X version should be fairly portable to
+   other 32-bit Unix-like OS:s, and it used to compile on Linux-Alpha, but
+   that hasn't been tested in a while.
+ - For Quake 3 support: libjpeg . If you don't have libjpeg and don't want
+   Quake 3 support, remove quake3.o and q3_jpg.o from QUEST_GAMES_O in
+   Makefile.objects, and remove the 'Quake3' line in game.c . It is possible
+   to get Quake 3 support without .jpg support, but it would be very 
+   crippled.
+ - C and C++ compiler (gcc/g++ or egcs should work), make, standard
+   libraries and header files, etc.
+
+
+X version:
+ - libX11, libXext, libXpm, and related header files
+
+ Quest renders stuff at 8bpp internally, but should work at 15, 16, 24 and
+ 32 bpp, although much slower, and as long as color masks are what it
+ expects. For speed reasons, it is highly recommended that you use an 8bpp
+ mode when using Quest.
+
+
+SVGALib version:
+ - libsvga and related header files
+ - An 8bpp graphics mode
+
+ Depending on how your system is set up, you might have to make squest setuid
+ root for it to work. Note that Quest hasn't been written with security in
+ mind, so you should only do this on single-user systems.
+
+
+If you have a precompiled package, you can skip compiling and installing
+and go directly to configuring.
+
+
+Compiling
+=========
+After unpacking Quest to any directory, go to the src/ directory and type:
+
+'./configure ; make dep ; make'
+
+The configure script will attempt to figure out if you have SVGALib and/or
+X-Windows installed, and try to locate them. If it doesn't succeed, you can
+use the '--with-x' and '--without-svga' switches to tell it what versions to
+build. All the configuration data is in Makefile.cfg, so you might want to
+look at it to make sure everything is OK. The 'make' should create one or
+two binaries, xquest and squest . If something goes wrong, you'll have to
+fix it yourself (though I'll try to help if you contact me).
+
+Installing
+==========
+
+'make install'
+
+will copy the generated executables to the base Quest directory. For now,
+Quest expects to find all its files in subdirectories of the directory the
+executable is in, but you can run it from anywhere, and files (including
+configuration files) found in the current directory override files found
+in the executable's directory.
+
+Configuring
+===========
+Open 'quest.cfg' in a text editor and change the settings. Instructions
+are in quest.cfg . Quest won't work properly unless it knows where
+to find textures and similar stuff.
+
+
+Quest should now be properly installed. To start it, type './xquest' or
+'./squest', depending on which version you want to use. To learn how
+to use Quest, you'll probably want to get the Quest manual from the
+Quest site (address above). Some of it is a bit out of date, though,
+so you'll also want to read changes.txt .
+
+
+Bugs and stuff
+==============
+The scripts in the build*.cfg files were made to work under DOS. They will
+need to be rewritten to work under Linux, and this hasn't been done yet.
+
+
