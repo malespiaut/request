@@ -12,7 +12,7 @@ See legal.txt for more information.
 #define VERSION_H
 
 
-#define BETA
+//#define BETA
 
 
 #ifdef BETA
