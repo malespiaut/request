@@ -447,7 +447,7 @@ void PlaneSplit(void)
    split=error=0;
    for (br=br1;br;br=br->Next)
    {
-      if (br->Brush->bt->flags&BR_F_CSG)
+      if (!br->Brush->bt->flags&BR_F_CSG)
       {
          HandleError("PlaneSplit","Can only split normal brushes");
          continue;
