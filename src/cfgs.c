@@ -103,7 +103,7 @@ extern void X_SetWindowTitle(const char *);
 
 #define AddDef(x,y) {x,#x,y},
 
-def_t keys[]=
+def_t key_defs[]=
 {
 AddDef(KEY_ESCAPE  ,"Escape")
 AddDef(KEY_ENTER   ,"Enter")
@@ -195,7 +195,7 @@ AddDef(KEY_F10,"F10")
 
 {0,0,0}
 };
-#define NUM_KEYS (sizeof(keys)/sizeof(keys[0]))
+#define NUM_KEYS (sizeof(key_defs)/sizeof(key_defs[0]))
 
 def_t k_flags[]=
 {
@@ -764,7 +764,7 @@ void WriteKeyHelp(void)
          }
          for (k=0;k<NUM_KEYS;k++)
          {
-            if (keys[k].num==(c->keys[j]&0xff))
+            if (key_defs[k].num==(c->keys[j]&0xff))
             {
                break;
             }
@@ -776,7 +776,7 @@ void WriteKeyHelp(void)
          }
          else
          {
-            l+=fprintf(f,"%s",keys[k].desc);
+            l+=fprintf(f,"%s",key_defs[k].desc);
          }
          for (;l<30;l++)
             fprintf(f," ");
@@ -817,8 +817,8 @@ void WriteKeyDef(void)
              "Keys:\n"
              "-----\n");
    for (i=0;i<NUM_KEYS;i++)
-      if (keys[i].name && keys[i].desc)
-         fprintf(f,"%-20s %s\n",keys[i].name,keys[i].desc);
+      if (key_defs[i].name && key_defs[i].desc)
+         fprintf(f,"%-20s %s\n",key_defs[i].name,key_defs[i].desc);
 
    fprintf(f,"\n"
              "Commands:\n"

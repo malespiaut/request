@@ -88,7 +88,7 @@ void LoadKeyConfig(const char *name)
          if (cur_mode==-1)
             PError("Undefined mode!");
 
-         key=FindDef(keys,token);
+         key=FindDef(key_defs,token);
          if (!TokenGet(0,-1))
             PError("Parse error!");
          while (!strcmp(token,"+"))
