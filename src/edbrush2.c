@@ -649,6 +649,8 @@ int MirrorBrush(int vport)
    {
    	for (b=M.display.bsel; b; b=b->Next)
    	{
+         if (b->Brush->bt->type==BR_Q3_CURVE)
+            continue;
    		for (i=0;i<b->Brush->num_planes;i++)
          {
             plane_t *p;

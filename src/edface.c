@@ -55,6 +55,8 @@ fsel_t *FindFace(int vport, int mx, int my)
 	{
 		if (b->drawn)
 		{
+         if (b->bt->type==BR_Q3_CURVE)
+            continue;
 			for (i=0; i<b->num_planes; i++)
 			{
             if (!b->plane[i].scenter.onscreen)
@@ -121,6 +123,8 @@ static fsel_t *SelectFace(int vport, int mx, int my)
    	{
    		if (b->drawn)
    		{
+            if (b->bt->type==BR_Q3_CURVE)
+               continue;
    			for (k=0; k<b->num_planes; k++)
    			{
                p=&b->plane[k];
@@ -259,6 +263,8 @@ static void SelectWindowFace(int vport, int x0, int y0, int x1, int y1)
 	{
 		if (b->drawn)
 		{
+         if (b->bt->type==BR_Q3_CURVE)
+            continue;
 			for (i=0; i<b->num_planes; i++)
 			{
             if (!b->plane[i].scenter.onscreen)
