@@ -1167,10 +1167,10 @@ start:
 					RemoveButton(b_tex);
 
                SetTexture(&tex,new_tex_name);
-               texture = ReadMIPTex(new_tex_name,1);
 
                b_tex=AddButtonText(w->pos.x+8,w->pos.y+twsy+65,0,texture->name);
             }
+            texture = ReadMIPTex(tex.name,1);
             SetPal(PAL_TEXTURE);
             REDRAW();
 			}
