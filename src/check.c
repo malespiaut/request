@@ -12,11 +12,16 @@
 #include "3d.h"
 #include "brush.h"
 #include "edbrush.h"
+#include "edent.h"
+#include "edface.h"
+#include "edvert.h"
 #include "error.h"
 #include "geom.h"
 #include "memory.h"
 #include "message.h"
 #include "quest.h"
+#include "qui.h"
+#include "status.h"
 
 
 static int IsOnPlane(vec3_t norm, float d, vec3_t pt)
@@ -164,7 +169,12 @@ int ConsistencyCheck(void)
 	{
 		if (!CheckBrush(b,TRUE))
 		{
+			ClearSelVerts();
+			ClearSelFaces();
 			ClearSelBrushes();
+			ClearSelEnts();
+         status.edit_mode=BRUSH;
+
 			M.display.bsel = (brushref_t *)Q_malloc(sizeof(brushref_t));
          if (M.display.bsel)
          {
@@ -176,6 +186,8 @@ int ConsistencyCheck(void)
          }
          else
             HandleError("ConsistencyCheck","Out of memory!");
+
+		   QUI_RedrawWindow(STATUS_WINDOW);
 			UpdateAllViewports();
 			return FALSE;
 		}
