@@ -1134,6 +1134,10 @@ static void ReadModelList(void)
 				{
                e=ents[active_ent];
 
+               /* Make sure the entity we're about to delete isn't selected,
+                should probably be done in DeleteEntity() */
+               ClearSelEnts();
+
                DeleteEntity(e);
 
                ReadModelList();
