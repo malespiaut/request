@@ -1415,20 +1415,18 @@ DrawViewport(matrix_t m)
 
       for (i = 0; i < b->num_verts; i++)
       {
-#define CheckMin(x)                 \
-  if (b->verts[i].##x < e->min.##x) \
-  e->min.##x = b->verts[i].##x
-#define CheckMax(x)                 \
-  if (b->verts[i].##x > e->max.##x) \
-  e->max.##x = b->verts[i].##x
-        CheckMin(x);
-        CheckMin(y);
-        CheckMin(z);
-        CheckMax(x);
-        CheckMax(y);
-        CheckMax(z);
-#undef CheckMin
-#undef CheckMax
+        if (b->verts[i].x < e->min.x)
+          e->min.x = b->verts[i].x;
+        if (b->verts[i].y < e->min.y)
+          e->min.y = b->verts[i].y;
+        if (b->verts[i].z < e->min.z)
+          e->min.z = b->verts[i].z;
+        if (b->verts[i].x > e->max.x)
+          e->max.x = b->verts[i].x;
+        if (b->verts[i].y > e->max.y)
+          e->max.y = b->verts[i].y;
+        if (b->verts[i].z > e->max.z)
+          e->max.z = b->verts[i].z;
       }
     }
 

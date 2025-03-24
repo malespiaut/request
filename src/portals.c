@@ -7,6 +7,7 @@
 #include "types.h"
 
 #include "3d.h"
+#include "brush.h"
 #include "error.h"
 #include "map.h"
 #include "memory.h"

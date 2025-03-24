@@ -19,10 +19,11 @@ See legal.txt for more information.
   if (!TokenGet(x, y)) \
     return ERROR_PARSE;
 
-#define EXPECT(x, y, z)                       \
-  {                                           \
-    GETTOKEN(x, y)                            \
-    if (strcmp(token, z)) return ERROR_PARSE; \
+#define EXPECT(x, y, z)   \
+  {                       \
+    GETTOKEN(x, y)        \
+    if (strcmp(token, z)) \
+      return ERROR_PARSE; \
   }
 
 extern int (*qmap_loadtexinfo)(texdef_t* tex);

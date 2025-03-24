@@ -213,7 +213,7 @@ void
 Popup_AddStr(const char* format, ...)
 {
   char temp[256];
-  va_list* args;
+  va_list args;
   popstr_t* ps;
 
   va_start(args, format);

@@ -471,7 +471,7 @@ PopEntity(entity_t* e)
 #define GKEY(i) (i < e->numkeys ? e->key[i] : eclass->keys[pkeys[i - e->numkeys]].name)
 #define GVALUE(i) (i < e->numkeys ? e->value[i] : "")
 
-  static void UpdateStuff(void)
+  void UpdateStuff(void)
   {
     int i;
     class_t* cl;
@@ -494,7 +494,7 @@ PopEntity(entity_t* e)
     num_keys += e->numkeys;
   }
 
-  static void DrawKeys(void)
+  void DrawKeys(void)
   {
     int i, j;
     const char* name;
@@ -957,7 +957,7 @@ ModelList(void)
   int b_tiny_up, b_tiny_down;
   int bp;
 
-  static void ClearModelList(void)
+  void ClearModelList(void)
   {
     /* Clear text area */
     for (i = w->pos.y + 51; i < w->pos.y + 293; i++)
@@ -966,7 +966,7 @@ ModelList(void)
     }
   }
 
-  static void DrawModelList(void)
+  void DrawModelList(void)
   {
     /* Draw model list */
     for (i = base_ent, j = 0; (j < 17) && (i < models); i++, j++)
@@ -976,7 +976,7 @@ ModelList(void)
     }
   }
 
-  static void ReadModelList(void)
+  void ReadModelList(void)
   {
     models = 0;
     for (e = M.EntityHead; e; e = e->Next)

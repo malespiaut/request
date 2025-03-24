@@ -1,62 +1,108 @@
-.EXPORT_ALL_VARIABLES:
+# Makefile for Quest X11 version on Linux
 
-include ./Makefile.cfg
+# Compiler settings
+CC = gcc
+CXX = g++
+CFLAGS = -w -DWINDOW_MODE
+CXXFLAGS = $(CFLAGS)
 
+# Directory structure
+SRCDIR = .
+OBJDIR = obj
+BINDIR = bin
 
-SUB_DIRS = linux djgpp gui games/qengine
+# Platform-specific directories
+LINUX_DIR = linux
+GUI_DIR = gui
+GAMES_DIR = games/qengine
 
+# Include directories
+INCLUDES = -I/usr/X11R6/include -I$(SRCDIR)
 
-SOBJECTS = $(QUEST_O) $(QUEST_SVGA_O) $(QUEST_GAMES_O) $(QUEST_GUI_O) texfull.o
-XOBJECTS = $(QUEST_O) $(QUEST_X11_O) $(QUEST_GAMES_O) $(QUEST_GUI_O) texfull_wm.o
-DJOBJECTS = $(QUEST_O) $(QUEST_DJ_O) $(QUEST_GAMES_O) $(QUEST_GUI_O) texfull.o
+# Preprocessor flags
+CPPFLAGS = -D_UNIX $(INCLUDES)
 
+# Libraries
+LDFLAGS = -L/usr/X11R6/lib -lXext -lX11 -lXpm -ljpeg -lm
 
-all clean depend dep .depend::
-	@for I in $(SUB_DIRS); do \
-		echo "Making \`$@' in $$I"; \
-		$(MAKE) -C $$I $@; \
-	done
+# Target executable
+TARGET = $(BINDIR)/xquest
 
-sub_dirs::
-	@for I in $(SUB_DIRS); do \
-		echo "Making \`all' in $$I"; \
-		$(MAKE) -C $$I all; \
-	done
+# Create directory structure
+$(shell mkdir -p $(OBJDIR) $(BINDIR) $(OBJDIR)/$(LINUX_DIR) $(OBJDIR)/$(GUI_DIR) $(OBJDIR)/$(GAMES_DIR))
 
-all:: $(TARGETS)
+# Source files
+SOURCES = $(wildcard *.c)
+CPPSOURCES = $(wildcard *.cc *.cpp)
+LINUX_SOURCES = $(wildcard $(LINUX_DIR)/hw_x11.c $(LINUX_DIR)/key_x11.c $(LINUX_DIR)/m_x11.c $(LINUX_DIR)/unixext.c)
+GUI_SOURCES = $(wildcard $(GUI_DIR)/*.cc)
+GAMES_SOURCES = $(wildcard $(GAMES_DIR)/*.c $(GAMES_DIR)/*.cc)
 
-include ./Makefile.objects
+# Object files
+OBJECTS = $(patsubst %.c,$(OBJDIR)/%.o,$(SOURCES))
+CPPOBJECTS = $(patsubst %.cc,$(OBJDIR)/%.o,$(CPPSOURCES))
+LINUX_OBJECTS = $(patsubst $(LINUX_DIR)/%.c,$(OBJDIR)/$(LINUX_DIR)/%.o,$(LINUX_SOURCES))
+GUI_OBJECTS = $(patsubst $(GUI_DIR)/%.cc,$(OBJDIR)/$(GUI_DIR)/%.o,$(GUI_SOURCES))
+GAMES_OBJECTS = $(patsubst $(GAMES_DIR)/%.c,$(OBJDIR)/$(GAMES_DIR)/%.o,$(wildcard $(GAMES_DIR)/*.c))
+GAMES_CPPOBJECTS = $(patsubst $(GAMES_DIR)/%.cc,$(OBJDIR)/$(GAMES_DIR)/%.o,$(wildcard $(GAMES_DIR)/*.cc))
 
-ifeq (yes,$(DO_SVGA))
-squest: sub_dirs $(SOBJECTS)
-	$(CXX) $(SOBJECTS) -o squest $(SVGA_LDFLAGS) -lm
-endif
+# All objects
+ALL_OBJECTS = $(OBJECTS) $(CPPOBJECTS) $(LINUX_OBJECTS) $(GUI_OBJECTS) $(GAMES_OBJECTS) $(GAMES_CPPOBJECTS)
+#$(TEXFULL_WM)
 
-ifeq (yes,$(DO_X))
-xquest: sub_dirs $(XOBJECTS)
-	$(CXX) $(XOBJECTS) -o xquest $(X_LDFLAGS) -lm
-endif
+# Default target
+all: $(TARGET)
 
-ifeq (yes,$(DO_DJGPP))
-quest.exe: sub_dirs $(DJOBJECTS)
-	$(CXX) -v $(DJOBJECTS) -o quest.exe
-endif
+# Rule to build the target
+$(TARGET): $(ALL_OBJECTS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
+# Rule for C source files
+$(OBJDIR)/%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-# Currently not very useful
-install:
-	cp $(TARGETS) ..
+# Rule for C++ source files
+$(OBJDIR)/%.o: %.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+$(OBJDIR)/%.o: %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-clean:: Makefile
-	rm -r -f *.o squest xquest quest.exe .depend
+# Rule for Linux-specific files
+$(OBJDIR)/$(LINUX_DIR)/%.o: $(LINUX_DIR)/%.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-clobber mrproper distclean:: Makefile clean
-	rm -r -f *.bak *~ $(TARGETS)
+# Rule for GUI files
+$(OBJDIR)/$(GUI_DIR)/%.o: $(GUI_DIR)/%.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-dep depend .depend::
-	$(CC) $(CPPFLAGS) -MM *.c >.depend
+# Rule for Games files
+$(OBJDIR)/$(GAMES_DIR)/%.o: $(GAMES_DIR)/%.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-.PHONY: dep depend clean dummy all sub_dirs
+$(OBJDIR)/$(GAMES_DIR)/%.o: $(GAMES_DIR)/%.cc
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-include .depend
+# Clean target
+clean:
+	rm -rf $(OBJDIR) $(TARGET)
+
+# Install target
+install: $(TARGET)
+	mkdir -p $(DESTDIR)/usr/local/bin
+	install -m 755 $(TARGET) $(DESTDIR)/usr/local/bin/
+
+# Phony targets
+.PHONY: all clean install
+
+# Dependencies
+DEPFILE = .depend
+$(DEPFILE): $(SOURCES) $(CPPSOURCES) $(LINUX_SOURCES) $(GUI_SOURCES) $(GAMES_SOURCES)
+	$(CC) $(CPPFLAGS) -MM $(SOURCES) > $(DEPFILE)
+	$(CC) $(CPPFLAGS) -MM $(LINUX_SOURCES) | sed 's/^/$(OBJDIR)\//' >> $(DEPFILE)
+	$(CXX) $(CPPFLAGS) -MM $(GUI_SOURCES) | sed 's/^/$(OBJDIR)\//' >> $(DEPFILE)
+	$(CC) $(CPPFLAGS) -MM $(GAMES_SOURCES) | sed 's/^/$(OBJDIR)\//' >> $(DEPFILE)
+
+dep: $(DEPFILE)
+
+-include $(DEPFILE)

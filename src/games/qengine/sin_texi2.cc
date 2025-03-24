@@ -205,7 +205,11 @@ SetValues(texdef_t* t)
 #undef SETFIELD
 
   if (valid.color)
-    s->color = values.color;
+  {
+    s->color[0] = values.color[0];
+    s->color[1] = values.color[1];
+    s->color[2] = values.color[2];
+  }
 
   if (valid.animname)
     strcpy(s->animname, values.animname);

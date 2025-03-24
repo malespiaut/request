@@ -88,6 +88,9 @@ extern void X_SetWindowTitle(const char*);
 #include "video.h"
 #include "weld.h"
 
+#include "games/qengine/q2_tex.h"
+#include "games/qengine/quake3.h"
+
 // Just for the profiling.
 #define Time(x)                                                                              \
   ({                                                                                         \

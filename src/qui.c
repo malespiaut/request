@@ -39,12 +39,14 @@ See legal.txt for more information.
 #include "tool.h"
 #include "video.h"
 
+int GUI_PopEntity(char* title, char** key, char** value, int num);
+
 QUI_t Q; /* Basic Quest User Interface element */
 
 /* TODO: get rid of bad ways of doing stuff */
 char oldtexname[256]; // bad way of remembering the last texture string
 char oldentstr[256];  // another bad way of remembering the last entity
-                     // string
+                      // string
 
 void
 QUI_Box(int x1, int y1, int x2, int y2, int col1, int col2)

@@ -56,5 +56,6 @@ Plane flags from qfiles.h from q2source.zip (slightly modified)
 
 int Q2_LoadTexInfo(texdef_t* tex);
 void Q2_SaveTexInfo(texdef_t* tex, FILE* fp);
+void FixDups(void);
 
 #endif
