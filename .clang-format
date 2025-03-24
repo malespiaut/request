@@ -1,0 +1,13 @@
+---
+Language: Cpp
+BasedOnStyle: Mozilla
+AllowShortBlocksOnASingleLine: Empty
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AlwaysBreakAfterReturnType: AllDefinitions
+BreakBeforeBraces: Allman
+ColumnLimit: 0
+Cpp11BracedListStyle: true
+IndentCaseBlocks: true
+IndentGotoLabels: false
+TabWidth: 2
