@@ -3,19 +3,20 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
-*/  /* (Not necessary) */
+*/
+/* (Not necessary) */
 
 #include <ctype.h>
 
-
-char *strlwr(char *string)
+char*
+strlwr(char* string)
 {
-      char *s;
+  char* s;
 
-      if (string)
-      {
-            for (s = string; *s; ++s)
-                  *s = tolower(*s);
-      }
-      return string;
+  if (string)
+  {
+    for (s = string; *s; ++s)
+      *s = tolower(*s);
+  }
+  return string;
 }

@@ -17,9 +17,8 @@ void UpdateMsg(void);
 
 void DrawMessages(void);
 
-void NewMessage(const char *format, ...) __attribute__ ((format(printf,1,2)));
+void NewMessage(const char* format, ...) __attribute__((format(printf, 1, 2)));
 
 void DumpMessages(void);
 
 #endif
-

@@ -1,6 +1,6 @@
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
 
 extern "C"
@@ -14,53 +14,49 @@ extern "C"
 
 #include "gui.h"
 
-
-void GetEvent(event_t *e)
+void
+GetEvent(event_t* e)
 {
-static mouse_t old;
+  static mouse_t old;
 
-   e->what=evNothing;
+  e->what = evNothing;
 
-   UpdateMouse();
+  UpdateMouse();
 
-   e->mx=mouse.x;
-   e->my=mouse.y;
-   e->mb=mouse.button;
+  e->mx = mouse.x;
+  e->my = mouse.y;
+  e->mb = mouse.button;
 
-   if (mouse.button && !old.button)
-      e->what=evMouse1Down;
-   else
-   if (!mouse.button && old.button)
-      e->what=evMouse1Up;
-   else
-   if (mouse.button)
-      e->what=evMouse1Pressed;
-   else
-   if ((mouse.x!=old.x) || (mouse.y!=old.y))
-      e->what=evMouseMove;
+  if (mouse.button && !old.button)
+    e->what = evMouse1Down;
+  else if (!mouse.button && old.button)
+    e->what = evMouse1Up;
+  else if (mouse.button)
+    e->what = evMouse1Pressed;
+  else if ((mouse.x != old.x) || (mouse.y != old.y))
+    e->what = evMouseMove;
 
-   if (e->what)
-   {
-      old=mouse;
-      return;
-   }
+  if (e->what)
+  {
+    old = mouse;
+    return;
+  }
 
-   e->key=GetKey();
-   if (e->key)
-   {
-      e->what=evKey;
-      return;
-   }
+  e->key = GetKey();
+  if (e->key)
+  {
+    e->what = evKey;
+    return;
+  }
 }
 
-
-int GUI_InBox(int x1, int y1, int x2, int y2)
+int
+GUI_InBox(int x1, int y1, int x2, int y2)
 {
-	if (mouse.x>=x1)
-	   if (mouse.x<=x2)
-	      if (mouse.y>=y1)
-	         if (mouse.y<=y2)
-		         return 1;
-	return 0;
+  if (mouse.x >= x1)
+    if (mouse.x <= x2)
+      if (mouse.y >= y1)
+        if (mouse.y <= y2)
+          return 1;
+  return 0;
 }
-

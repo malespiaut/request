@@ -11,7 +11,6 @@ See legal.txt for more information.
 #ifndef KEYCFG_H
 #define KEYCFG_H
 
-void LoadKeyConfig(const char *name);
+void LoadKeyConfig(const char* name);
 
 #endif
-

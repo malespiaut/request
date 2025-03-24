@@ -14,4 +14,3 @@ See legal.txt for more information.
 void Sin_Init(void);
 
 #endif
-

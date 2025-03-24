@@ -4,4 +4,3 @@
 void Q_ModifyFlags(void);
 
 #endif
-

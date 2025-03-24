@@ -11,9 +11,7 @@ See legal.txt for more information.
 #ifndef VERSION_H
 #define VERSION_H
 
-
-//#define BETA
-
+// #define BETA
 
 #ifdef BETA
 
@@ -25,6 +23,4 @@ See legal.txt for more information.
 
 #endif
 
-
 #endif
-

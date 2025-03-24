@@ -14,4 +14,3 @@ See legal.txt for more information.
 void Q2_Init(void);
 
 #endif
-

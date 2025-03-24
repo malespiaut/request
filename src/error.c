@@ -8,9 +8,9 @@ This program is distributed under the GNU General Public License.
 See legal.txt for more information.
 */
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 
 #include "defines.h"
 #include "types.h"
@@ -22,69 +22,69 @@ See legal.txt for more information.
 #include "status.h"
 #include "video.h"
 
-
-void HandleError(const char *proc,const char *format, ...)
+void
+HandleError(const char* proc, const char* format, ...)
 {
-   char error[1024];
-   va_list args;
+  char error[1024];
+  va_list args;
 
-   va_start(args,format);
-   vsprintf(error,format,args);
-   va_end(args);
+  va_start(args, format);
+  vsprintf(error, format, args);
+  va_end(args);
 
-   if (Q.Active==TRUE)
-   {
-      QUI_Dialog(proc,error);
-   }
-   else
-   {
-	   if (status.vid_mode != RES_TEXT)
-      {
-			SetMode(RES_TEXT);
-			status.vid_mode = RES_TEXT;
-      }
-      fprintf(stderr, "-- %s:  %s\n", proc, error);
-	}
+  if (Q.Active == TRUE)
+  {
+    QUI_Dialog(proc, error);
+  }
+  else
+  {
+    if (status.vid_mode != RES_TEXT)
+    {
+      SetMode(RES_TEXT);
+      status.vid_mode = RES_TEXT;
+    }
+    fprintf(stderr, "-- %s:  %s\n", proc, error);
+  }
 }
 
-static int aborted=0;
+static int aborted = 0;
 
-void Abort(const char *proc,const char *format, ...)
+void
+Abort(const char* proc, const char* format, ...)
 {
-   char error[1024];
-   va_list args;
-   int was_aborted;
+  char error[1024];
+  va_list args;
+  int was_aborted;
 
-   was_aborted=aborted;
-   aborted=1;
+  was_aborted = aborted;
+  aborted = 1;
 
-   va_start(args,format);
-   vsprintf(error,format,args);
-   va_end(args);
+  va_start(args, format);
+  vsprintf(error, format, args);
+  va_end(args);
 
-   if (status.vid_mode != RES_TEXT)
-   {
-		SetMode(RES_TEXT);
-		status.vid_mode = RES_TEXT;
-   }
-   fprintf(stderr, "-- %s:  %s\n", proc, error);
-   fprintf(stderr, "Unrecoverable error! Program terminated!\n");
+  if (status.vid_mode != RES_TEXT)
+  {
+    SetMode(RES_TEXT);
+    status.vid_mode = RES_TEXT;
+  }
+  fprintf(stderr, "-- %s:  %s\n", proc, error);
+  fprintf(stderr, "Unrecoverable error! Program terminated!\n");
 
-   if (was_aborted)
-   {
-      fprintf(stderr,"Abort called twice! Error saving map?\n");
-   }
-   else
-   {
-      if (Q.Active)
-      {
-         Game.map.savemap("q_backup.map");
-         fprintf(stderr,"An attempt has been made to save your work to 'q_backup.map'.\n");
-      }
-   }
+  if (was_aborted)
+  {
+    fprintf(stderr, "Abort called twice! Error saving map?\n");
+  }
+  else
+  {
+    if (Q.Active)
+    {
+      Game.map.savemap("q_backup.map");
+      fprintf(stderr, "An attempt has been made to save your work to 'q_backup.map'.\n");
+    }
+  }
 
-//   *((int *)-1)=0;
+  //   *((int *)-1)=0;
 
-   exit(1);
+  exit(1);
 }
-

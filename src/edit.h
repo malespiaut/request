@@ -13,11 +13,9 @@ See legal.txt for more information.
 
 void SelectWindow(void);
 
-void ForEachSelTexdef(void (*func)(texdef_t *p));
+void ForEachSelTexdef(void (*func)(texdef_t* p));
 
-
-void Solid_SelectBrushes(struct brush_s ***list,int *num);
-void Solid_SelectFaces(fsel_t **list,int *num);
+void Solid_SelectBrushes(struct brush_s*** list, int* num);
+void Solid_SelectFaces(fsel_t** list, int* num);
 
 #endif
-

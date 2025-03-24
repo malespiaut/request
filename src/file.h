@@ -11,17 +11,16 @@ See legal.txt for more information.
 #ifndef FILE_H
 #define FILE_H
 
-void DirList(char	**Files,	int *NumDirs);
+void DirList(char** Files, int* NumDirs);
 
-void FileList(char **Files, char	*mask, int *NumFiles);
+void FileList(char** Files, char* mask, int* NumFiles);
 
-int readstring(char *string, int	x,	int y, int maxx, int maxlen,int (*isgood)(int c));
+int readstring(char* string, int x, int y, int maxx, int maxlen, int (*isgood)(int c));
 
-int readgname(char *string, int	x,	int y, int maxx, int maxlen);
-int readfname(char *string, int	x,	int y, int maxx, int maxlen);
-int readtname(char *string, int	x,	int y, int maxx, int maxlen);
+int readgname(char* string, int x, int y, int maxx, int maxlen);
+int readfname(char* string, int x, int y, int maxx, int maxlen);
+int readtname(char* string, int x, int y, int maxx, int maxlen);
 
-void FindFile(char *fullname,const char *org_name);
+void FindFile(char* fullname, const char* org_name);
 
 #endif
-

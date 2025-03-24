@@ -11,13 +11,11 @@ See legal.txt for more information.
 #ifndef TEXDEF_H
 #define TEXDEF_H
 
-void SetTexture(texdef_t *t,char	*name);
+void SetTexture(texdef_t* t, char* name);
 
-void InitTexdef(texdef_t *t);
-
+void InitTexdef(texdef_t* t);
 
 void MoveSelTVert(int dir);
 void ScaleSelTVert(int dir);
 
 #endif
-

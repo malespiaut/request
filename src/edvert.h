@@ -13,17 +13,16 @@ See legal.txt for more information.
 
 void ClearSelVerts(void);
 
-vsel_t *FindSelectVert(vec3_t *vec);
+vsel_t* FindSelectVert(vec3_t* vec);
 
-void AddSelectVert(struct brush_s *b,int num);
+void AddSelectVert(struct brush_s* b, int num);
 
-void AddSelectVec(vec3_t *v);
+void AddSelectVec(vec3_t* v);
 
-vec3_t *FindVertex(int vport,int mx,int my);
+vec3_t* FindVertex(int vport, int mx, int my);
 
-void SelectWindowVert(int vport,int x0,int y0,int x1,int y1);
+void SelectWindowVert(int vport, int x0, int y0, int x1, int y1);
 
-void MoveSelVert(int dir,int recalc);
+void MoveSelVert(int dir, int recalc);
 
 #endif
-

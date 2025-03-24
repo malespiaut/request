@@ -15,7 +15,6 @@ which time is 0 doesn't matter.
 
 #include "times.h"
 
-
 #ifdef DJGPP
 
 #include <go32.h>
@@ -28,24 +27,25 @@ Return current time as a float, with as much precision as possible. Returns
 
 #include <time.h>
 
-float GetTime(void)
+float
+GetTime(void)
 {
 #if 1 // Safe way
-static float start=-1;
-   int ct;
-   float t;
+  static float start = -1;
+  int ct;
+  float t;
 
-   ct=_farpeekl(_dos_ds,0x46c);
-   t=(float)(ct)/18.2;
+  ct = _farpeekl(_dos_ds, 0x46c);
+  t = (float)(ct) / 18.2;
 
-   if (start==-1)
-   {
-      start=t;
-      return 0;
-   }
-   return t-start;
+  if (start == -1)
+  {
+    start = t;
+    return 0;
+  }
+  return t - start;
 #else
-   return (float)uclock()/(float)UCLOCKS_PER_SEC;
+  return (float)uclock() / (float)UCLOCKS_PER_SEC;
 #endif
 }
 
@@ -54,35 +54,39 @@ Return current tick. The DOS version is based on 18.2 ticks/second, but
 anything from 15 to 20 should work fine.
 */
 
-int GetTick(void)
+int
+GetTick(void)
 {
-   return _farpeekl(_dos_ds,0x46c);
+  return _farpeekl(_dos_ds, 0x46c);
 }
 
 #elif _UNIX
 
+#include <stdio.h>
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
-#include <stdio.h>
 
-float GetTime(void)
+float
+GetTime(void)
 {
-static int base=-1;
-    struct timeval tv;
-    struct timezone tz;
-    int i;
-    
-    i=gettimeofday(&tv,&tz);
-    if (base==-1) base=tv.tv_sec;
-    tv.tv_sec-=base;
+  static int base = -1;
+  struct timeval tv;
+  struct timezone tz;
+  int i;
 
-    return tv.tv_sec+((float)tv.tv_usec)/1000000;
+  i = gettimeofday(&tv, &tz);
+  if (base == -1)
+    base = tv.tv_sec;
+  tv.tv_sec -= base;
+
+  return tv.tv_sec + ((float)tv.tv_usec) / 1000000;
 }
 
-int GetTick(void)
+int
+GetTick(void)
 {
-   return (int)GetTime()*18.2;
+  return (int)GetTime() * 18.2;
 }
 
 #else
@@ -90,4 +94,3 @@ int GetTick(void)
 #error Unimplemented!
 
 #endif
-

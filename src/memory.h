@@ -21,14 +21,12 @@ void InitMemory(unsigned int heapsize);
 
 void CloseMemory(void);
 
-void *Q_malloc(int size);
+void* Q_malloc(int size);
 
-void *Q_realloc(void *temp, int size);
+void* Q_realloc(void* temp, int size);
 
-int Q_free(void *temp);
+int Q_free(void* temp);
 
-
-char *Q_strdup(const char *src);
+char* Q_strdup(const char* src);
 
 #endif
-

@@ -14,9 +14,8 @@ See legal.txt for more information.
 int TraceBSPInit(void);
 void TraceBSPDone(void);
 
-int Trace(vec3_t from,vec3_t to);
+int Trace(vec3_t from, vec3_t to);
 
 void FindLeak(void);
 
 #endif
-

@@ -13,4 +13,3 @@ void NewClipPlane(void);
 void SnapToVertex(void);
 
 #endif
-

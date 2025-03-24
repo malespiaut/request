@@ -11,11 +11,10 @@ See legal.txt for more information.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-void LoadConfig(const char *filename,int first);
+void LoadConfig(const char* filename, int first);
 
 void SaveConfig(void);
 
 void SetPrefs(void);
 
 #endif
-

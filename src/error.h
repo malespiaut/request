@@ -11,11 +11,10 @@ See legal.txt for more information.
 #ifndef ERROR_H
 #define ERROR_H
 
-void HandleError(const char *proc, const char *format, ...) __attribute__ ((format(printf,2,3)));
+void HandleError(const char* proc, const char* format, ...) __attribute__((format(printf, 2, 3)));
 
 //  Like HandleError, but will terminate the program after attempting to
 // save the current map to 'q_backup.map'.
-void Abort(const char *proc,const char *format, ...) __attribute__ ((noreturn,format(printf,2,3)));
+void Abort(const char* proc, const char* format, ...) __attribute__((noreturn, format(printf, 2, 3)));
 
 #endif
-

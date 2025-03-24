@@ -13,23 +13,22 @@ See legal.txt for more information.
 
 typedef struct category_s
 {
-   char name[256];
+  char name[256];
 } category_t;
 
-extern category_t *categories;
+extern category_t* categories;
 extern int n_categories;
 
 void InitCategories(void);
 
 void SaveCategories(void);
 
-int GetCategory(char *name);
+int GetCategory(char* name);
 
-void SetCategory(char *name,int cat);
+void SetCategory(char* name, int cat);
 
-void CreateCategory(char *name);
+void CreateCategory(char* name);
 
 void RemoveCategory(int num);
 
 #endif
-

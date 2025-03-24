@@ -4,4 +4,3 @@
 void Curve_NewBrush(void);
 
 #endif
-

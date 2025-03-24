@@ -11,7 +11,6 @@ See legal.txt for more information.
 #ifndef BSP_H
 #define BSP_H
 
-
 /*
 The numerical order of these is important, so don't change it unless
 you know what you're doing.
@@ -23,22 +22,19 @@ you know what you're doing.
 
 */
 // The BSP modes:
-#define BSP_GREY   0   // Grey shaded.
-#define BSP_COL    1   // Colored according to average texture color.
-#define BSP_TEX    2   // Linear textured.
-#define BSP_TEXC   3   // Correct textured.
-#define BSP_LIGHT  4   // Lighted preview without shadows.
-#define BSP_LIGHTS 5   // Lighted preview with shadows.
+#define BSP_GREY 0   // Grey shaded.
+#define BSP_COL 1    // Colored according to average texture color.
+#define BSP_TEX 2    // Linear textured.
+#define BSP_TEXC 3   // Correct textured.
+#define BSP_LIGHT 4  // Lighted preview without shadows.
+#define BSP_LIGHTS 5 // Lighted preview with shadows.
 
+int BSPAddBrush(struct brush_s* b);
 
-int BSPAddBrush(struct brush_s *b);
-
-void BSPDeleteBrush(struct brush_s *b);
-
+void BSPDeleteBrush(struct brush_s* b);
 
 void DeleteBSPTree(void);
 
 void RebuildBSP(void);
 
 #endif
-

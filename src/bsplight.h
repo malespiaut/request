@@ -13,13 +13,12 @@ See legal.txt for more information.
 
 float GetLight(vec3_t pos);
 
-void GetLightCol(vec3_t pos,float *r,float *g,float *b);
+void GetLightCol(vec3_t pos, float* r, float* g, float* b);
 
-void FaceLight(vec3_t norm,float dist);
+void FaceLight(vec3_t norm, float dist);
 
 void InitLights(int shadows);
 
 void DoneLights(void);
 
 #endif
-

@@ -8,15 +8,14 @@ This program is distributed under the GNU General Public License.
 See legal.txt for more information.
 */
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 #include "defines.h"
 #include "types.h"
 
 #include "status.h"
 
-status_t   status;     /* Status of Quest variables*/
-
+status_t status; /* Status of Quest variables*/

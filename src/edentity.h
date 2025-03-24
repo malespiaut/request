@@ -11,15 +11,14 @@ See legal.txt for more information.
 #ifndef EDENTITY_H
 #define EDENTITY_H
 
-int PopAnyEntity(char *title, char **string, char **value, int number);
+int PopAnyEntity(char* title, char** string, char** value, int number);
 
-int GetString(char *Title, char *String);
+int GetString(char* Title, char* String);
 
-void DumpEntity(entity_t *e);
+void DumpEntity(entity_t* e);
 
-void EditAnyEntity(int nents, entity_t **ents);
+void EditAnyEntity(int nents, entity_t** ents);
 
 void ModelList(void);
 
 #endif
-

@@ -28,4 +28,3 @@ void DrawAllLinks(int vport);
 void AddToModel(void);
 
 #endif
-

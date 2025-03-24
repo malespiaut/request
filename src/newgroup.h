@@ -13,17 +13,16 @@ See legal.txt for more information.
 
 void CreateWorldGroup(void);
 
-group_t *CreateGroup(char *groupname);
+group_t* CreateGroup(char* groupname);
 
-void RemoveGroup(char *groupname);
+void RemoveGroup(char* groupname);
 
-group_t *FindVisGroup(group_t *first);
+group_t* FindVisGroup(group_t* first);
 
 void GroupPopup(void);
 
-void GetGroupName(char *name);
+void GetGroupName(char* name);
 
-group_t *GroupPicker(void);
+group_t* GroupPicker(void);
 
 #endif
-

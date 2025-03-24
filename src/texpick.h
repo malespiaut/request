@@ -11,7 +11,6 @@ See legal.txt for more information.
 #ifndef TEXPICK_H
 #define TEXPICK_H
 
-void TexturePicker(const char *StartWithThis, char *EndWithThis);
+void TexturePicker(const char* StartWithThis, char* EndWithThis);
 
 #endif
-

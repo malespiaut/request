@@ -8,9 +8,9 @@ This program is distributed under the GNU General Public License.
 See legal.txt for more information.
 */
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
 
 #include "defines.h"
@@ -23,363 +23,371 @@ See legal.txt for more information.
 
 #include "brush.h"
 #include "color.h"
+#include "entclass.h"
 #include "error.h"
 #include "game.h"
 #include "memory.h"
-#include "entclass.h"
 #include "quest.h"
 #include "video.h"
 
-
-location_t *locs;
+location_t* locs;
 int n_locs;
 
-tex_name_t *tnames;
+tex_name_t* tnames;
 int n_tnames;
 
-category_t *tcategories;
+category_t* tcategories;
 int n_tcategories;
-
 
 /*** General support stuff ***/
 
-void DrawTexture(texture_t *t,int x,int y)
+void
+DrawTexture(texture_t* t, int x, int y)
 {
-	int i;
-	unsigned char *alias;
+  int i;
+  unsigned char* alias;
 
-	alias = &video.ScreenBuffer[x+y*video.ScreenWidth];
+  alias = &video.ScreenBuffer[x + y * video.ScreenWidth];
 
-	for (i=0; i<t->dsy; i++)
-	{
-		memcpy(alias,&t->data[i*t->dsx],t->dsx);
-		alias+=video.ScreenWidth;
-	}
+  for (i = 0; i < t->dsy; i++)
+  {
+    memcpy(alias, &t->data[i * t->dsx], t->dsx);
+    alias += video.ScreenWidth;
+  }
 }
 
-int GetTexColor(texture_t *tex)
+int
+GetTexColor(texture_t* tex)
 {
-   int i,j;
-   float r,g,b;
+  int i, j;
+  float r, g, b;
 
-   if (tex->color!=-1)
-      return 0;
+  if (tex->color != -1)
+    return 0;
 
-   r=g=b=0;
-   for (i=tex->dsx*tex->dsy-1;i>=0;i--)
-   {
-      j=(unsigned char)(tex->data[i])*3;
-      r+=(float)texture_pal[j+0]/64;
-      g+=(float)texture_pal[j+1]/64;
-      b+=(float)texture_pal[j+2]/64;
-   }
-   i=tex->dsx*tex->dsy;
-   r/=i;
-   g/=i;
-   b/=i;
-   tex->color=AddColor(r,g,b,0);
+  r = g = b = 0;
+  for (i = tex->dsx * tex->dsy - 1; i >= 0; i--)
+  {
+    j = (unsigned char)(tex->data[i]) * 3;
+    r += (float)texture_pal[j + 0] / 64;
+    g += (float)texture_pal[j + 1] / 64;
+    b += (float)texture_pal[j + 2] / 64;
+  }
+  i = tex->dsx * tex->dsy;
+  r /= i;
+  g /= i;
+  b /= i;
+  tex->color = AddColor(r, g, b, 0);
 
-   tex->colv[0]=r;
-   tex->colv[1]=g;
-   tex->colv[2]=b;
+  tex->colv[0] = r;
+  tex->colv[1] = g;
+  tex->colv[2] = b;
 
-   return 1;
+  return 1;
 }
-
 
 /*** Interface with tname_t stuff ***/
 
-static tex_name_t *LoadTN(char *name)
+static tex_name_t*
+LoadTN(char* name)
 {
-   int i;
-   tex_name_t *tn;
+  int i;
+  tex_name_t* tn;
 
-   for (i=0;i<n_tnames;i++)
-   {
-      if (!stricmp(name,tnames[i].name))
-         break;
-   }
-   if (i==n_tnames)
-      return NULL; // should never happen
+  for (i = 0; i < n_tnames; i++)
+  {
+    if (!stricmp(name, tnames[i].name))
+      break;
+  }
+  if (i == n_tnames)
+    return NULL; // should never happen
 
-   tn=&tnames[i];
+  tn = &tnames[i];
 
-   if (tn->tex)
-      return tn;
+  if (tn->tex)
+    return tn;
 
-   if (Game.tex.loadtexture(tn))
-      return tn;
-   else
-      return NULL;
+  if (Game.tex.loadtexture(tn))
+    return tn;
+  else
+    return NULL;
 }
 
-int LoadTexture(char *name,texture_t *res)
+int
+LoadTexture(char* name, texture_t* res)
 {
-   tex_name_t *tn;
+  tex_name_t* tn;
 
-   tn=LoadTN(name);
-   if (tn)
-   {
-      *res=*tn->tex;
-      return 1;
-   }
-   return 0;
+  tn = LoadTN(name);
+  if (tn)
+  {
+    *res = *tn->tex;
+    return 1;
+  }
+  return 0;
 }
 
-void GetTNames(int *num,char ***names)
+void
+GetTNames(int* num, char*** names)
 {
-   int i;
+  int i;
 
-   *num=0;
-   if (!Game.tex.cache)
-   {
-      *names=NULL;
-      return;
-   }
+  *num = 0;
+  if (!Game.tex.cache)
+  {
+    *names = NULL;
+    return;
+  }
 
-   *names=Q_malloc(sizeof(char *)*n_tnames);
-   if (!*names)
-      return;
+  *names = Q_malloc(sizeof(char*) * n_tnames);
+  if (!*names)
+    return;
 
-   for (i=0;i<n_tnames;i++)
-   {
-   // TODO: this can probably be removed now
-      if (tnames[i].name[strlen(tnames[i].name)-1]=='/')
-         continue;
+  for (i = 0; i < n_tnames; i++)
+  {
+    // TODO: this can probably be removed now
+    if (tnames[i].name[strlen(tnames[i].name) - 1] == '/')
+      continue;
 
-      (*names)[(*num)++]=tnames[i].name;
-   }
+    (*names)[(*num)++] = tnames[i].name;
+  }
 }
-
 
 /*** Add/remove from cache ***/
 
-static int AddTex(char *tname,int verbose)
+static int
+AddTex(char* tname, int verbose)
 {
-   int i,j;
-   texture_t *t;
-   texture_t temp;
-   texture_t *nc;
+  int i, j;
+  texture_t* t;
+  texture_t temp;
+  texture_t* nc;
 
-   if (FindTexture(tname)!=-1)
-      return 1;
-   t=&temp;
-   if (!LoadTexture(tname,t))
-      return 0;
+  if (FindTexture(tname) != -1)
+    return 1;
+  t = &temp;
+  if (!LoadTexture(tname, t))
+    return 0;
 
-   nc=Q_realloc(M.Cache,(M.num_textures+1)*sizeof(texture_t));
-   if (!nc)
-      return 0;
-   M.Cache=nc;
+  nc = Q_realloc(M.Cache, (M.num_textures + 1) * sizeof(texture_t));
+  if (!nc)
+    return 0;
+  M.Cache = nc;
 
-   if (M.num_textures)
-   {
-      for (i=0;i<M.num_textures;i++) // insertion sort to keep everything
-      {                            // sorted while loading dynamically
-         if (Game.tex.sort(M.Cache[i].name,t->name)>0)
-         {
-            for (j=M.num_textures;j>i;j--)
-            {
-               M.Cache[j]=M.Cache[j-1];
-            }
-            M.Cache[i]=temp;
-   
-            break;
-         }
-      }
-      if (i==M.num_textures)
+  if (M.num_textures)
+  {
+    for (i = 0; i < M.num_textures; i++) // insertion sort to keep everything
+    {                                    // sorted while loading dynamically
+      if (Game.tex.sort(M.Cache[i].name, t->name) > 0)
       {
-         M.Cache[M.num_textures]=temp;
+        for (j = M.num_textures; j > i; j--)
+        {
+          M.Cache[j] = M.Cache[j - 1];
+        }
+        M.Cache[i] = temp;
+
+        break;
       }
-   }
-   else
-   {
-      M.Cache[0]=temp;
-   }
+    }
+    if (i == M.num_textures)
+    {
+      M.Cache[M.num_textures] = temp;
+    }
+  }
+  else
+  {
+    M.Cache[0] = temp;
+  }
 
-   M.num_textures++;
+  M.num_textures++;
 
-   return 1;
+  return 1;
 }
 
-void RemoveTex(char *name)
+void
+RemoveTex(char* name)
 {
-   int i;
-   int j;
-   texture_t *NCache;
+  int i;
+  int j;
+  texture_t* NCache;
 
-   if (!Game.tex.cache)
-      return;
+  if (!Game.tex.cache)
+    return;
 
-   if (!CheckCache(0))
-      return;
+  if (!CheckCache(0))
+    return;
 
-   i=FindTexture(name);
-   if (i==-1)
-      return;
+  i = FindTexture(name);
+  if (i == -1)
+    return;
 
-   for (j=i;j<M.num_textures-1;j++)
-      memcpy(&M.Cache[j],&M.Cache[j+1],sizeof(texture_t));
+  for (j = i; j < M.num_textures - 1; j++)
+    memcpy(&M.Cache[j], &M.Cache[j + 1], sizeof(texture_t));
 
-   M.num_textures--;
-   NCache=Q_realloc(M.Cache,M.num_textures*sizeof(texture_t));
-   if (NCache)
-      M.Cache=NCache;
+  M.num_textures--;
+  NCache = Q_realloc(M.Cache, M.num_textures * sizeof(texture_t));
+  if (NCache)
+    M.Cache = NCache;
 }
-
 
 /*** Texture loading ***/
-static int FindTextureSlow(char *name)
+static int
+FindTextureSlow(char* name)
 {
-   int i,j;
-   char *n;
-   texture_t *t;
+  int i, j;
+  char* n;
+  texture_t* t;
 
-   n=name;
+  n = name;
 
-   for (i=M.num_textures,j=0,t=M.Cache;i;i--,j++,t++)
-   {
-      if (!stricmp(t->name,n))
-         return j;
-   }
-   return -1;
+  for (i = M.num_textures, j = 0, t = M.Cache; i; i--, j++, t++)
+  {
+    if (!stricmp(t->name, n))
+      return j;
+  }
+  return -1;
 }
 
-int FindTexture(char *name)
+int
+FindTexture(char* name)
 {
-   int i,j;
-   char *n;
-   int n1;
-   texture_t *t;
+  int i, j;
+  char* n;
+  int n1;
+  texture_t* t;
 
-   if (!name[0] || !name[1] || !name[2])
-      return FindTextureSlow(name);
+  if (!name[0] || !name[1] || !name[2])
+    return FindTextureSlow(name);
 
-   n=name;
+  n = name;
 
-   n1=*((int *)(n));
+  n1 = *((int*)(n));
 
-   for (i=M.num_textures,j=0,t=M.Cache;i;i--,j++,t++)
-   {
-      if (n1==*((unsigned int *)(t->name)))
-      {
-         if (!stricmp(t->name,n))
-            return j;
-      }
-   }
-   return FindTextureSlow(name);
+  for (i = M.num_textures, j = 0, t = M.Cache; i; i--, j++, t++)
+  {
+    if (n1 == *((unsigned int*)(t->name)))
+    {
+      if (!stricmp(t->name, n))
+        return j;
+    }
+  }
+  return FindTextureSlow(name);
 }
 
-texture_t *ReadMIPTex(char *mipname,int verbose)
+texture_t*
+ReadMIPTex(char* mipname, int verbose)
 {
-	int i;
+  int i;
 
-   if (!CheckCache(verbose))
+  if (!CheckCache(verbose))
+    return NULL;
+
+  i = FindTexture(mipname);
+  if ((i == -1) && (Game.tex.cache))
+  {
+    if (!AddTex(mipname, verbose))
       return NULL;
 
-   i=FindTexture(mipname);
-   if ((i==-1) && (Game.tex.cache))
-   {
-      if (!AddTex(mipname,verbose))
-         return NULL;
+    i = FindTexture(mipname);
+  }
+  if (i == -1)
+    return NULL;
 
-      i=FindTexture(mipname);
-   }
-   if (i==-1)
-      return NULL;
-
-   return &M.Cache[i];
+  return &M.Cache[i];
 }
-
 
 /*** Cache management ***/
 
-int ReadCache(int verbose)
+int
+ReadCache(int verbose)
 {
-   if (!Game.tex.cache)
-      return Game.tex.readcache(verbose);
+  if (!Game.tex.cache)
+    return Game.tex.readcache(verbose);
 
-   {
-      brush_t *b;
-      int i;
-      int all;
-      /* Keep track of last failed texture to try to speed up case of no
-      valid texture in the map */
-      char fail[128];
+  {
+    brush_t* b;
+    int i;
+    int all;
+    /* Keep track of last failed texture to try to speed up case of no
+    valid texture in the map */
+    char fail[128];
 
-      ClearCache();
+    ClearCache();
 
-      all=1;
-      fail[0]=0;
-      for (b=M.BrushHead;b;b=b->Next)
+    all = 1;
+    fail[0] = 0;
+    for (b = M.BrushHead; b; b = b->Next)
+    {
+      if (b->bt->flags & BR_F_BTEXDEF)
       {
-         if (b->bt->flags&BR_F_BTEXDEF)
-         {
-            if (stricmp(b->tex.name,fail) &&
-                !AddTex(b->tex.name,verbose))
-            {
-               all=0;
-               strcpy(fail,b->tex.name);
-            }
-         }
-         else
-         {
-            for (i=0;i<b->num_planes;i++)
-               if (stricmp(b->plane[i].tex.name,fail) &&
-                   !AddTex(b->plane[i].tex.name,verbose))
-               {
-                  all=0;
-                  strcpy(fail,b->tex.name);
-               }
-         }
+        if (stricmp(b->tex.name, fail) &&
+            !AddTex(b->tex.name, verbose))
+        {
+          all = 0;
+          strcpy(fail, b->tex.name);
+        }
       }
-      if (!all)
-         if (verbose)
-            HandleError("ReadCache","All textures couldn't be loaded!");
-   }
-   return 1;
+      else
+      {
+        for (i = 0; i < b->num_planes; i++)
+          if (stricmp(b->plane[i].tex.name, fail) &&
+              !AddTex(b->plane[i].tex.name, verbose))
+          {
+            all = 0;
+            strcpy(fail, b->tex.name);
+          }
+      }
+    }
+    if (!all)
+      if (verbose)
+        HandleError("ReadCache", "All textures couldn't be loaded!");
+  }
+  return 1;
 }
 
-void ClearCache(void)
+void
+ClearCache(void)
 {
-   int i;
+  int i;
 
-   if (M.Cache)
-   {
-      if (!Game.tex.cache)
-         for (i=0;i<M.num_textures;i++)
-            Q_free(M.Cache[i].data);
-      Q_free(M.Cache);
-   }
+  if (M.Cache)
+  {
+    if (!Game.tex.cache)
+      for (i = 0; i < M.num_textures; i++)
+        Q_free(M.Cache[i].data);
+    Q_free(M.Cache);
+  }
 
-   M.Cache=NULL;
-   M.num_textures=0;
+  M.Cache = NULL;
+  M.num_textures = 0;
 }
 
-int CheckCache(int verbose)
+int
+CheckCache(int verbose)
 {
-   if (!M.Cache)
-   {
-      return ReadCache(verbose);
-   }
-   else
-   {
-      return 1;
-   }
+  if (!M.Cache)
+  {
+    return ReadCache(verbose);
+  }
+  else
+  {
+    return 1;
+  }
 }
 
-int GetTCat(char *name)
+int
+GetTCat(char* name)
 {
-   if (!Game.tex.gettexturecategory)
-      return -1;
-   return Game.tex.gettexturecategory(name);
+  if (!Game.tex.gettexturecategory)
+    return -1;
+  return Game.tex.gettexturecategory(name);
 }
 
-void GetTexDesc(char *str,const texture_t *t)
+void
+GetTexDesc(char* str, const texture_t* t)
 {
-   if (Game.tex.gettexdesc)
-      Game.tex.gettexdesc(str,t);
-   else
-      *str=0;
+  if (Game.tex.gettexdesc)
+    Game.tex.gettexdesc(str, t);
+  else
+    *str = 0;
 }
-

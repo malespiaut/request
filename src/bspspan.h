@@ -14,4 +14,3 @@ See legal.txt for more information.
 void DrawBSPTree(matrix_t m, int vport);
 
 #endif
-

@@ -11,13 +11,12 @@ See legal.txt for more information.
 #ifndef POPUP_H
 #define POPUP_H
 
-void Popup_Init(int x,int y);
+void Popup_Init(int x, int y);
 
-void Popup_AddStr(const char *format, ...) __attribute__ ((format(printf,1,2)));
+void Popup_AddStr(const char* format, ...) __attribute__((format(printf, 1, 2)));
 
 int Popup_Display(void);
 
 void Popup_Free(void);
 
 #endif
-

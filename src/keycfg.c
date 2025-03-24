@@ -8,11 +8,11 @@ This program is distributed under the GNU General Public License.
 See legal.txt for more information.
 */
 
+#include <ctype.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "defines.h"
 #include "types.h"
@@ -25,94 +25,95 @@ See legal.txt for more information.
 #include "keyboard.h"
 #include "token.h"
 
-static void PError(const char *format, ...)
-   __attribute__ ((noreturn,format(printf,1,2)));
+static void PError(const char* format, ...)
+  __attribute__((noreturn, format(printf, 1, 2)));
 
-static void PError(const char *format, ...)
+static void
+PError(const char* format, ...)
 {
-   char buf[256];
-   va_list args;
+  char buf[256];
+  va_list args;
 
-   va_start(args,format);
-   vsprintf(buf,format,args);
-   va_end(args);
+  va_start(args, format);
+  vsprintf(buf, format, args);
+  va_end(args);
 
-   Abort("LoadKeyConfig","Line %i: %s",token_linenum,buf);
+  Abort("LoadKeyConfig", "Line %i: %s", token_linenum, buf);
 }
 
-static void Expect(const char *what)
+static void
+Expect(const char* what)
 {
-   if (!TokenGet(0,-1))
-      PError("Expected '%s'!",what);
+  if (!TokenGet(0, -1))
+    PError("Expected '%s'!", what);
 
-   if (strcmp(token,what))
-      PError("Expected '%s'!",what);
+  if (strcmp(token, what))
+    PError("Expected '%s'!", what);
 }
 
-void LoadKeyConfig(const char *name)
+void
+LoadKeyConfig(const char* name)
 {
-   int cur_mode;
-   int i;
-   int key,cmd;
-   char filename[256];
+  int cur_mode;
+  int i;
+  int key, cmd;
+  char filename[256];
 
+  FindFile(filename, name);
 
-   FindFile(filename,name);
+  if (!TokenFile(filename, T_C | T_NAME | T_MISC, NULL))
+  {
+    Abort("LoadKeyConfig", "Unable to load '%s'!", name);
+  }
 
-   if (!TokenFile(filename,T_C|T_NAME|T_MISC,NULL))
-   {
-      Abort("LoadKeyConfig","Unable to load '%s'!",name);
-   }
+  cur_mode = -1;
 
-   cur_mode=-1;
+  while (TokenGet(1, -1))
+  {
+    if (!strcmp(token, "["))
+    {
+      if (!TokenGet(0, -1))
+        PError("Parse error!");
 
-   while (TokenGet(1,-1))
-   {
-      if (!strcmp(token,"["))
+      for (i = 0; i < NUM_MODES; i++)
+        if (!strcmp(modes[i].name, token))
+          break;
+      if (i == NUM_MODES)
+        PError("Unknown mode '%s'!", token);
+
+      cur_mode = i;
+
+      Expect("]");
+    }
+    else
+    {
+      if (cur_mode == -1)
+        PError("Undefined mode!");
+
+      key = FindDef(key_defs, token);
+      if (!TokenGet(0, -1))
+        PError("Parse error!");
+      while (!strcmp(token, "+"))
       {
-         if (!TokenGet(0,-1))
-            PError("Parse error!");
-
-         for (i=0;i<NUM_MODES;i++)
-            if (!strcmp(modes[i].name,token))
-               break;
-         if (i==NUM_MODES)
-            PError("Unknown mode '%s'!",token);
-
-         cur_mode=i;
-
-         Expect("]");
+        if (!TokenGet(0, -1))
+          PError("Parse error!");
+        key |= FindDef(k_flags, token);
+        if (!TokenGet(0, -1))
+          PError("Parse error!");
       }
-      else
-      {
-         if (cur_mode==-1)
-            PError("Undefined mode!");
+      if (strcmp(token, "="))
+        PError("Expected '%s'!", "=");
 
-         key=FindDef(key_defs,token);
-         if (!TokenGet(0,-1))
-            PError("Parse error!");
-         while (!strcmp(token,"+"))
-         {
-            if (!TokenGet(0,-1))
-               PError("Parse error!");
-            key|=FindDef(k_flags,token);
-            if (!TokenGet(0,-1))
-               PError("Parse error!");
-         }
-         if (strcmp(token,"="))
-            PError("Expected '%s'!","=");
+      if (!TokenGet(0, -1))
+        PError("Parse error!");
 
-         if (!TokenGet(0,-1))
-            PError("Parse error!");
+      cmd = FindDef(cmds, token);
 
-         cmd=FindDef(cmds,token);
+      AddCfg(cur_mode, key, cmd);
+    }
+  }
 
-         AddCfg(cur_mode,key,cmd);
-      }
-   }
+  TokenDone();
 
-   TokenDone();
-
-   CheckCfgs();
+  CheckCfgs();
 }
-

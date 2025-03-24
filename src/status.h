@@ -13,53 +13,52 @@ See legal.txt for more information.
 
 typedef struct
 {
-   char    game_str[512];
+  char game_str[512];
 
-   char    tex_str[512];
+  char tex_str[512];
 
-   char    class_dir[512];
+  char class_dir[512];
 
-	int     vid_mode;
-   int     use_vbe2;
+  int vid_mode;
+  int use_vbe2;
 
-	int     snap_size;
-	int     angle_snap_size;
+  int snap_size;
+  int angle_snap_size;
 
-	int     pan_speed;
-   float   zoom_speed;
+  int pan_speed;
+  float zoom_speed;
 
-	int     turn_frames;
-	int     depth_clip;
+  int turn_frames;
+  int depth_clip;
 
-	int     flip_mouse;
+  int flip_mouse;
 
-	int     pop_menu;
-	int     menu_limit;
+  int pop_menu;
+  int menu_limit;
 
-   int     snap_to_int;
+  int snap_to_int;
 
-   char    mdlpaks[512];
-   int     draw_models;
-   int     load_models;
+  char mdlpaks[512];
+  int draw_models;
+  int load_models;
 
-	int     edit_mode;
+  int edit_mode;
 
-   int     texlock;
+  int texlock;
 
-   int     draw_pts;
-   int     debug;
-	int     kbd_hand;
-	int     exit_flag;
+  int draw_pts;
+  int debug;
+  int kbd_hand;
+  int exit_flag;
 
-   int     map2;
+  int map2;
 
-	int     rotate;
-	int     scale;
-	int     move;
-	lvec3_t move_amt;
+  int rotate;
+  int scale;
+  int move;
+  lvec3_t move_amt;
 } status_t;
 
 extern status_t status;
 
 #endif
-

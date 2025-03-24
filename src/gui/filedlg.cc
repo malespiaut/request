@@ -1,6 +1,6 @@
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
 
 extern "C"
@@ -10,13 +10,10 @@ extern "C"
 
 #include "filedir.h"
 
-
-int SelectFile(char *title,char *extension,char *button_text,char *result);
+  int SelectFile(char* title, char* extension, char* button_text, char* result);
 }
 
-
 #include "gui.h"
-
 
 #if 0
 int SelectFile(char *title,char *extension,char *button_text,char *result)
@@ -69,4 +66,3 @@ int SelectFile(char *title,char *extension,char *button_text,char *result)
    return 0;
 }
 #endif
-

@@ -16,4 +16,3 @@ float GetTime(void);
 int GetTick(void);
 
 #endif
-

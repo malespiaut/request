@@ -11,9 +11,8 @@ See legal.txt for more information.
 #ifndef EDITFACE_H
 #define EDITFACE_H
 
-void MakeVectors(float vecs[2][3],texdef_t *t);
+void MakeVectors(float vecs[2][3], texdef_t* t);
 
 int EditFace(void);
 
 #endif
-

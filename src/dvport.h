@@ -6,4 +6,3 @@ void UpdateViewportPositions(void);
 void InitViewports(void);
 
 #endif
-

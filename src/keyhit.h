@@ -18,4 +18,3 @@ void CheckKeyHit(void);
 void CheckMoveKeys(void);
 
 #endif
-

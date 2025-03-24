@@ -8,11 +8,11 @@ For non-commercial use only. More rules apply, read legal.txt
 for a full description of usage restrictions.
 */
 
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <stdarg.h>
 #include <unistd.h>
 
 #include "defines.h"
@@ -24,7 +24,6 @@ for a full description of usage restrictions.
 #include "memory.h"
 #include "message.h"
 
-
 // for memory tracking code
 #include "bsptree.h"
 #include "game.h"
@@ -32,13 +31,10 @@ for a full description of usage restrictions.
 #include "tex.h"
 #include "undo.h"
 
-
 // undefine to get rid of memory tracking code
-//#define DEBUG
-
+// #define DEBUG
 
 #ifdef DEBUG
-
 
 #if 0
    vec3_t v;
@@ -60,11 +56,12 @@ for a full description of usage restrictions.
    printf("%08x %08x\n",_control87(0,0),_status87());
 
    v.z=0;
-#define TV(a,b) \
-   v.x=a; v.y=b; \
-/*   printf("%5i (%8g %8g)\n",HashVec(&v),v.x,v.y); */\
-   printf("%5i\n",HashVec(&v)); \
-   printf("%08x %08x\n",_control87(0,0),_status87());
+#define TV(a, b)                                         \
+  v.x = a;                                               \
+  v.y = b;                                               \
+  /*   printf("%5i (%8g %8g)\n",HashVec(&v),v.x,v.y); */ \
+  printf("%5i\n", HashVec(&v));                          \
+  printf("%08x %08x\n", _control87(0, 0), _status87());
 
 /*   TV(100,100)
 
@@ -127,22 +124,23 @@ for a full description of usage restrictions.
    exit(0);
 #endif
 
-
 #ifdef DJGPP
 
 typedef unsigned short word16;
 typedef unsigned int word32;
 
-typedef struct {
+typedef struct
+{
   word16 sig0;
   word16 sig1;
   word16 sig2;
   word16 sig3;
-  word16 exponent:15;
-  word16 sign:1;
+  word16 exponent : 15;
+  word16 sign : 1;
 } NPXREG;
 
-typedef struct {
+typedef struct
+{
   word32 control;
   word32 status;
   word32 tag;
@@ -156,116 +154,118 @@ typedef struct {
 static NPX npx;
 
 static inline void
-save_npx (void)
+save_npx(void)
 {
-  asm ("inb     $0xa0, %%al
-        testb   $0x20, %%al
-        jz      1f
-        xorb    %%al, %%al
-        outb    %%al, $0xf0
-        movb    $0x20, %%al
-        outb    %%al, $0xa0
-        outb    %%al, $0x20
-1:
-        fnsave  %0
-        fwait"
-       : "=m" (npx)
-       : /* No input */
-       : "%eax");
+  asm("inb     $0xa0, %%al
+      testb $0x20,
+      % % al jz 1f xorb % % al,
+      % % al outb % % al,
+      $0xf0
+        movb $0x20,
+      % % al outb % % al,
+      $0xa0
+          outb %
+        % al,
+      $0x20 1 : fnsave % 0 fwait "
+      : "=m"(npx)
+      : /* No input */
+      : "%eax");
 }
 
 static inline void
-load_npx (void)
+load_npx(void)
 {
-  asm ("frstor %0" : "=m" (npx));
+  asm("frstor %0" : "=m"(npx));
 }
 
-void CheckFPU(void)
+void
+CheckFPU(void)
 {
-   char buf[2048];
+  char buf[2048];
 
-   save_npx();
+  save_npx();
 
-/*   printf("c=%08x s=%08x eip=%08x cs=%08x dp=%08x ds=%08x\n",
-      npx.control,npx.status,npx.eip,npx.cs,npx.dataptr,npx.datasel);
-   printf("  0x%08x\n",npx.eip);*/
+  /*   printf("c=%08x s=%08x eip=%08x cs=%08x dp=%08x ds=%08x\n",
+        npx.control,npx.status,npx.eip,npx.cs,npx.dataptr,npx.datasel);
+     printf("  0x%08x\n",npx.eip);*/
 
-   if (npx.status&0x5f)
-   {
-      sprintf(buf,"status=%04x eip=%08x ",npx.status,npx.eip);
-#define C(a,b) if (npx.status&a) strcat(buf,b);
-   C(  1,", invalid operation")
-   C(  2,", denormalized operand")
-   C(  4,", division by zero")
-   C(  8,", overflow")
-   C( 16,", underflow")
-   C( 32,", loss of precision")
-   C( 64,", stack over/under flow")
-   C(128,", set if any errors")
+  if (npx.status & 0x5f)
+  {
+    sprintf(buf, "status=%04x eip=%08x ", npx.status, npx.eip);
+#define C(a, b)       \
+  if (npx.status & a) \
+    strcat(buf, b);
+    C(1, ", invalid operation")
+    C(2, ", denormalized operand")
+    C(4, ", division by zero")
+    C(8, ", overflow")
+    C(16, ", underflow")
+    C(32, ", loss of precision")
+    C(64, ", stack over/under flow")
+    C(128, ", set if any errors")
 #undef C
-      fprintf(stderr,"%s",buf);
-      HandleError("CheckFPU",buf);
-   }
+    fprintf(stderr, "%s", buf);
+    HandleError("CheckFPU", buf);
+  }
 
-/*   {
-   int i;
-   int tos;
-   int tag;
+  /*   {
+     int i;
+     int tos;
+     int tag;
 
-   tos=(npx.status>>11)&7;
-   for (i=0;i<8;i++)
-   {
-      NPXREG *n=&npx.reg[i];
-      int e;
-      long long int f;
-      long double num;
+     tos=(npx.status>>11)&7;
+     for (i=0;i<8;i++)
+     {
+        NPXREG *n=&npx.reg[i];
+        int e;
+        long long int f;
+        long double num;
 
-      printf("%i: ",i);
+        printf("%i: ",i);
 
-      tag=(npx.tag>>(((i+tos)&7)*2))&3;
-      switch (tag)
-      {
-      case 0:
-         num=*(long double *)&npx.reg[i];
-         printf("%Lg",num);
-         break;
+        tag=(npx.tag>>(((i+tos)&7)*2))&3;
+        switch (tag)
+        {
+        case 0:
+           num=*(long double *)&npx.reg[i];
+           printf("%Lg",num);
+           break;
 
-      case 1:
-         printf("Zero");
-         break;
+        case 1:
+           printf("Zero");
+           break;
 
-      case 2:
-         if (n->sign) printf("-"); else printf("+");
+        case 2:
+           if (n->sign) printf("-"); else printf("+");
 
-         e=n->exponent;
-         f=(((long long int)n->sig0)<< 0)+
-           (((long long int)n->sig1)<<16)+
-           (((long long int)n->sig2)<<32)+
-           (((long long int)n->sig3)<<48);
+           e=n->exponent;
+           f=(((long long int)n->sig0)<< 0)+
+             (((long long int)n->sig1)<<16)+
+             (((long long int)n->sig2)<<32)+
+             (((long long int)n->sig3)<<48);
 
-         if (e==32767)
-         {
-            if (f==0x8000000000000000L)
-               printf("Inf");
-            else
-               printf("Nan");
-         }
-         else
-            printf("Unknown");
-         break;
+           if (e==32767)
+           {
+              if (f==0x8000000000000000L)
+                 printf("Inf");
+              else
+                 printf("Nan");
+           }
+           else
+              printf("Unknown");
+           break;
 
-      case 3:
-         printf("Empty");
-         break;
-      }
-      printf("\n");
-   }
-  }*/
-   npx.status&=~0x3f;
-   load_npx();
+        case 3:
+           printf("Empty");
+           break;
+        }
+        printf("\n");
+     }
+    }*/
+  npx.status &= ~0x3f;
+  load_npx();
 }
 #endif
-
 
 #if 0
 static int D_MapTextureSize(void)
@@ -361,9 +361,9 @@ static int D_TotalMapSize(void)
    total+=i;
 
    i=0;
-#define ADD(x,y,z) \
-   for (x=M.display.y;x;x=x->Next) \
-      i+=sizeof(z);
+#define ADD(x, y, z)                    \
+  for (x = M.display.y; x; x = x->Next) \
+    i += sizeof(z);
 
    ADD(v,vsel,vsel_t);
    ADD(f,fsel,fsel_t);
@@ -471,73 +471,77 @@ static int D_GetKnownMemSize(void)
 }
 #endif
 
-
-
-static int first=0;
+static int first = 0;
 
 static int o_memknown;
 static int o_memused;
 static int o_maxused;
 
-//static int sysmem,o_sysmem;
+// static int sysmem,o_sysmem;
 
-#define WriteNew(x) \
-{ \
-   NewMessage("Leak? New " #x " %i  old %i diff %i\n",x,o_##x,x-o_##x); \
-   o_##x = x; \
-}
+#define WriteNew(x)                                                           \
+  {                                                                           \
+    NewMessage("Leak? New " #x " %i  old %i diff %i\n", x, o_##x, x - o_##x); \
+    o_##x = x;                                                                \
+  }
 
 #define SetNew(x) o_##x = x;
 
-
 #endif /* DEBUG */
 
-void CheckLeak(void)
+void
+CheckLeak(void)
 {
 #ifdef DEBUG
-   int d1,d2;
-   int memknown;
+  int d1, d2;
+  int memknown;
 
-   if (!first)
-   {
-      printf("--- first ---\n");
+  if (!first)
+  {
+    printf("--- first ---\n");
 
-      o_memused=memused;
-      o_maxused=maxused;
-      o_memknown=/*D_GetKnownMemSize()*/0;
+    o_memused = memused;
+    o_maxused = maxused;
+    o_memknown = /*D_GetKnownMemSize()*/ 0;
 
-      first++;
-      return;
-   }
+    first++;
+    return;
+  }
 
 #ifdef DJGPP
-   CheckFPU();
+  CheckFPU();
 #endif
 
+  if (memused == o_memused)
+    return;
 
-   if (memused==o_memused) return;
+  printf("--- diff ---\n");
+  memknown = /*D_GetKnownMemSize()*/ 0;
 
-   printf("--- diff ---\n");
-   memknown=/*D_GetKnownMemSize()*/0;
+  d1 = o_memused - o_memknown;
+  d2 = memused - memknown;
 
-   d1=o_memused-o_memknown;
-   d2=memused-memknown;
+  if (d1 != d2)
+  {
+    HandleError("CheckLeak", "L: old (%i %i/%i) new (%i %i/%i)", d1, o_memknown, o_memused, d2, memknown, memused);
+    NewMessage("L: old (%i %i/%i) new (%i %i/%i)",
+               d1,
+               o_memknown,
+               o_memused,
+               d2,
+               memknown,
+               memused);
+  }
+  printf("L: old (%i %i/%i) new (%i %i/%i)\n\n",
+         d1,
+         o_memknown,
+         o_memused,
+         d2,
+         memknown,
+         memused);
 
-   if (d1!=d2)
-   {
-      HandleError("CheckLeak","L: old (%i %i/%i) new (%i %i/%i)",
-         d1,o_memknown,o_memused,
-         d2,memknown,memused);
-      NewMessage("L: old (%i %i/%i) new (%i %i/%i)",
-         d1,o_memknown,o_memused,
-         d2,memknown,memused);
-   }
-      printf("L: old (%i %i/%i) new (%i %i/%i)\n\n",
-         d1,o_memknown,o_memused,
-         d2,memknown,memused);
-
-   o_memused=memused;
-   o_memknown=memknown;
+  o_memused = memused;
+  o_memknown = memknown;
 
 /*   if (memused!=o_memused)
    {
@@ -557,4 +561,3 @@ void CheckLeak(void)
    }*/
 #endif /* DEBUG */
 }
-

@@ -8,11 +8,11 @@ This program is distributed under the GNU General Public License.
 See legal.txt for more information.
 */
 
+#include <math.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
-#include <math.h>
 
 #include "defines.h"
 #include "types.h"
@@ -33,235 +33,236 @@ See legal.txt for more information.
 
 typedef struct
 {
-   vec3_t org;
-   vec3_t normal;
-   int type;
-   int level;
-   float col[3];
+  vec3_t org;
+  vec3_t normal;
+  int type;
+  int level;
+  float col[3];
 } light_t;
 
 static light_t lights[MAXLIGHTS];
 static int nlights;
 
-static light_t *vlights[MAXLIGHTS];
+static light_t* vlights[MAXLIGHTS];
 static int nvlights;
 
 static int glc;
 
 static int g_shadows;
 
-
 static vec3_t normal;
 
-
-static float GetAlQ1(light_t *l,vec3_t pos)
+static float
+GetAlQ1(light_t* l, vec3_t pos)
 {
-   vec3_t d;
-   float dist;
-   float dot;
-   float al;
+  vec3_t d;
+  float dist;
+  float dot;
+  float al;
 
+  d.x = l->org.x - pos.x;
+  d.y = l->org.y - pos.y;
+  d.z = l->org.z - pos.z;
 
-   d.x=l->org.x-pos.x;
-   d.y=l->org.y-pos.y;
-   d.z=l->org.z-pos.z;
+  dist = d.x * d.x + d.y * d.y + d.z * d.z;
+  if (dist > l->level * l->level)
+    return 0;
 
-   dist=d.x*d.x+d.y*d.y+d.z*d.z;
-   if (dist>l->level*l->level)
+  dot = DotProd(normal, d);
+  if (dot < -0.01)
+    return 0;
+
+  dist = sqrt(dist);
+  al = (l->level - dist) * (0.5 + 0.5 * dot / dist);
+
+  if (al < 1)
+    return 0;
+
+  if (g_shadows)
+    if (!Trace(l->org, pos))
       return 0;
 
-   dot=DotProd(normal,d);
-   if (dot<-0.01)
+  return al;
+}
+
+static float
+GetAlQ2(light_t* l, vec3_t pos)
+{
+  vec3_t d;
+  float dist;
+  float dot, dot2;
+  float al;
+
+  d.x = l->org.x - pos.x;
+  d.y = l->org.y - pos.y;
+  d.z = l->org.z - pos.z;
+
+  dist = d.x * d.x + d.y * d.y + d.z * d.z;
+
+  dot = DotProd(normal, d);
+
+  if (dot < -0.01)
+    return 0;
+
+  if (l->type)
+  {
+    if (dist > l->level)
       return 0;
 
-   dist=sqrt(dist);
-   al=(l->level-dist)*(0.5 + 0.5*dot/dist);
+    dot2 = -DotProd(l->normal, d);
 
-   if (al<1)
+    if (dot2 < -0.01)
+      return 0;
+    al = ((float)l->level) * dot * dot2 / (dist * dist);
+  }
+  else
+  {
+    if (dist > l->level * l->level)
+      return 0;
+    dist = sqrt(dist);
+    al = (l->level - dist) * dot / dist;
+  }
+
+  if (al < 1)
+    return 0;
+
+  if (g_shadows)
+    if (!Trace(l->org, pos))
       return 0;
 
-   if (g_shadows)
-      if (!Trace(l->org,pos))
-         return 0;
-
-   return al;
+  return al;
 }
 
+static float (*GetAl)(light_t* l, vec3_t pos);
 
-static float GetAlQ2(light_t *l,vec3_t pos)
+float
+GetLight(vec3_t pos)
 {
-   vec3_t d;
-   float dist;
-   float dot,dot2;
-   float al;
+  int i;
+  float al;
+  float light;
 
+  glc++;
 
-   d.x=l->org.x-pos.x;
-   d.y=l->org.y-pos.y;
-   d.z=l->org.z-pos.z;
+  light = 0;
 
-   dist=d.x*d.x+d.y*d.y+d.z*d.z;
+  pos.x += normal.x;
+  pos.y += normal.y;
+  pos.z += normal.z;
 
-   dot=DotProd(normal,d);
+  for (i = 0; i < nvlights; i++)
+  {
+    al = GetAl(vlights[i], pos);
 
-   if (dot<-0.01)
-      return 0;
+    light += al;
+  }
 
-   if (l->type)
-   {
-      if (dist>l->level)
-         return 0;
+  if (light < 0)
+    light = 0;
+  else if (light > 255)
+    light = 1;
+  else
+    light /= 255;
 
-      dot2=-DotProd(l->normal,d);
-
-      if (dot2<-0.01)
-         return 0;
-      al=((float)l->level)*dot*dot2/(dist*dist);
-   }
-   else
-   {
-      if (dist>l->level*l->level)
-         return 0;
-      dist=sqrt(dist);
-      al=(l->level-dist)*dot/dist;
-   }
-
-   if (al<1)
-      return 0;
-
-   if (g_shadows)
-      if (!Trace(l->org,pos))
-         return 0;
-
-   return al;
+  return light;
 }
 
-
-static float (*GetAl)(light_t *l,vec3_t pos);
-
-
-float GetLight(vec3_t pos)
+void
+GetLightCol(vec3_t pos, float* r, float* g, float* b)
 {
-   int i;
-   float al;
-   float light;
+  int i;
+  light_t* l;
+  float al;
+  float col[3];
+  float c;
 
-   glc++;
+  glc++;
 
-   light=0;
+  col[0] = col[1] = col[2] = 0;
 
-   pos.x+=normal.x;
-   pos.y+=normal.y;
-   pos.z+=normal.z;
+  pos.x += normal.x;
+  pos.y += normal.y;
+  pos.z += normal.z;
 
-   for (i=0;i<nvlights;i++)
-   {
-      al=GetAl(vlights[i],pos);
+  for (i = 0; i < nvlights; i++)
+  {
+    l = vlights[i];
 
-      light+=al;
-   }
+    al = GetAl(l, pos);
 
-   if (light<0)
-      light=0;
-   else
-   if (light>255)
-      light=1;
-   else
-      light/=255;
+    col[0] += l->col[0] * al;
+    col[1] += l->col[1] * al;
+    col[2] += l->col[2] * al;
+  }
 
-   return light;
+  if (col[0] < 0)
+    col[0] = 0;
+  if (col[1] < 0)
+    col[1] = 0;
+  if (col[2] < 0)
+    col[2] = 0;
+
+  col[0] *= 3;
+  col[1] *= 3;
+  col[2] *= 3;
+
+  c = col[0];
+  if (col[1] > c)
+    c = col[1];
+  if (col[2] > c)
+    c = col[2];
+  if (c > 255)
+  {
+    c = 1 / c;
+    *r = col[0] * c;
+    *g = col[1] * c;
+    *b = col[2] * c;
+  }
+  else
+  {
+    *r = col[0] / 255;
+    *g = col[1] / 255;
+    *b = col[2] / 255;
+  }
 }
 
-void GetLightCol(vec3_t pos,float *r,float *g,float *b)
+void
+FaceLight(vec3_t norm, float dist)
 {
-   int i;
-   light_t *l;
-   float al;
-   float col[3];
-   float c;
+  float t;
+  int i;
+  light_t* l;
 
-   glc++;
+  normal = norm;
+  nvlights = 0;
+  for (i = 0; i < nlights; i++)
+  {
+    l = &lights[i];
+    t = DotProd(norm, l->org) - dist;
+    if (t < 0)
+      continue;
 
-   col[0]=col[1]=col[2]=0;
-
-   pos.x+=normal.x;
-   pos.y+=normal.y;
-   pos.z+=normal.z;
-
-   for (i=0;i<nvlights;i++)
-   {
-      l=vlights[i];
-
-      al=GetAl(l,pos);
-
-      col[0]+=l->col[0]*al;
-      col[1]+=l->col[1]*al;
-      col[2]+=l->col[2]*al;
-   }
-
-   if (col[0]<0) col[0]=0;
-   if (col[1]<0) col[1]=0;
-   if (col[2]<0) col[2]=0;
-
-   col[0]*=3;
-   col[1]*=3;
-   col[2]*=3;
-
-   c=col[0];
-   if (col[1]>c) c=col[1];
-   if (col[2]>c) c=col[2];
-   if (c>255)
-   {
-      c=1/c;
-      *r=col[0]*c;
-      *g=col[1]*c;
-      *b=col[2]*c;
-   }
-   else
-   {
-      *r=col[0]/255;
-      *g=col[1]/255;
-      *b=col[2]/255;
-   }
+    if (l->type)
+    {
+      if (t * t > l->level)
+        continue;
+    }
+    else
+    {
+      if (t > l->level)
+        continue;
+    }
+    vlights[nvlights++] = l;
+  }
 }
 
-
-void FaceLight(vec3_t norm,float dist)
+void
+InitLights(int shadows)
 {
-   float t;
-   int i;
-   light_t *l;
-
-   normal=norm;
-   nvlights=0;
-   for (i=0;i<nlights;i++)
-   {
-      l=&lights[i];
-      t=DotProd(norm,l->org)-dist;
-      if (t<0)
-         continue;
-
-      if (l->type)
-      {
-         if (t*t>l->level)
-            continue;
-      }
-      else
-      {
-         if (t>l->level)
-            continue;
-      }
-      vlights[nvlights++]=l;
-   }
-}
-
-
-void InitLights(int shadows)
-{
-   entity_t *e;
-   const char *key;
-   light_t *l;
-   float temp;
+  entity_t* e;
+  const char* key;
+  light_t* l;
+  float temp;
 
 #if 0
    brush_t *b;
@@ -274,52 +275,53 @@ void InitLights(int shadows)
    float area;
 #endif
 
+  g_shadows = shadows;
+  DoneLights();
 
-   g_shadows=shadows;
-   DoneLights();
+  for (e = M.EntityHead; e && (nlights < MAXLIGHTS); e = e->Next)
+  {
+    if (strncmp(GetKeyValue(e, "classname"), "light", 5))
+      continue;
 
-   for (e=M.EntityHead;e && (nlights<MAXLIGHTS);e=e->Next)
-   {
-      if (strncmp(GetKeyValue(e,"classname"),"light",5))
-         continue;
+    key = GetKeyValue(e, "origin");
+    if (!key)
+      continue;
 
-      key=GetKeyValue(e,"origin");
-      if (!key)
-         continue;
+    l = &lights[nlights++];
+    sscanf(key, "%f %f %f", &l->org.x, &l->org.y, &l->org.z);
+    l->type = 0;
 
-      l=&lights[nlights++];
-      sscanf(key,"%f %f %f",&l->org.x,&l->org.y,&l->org.z);
-      l->type=0;
+    key = GetKeyValue(e, "light");
+    if (key)
+    {
+      l->level = atoi(key);
+      if (l->level <= 0)
+        l->level = 300;
+    }
+    else
+      l->level = 300;
 
-      key=GetKeyValue(e,"light");
-      if (key)
+    key = GetKeyValue(e, "_color");
+    if (key)
+    {
+      sscanf(key, "%f %f %f", &l->col[0], &l->col[1], &l->col[2]);
+      temp = l->col[0];
+      if (l->col[1] > temp)
+        temp = l->col[1];
+      if (l->col[2] > temp)
+        temp = l->col[2];
+      if (temp)
       {
-         l->level=atoi(key);
-         if (l->level<=0)
-            l->level=300;
+        temp = 1 / temp;
+        l->col[0] *= temp;
+        l->col[1] *= temp;
+        l->col[2] *= temp;
       }
-      else
-         l->level=300;
-
-      key=GetKeyValue(e,"_color");
-      if (key)
-      {
-         sscanf(key,"%f %f %f",&l->col[0],&l->col[1],&l->col[2]);
-         temp=l->col[0];
-         if (l->col[1]>temp) temp=l->col[1];
-         if (l->col[2]>temp) temp=l->col[2];
-         if (temp)
-         {
-            temp=1/temp;
-            l->col[0]*=temp;
-            l->col[1]*=temp;
-            l->col[2]*=temp;
-         }
-      }
-      else
-         l->col[0]=l->col[1]=l->col[2]=1;
-   }
-#if 0  /* needs to be updated, never really worked */
+    }
+    else
+      l->col[0] = l->col[1] = l->col[2] = 1;
+  }
+#if 0 /* needs to be updated, never really worked */
    if (Game.light.lfaces && Game.tex.q2flags)
    {
       for (b=M.BrushHead;b;b=b->Next)
@@ -408,30 +410,30 @@ void InitLights(int shadows)
    }
 #endif
 
-   if (shadows)
-   {
-      if (!TraceBSPInit())
-      {
-         g_shadows=0;
-         NewMessage("Unable to build BSP tree for ray tracing!");
-      }
-   }
+  if (shadows)
+  {
+    if (!TraceBSPInit())
+    {
+      g_shadows = 0;
+      NewMessage("Unable to build BSP tree for ray tracing!");
+    }
+  }
 
-//   printf("InitLights(): %i lights\n",nlights);
-   glc=0;
+  //   printf("InitLights(): %i lights\n",nlights);
+  glc = 0;
 
-   if (Game.light.model==L_QUAKE2)
-      GetAl=GetAlQ2;
-   else
-      GetAl=GetAlQ1;
+  if (Game.light.model == L_QUAKE2)
+    GetAl = GetAlQ2;
+  else
+    GetAl = GetAlQ1;
 }
 
-void DoneLights(void)
+void
+DoneLights(void)
 {
-   if (g_shadows)
-      TraceBSPDone();
+  if (g_shadows)
+    TraceBSPDone();
 
-   nlights=0;
-//   printf("GetLight() called %i times\n",glc);
+  nlights = 0;
+  //   printf("GetLight() called %i times\n",glc);
 }
-

@@ -18,4 +18,3 @@ int SplitLine(void);
 void SplitLineFace(void);
 
 #endif
-

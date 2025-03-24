@@ -15,41 +15,41 @@ See legal.txt for more information.
 
 typedef struct button_s
 {
-   int used;
-   int level;
+  int used;
+  int level;
 
-   int x,y;
-   int sx,sy;
-   int flags;
-   int type;
-   int on;
-   void *data;
+  int x, y;
+  int sx, sy;
+  int flags;
+  int type;
+  int on;
+  void* data;
 } button_t;
 
 // Button types
 #define B_TEXT 0
-#define B_PIC  1
+#define B_PIC 1
 
 // Button flags
-#define B_RAPID    1   // Don't wait for user to let go of mouse button
-#define B_TOGGLE   2   // A button you can toggle
+#define B_RAPID 1  // Don't wait for user to let go of mouse button
+#define B_TOGGLE 2 // A button you can toggle
 
-#define B_ENTER    4   /* Pretend this button was hit when you press enter */
-#define B_ESCAPE   8   /* Pretend this button was hit when you press escape */
+#define B_ENTER 4  /* Pretend this button was hit when you press enter */
+#define B_ESCAPE 8 /* Pretend this button was hit when you press escape */
 
 extern button_t button[MAX_BUTTONS];
 
 extern int lasthit;
 
-int AddButtonPic(int x,int y,int flags,const char *name);
+int AddButtonPic(int x, int y, int flags, const char* name);
 
-int AddButtonText(int x,int y,int flags,const char *text);
+int AddButtonText(int x, int y, int flags, const char* text);
 
 void RemoveButton(int i);
 
-void MoveButton(int i,int x,int y);
+void MoveButton(int i, int x, int y);
 
-void ToggleButton(int i,int on);
+void ToggleButton(int i, int on);
 
 void DrawButton(int i);
 
@@ -68,4 +68,3 @@ int UpdateButtons(void);
 void InitButton(void);
 
 #endif
-

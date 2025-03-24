@@ -11,7 +11,6 @@ See legal.txt for more information.
 #ifndef TEXLOCK_H
 #define TEXLOCK_H
 
-void TexLock(struct brush_s *n,struct brush_s *o);
+void TexLock(struct brush_s* n, struct brush_s* o);
 
 #endif
-

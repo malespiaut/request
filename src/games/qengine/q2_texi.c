@@ -1,6 +1,6 @@
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
 
 #include "defines.h"
@@ -20,7 +20,6 @@
 #include "tex.h"
 #include "video.h"
 
-
 #if 0
 typedef struct
 {
@@ -28,7 +27,7 @@ typedef struct
    int value;
 } flag_t;
 
-#define CFlag(x) {#x,CONTENTS_##x}
+#define CFlag(x) {#x, CONTENTS_##x}
 static flag_t contents_flags[]=
 {
 CFlag(SOLID),
@@ -52,9 +51,9 @@ CFlag(DETAIL),
 CFlag(TRANSLUCENT),
 CFlag(LADDER),
 };
-#define NUM_CONTENTS (sizeof(contents_flags)/sizeof(contents_flags[0]))
+#define NUM_CONTENTS (sizeof(contents_flags) / sizeof(contents_flags[0]))
 
-#define SFlag(x) {#x,SURF_##x}
+#define SFlag(x) {#x, SURF_##x}
 static flag_t surf_flags[]=
 {
 SFlag(LIGHT),
@@ -68,7 +67,7 @@ SFlag(NODRAW),
 SFlag(HINT),
 SFlag(SKIP)
 };
-#define NUM_SURF (sizeof(surf_flags)/sizeof(surf_flags[0]))
+#define NUM_SURF (sizeof(surf_flags) / sizeof(surf_flags[0]))
 
 static int s_and,s_or;
 static int c_and,c_or;
@@ -423,19 +422,18 @@ void Q2_ModifyFlags(void)
 }
 #endif
 
-
-void Q2_FlagsDefault(texdef_t *tex)
+void
+Q2_FlagsDefault(texdef_t* tex)
 {
-   texture_t *t;
+  texture_t* t;
 
-   t=ReadMIPTex(tex->name,0);
-   if (!t)
-      tex->g.q2.contents=tex->g.q2.flags=tex->g.q2.value=0;
-   else
-   {
-      tex->g.q2.contents=t->g.q2.contents;
-      tex->g.q2.flags   =t->g.q2.flags;
-      tex->g.q2.value   =t->g.q2.value;
-   }
+  t = ReadMIPTex(tex->name, 0);
+  if (!t)
+    tex->g.q2.contents = tex->g.q2.flags = tex->g.q2.value = 0;
+  else
+  {
+    tex->g.q2.contents = t->g.q2.contents;
+    tex->g.q2.flags = t->g.q2.flags;
+    tex->g.q2.value = t->g.q2.value;
+  }
 }
-

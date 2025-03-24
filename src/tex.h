@@ -13,45 +13,42 @@ See legal.txt for more information.
 
 /* texture cache handling */
 
-
-typedef struct	texture_s
+typedef struct texture_s
 {
-	char name[64];
-   int rsx,rsy; /* The real size of the texture */
-   
-	int dsx,dsy; /* The size of the texture data */
-	unsigned char *data;
+  char name[64];
+  int rsx, rsy; /* The real size of the texture */
 
-	int color;
-   float colv[3];
+  int dsx, dsy; /* The size of the texture data */
+  unsigned char* data;
 
-   union
-   {
-      q2_texdef_t q2;
-      sin_texdef_t sin;
-   } g;
+  int color;
+  float colv[3];
+
+  union
+  {
+    q2_texdef_t q2;
+    sin_texdef_t sin;
+  } g;
 } texture_t;
 
+void DrawTexture(texture_t* t, int x, int y);
+int GetTexColor(texture_t* tex);
 
-void DrawTexture(texture_t	*t,int x,int y);
-int GetTexColor(texture_t *tex);
+int FindTexture(char* name);
+texture_t* ReadMIPTex(char* mipname, int verbose);
 
-int FindTexture(char	*name);
-texture_t *ReadMIPTex(char	*mipname,int verbose);
+int LoadTexture(char* name, texture_t* res);
+void RemoveTex(char* name);
+void GetTNames(int* num, char*** names);
 
-int LoadTexture(char *name,texture_t *res);
-void RemoveTex(char *name);
-void GetTNames(int *num,char ***names);
+int GetTCat(char* name);
 
-int GetTCat(char *name);
+void GetTexDesc(char* str, const texture_t* t);
 
-void GetTexDesc(char *str,const texture_t *t);
-
-int ReadCache(int	verbose);
+int ReadCache(int verbose);
 void ClearCache(void);
 int CheckCache(int verbose);
 
-void TexFlagsDefault(texdef_t *tex);
+void TexFlagsDefault(texdef_t* tex);
 
 #endif
-

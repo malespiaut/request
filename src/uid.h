@@ -16,4 +16,3 @@ int GetBrushUID(void);
 int GetEntityUID(void);
 
 #endif
-

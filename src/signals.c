@@ -31,12 +31,12 @@ int siglist[] = {
 #ifdef SIGBUS
   SIGBUS,
 #endif
-  -1
-};
+  -1};
 
-static void signalAbort(int signum)
+static void
+signalAbort(int signum)
 {
-  int *p;
+  int* p;
 
   for (p = siglist; *p != -1; ++p)
     signal(*p, SIG_DFL);
@@ -45,12 +45,12 @@ static void signalAbort(int signum)
   raise(signum);
 }
 
-void InitSignals()
+void
+InitSignals()
 {
   /* Set up various signals to call signalAbort() */
-  int *p;
+  int* p;
 
   for (p = siglist; *p != -1; ++p)
     signal(*p, signalAbort);
 }
-

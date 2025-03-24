@@ -11,13 +11,12 @@ See legal.txt for more information.
 #ifndef EDFACE_H
 #define EDFACE_H
 
-fsel_t *FindFace(int vport, int mx, int my);
+fsel_t* FindFace(int vport, int mx, int my);
 void HandleLeftClickFace(void);
 
 void ClearSelFaces(void);
 void HighlightAllFaces(void);
 
-void ApplyFaceTexture(fsel_t *f, char *texname);
+void ApplyFaceTexture(fsel_t* f, char* texname);
 
 #endif
-

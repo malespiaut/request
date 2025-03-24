@@ -14,4 +14,3 @@ See legal.txt for more information.
 void DrawPolyView(int vport);
 
 #endif
-

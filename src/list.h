@@ -11,7 +11,6 @@ See legal.txt for more information.
 #ifndef LIST_H
 #define LIST_H
 
-int PickFromList(char *buf,char *listfile);
+int PickFromList(char* buf, char* listfile);
 
 #endif
-

@@ -10,28 +10,25 @@ See legal.txt for more information.
 #ifndef FILEDIR_H
 #define FILEDIR_H
 
-
 typedef struct
 {
-   char name[256];
-   int type;
+  char name[256];
+  int type;
 } filedir_t;
 
-#define FILE_NORMAL 1    // a normal file
-#define FILE_DIREC  2    // a directory
+#define FILE_NORMAL 1 // a normal file
+#define FILE_DIREC 2  // a directory
 
-
-struct directory_s *DirOpen(const char *name,int type);
+struct directory_s* DirOpen(const char* name, int type);
 // Returns NULL on error.
 //  name   wildcard w/w/o directory (eg. '*.c' or 'maps/*.map')
 //  type   type(s) of files you want to find (eg. FILE_NORMAL|FILE_DIREC)
 
-int DirRead(struct directory_s *d,filedir_t *f);
+int DirRead(struct directory_s* d, filedir_t* f);
 /*
  Returns 0 if no more files.
 */
 
-void DirClose(struct directory_s *d);
+void DirClose(struct directory_s* d);
 
 #endif
-

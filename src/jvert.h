@@ -11,7 +11,6 @@ See legal.txt for more information.
 #ifndef JVERT_H
 #define JVERT_H
 
-void JoinVertices(struct brush_s *b);
+void JoinVertices(struct brush_s* b);
 
 #endif
-

@@ -11,23 +11,22 @@ See legal.txt for more information.
 #ifndef ENTITY_H
 #define ENTITY_H
 
-void InitEntity(entity_t *ent);
+void InitEntity(entity_t* ent);
 
-const char *GetKeyValue(entity_t *ent,const char *key);
+const char* GetKeyValue(entity_t* ent, const char* key);
 
-void SetKeyValue(entity_t *ent,const char *key,const char *value);
+void SetKeyValue(entity_t* ent, const char* key, const char* value);
 
-void CreateKeyValue(entity_t *ent,const char *key,const char *value);
+void CreateKeyValue(entity_t* ent, const char* key, const char* value);
 
-void RemoveKeyValue(entity_t *ent,const char *key);
+void RemoveKeyValue(entity_t* ent, const char* key);
 
-int GetTargetNumStr(const char *v);
+int GetTargetNumStr(const char* v);
 
-int GetTargetNum(entity_t *e,const char *key);
+int GetTargetNum(entity_t* e, const char* key);
 
 int GetLastTarget(void);
 
 int GetFreeTarget(void);
 
 #endif
-

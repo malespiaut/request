@@ -13,7 +13,6 @@ See legal.txt for more information.
 
 struct texture_s;
 
-int TexPickFull(char *PickedName, int NumT, struct texture_s *Tex);
+int TexPickFull(char* PickedName, int NumT, struct texture_s* Tex);
 
 #endif
-
