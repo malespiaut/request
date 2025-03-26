@@ -5,6 +5,7 @@
 reQuest is a maitainance continuation of Quest, a powerful 3D map editor for Quake-engine based games and related titles.
 
 - Website: https://github.com/malespiaut/request
+- Discord: (Unofficial) https://discord.gg/rxEdXZ3t
 
 ## Features
 * **Game Support**
@@ -40,7 +41,10 @@ reQuest is a maitainance continuation of Quest, a powerful 3D map editor for Qua
     - Leak finder
     - Model and texture preview
 
-## Supported Platforms
+## Releases
+- Binary builds are available from [releases](https://github.com/malespiaut/request/releases).
+
+### Supported Platforms
 - Linux
 - Windows (planned)
 - macOS (planned)
@@ -70,15 +74,7 @@ Bug reports must include:
 - Operating system
 - Any relevant additional information
 
-## Contributing
-- Bug reports welcome
-- Feature suggestions appreciated
-- Contact the maintainer for contribution details
-
 ## Credits
 - Original version by Chris Carollo and Trey Harrison
 - Development continued by Alexander Malmberg <alexander@malmberg.org>
 - Current version maintained by Marc-Alexandre Espiaut <ma.dev@espiaut.fr>
-
-## Releases
-- Binary builds are available from [releases](https://github.com/malespiaut/request/releases).
