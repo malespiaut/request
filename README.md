@@ -1,6 +1,6 @@
 # reQuest
 
-[![reQuest Logo](docs/request_logo.svg)
+![reQuest Logo](docs/request_logo.svg)
 
 reQuest is a maitainance continuation of Quest, a powerful 3D map editor for Quake-engine based games and related titles.
 
